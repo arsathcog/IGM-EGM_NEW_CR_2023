@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans.dtd"-->
+		  
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" 
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+	
+    <!-- 
+        Simple local DataSource that works in any environment.
+        This uses the JDBC DriverManager to obtain connections, and does NOT perform connection
+        pooling. Connection pooling is essential to all real-world applications.
+        This definition is good for testing in local machine, as it introduces no dependencies beyond
+        the JDK, but DriverManagerDataSource is not intended for production usage.
+   
+ -->
+
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:/VASJNDI"/>
+    </bean>  
+   <!--   
+        <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+                        <property name="url" value="jdbc:oracle:thin:@//10.2.2.231:1521/THDDOL10"/>
+        		<property name="username" value="vasapps"/>
+			<property name="password" value="B33kDNpT3aW9Db#h"/>
+		</bean>
+         
+	
+        remove the below code before delevery. -->
+        
+        <!--   -->
+	
+    <!-- 
+    Transaction manager for a Simple Local - JDBC DataSource (alternative to JTA) 
+    -->
+    <!--bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean-->
+    
+    <!-- 
+    Transaction manager for a JTA - JNDI DataSource (alternative to JDBC Data Source) 
+    -->
+    <!--<bean id="txManager" class="org.springframework.transaction.jta.OC4JJtaTransactionManager" />-->
+    
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+        
+    <!-- ========================= BUSINESS OBJECT DEFINITIONS ========================= -->
+    <!-- Ioc to Create the DAO objects and set the datasource into that e.g. UserDAO-->
+    <!-- Common Module -->
+ 
+    <bean id="RiaGridCommonDao" class="com.niit.control.common.ria.grid.dao.GridCommonDaoImpl">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    
+   <bean id="commonDAO" class="com.niit.control.eut.dao.EutCommonDaoImpl">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    
+    <bean id="mailAlertCommonDAO" class="com.niit.control.common.mail.dao.MailCommonDaoImpl">
+        <property name="dataSource" ref="dataSource" /> 
+    </bean>
+    
+    <bean id="importGeneralManifestDao" class="com.rclgroup.dolphin.web.igm.dao.ImportGeneralManifestDaoImpl">
+        <property name="dataSource" ref="dataSource"/>
+    </bean> 
+        
+   <bean id="iGMDaoNew"
+		class="com.rclgroup.dolphin.web.igm.dao.IGMDaoImplNew">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="igmContainerDao"
+		class="com.rclgroup.dolphin.web.igm.dao.IGMContainerDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="igmBLDao"
+		class="com.rclgroup.dolphin.web.igm.dao.IGMBLDataDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+		
+	<bean id="igmConsigneeDao"
+		class="com.rclgroup.dolphin.web.igm.dao.IGMConsigneeDataDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="igmConsignerDao"
+		class="com.rclgroup.dolphin.web.igm.dao.IGMConsignerDataDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="igmMarksDao"
+		class="com.rclgroup.dolphin.web.igm.dao.IGMMarksAndDescDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="igmNodifyDao"
+		class="com.rclgroup.dolphin.web.igm.dao.IGMNodifyPartyDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="igmPrevDeclarDao"
+		class="com.rclgroup.dolphin.web.igm.dao.IGMPreviousDeclarationDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="personOnBoardDao"
+		class="com.rclgroup.dolphin.web.igm.dao.PersonOnBoardDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+    <bean id="enoticeCommonDAO" class="com.niit.control.common.enotice.dao.ENoticeCommonDaoImpl">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    
+    <bean
+		class="com.rclgroup.dolphin.web.igm.dao.IGMVesselVoyageSaveDaoImpl"
+		id="igmVesseVoyogeDao">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+     <bean
+		class="com.rclgroup.dolphin.web.igm.dao.IGMExportDaoImpl"
+		id="iGMExportDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <tx:method name="*" propagation="REQUIRED" rollback-for="Throwable"/>
+        </tx:attributes>
+    </tx:advice>
+    
+</beans>
+

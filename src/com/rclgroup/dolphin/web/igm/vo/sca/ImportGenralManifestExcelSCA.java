@@ -1,0 +1,50 @@
+package com.rclgroup.dolphin.web.igm.vo.sca;
+
+public class ImportGenralManifestExcelSCA {
+	private String blNo;
+	private String customCode;
+	private String dpdMovement;
+	private String dpdCode;
+	private String amendment;
+	
+	public String getAmendment() {
+		return amendment;
+	}
+
+	public void setAmendment(String amendment) {
+		this.amendment = amendment;
+	}
+
+public ImportGenralManifestExcelSCA() {
+	
+}
+
+	public String getBlNo() {
+		return blNo;
+	}
+	public void setBlNo(String blNo) {
+		this.blNo = blNo;
+	}
+	public String getCustomCode() {
+		return customCode;
+	}
+	public void setCustomCode(String customCode) {
+		this.customCode = customCode;
+	}
+	public String getDpdMovement() {
+		return dpdMovement;
+	}
+	public void setDpdMovement(String dpdMovement) {
+		this.dpdMovement = dpdMovement;
+	}
+	public String getDpdCode() {
+		return dpdCode;
+	}
+	public void setDpdCode(String dpdCode) {
+		this.dpdCode = dpdCode;
+	}
+
+
+
+
+}
