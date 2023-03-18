@@ -38,7 +38,7 @@ public class AuthPrsnSCX {
 	}
 
 	public void setSbmtrCd(String sbmtrCd) {
-		sbmtrCd = FiledValidation.isNullAndSetlength(sbmtrCd, 15);
+//		sbmtrCd = FiledValidation.isNullAndSetlength(sbmtrCd, 15);
 		this.sbmtrCd = sbmtrCd;
 	}
      //The value of  "authorizedRepresentativeCode" current screen

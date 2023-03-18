@@ -12,15 +12,15 @@ public class ItemDtlsSCX {
 	private String imdgCd;
 	private String nmbrOfPkgs;
 	private String typOfPkgs;
-	 private String amendment;
-
-	  	public String getAmendment() {
-	  		return amendment;
-	  	}
-
-	  	public void setAmendment(String amendment) {
-	  		this.amendment = amendment;
-	  	}
+//	 private String amendment;
+//
+//	  	public String getAmendment() {
+//	  		return amendment;
+//	  	}
+//
+//	  	public void setAmendment(String amendment) {
+//	  		this.amendment = amendment;
+//	  	}
 	public String getHsCd() {
 		return hsCd;
 	}
@@ -92,7 +92,7 @@ public class ItemDtlsSCX {
 	}
 
 	public void setTypOfPkgs(String typOfPkgs) {
-		typOfPkgs = FiledValidation.isNullAndSetlength(typOfPkgs, 3);
+//		typOfPkgs = FiledValidation.isNullAndSetlength(typOfPkgs, 3);
 		this.typOfPkgs = typOfPkgs;
 	}
 }

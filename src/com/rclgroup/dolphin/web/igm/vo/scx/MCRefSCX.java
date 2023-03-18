@@ -39,7 +39,7 @@ public class MCRefSCX {
 	}
 
 	public void setMstrBlNo(String mstrBlNo) {
-		mstrBlNo = FiledValidation.isNullAndSetlength(mstrBlNo, 7);
+//		mstrBlNo = FiledValidation.isNullAndSetlength(mstrBlNo, 7);
 		this.mstrBlNo = mstrBlNo;
 	}
 
@@ -66,7 +66,7 @@ public class MCRefSCX {
 	}
 
 	public void setConsolidatedIndctr(String consolidatedIndctr) {
-		consolidatedIndctr = FiledValidation.isNullAndSetlength(consolidatedIndctr, 4);
+//		consolidatedIndctr = FiledValidation.isNullAndSetlength(consolidatedIndctr, 4);
 		this.consolidatedIndctr = consolidatedIndctr;
 	}
     //Same as Item Number from current screen "Previous Declaration"
@@ -75,7 +75,7 @@ public class MCRefSCX {
 	}
 
 	public void setPrevDec(String prevDec) {
-		prevDec = FiledValidation.isNullAndSetlength(prevDec, 4);
+//		prevDec = FiledValidation.isNullAndSetlength(prevDec, 4);
 		this.prevDec = prevDec;
 	}
     //Same as Item Number from current screen  "Consolidator PAN"
@@ -84,7 +84,7 @@ public class MCRefSCX {
 	}
 
 	public void setConsolidatorPan(String consolidatorPan) {
-		consolidatorPan = FiledValidation.isNullAndSetlength(consolidatorPan, 35);
+//		consolidatorPan = FiledValidation.isNullAndSetlength(consolidatorPan, 35);
 		this.consolidatorPan = consolidatorPan;
 	}
 }

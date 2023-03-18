@@ -3936,9 +3936,9 @@ public class CreatingJSON {
 				trnsprtDocMsrClassObj.setUnitOfVolume(settingLength("CBM",3));
 			}
 			
-			if(blObj.isHbl()==true) {
-				trnsprtDocMsrClassObj.setNetWeight(generatedFileNameOfJson);
-			}	
+//			if(blObj.isHbl()==true) {
+//				trnsprtDocMsrClassObj.setNetWeight(generatedFileNameOfJson);
+//			}	
 			trnsprtDocMsr.add(trnsprtDocMsrClassObj); // below in mark nad no loop
 			houseCargoDecSCXObj.setTrnsprtDocMsr(trnsprtDocMsr);
 			// ------------------------------------------------------
@@ -4246,23 +4246,23 @@ public class CreatingJSON {
 		// ---------------
 		List<PrsnDtlsSCX> prsnDtlsList = new ArrayList<PrsnDtlsSCX>();
 		prsnDtlsList.add(prsDtls);
-		PrsnOnBoardSCX prsnOnBoard = new PrsnOnBoardSCX();
-		prsnOnBoard.setPrsnDtls(prsnDtlsList);
-		prsnOnBoard.setPrsnId(prsnIdList);
-		prsnOnBoard.setPrsnOnBoardSeqNmbr(settingLength("", 5));
+//		PrsnOnBoardSCX prsnOnBoard = new PrsnOnBoardSCX();
+//		prsnOnBoard.setPrsnDtls(prsnDtlsList);
+//		prsnOnBoard.setPrsnId(prsnIdList);
+//		prsnOnBoard.setPrsnOnBoardSeqNmbr(settingLength("", 5));
 
-		List<PrsnOnBoardSCX> prsnOnBoardList = new ArrayList<PrsnOnBoardSCX>();
-		prsnOnBoardList.add(prsnOnBoard);
+//		List<PrsnOnBoardSCX> prsnOnBoardList = new ArrayList<PrsnOnBoardSCX>();
+//		prsnOnBoardList.add(prsnOnBoard);
 		// --------------------------------------------------------
-		ShipStoresSCX shipStores = new ShipStoresSCX();
-		shipStores.setSeqNmbr(settingLength("", 5));
-		shipStores.setArticleNameCdd(settingLength("", 18));
-		shipStores.setArticleNameText(settingLength("", 512));
-		shipStores.setLocOnbrdText(settingLength("", 256));
-		shipStores.setQntyCdOnbrd(settingLength("", 3));
-		shipStores.setQntyOnbrd(settingLengthForDouble("", 16, 6));
-		List<ShipStoresSCX> shipStoresList = new ArrayList<ShipStoresSCX>();
-		shipStoresList.add(shipStores);
+//		ShipStoresSCX shipStores = new ShipStoresSCX();
+//		shipStores.setSeqNmbr(settingLength("", 5));
+//		shipStores.setArticleNameCdd(settingLength("", 18));
+//		shipStores.setArticleNameText(settingLength("", 512));
+//		shipStores.setLocOnbrdText(settingLength("", 256));
+//		shipStores.setQntyCdOnbrd(settingLength("", 3));
+//		shipStores.setQntyOnbrd(settingLengthForDouble("", 16, 6));
+//		List<ShipStoresSCX> shipStoresList = new ArrayList<ShipStoresSCX>();
+//		shipStoresList.add(shipStores);
 		// ----------------------------------------------------------------
 //		 ArvlDtlsSCX arvlDtls = new ArvlDtlsSCX();
 //		 arvlDtls.setNmbrOfCrew(generatedFileNameOfJson);

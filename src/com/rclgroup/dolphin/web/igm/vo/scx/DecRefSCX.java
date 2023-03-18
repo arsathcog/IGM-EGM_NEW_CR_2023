@@ -11,15 +11,15 @@ public class DecRefSCX {
 //	private String mnfstNoRotnNo; no t required
 //	private String mnfstDtRotnDt;  not required
 //	private String vesselTypMvmt;
-	private String amendment;
-
- 	public String getAmendment() {
- 		return amendment;
- 	}
-
- 	public void setAmendment(String amendment) {
- 		this.amendment = amendment;
- 	}
+//	private String amendment;
+//
+// 	public String getAmendment() {
+// 		return amendment;
+// 	}
+//
+// 	public void setAmendment(String amendment) {
+// 		this.amendment = amendment;
+// 	}
 	// #
 	// public String dptrMnfstNo;
 	// public String dptrMnfstDt;

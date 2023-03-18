@@ -16,15 +16,15 @@ public class HeaderFieldSCX {
 	private String date;
 	private String time;
 	private String reportingEvent;
-	 private String amendment;
-
-	  	public String getAmendment() {
-	  		return amendment;
-	  	}
-
-	  	public void setAmendment(String amendment) {
-	  		this.amendment = amendment;
-	  	}
+//	 private String amendment;
+//
+//	  	public String getAmendment() {
+//	  		return amendment;
+//	  	}
+//
+//	  	public void setAmendment(String amendment) {
+//	  		this.amendment = amendment;
+//	  	}
 	public String getSenderID() {
 		return senderID;
 	}
@@ -39,7 +39,7 @@ public class HeaderFieldSCX {
 	}
 
 	public void setReceiverID(String receiverID) {
-		receiverID = FiledValidation.isNullAndSetlength(receiverID, 30);
+//		receiverID = FiledValidation.isNullAndSetlength(receiverID, 30);
 		this.receiverID = receiverID;
 	}
 

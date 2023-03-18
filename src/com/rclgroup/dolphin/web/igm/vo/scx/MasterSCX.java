@@ -16,9 +16,9 @@ public class MasterSCX {
 	private List<VesselDtlsSCX> vesselDtls;
 	private List<VoyageDtlsSCX> voyageDtls;
 	private List<MastrCnsgmtDecSCX> mastrCnsgmtDec;
-	private List<PrsnOnBoardSCX> prsnOnBoard;
-	private List<VoyageTransportEquipmentSCX> voyageTransportEquipment;
-	private List<ShipStoresSCX> shipStores;
+//	private List<PrsnOnBoardSCX> prsnOnBoard;
+//	private List<VoyageTransportEquipmentSCX> voyageTransportEquipment;
+//	private List<ShipStoresSCX> shipStores;
 	
 	public List<DecRefSCX> getDecRef() {
 		return decRef;
@@ -50,22 +50,22 @@ public class MasterSCX {
 	public void setMastrCnsgmtDec(List<MastrCnsgmtDecSCX> mastrCnsgmtDec) {
 		this.mastrCnsgmtDec = mastrCnsgmtDec;
 	}
-	public List<PrsnOnBoardSCX> getPrsnOnBoard() {
-		return prsnOnBoard;
-	}
-	public void setPrsnOnBoard(List<PrsnOnBoardSCX> prsnOnBoard) {
-		this.prsnOnBoard = prsnOnBoard;
-	}
-	public List<VoyageTransportEquipmentSCX> getVoyageTransportEquipment() {
-		return voyageTransportEquipment;
-	}
-	public void setVoyageTransportEquipment(List<VoyageTransportEquipmentSCX> voyageTransportEquipment) {
-		this.voyageTransportEquipment = voyageTransportEquipment;
-	}
-	public List<ShipStoresSCX> getShipStores() {
-		return shipStores;
-	}
-	public void setShipStores(List<ShipStoresSCX> shipStores) {
-		this.shipStores = shipStores;
-	}
+//	public List<PrsnOnBoardSCX> getPrsnOnBoard() {
+//		return prsnOnBoard;
+//	}
+//	public void setPrsnOnBoard(List<PrsnOnBoardSCX> prsnOnBoard) {
+//		this.prsnOnBoard = prsnOnBoard;
+////	}
+//	public List<VoyageTransportEquipmentSCX> getVoyageTransportEquipment() {
+//		return voyageTransportEquipment;
+//	}
+//	public void setVoyageTransportEquipment(List<VoyageTransportEquipmentSCX> voyageTransportEquipment) {
+//		this.voyageTransportEquipment = voyageTransportEquipment;
+//	}
+//	public List<ShipStoresSCX> getShipStores() {
+//		return shipStores;
+//	}
+//	public void setShipStores(List<ShipStoresSCX> shipStores) {
+//		this.shipStores = shipStores;
+//	}
 }

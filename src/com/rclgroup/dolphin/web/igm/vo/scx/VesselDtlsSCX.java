@@ -4,8 +4,8 @@ public class VesselDtlsSCX {
 	private String modeOfTrnsprt;
 	private String typOfTrnsprtMeans;
 	private String trnsprtMeansId;
-	private String shipTyp;
-    private String purposeOfCall;
+//	private String shipTyp;
+//    private String purposeOfCall;
 //	private String amendment;
     
 	//not required
@@ -52,22 +52,22 @@ public class VesselDtlsSCX {
 		this.trnsprtMeansId = trnsprtMeansId;
 	}
 //(Add Ship Type in current screen with free text. No default value).>optional
-	public String getShipTyp() {
-		return shipTyp;
-	}
-
-	public void setShipTyp(String shipTyp) {
-		this.shipTyp = shipTyp;
-	}
+//	public String getShipTyp() {
+//		return shipTyp;
+//	}
+//
+//	public void setShipTyp(String shipTyp) {
+//		this.shipTyp = shipTyp;
+//	}
 
 //  (Value will be always 1 as mentioned in PURP_CALL)
-	public String getPurposeOfCall() {
-		return purposeOfCall;
-	}
-
-	public void setPurposeOfCall(String purposeOfCall) {
-		this.purposeOfCall = purposeOfCall;
-	}
+//	public String getPurposeOfCall() {
+//		return purposeOfCall;
+//	}
+//
+//	public void setPurposeOfCall(String purposeOfCall) {
+//		this.purposeOfCall = purposeOfCall;
+//	}
 	
 	//not required
 

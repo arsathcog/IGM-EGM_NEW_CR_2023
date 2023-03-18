@@ -10,20 +10,20 @@ public class LocCstmSCX {
 	private String itemTyp;
 	private String crgoMvmt;
 	private String natrOfCrgo;
-	 private String amendment;
+//	 private String amendment;
 	 
 	 //not required
 //	 private String nmbrOfPkgs;
 //	 private String typOfPackage;
 //	 private String splitIndctr;
-
-	  	public String getAmendment() {
-	  		return amendment;
-	  	}
-
-	  	public void setAmendment(String amendment) {
-	  		this.amendment = amendment;
-	  	}
+//
+//	  	public String getAmendment() {
+//	  		return amendment;
+//	  	}
+//
+//	  	public void setAmendment(String amendment) {
+//	  		this.amendment = amendment;
+//	  	}
 //	public String splitIndctr;
 //	public String nmbrOfPkgs;
 //	public String typOfPackage;

@@ -9,15 +9,15 @@ public class ItnrySCX {
 	private String nxtPrtOfCallCdd;
 	private String nxtPrtOfCallName;
 	private String modeOfTrnsprt;
-	private String amendment;
-
-  	public String getAmendment() {
-  		return amendment;
-  	}
-
-  	public void setAmendment(String amendment) {
-  		this.amendment = amendment;
-  	}
+//	private String amendment;
+//
+//  	public String getAmendment() {
+//  		return amendment;
+//  	}
+//
+//  	public void setAmendment(String amendment) {
+//  		this.amendment = amendment;
+//  	}
 
      //This value is come from BL Json object  "Port of call sequence numbe"
 	public String getPrtOfCallSeqNmbr() {
@@ -25,9 +25,9 @@ public class ItnrySCX {
 	}
 
 	public void setPrtOfCallSeqNmbr(String prtOfCallSeqNmbr) {
-		System.out.println("prtOfCallSeqNmbr 1"+prtOfCallSeqNmbr);
-		prtOfCallSeqNmbr = FiledValidation.isNullAndSetlength(prtOfCallSeqNmbr, 100);
-		System.out.println("prtOfCallSeqNmbr 1"+prtOfCallSeqNmbr);
+//		System.out.println("prtOfCallSeqNmbr 1"+prtOfCallSeqNmbr);
+//		prtOfCallSeqNmbr = FiledValidation.isNullAndSetlength(prtOfCallSeqNmbr, 100);
+//		System.out.println("prtOfCallSeqNmbr 1"+prtOfCallSeqNmbr);
 		this.prtOfCallSeqNmbr = prtOfCallSeqNmbr;
 	}
 
@@ -37,7 +37,7 @@ public class ItnrySCX {
 	}
 
 	public void setPrtOfCallCdd(String prtOfCallCdd) {
-		prtOfCallCdd = FiledValidation.isNullAndSetlength(prtOfCallCdd, 10);
+//		prtOfCallCdd = FiledValidation.isNullAndSetlength(prtOfCallCdd, 10);
 		this.prtOfCallCdd = prtOfCallCdd;
 	}
   //This value is come from BL Json object   "portofCallname"
@@ -46,7 +46,7 @@ public class ItnrySCX {
 	}
 
 	public void setPrtOfCallName(String prtOfCallName) {
-		prtOfCallName = FiledValidation.isNullAndSetlength(prtOfCallCdd, 10);
+//		prtOfCallName = FiledValidation.isNullAndSetlength(prtOfCallCdd, 10);
 		this.prtOfCallName = prtOfCallName;
 	}
  //This value is come from BL Json object   "Next port of call coded"
@@ -55,7 +55,7 @@ public class ItnrySCX {
 	}
 
 	public void setNxtPrtOfCallCdd(String nxtPrtOfCallCdd) {
-		nxtPrtOfCallCdd = FiledValidation.isNullAndSetlength(nxtPrtOfCallCdd, 10);
+//		nxtPrtOfCallCdd = FiledValidation.isNullAndSetlength(nxtPrtOfCallCdd, 10);
 		this.nxtPrtOfCallCdd = nxtPrtOfCallCdd;
 	}
 
@@ -65,7 +65,7 @@ public class ItnrySCX {
 	}
 
 	public void setNxtPrtOfCallName(String nxtPrtOfCallName) {
-		nxtPrtOfCallName = FiledValidation.isNullAndSetlength(nxtPrtOfCallName, 256);
+//		nxtPrtOfCallName = FiledValidation.isNullAndSetlength(nxtPrtOfCallName, 256);
 		this.nxtPrtOfCallName = nxtPrtOfCallName;
 	}
 //This value is come from BL Json object   "modeofTransport"
@@ -74,7 +74,7 @@ public class ItnrySCX {
 	}
 
 	public void setModeOfTrnsprt(String modeOfTrnsprt) {
-		modeOfTrnsprt = FiledValidation.isNullAndSetlength(modeOfTrnsprt, 1);
+//		modeOfTrnsprt = FiledValidation.isNullAndSetlength(modeOfTrnsprt, 1);
 		this.modeOfTrnsprt = modeOfTrnsprt;
 	}
 }

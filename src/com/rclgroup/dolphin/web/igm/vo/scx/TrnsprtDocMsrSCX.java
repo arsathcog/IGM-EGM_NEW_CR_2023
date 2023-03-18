@@ -7,13 +7,13 @@ public class TrnsprtDocMsrSCX {
 	private String typsOfPkgs;
 	private String marksNoOnPkgs;
 	private String grossWeight;
-	private String netWeight = null;
+//	private String netWeight = null;
 	private String unitOfWeight;
 //	private String invoiceValueOfCnsgmt;
 //	private String crncyCd;
 	private String grossVolume;
 	private String unitOfVolume;
-	private String amendment;
+//	private String amendment;
 	
 	public String getNmbrOfPkgs() {
 		return nmbrOfPkgs;
@@ -59,12 +59,12 @@ public class TrnsprtDocMsrSCX {
 		unitOfWeight = FiledValidation.isNullAndSetlength(unitOfWeight, 3);
 		this.unitOfWeight = unitOfWeight;
 	}
-	public String getNetWeight() {
-		return netWeight;
-	}
-	public void setNetWeight(String netWeight) {
-		this.netWeight = netWeight;
-	}
+//	public String getNetWeight() {
+//		return netWeight;
+//	}
+//	public void setNetWeight(String netWeight) {
+//		this.netWeight = netWeight;
+//	}
    // given in red color ms doc. not clear Guru
 //	public String getInvoiceValueOfCnsgmt() {
 //		return invoiceValueOfCnsgmt;
@@ -97,12 +97,12 @@ public class TrnsprtDocMsrSCX {
 	public void setUnitOfVolume(String unitOfVolume) {
 		this.unitOfVolume = unitOfVolume;
 	}
-	public String getAmendment() {
-		return amendment;
-	}
-	public void setAmendment(String amendment) {
-		this.amendment = amendment;
-	}
+//	public String getAmendment() {
+//		return amendment;
+//	}
+//	public void setAmendment(String amendment) {
+//		this.amendment = amendment;
+//	}
 
 	
 }

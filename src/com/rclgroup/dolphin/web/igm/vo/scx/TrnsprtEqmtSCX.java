@@ -19,15 +19,15 @@ public class TrnsprtEqmtSCX {
     private String cntrAgntCd;
     private String cntrWeight;
 	private String totalNmbrOfPkgs;
-	private String amendment;
-
-	public String getAmendment() {
-		return amendment;
-	}
-
-	public void setAmendment(String amendment) {
-		this.amendment = amendment;
-	}
+//	private String amendment;
+//
+//	public String getAmendment() {
+//		return amendment;
+//	}
+//
+//	public void setAmendment(String amendment) {
+//		this.amendment = amendment;
+//	}
 
 
 	// (Already in IGM screen in container section. Use same seq from there.)

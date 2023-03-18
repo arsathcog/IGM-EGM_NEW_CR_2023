@@ -74,7 +74,7 @@ public class VoyageDtlsSCX {
 	}
 
 	public void setTotalNoOfTrnsprtEqmtMnfsted(String totalNoOfTrnsprtEqmtMnfsted) {
-		totalNoOfTrnsprtEqmtMnfsted = FiledValidation.isNullAndSetlength(totalNoOfTrnsprtEqmtMnfsted, 5);
+//		totalNoOfTrnsprtEqmtMnfsted = FiledValidation.isNullAndSetlength(totalNoOfTrnsprtEqmtMnfsted, 5);
 		this.totalNoOfTrnsprtEqmtMnfsted = totalNoOfTrnsprtEqmtMnfsted;
 	}
 
@@ -106,7 +106,7 @@ public class VoyageDtlsSCX {
 
 	public void setTotalNmbrOfLines(String totalNmbrOfLines) {
 
-		totalNmbrOfLines = FiledValidation.isNullAndSetlength(totalNmbrOfLines, 100);
+//		totalNmbrOfLines = FiledValidation.isNullAndSetlength(totalNmbrOfLines, 100);
 		this.totalNmbrOfLines = totalNmbrOfLines;
 	}
 //	public String getExptdDtAndTimeOfArvl() {
