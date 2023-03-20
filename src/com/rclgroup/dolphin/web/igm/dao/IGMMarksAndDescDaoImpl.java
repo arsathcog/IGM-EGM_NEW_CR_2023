@@ -111,7 +111,7 @@ public class IGMMarksAndDescDaoImpl extends AncestorJdbcDao implements IGMMarksA
 			MarksNumber marksnumber = new MarksNumber();
 			marksnumber.setBlNO(rs.getString("FK_BL_NO"));
 			
-			marksnumber.setMarksNumbers(rs.getString("MARKS_NO"));
+//			marksnumber.setMarksNumbers(rs.getString("MARKS_NO"));
 
              String s2 = "(S)";
 		
