@@ -3745,11 +3745,7 @@ public class CreatingJSON {
    		JsonMainObjctSCX org = new JsonMainObjctSCX();
    		MasterSCX mster = new MasterSCX();
    		
-		List<NotifyParty> notifyPartyDetailes = objForm.getNotifyParty();
-		List<Consignee> consigneeDtls = objForm.getConsignee();
-		List<MarksNumber> marksNumberDtls = objForm.getMarksNumber();
-		List<Consigner> consignerDtls = objForm.getConsigner();
-		List<ContainerDetails> containerDtls = objForm.getContainerDetailes();
+		
 		String msgID = "msgID";
 		String serialNumber = "";
 		String jobID = "";
@@ -3764,6 +3760,7 @@ public class CreatingJSON {
 		String jobNum = "";
 		String msgTyp = "F";
 		String rpngEvent = "SCX";
+		int containerCount = 0;
 		String voyage = isNull((String) objForm.getVoyage());
 		String newVoyage = isNull((String) objForm.getNewVoyage());
 		String pol = isNull((String) objForm.getPol());
@@ -3804,6 +3801,12 @@ public class CreatingJSON {
 			MastrCnsgmtDecSCX mastrCnsgmtDec = new MastrCnsgmtDecSCX();
 			HouseCargoDecSCX houseCargoDecSCXObj = new HouseCargoDecSCX();
 			
+			List<NotifyParty> notifyPartyDetailes = objForm.getNotifyParty();
+			List<Consignee> consigneeDtls = objForm.getConsignee();
+			List<MarksNumber> marksNumberDtls = objForm.getMarksNumber();
+			List<Consigner> consignerDtls = objForm.getConsigner();
+			List<ContainerDetails> containerDtls = objForm.getContainerDetailes();
+			
 			List<ItemDtlsSCX> itemDtls = new ArrayList<ItemDtlsSCX>();
 			List<TrnsprtEqmtSCX> trnsprtEqmt = new ArrayList<TrnsprtEqmtSCX>();
 			List<LocCstmSCX> locCstm = new ArrayList<LocCstmSCX>();
@@ -3843,10 +3846,16 @@ public class CreatingJSON {
 			// ----------------------------------------
 			MCRefSCX mCRefClassObj = new MCRefSCX();
 			mCRefClassObj.setLineNo(settingLength(blObj.getBl(),20)); // Line 60
-			mCRefClassObj.setMstrBlNo(settingLength(blObj.getMasterBl(),20));  // Line 53
+			mCRefClassObj.setMstrBlNo(settingLength(blObj.getBl(),20)); // Line 53
 			mCRefClassObj.setMstrBlDt(blObj.getBlDate());// Line 53
 			mCRefClassObj.setConsolidatedIndctr(settingLength(blObj.getAgentCode(), 4));// Line 76
-			mCRefClassObj.setPrevDec(settingLength(blObj.getPrevious_declaration(),4));  // Line77
+			
+			if(blObj.getPod().substring(0, 2).equals("IN")) {
+				mCRefClassObj.setPrevDec(("N"));
+			}else if(blObj.getNextport1().substring(0,2).equals("IN")) {
+				mCRefClassObj.setPrevDec(settingLength("Y",4));
+			} // Line77
+			
 			mCRefClassObj.setConsolidatorPan(settingLength(blObj.getAgentCode(),16)); // Line 78
 
 			mCRef.add(mCRefClassObj);
@@ -4064,6 +4073,12 @@ public class CreatingJSON {
 				}  
 				mastrCnsgmtDec.setTrnsprtEqmt(trnsprtEqmt);
 			houseCargoDecSCXObj.setTrnsprtEqmt(trnsprtEqmt);
+//			---------------------------------------------------------------------------
+					for (ContainerDetails cntnerDtl : containerDtls) {
+
+//						System.out.println("   coneeDtls  " + i + (cntnerDtl.getContainerSealNumber()));
+						containerCount++;
+					}
 			// ============================================================
 //		HCCrgoSuprtDocsSCX crgoSuprtDocs = new HCCrgoSuprtDocsSCX();
 //			crgoSuprtDocs.setBnefcryCdpublic(settingLength("", 35));
@@ -4315,7 +4330,7 @@ public class CreatingJSON {
 		headerFieldClassObj.setSenderID(settingLength(service.getSenderId(),20));
 		// headerFieldClassObj.setReceiverID(objForm.getCustomCode());
 		// from old disscutions
-		headerFieldClassObj.setReceiverID(settingLength(service.getSenderId(),20));
+		headerFieldClassObj.setReceiverID(settingLength(service.getRecieverId(),20));
 		headerFieldClassObj.setVersionNo("SCX1102");
 		headerFieldClassObj.setIndicator("T");
 		headerFieldClassObj.setMessageID("SACHM22");
@@ -4328,7 +4343,7 @@ public class CreatingJSON {
 		VoyageDtlsSCX voyageDtlsClassObj = new VoyageDtlsSCX();
 //		voyageDtlsClassObj.setVoyageNo(voyage); // Line10
 		voyageDtlsClassObj.setCnvnceRefNmbr(settingLength(service.getViaVcn(),35)); // Line 193
-		voyageDtlsClassObj.setTotalNoOfTrnsprtEqmtMnfsted(objForm.getContainerMsBl()); // Line:-46
+		voyageDtlsClassObj.setTotalNoOfTrnsprtEqmtMnfsted( settingLength(containerCount+"",5));// Line:-46
 //		voyageDtlsClassObj.setCrgoDescCdd(objForm.getCargoDeclaration()); // Line:-195
 //		voyageDtlsClassObj.setBriefCrgoDesc(objForm.getBrief_cargo_des()); // Line:-195
 		voyageDtlsClassObj.setTotalNmbrOfLines(settingLength(service.getTotalItems() ,5));// Line38 (objForm.getTotalItem()); nitun
@@ -4350,7 +4365,7 @@ public class CreatingJSON {
 				vesselDtlsList.add(vesselDtls);
 				// ----------------------------
 				AuthPrsnSCX authPrsClassObj = new AuthPrsnSCX();
-				authPrsClassObj.setSbmtrTyp(settingLength(service.getSubmitter_type(), 4)); //
+				authPrsClassObj.setSbmtrTyp(settingLength(service.getAgentCode(), 4)); //
 				authPrsClassObj.setSbmtrCd(settingLength(service.getSubmitter_code(), 15)); //
 				authPrsClassObj.setAuthReprsntvCd(settingLength(service.getAuthReprsntvCd(),10));   //
 //		 		authPrsClassObj.setShpngLineCd("RCL"); // VALUE AL WAYS RCL
@@ -4386,11 +4401,11 @@ public class CreatingJSON {
 //		---------------------------------------------------------------------------------		
 		
 		
-		mster.setMastrCnsgmtDec(mastrCnsgmtDecList);
-		mster.setVoyageDtls(voyageDtlsList);
-		mster.setVesselDtls(vesselDtlsList);
-		mster.setAuthPrsn(authPrsnList);
-		mster.setDecRef(decRefList);
+				mster.setVoyageDtls(voyageDtlsClassObj);
+				mster.setVesselDtls(vesselDtls);
+				mster.setAuthPrsn(authPrsClassObj);
+//				mster.setDecRef(decRefList);
+//				mster.setPrsnOnBoard(prsnOnBoardList);	
 //		mster.setPrsnOnBoard(prsnOnBoardList);
 //		mster.setVoyageTransportEquipment(voyageTransportEquipmentList);
 //		mster.setShipStores(shipStoresList);

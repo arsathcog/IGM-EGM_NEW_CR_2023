@@ -11,35 +11,36 @@ import com.rclgroup.dolphin.web.igm.vo.VoyageDtls;
 import com.rclgroup.dolphin.web.igm.vo.VoyageTransportEquipment;
 
 public class MasterSCX {
-	private List<DecRefSCX> decRef;
-	private List<AuthPrsnSCX> authPrsn;
-	private List<VesselDtlsSCX> vesselDtls;
+	private DecRefSCX decRef;
+	private AuthPrsnSCX authPrsn;
+	private VesselDtlsSCX vesselDtls;
 	private List<VoyageDtlsSCX> voyageDtls;
 	private List<MastrCnsgmtDecSCX> mastrCnsgmtDec;
 //	private List<PrsnOnBoardSCX> prsnOnBoard;
 //	private List<VoyageTransportEquipmentSCX> voyageTransportEquipment;
 //	private List<ShipStoresSCX> shipStores;
 	
-	public List<DecRefSCX> getDecRef() {
-		return decRef;
-	}
-	public void setDecRef(List<DecRefSCX> decRef) {
-		this.decRef = decRef;
-	}
-	public List<AuthPrsnSCX> getAuthPrsn() {
-		return authPrsn;
-	}
-	public void setAuthPrsn(List<AuthPrsnSCX> authPrsn) {
-		this.authPrsn = authPrsn;
-	}
-	public List<VesselDtlsSCX> getVesselDtls() {
-		return vesselDtls;
-	}
-	public void setVesselDtls(List<VesselDtlsSCX> vesselDtls) {
-		this.vesselDtls = vesselDtls;
-	}
+	
 	public List<VoyageDtlsSCX> getVoyageDtls() {
 		return voyageDtls;
+	}
+	public DecRefSCX getDecRef() {
+		return decRef;
+	}
+	public void setDecRef(DecRefSCX decRef) {
+		this.decRef = decRef;
+	}
+	public AuthPrsnSCX getAuthPrsn() {
+		return authPrsn;
+	}
+	public void setAuthPrsn(AuthPrsnSCX authPrsn) {
+		this.authPrsn = authPrsn;
+	}
+	public VesselDtlsSCX getVesselDtls() {
+		return vesselDtls;
+	}
+	public void setVesselDtls(VesselDtlsSCX vesselDtls) {
+		this.vesselDtls = vesselDtls;
 	}
 	public void setVoyageDtls(List<VoyageDtlsSCX> voyageDtls) {
 		this.voyageDtls = voyageDtls;
