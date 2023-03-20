@@ -14,16 +14,14 @@ public class MasterSCX {
 	private DecRefSCX decRef;
 	private AuthPrsnSCX authPrsn;
 	private VesselDtlsSCX vesselDtls;
-	private List<VoyageDtlsSCX> voyageDtls;
+	private VoyageDtlsSCX voyageDtls;
 	private List<MastrCnsgmtDecSCX> mastrCnsgmtDec;
 //	private List<PrsnOnBoardSCX> prsnOnBoard;
 //	private List<VoyageTransportEquipmentSCX> voyageTransportEquipment;
 //	private List<ShipStoresSCX> shipStores;
 	
 	
-	public List<VoyageDtlsSCX> getVoyageDtls() {
-		return voyageDtls;
-	}
+
 	public DecRefSCX getDecRef() {
 		return decRef;
 	}
@@ -42,15 +40,21 @@ public class MasterSCX {
 	public void setVesselDtls(VesselDtlsSCX vesselDtls) {
 		this.vesselDtls = vesselDtls;
 	}
-	public void setVoyageDtls(List<VoyageDtlsSCX> voyageDtls) {
-		this.voyageDtls = voyageDtls;
-	}
+
 	public List<MastrCnsgmtDecSCX> getMastrCnsgmtDec() {
 		return mastrCnsgmtDec;
 	}
 	public void setMastrCnsgmtDec(List<MastrCnsgmtDecSCX> mastrCnsgmtDec) {
 		this.mastrCnsgmtDec = mastrCnsgmtDec;
 	}
+	public VoyageDtlsSCX getVoyageDtls() {
+		return voyageDtls;
+	}
+	public void setVoyageDtls(VoyageDtlsSCX voyageDtls) {
+		this.voyageDtls = voyageDtls;
+	}
+	
+	
 //	public List<PrsnOnBoardSCX> getPrsnOnBoard() {
 //		return prsnOnBoard;
 //	}
