@@ -45,7 +45,7 @@ public class AuthPrsnSDM {
 	}
 
 	public void setShpngLineCd(String shpngLineCd) {
-		shpngLineCd = FiledValidation.isNullAndSetlength(shpngLineCd, 10);
+//		shpngLineCd = FiledValidation.isNullAndSetlength(shpngLineCd, 10);
 		this.shpngLineCd = shpngLineCd;
 	}
      //The value of  "authoseaCarcode" current screen

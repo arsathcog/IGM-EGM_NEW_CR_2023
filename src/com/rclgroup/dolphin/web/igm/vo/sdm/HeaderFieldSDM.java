@@ -29,7 +29,7 @@ public class HeaderFieldSDM {
 	}
 
 	public void setReceiverID(String receiverID) {
-		receiverID = FiledValidation.isNullAndSetlength(receiverID, 30);
+//		receiverID = FiledValidation.isNullAndSetlength(receiverID, 30);
 		this.receiverID = receiverID;
 	}
 

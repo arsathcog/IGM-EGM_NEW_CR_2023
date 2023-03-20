@@ -2,7 +2,7 @@ package com.rclgroup.dolphin.web.igm.vo.sdm;
 
 public class VoyageTransportEquipmentSDM {
 	
-	private String voyageTransportEquipment;
+//	private String voyageTransportEquipment;
 	private String equipmentSequenceNo;
 	private String equipmentId;
 	private String equipmentType;
@@ -27,13 +27,13 @@ public class VoyageTransportEquipmentSDM {
 
 	
 
-	public String getVoyageTransportEquipment() {
-		return voyageTransportEquipment;
-	}
-
-	public void setVoyageTransportEquipment(String voyageTransportEquipment) {
-		this.voyageTransportEquipment = voyageTransportEquipment;
-	}
+//	public String getVoyageTransportEquipment() {
+//		return voyageTransportEquipment;
+//	}
+//
+//	public void setVoyageTransportEquipment(String voyageTransportEquipment) {
+//		this.voyageTransportEquipment = voyageTransportEquipment;
+//	}
 
 	public String getEquipmentSequenceNo() {
 		return equipmentSequenceNo;

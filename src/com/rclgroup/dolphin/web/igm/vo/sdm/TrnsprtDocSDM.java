@@ -17,23 +17,23 @@ public class TrnsprtDocSDM {
 	private String cnsgnrCntryCd;
 	private String cnsgnrPstcd;
 	private String cnsgnesName;
-	private String cnsgnesCd ;
-	private String typOfCd;
+//	private String cnsgnesCd ;
+//	private String typOfCd;
 	private String cnsgneStreetAddress;
 	private String cnsgneCity;
-	private String cnsgneCntrySubDivName;
-	private String cnsgneCntrySubDiv ;
+//	private String cnsgneCntrySubDivName;
+//	private String cnsgneCntrySubDiv ;
 	private String cnsgneCntryCd ;
-	private String cnsgnePstcd ;
+//	private String cnsgnePstcd ;
 	private String nameOfAnyOtherNotfdParty ;
-	private String panOfNotfdParty;
-	private String typOfNotfdPartyCd;
+//	private String panOfNotfdParty;
+//	private String typOfNotfdPartyCd;
 	private String notfdPartyStreetAddress;
 	private String notfdPartyCity;
-	private String notfdPartyCntrySubDivName;
-	private String notfdPartyCntrySubDiv;
+//	private String notfdPartyCntrySubDivName;
+//	private String notfdPartyCntrySubDiv;
 	private String notfdPartyCntryCd;
-	private String notfdPartyPstcd;
+//	private String notfdPartyPstcd;
 	private String goodsDescAsPerBl;
 	
 //	private String ucrTyp;
@@ -172,24 +172,24 @@ public class TrnsprtDocSDM {
 		}
 
 	     //This value is come from BL Json object  "customerCode"(Already in current IGM screen)
-		public String getCnsgnesCd() {
-			return cnsgnesCd;
-		}
-
-		public void setCnsgnesCd(String cnsgnesCd) {
-			cnsgnesCd = FiledValidation.isNullAndSetlength(cnsgnesCd, 17);
-			this.cnsgnesCd = cnsgnesCd;
-		}
+//		public String getCnsgnesCd() {
+//			return cnsgnesCd;
+//		}
+//
+//		public void setCnsgnesCd(String cnsgnesCd) {
+//			cnsgnesCd = FiledValidation.isNullAndSetlength(cnsgnesCd, 17);
+//			this.cnsgnesCd = cnsgnesCd;
+//		}
 
 	      //This value is optional feild not need to print in json file
-		public String getTypOfCd() {
-			return typOfCd;
-		}
-
-		public void setTypOfCd(String typOfCd) {
-			typOfCd = FiledValidation.isNullAndSetlength(typOfCd, 3);
-			this.typOfCd = typOfCd;
-		}
+//		public String getTypOfCd() {
+//			return typOfCd;
+//		}
+//
+//		public void setTypOfCd(String typOfCd) {
+//			typOfCd = FiledValidation.isNullAndSetlength(typOfCd, 3);
+//			this.typOfCd = typOfCd;
+//		}
 
 	       //(Already in current IGM screen)
 		public String getCnsgneStreetAddress() {
@@ -211,24 +211,24 @@ public class TrnsprtDocSDM {
 		}
 
 	   //optional (Already in current IGM screen)
-		public String getCnsgneCntrySubDivName() {
-			return cnsgneCntrySubDivName;
-		}
-
-		public void setCnsgneCntrySubDivName(String cnsgneCntrySubDivName) {
-			cnsgneCntrySubDivName = FiledValidation.isNullAndSetlength(cnsgneCntrySubDivName, 35);
-			this.cnsgneCntrySubDivName = cnsgneCntrySubDivName;
-		}
+//		public String getCnsgneCntrySubDivName() {
+//			return cnsgneCntrySubDivName;
+//		}
+//
+//		public void setCnsgneCntrySubDivName(String cnsgneCntrySubDivName) {
+//			cnsgneCntrySubDivName = FiledValidation.isNullAndSetlength(cnsgneCntrySubDivName, 35);
+//			this.cnsgneCntrySubDivName = cnsgneCntrySubDivName;
+//		}
 //	   
 		//optional (Already in current IGM screen)
-		public String getCnsgneCntrySubDiv() {
-			return cnsgneCntrySubDiv;
-		}
-
-		public void setCnsgneCntrySubDiv(String cnsgneCntrySubDiv) {
-			cnsgneCntrySubDiv = FiledValidation.isNullAndSetlength(cnsgneCntrySubDiv, 9);
-			this.cnsgneCntrySubDiv = cnsgneCntrySubDiv;
-		}
+//		public String getCnsgneCntrySubDiv() {
+//			return cnsgneCntrySubDiv;
+//		}
+//
+//		public void setCnsgneCntrySubDiv(String cnsgneCntrySubDiv) {
+//			cnsgneCntrySubDiv = FiledValidation.isNullAndSetlength(cnsgneCntrySubDiv, 9);
+//			this.cnsgneCntrySubDiv = cnsgneCntrySubDiv;
+//		}
 //	     
 		//This value is come from BL Json object   "countryCode" (Already in current IGM screen)   mandatory.
 		public String getCnsgneCntryCd() {
@@ -239,15 +239,15 @@ public class TrnsprtDocSDM {
 			cnsgneCntryCd = FiledValidation.isNullAndSetlength(cnsgneCntryCd, 2);
 			this.cnsgneCntryCd = cnsgneCntryCd;
 		}
-	         //optional (Already in current IGM screen)
-		public String getCnsgnePstcd() {
-			return cnsgnePstcd;
-		}
-
-		public void setCnsgnePstcd(String cnsgnePstcd) {
-			cnsgnePstcd = FiledValidation.isNullAndSetlength(cnsgnePstcd, 9);
-			this.cnsgnePstcd = cnsgnePstcd;
-		}
+//	         //optional (Already in current IGM screen)
+//		public String getCnsgnePstcd() {
+//			return cnsgnePstcd;
+//		}
+//
+//		public void setCnsgnePstcd(String cnsgnePstcd) {
+//			cnsgnePstcd = FiledValidation.isNullAndSetlength(cnsgnePstcd, 9);
+//			this.cnsgnePstcd = cnsgnePstcd;
+//		}
 
 	    //This value is come from BL Json object   "notifyPartyDlts" (Already in current IGM screen)   mandatory.
 		public String getNameOfAnyOtherNotfdParty() {
@@ -260,24 +260,24 @@ public class TrnsprtDocSDM {
 		}
 
 	     // (Take from customer master on the basis of notify party. During generating JSON file)
-		public String getPanOfNotfdParty() {
-			return panOfNotfdParty;
-		}
-
-		public void setPanOfNotfdParty(String panOfNotfdParty) {
-			panOfNotfdParty = FiledValidation.isNullAndSetlength(panOfNotfdParty, 17);
-			this.panOfNotfdParty = panOfNotfdParty;
-		}
+//		public String getPanOfNotfdParty() {
+//			return panOfNotfdParty;
+//		}
+//
+//		public void setPanOfNotfdParty(String panOfNotfdParty) {
+//			panOfNotfdParty = FiledValidation.isNullAndSetlength(panOfNotfdParty, 17);
+//			this.panOfNotfdParty = panOfNotfdParty;
+//		}
 
 	   //optional (The Type ofIdentification of Code of the Notified Party as per the Transport Document issued by MLO.)
-		public String getTypOfNotfdPartyCd() {
-			return typOfNotfdPartyCd;
-		}
-
-		public void setTypOfNotfdPartyCd(String typOfNotfdPartyCd) {
-			typOfNotfdPartyCd = FiledValidation.isNullAndSetlength(typOfNotfdPartyCd, 3);
-			this.typOfNotfdPartyCd = typOfNotfdPartyCd;
-		}
+//		public String getTypOfNotfdPartyCd() {
+//			return typOfNotfdPartyCd;
+//		}
+//
+//		public void setTypOfNotfdPartyCd(String typOfNotfdPartyCd) {
+//			typOfNotfdPartyCd = FiledValidation.isNullAndSetlength(typOfNotfdPartyCd, 3);
+//			this.typOfNotfdPartyCd = typOfNotfdPartyCd;
+//		}
 	     //This value is come from BL Json object   "notifyPartyDlts" (Already in current IGM screen)   mandatory.
 		public String getNotfdPartyStreetAddress() {
 			return notfdPartyStreetAddress;
@@ -297,24 +297,24 @@ public class TrnsprtDocSDM {
 			notfdPartyCity = FiledValidation.isNullAndSetlength(notfdPartyCity, 70);
 			this.notfdPartyCity = notfdPartyCity;
 		}
-	      //   optional (Already in current IGM screen)
-		public String getNotfdPartyCntrySubDivName() {
-			return notfdPartyCntrySubDivName;
-		}
-
-		public void setNotfdPartyCntrySubDivName(String notfdPartyCntrySubDivName) {
-			notfdPartyCntrySubDivName = FiledValidation.isNullAndSetlength(notfdPartyCntrySubDivName, 35);
-			this.notfdPartyCntrySubDivName = notfdPartyCntrySubDivName;
-		}
 //	      //   optional (Already in current IGM screen)
-		public String getNotfdPartyCntrySubDiv() {
-			return notfdPartyCntrySubDiv;
-		}
-	      
-		public void setNotfdPartyCntrySubDiv(String notfdPartyCntrySubDiv) {
-			notfdPartyCntrySubDivName = FiledValidation.isNullAndSetlength(notfdPartyCntrySubDivName, 9);
-			this.notfdPartyCntrySubDiv = notfdPartyCntrySubDiv;
-		}
+//		public String getNotfdPartyCntrySubDivName() {
+//			return notfdPartyCntrySubDivName;
+//		}
+//
+//		public void setNotfdPartyCntrySubDivName(String notfdPartyCntrySubDivName) {
+//			notfdPartyCntrySubDivName = FiledValidation.isNullAndSetlength(notfdPartyCntrySubDivName, 35);
+//			this.notfdPartyCntrySubDivName = notfdPartyCntrySubDivName;
+//		}
+//	      //   optional (Already in current IGM screen)
+//		public String getNotfdPartyCntrySubDiv() {
+//			return notfdPartyCntrySubDiv;
+//		}
+//	      
+//		public void setNotfdPartyCntrySubDiv(String notfdPartyCntrySubDiv) {
+//			notfdPartyCntrySubDivName = FiledValidation.isNullAndSetlength(notfdPartyCntrySubDivName, 9);
+//			this.notfdPartyCntrySubDiv = notfdPartyCntrySubDiv;
+//		}
 
 	       //optional > This value is come from BL Json object "countryCode" optional (Already in current IGM screen)
 		public String getNotfdPartyCntryCd() {
@@ -326,14 +326,14 @@ public class TrnsprtDocSDM {
 			this.notfdPartyCntryCd = notfdPartyCntryCd;
 		}
 	       //   optional   (Already in current IGM screen)
-		public String getNotfdPartyPstcd() {
-			return notfdPartyPstcd;
-		}
-
-		public void setNotfdPartyPstcd(String notfdPartyPstcd) {
-			notfdPartyPstcd = FiledValidation.isNullAndSetlength(notfdPartyPstcd, 9);
-			this.notfdPartyPstcd = notfdPartyPstcd;
-		}
+//		public String getNotfdPartyPstcd() {
+//			return notfdPartyPstcd;
+//		}
+//
+//		public void setNotfdPartyPstcd(String notfdPartyPstcd) {
+//			notfdPartyPstcd = FiledValidation.isNullAndSetlength(notfdPartyPstcd, 9);
+//			this.notfdPartyPstcd = notfdPartyPstcd;
+//		}
 
 	     // (Use marks description from IGM screen. Just pickup first 512 character while) >mandatory
 		public String getGoodsDescAsPerBl() {

@@ -17,9 +17,9 @@ public class ItnrySDM {
 	}
 
 	public void setPrtOfCallSeqNmbr(String prtOfCallSeqNmbr) {
-		System.out.println("prtOfCallSeqNmbr 1"+prtOfCallSeqNmbr);
-		prtOfCallSeqNmbr = FiledValidation.isNullAndSetlength(prtOfCallSeqNmbr, 100);
-		System.out.println("prtOfCallSeqNmbr 1"+prtOfCallSeqNmbr);
+//		System.out.println("prtOfCallSeqNmbr 1"+prtOfCallSeqNmbr);
+//		prtOfCallSeqNmbr = FiledValidation.isNullAndSetlength(prtOfCallSeqNmbr, 100);
+//		System.out.println("prtOfCallSeqNmbr 1"+prtOfCallSeqNmbr);
 		this.prtOfCallSeqNmbr = prtOfCallSeqNmbr;
 	}
 
@@ -29,7 +29,7 @@ public class ItnrySDM {
 	}
 
 	public void setPrtOfCallCdd(String prtOfCallCdd) {
-		prtOfCallCdd = FiledValidation.isNullAndSetlength(prtOfCallCdd, 10);
+//		prtOfCallCdd = FiledValidation.isNullAndSetlength(prtOfCallCdd, 10);
 		this.prtOfCallCdd = prtOfCallCdd;
 	}
  //This value is come from BL Json object   "portofCallname"
@@ -38,7 +38,7 @@ public class ItnrySDM {
 	}
 
 	public void setPrtOfCallName(String prtOfCallName) {
-		prtOfCallName = FiledValidation.isNullAndSetlength(prtOfCallCdd, 10);
+//		prtOfCallName = FiledValidation.isNullAndSetlength(prtOfCallCdd, 10);
 		this.prtOfCallName = prtOfCallName;
 	}
 //This value is come from BL Json object   "Next port of call coded"
@@ -47,7 +47,7 @@ public class ItnrySDM {
 	}
 
 	public void setNxtPrtOfCallCdd(String nxtPrtOfCallCdd) {
-		nxtPrtOfCallCdd = FiledValidation.isNullAndSetlength(nxtPrtOfCallCdd, 10);
+//		nxtPrtOfCallCdd = FiledValidation.isNullAndSetlength(nxtPrtOfCallCdd, 10);
 		this.nxtPrtOfCallCdd = nxtPrtOfCallCdd;
 	}
 
@@ -57,7 +57,7 @@ public class ItnrySDM {
 	}
 
 	public void setNxtPrtOfCallName(String nxtPrtOfCallName) {
-		nxtPrtOfCallName = FiledValidation.isNullAndSetlength(nxtPrtOfCallName, 256);
+//		nxtPrtOfCallName = FiledValidation.isNullAndSetlength(nxtPrtOfCallName, 256);
 		this.nxtPrtOfCallName = nxtPrtOfCallName;
 	}
 //This value is come from BL Json object   "modeofTransport"
@@ -66,7 +66,7 @@ public class ItnrySDM {
 	}
 
 	public void setModeOfTrnsprt(String modeOfTrnsprt) {
-		modeOfTrnsprt = FiledValidation.isNullAndSetlength(modeOfTrnsprt, 1);
+//		modeOfTrnsprt = FiledValidation.isNullAndSetlength(modeOfTrnsprt, 1);
 		this.modeOfTrnsprt = modeOfTrnsprt;
 	}
 }
