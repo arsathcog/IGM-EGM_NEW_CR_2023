@@ -1448,20 +1448,20 @@ public class CreatingJSON {
 //			prevRefObj.setTypOfPackage(settingLength(blObj.getType_of_package(),4)); Guru said to comment
 			
 			if(blObj.isHbl()==true) {
-				prevRefObj.setCsnDt(blObj.getCsn_date());
-				prevRefObj.setCsnNmbr(settingLength(blObj.getCsn_number(),7)); 
+		//		prevRefObj.setCsnDt(blObj.getCsn_date());
+		//		prevRefObj.setCsnNmbr(settingLength(blObj.getCsn_number(),7)); 
 //				prevRefObj.setCinTyp(settingLength(blObj.getCin_type(),4));
 				if(blObj.getMcin() != null || blObj.getMcin() !="") {
-					prevRefObj.setCinTyp(settingLength(blObj.getMcin(),4));	
+		//			prevRefObj.setCinTyp(settingLength(blObj.getMcin(),4));	
 				}else {
 					if(blObj.getPcin() != null || blObj.getPcin() !="") {
-						prevRefObj.setCinTyp(settingLength(blObj.getPcin(),4));		
+		//				prevRefObj.setCinTyp(settingLength(blObj.getPcin(),4));		
 					}
 				}
 				
-				prevRefObj.setMcinPcin(generatedFileNameOfJson);
-				prevRefObj.setNmbrOfPkgs(settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6));
-				prevRefObj.setTypOfPackage(settingLength(blObj.getType_of_package(),4)); 
+		//		prevRefObj.setMcinPcin(generatedFileNameOfJson);
+		//		prevRefObj.setNmbrOfPkgs(settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6));
+		//		prevRefObj.setTypOfPackage(settingLength(blObj.getType_of_package(),4)); 
 		
 			prevRef.add(prevRefObj);
 			houseCargoDecSDMObj.setPrevRef(prevRef);
@@ -1493,7 +1493,7 @@ public class CreatingJSON {
 			
 			if(blObj.isHbl()==true) {
 				locCstmClassObj.setNmbrOfPkgs(blObj.getTotal_number_of_packages());
-				locCstmClassObj.setTypOfPackage(pol);
+	//		locCstmClassObj.setTypOfPackage(pol);
 			}
 			locCstm.add(locCstmClassObj);
 			mastrCnsgmtDec.setLocCstm(locCstmClassObj);
