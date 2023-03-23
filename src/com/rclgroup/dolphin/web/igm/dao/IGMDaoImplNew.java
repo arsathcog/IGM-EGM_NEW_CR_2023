@@ -738,7 +738,10 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setCommdity_code(rs.getString("COMMODITY_CODE"));
 			objMod.setPackage_kind(rs.getString("PACKAGE_KIND"));
 			objMod.setCommodity_seq(rs.getInt("COMMODITY_SEQ"));
-			
+//			objMod.setNotifyName(rs.getString("NOTIFY_NAME"));
+//			objMod.setNotifyIec(rs.getString("NOTIFY_IEC"));
+//			objMod.setNotifyPan(rs.getString("NOTIFY_PAN"));
+
 //			if(StringUtils.substringAfterLast(rs.getString("REMARK"), "(s)") != null) {
 //				System.out.println("success");
 //			}
