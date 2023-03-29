@@ -52,7 +52,7 @@ public class VoyageDtlsSDM {
 	}
 
 	public void setTotalNoOfTrnsprtEqmtMnfsted(String totalNoOfTrnsprtEqmtMnfsted) {
-//		totalNoOfTrnsprtEqmtMnfsted = FiledValidation.isNullAndSetlength(totalNoOfTrnsprtEqmtMnfsted, 5);
+//		 = FiledValidation.isNullAndSetlength(, 5);
 		this.totalNoOfTrnsprtEqmtMnfsted = totalNoOfTrnsprtEqmtMnfsted;
 	}
 

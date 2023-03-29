@@ -6,20 +6,20 @@ public class AuthPrsnSCE{
 	private String sbmtrTyp ;
 	private String sbmtrCd ;
 	private String authReprsntvCd ;
-	private String shpngLineCd  ;
-	private String authSeaCarrierCd ;
-	private String masterName ;
-	private String shpngLineBondNmbr ;
-	private String trmnlOprtrCd ;
-	private String amendment;
-
-  	public String getAmendment() {
-  		return amendment;
-  	}
-
-  	public void setAmendment(String amendment) {
-  		this.amendment = amendment;
-  	}
+//	private String shpngLineCd  ;
+//	private String authSeaCarrierCd ;
+//	private String masterName ;
+//	private String shpngLineBondNmbr ;
+//	private String trmnlOprtrCd ;
+//	private String amendment;
+//
+//  	public String getAmendment() {
+//  		return amendment;
+//  	}
+//
+//  	public void setAmendment(String amendment) {
+//  		this.amendment = amendment;
+//  	}
 
      //The value of "submitterType" current screen
 	public String getSbmtrTyp() {
@@ -49,48 +49,48 @@ public class AuthPrsnSCE{
 		this.authReprsntvCd = authReprsntvCd;
 	}
      //The value of  "shilinCode" current screen
-	public String getShpngLineCd() {
-		return shpngLineCd;
-	}
-
-	public void setShpngLineCd(String shpngLineCd) {
-		shpngLineCd = FiledValidation.isNullAndSetlength(shpngLineCd, 10);
-		this.shpngLineCd = shpngLineCd;
-	}
+//	public String getShpngLineCd() {
+//		return shpngLineCd;
+//	}
+//
+//	public void setShpngLineCd(String shpngLineCd) {
+//		shpngLineCd = FiledValidation.isNullAndSetlength(shpngLineCd, 10);
+//		this.shpngLineCd = shpngLineCd;
+//	}
       //The value of  "authoseaCarcode" current screen
-	public String getAuthSeaCarrierCd() {
-		return authSeaCarrierCd;
-	}
-
-	public void setAuthSeaCarrierCd(String authSeaCarrierCd) {
-		authSeaCarrierCd = FiledValidation.isNullAndSetlength(authSeaCarrierCd, 10);
-		this.authSeaCarrierCd = authSeaCarrierCd;
-	}
+//	public String getAuthSeaCarrierCd() {
+//		return authSeaCarrierCd;
+//	}
+//
+//	public void setAuthSeaCarrierCd(String authSeaCarrierCd) {
+//		authSeaCarrierCd = FiledValidation.isNullAndSetlength(authSeaCarrierCd, 10);
+//		this.authSeaCarrierCd = authSeaCarrierCd;
+//	}
     //The value of  "MasterName" current screen
-	public String getMasterName() {
-		return masterName;
-	}
-
-	public void setMasterName(String masterName) {
-		masterName = FiledValidation.isNullAndSetlength(masterName, 30);
-		this.masterName = masterName;
-	}
+//	public String getMasterName() {
+//		return masterName;
+//	}
+//
+//	public void setMasterName(String masterName) {
+//		masterName = FiledValidation.isNullAndSetlength(masterName, 30);
+//		this.masterName = masterName;
+//	}
      //The value of  "shippingLineBondNumber" current screen
-	public String getShpngLineBondNmbr() {
-		return shpngLineBondNmbr;
-	}
-
-	public void setShpngLineBondNmbr(String shpngLineBondNmbr) {
-		shpngLineBondNmbr = FiledValidation.isNullAndSetlength(shpngLineBondNmbr, 10);
-		this.shpngLineBondNmbr = shpngLineBondNmbr;
-	}
+//	public String getShpngLineBondNmbr() {
+//		return shpngLineBondNmbr;
+//	}
+//
+//	public void setShpngLineBondNmbr(String shpngLineBondNmbr) {
+//		shpngLineBondNmbr = FiledValidation.isNullAndSetlength(shpngLineBondNmbr, 10);
+//		this.shpngLineBondNmbr = shpngLineBondNmbr;
+//	}
       //The value of  "Custom Terminal Code" current screen  
-	public String getTrmnlOprtrCd() {
-		return trmnlOprtrCd;
-	}
-
-	public void setTrmnlOprtrCd(String trmnlOprtrCd) {
-		trmnlOprtrCd = FiledValidation.isNullAndSetlength(trmnlOprtrCd, 10);
-		this.trmnlOprtrCd = trmnlOprtrCd;
-	}
+//	public String getTrmnlOprtrCd() {
+//		return trmnlOprtrCd;
+//	}
+//
+//	public void setTrmnlOprtrCd(String trmnlOprtrCd) {
+//		trmnlOprtrCd = FiledValidation.isNullAndSetlength(trmnlOprtrCd, 10);
+//		this.trmnlOprtrCd = trmnlOprtrCd;
+//	}
 }

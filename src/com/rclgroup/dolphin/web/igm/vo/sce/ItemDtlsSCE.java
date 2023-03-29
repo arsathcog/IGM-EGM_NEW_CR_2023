@@ -26,7 +26,7 @@ public class ItemDtlsSCE {
 	}
 
 	public void setHsCd(String hsCd) {
-		hsCd = FiledValidation.isNullAndSetlength(hsCd, 8);
+//		hsCd = FiledValidation.isNullAndSetlength(hsCd, 8);
 		this.hsCd = hsCd;
 	}
 
@@ -92,7 +92,7 @@ public class ItemDtlsSCE {
 	}
 
 	public void setTypOfPkgs(String typOfPkgs) {
-		typOfPkgs = FiledValidation.isNullAndSetlength(typOfPkgs, 3);
+//		typOfPkgs = FiledValidation.isNullAndSetlength(typOfPkgs, 3);
 		this.typOfPkgs = typOfPkgs;
 	}
 }

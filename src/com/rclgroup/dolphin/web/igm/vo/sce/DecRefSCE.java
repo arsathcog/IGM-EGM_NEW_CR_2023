@@ -8,18 +8,18 @@ public class DecRefSCE {
 	private int jobNo;
 	private String jobDt;
 	private String rptngEvent;
-	private String mnfstNoRotnNo;
-	private String mnfstDtRotnDt;
-	private String vesselTypMvmt;
-	private String amendment;
-
-  	public String getAmendment() {
-  		return amendment;
-  	}
-
-  	public void setAmendment(String amendment) {
-  		this.amendment = amendment;
-  	}
+//	private String mnfstNoRotnNo;
+//	private String mnfstDtRotnDt;
+//	private String vesselTypMvmt;
+//	private String amendment;
+//
+//  	public String getAmendment() {
+//  		return amendment;
+//  	}
+//
+//  	public void setAmendment(String amendment) {
+//  		this.amendment = amendment;
+//  	}
 
 	// #
 	// public String dptrMnfstNo;
@@ -85,42 +85,42 @@ public class DecRefSCE {
 	}
 
 	// This value is come from BL Json object "mainNocsnno"
-	public String getMnfstNoRotnNo() {
-		return mnfstNoRotnNo;
-	}
-
-	public void setMnfstNoRotnNo(String mnfstNoRotnNo) {
-		mnfstNoRotnNo = FiledValidation.isNullAndSetlength(mnfstNoRotnNo, 100);
-		this.mnfstNoRotnNo = mnfstNoRotnNo;
-	}
-
-	// This value is come from BL Json object "manifestdateCsndate"
-	public String getMnfstDtRotnDt() {
-		return mnfstDtRotnDt;
-	}
-
-	public void setMnfstDtRotnDt(String mnfstDtRotnDt) {
-		if (mnfstDtRotnDt == null) {
-			System.out.println("this.mnfstDtRotnDt 2 = " + mnfstDtRotnDt);
-			this.mnfstDtRotnDt = "";
-		} else {
-			if (mnfstDtRotnDt.contains("/")) {
-				String dateArray[] = jobDt.split("/");
-				mnfstDtRotnDt = dateArray[2] + dateArray[1] + dateArray[0];
-				this.mnfstDtRotnDt = mnfstDtRotnDt;
-			}
-			this.mnfstDtRotnDt = mnfstDtRotnDt;
-		}
-	}
+//	public String getMnfstNoRotnNo() {
+//		return mnfstNoRotnNo;
+//	}
+//
+//	public void setMnfstNoRotnNo(String mnfstNoRotnNo) {
+//		mnfstNoRotnNo = FiledValidation.isNullAndSetlength(mnfstNoRotnNo, 100);
+//		this.mnfstNoRotnNo = mnfstNoRotnNo;
+//	}
+//
+//	// This value is come from BL Json object "manifestdateCsndate"
+//	public String getMnfstDtRotnDt() {
+//		return mnfstDtRotnDt;
+//	}
+//
+//	public void setMnfstDtRotnDt(String mnfstDtRotnDt) {
+//		if (mnfstDtRotnDt == null) {
+//			System.out.println("this.mnfstDtRotnDt 2 = " + mnfstDtRotnDt);
+//			this.mnfstDtRotnDt = "";
+//		} else {
+//			if (mnfstDtRotnDt.contains("/")) {
+//				String dateArray[] = jobDt.split("/");
+//				mnfstDtRotnDt = dateArray[2] + dateArray[1] + dateArray[0];
+//				this.mnfstDtRotnDt = mnfstDtRotnDt;
+//			}
+//			this.mnfstDtRotnDt = mnfstDtRotnDt;
+//		}
+//	}
 
 	// This value is come from BL Json object "vesType"
-	public String getVesselTypMvmt() {
-		return vesselTypMvmt;
-	}
-
-	public void setVesselTypMvmt(String vesselTypMvmt) {
-		vesselTypMvmt = FiledValidation.isNullAndSetlength(vesselTypMvmt, 2);
-		this.vesselTypMvmt = vesselTypMvmt;
-	}
+//	public String getVesselTypMvmt() {
+//		return vesselTypMvmt;
+//	}
+//
+//	public void setVesselTypMvmt(String vesselTypMvmt) {
+//		vesselTypMvmt = FiledValidation.isNullAndSetlength(vesselTypMvmt, 2);
+//		this.vesselTypMvmt = vesselTypMvmt;
+//	}
 
 }

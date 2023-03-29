@@ -9,15 +9,15 @@ public class MCRefSCE {
 	private String consolidatedIndctr;
 	private String prevDec;
 	private String consolidatorPan;
-	private String amendment;
-
-    public String getAmendment() {
-			return amendment;
-		}
-
-	public void setAmendment(String amendment) {
-			this.amendment = amendment;
-		}
+//	private String amendment;
+//
+//    public String getAmendment() {
+//			return amendment;
+//		}
+//
+//	public void setAmendment(String amendment) {
+//			this.amendment = amendment;
+//		}
 //Same as Item Number from current screen "Item Number"
 	public String getLineNo() {
 		return lineNo;

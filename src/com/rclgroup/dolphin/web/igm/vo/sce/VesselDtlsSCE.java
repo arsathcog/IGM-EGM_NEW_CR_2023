@@ -20,16 +20,16 @@ public class VesselDtlsSCE {
         //#
 
         //#   Exmp given 
-      private String purposeOfCall;
-	 private String amendment;
-
-	 	public String getAmendment() {
-	 		return amendment;
-	 	}
-
-	 	public void setAmendment(String amendment) {
-	 		this.amendment = amendment;
-	 	}
+//      private String purposeOfCall;
+//	 private String amendment;
+//
+//	 	public String getAmendment() {
+//	 		return amendment;
+//	 	}
+//
+//	 	public void setAmendment(String amendment) {
+//	 		this.amendment = amendment;
+//	 	}
 
 //(Default value as sea =1, (1=Sea, 2=Rail, 3=Truck, 4=Air). Add new column in vessel voyage . user will select manually.). mandatory
 	public String getModeOfTrnsprt() {
@@ -126,13 +126,13 @@ public class VesselDtlsSCE {
 		this.netTonnage = netTonnage;
 	}*/
 //  (Value will be always 1 as mentioned in PURP_CALL)
-	public String getPurposeOfCall() {
-		return purposeOfCall;
-	}
-
-	public void setPurposeOfCall(String purposeOfCall) {
-		this.purposeOfCall = purposeOfCall;
-	}
+//	public String getPurposeOfCall() {
+//		return purposeOfCall;
+//	}
+//
+//	public void setPurposeOfCall(String purposeOfCall) {
+//		this.purposeOfCall = purposeOfCall;
+//	}
 	
 	
 
