@@ -14,6 +14,10 @@ public class NotifyParty
    private String countryCode;
    private String zip;
    private String notify2  ;
+	private String consigneeName;
+	private String notifyName;	
+	private String notifyIec;
+	private String notifyPan;
 
 
 	public String getBlNo() {
@@ -111,14 +115,56 @@ public class NotifyParty
 	public void setNotify2(String notify2) {
 		this.notify2 = notify2;
 	}
+	public String getConsigneeName() {
+		return consigneeName;
+	}
+
+	public void setConsigneeName(String consigneeName) {
+		this.consigneeName = consigneeName;
+	}
+
+	public String getNotifyName() {
+		return notifyName;
+	}
+
+	public void setNotifyName(String notifyName) {
+		this.notifyName = notifyName;
+	}
+
+	public String getNotifyIec() {
+		return notifyIec;
+	}
+
+	public void setNotifyIec(String notifyIec) {
+		this.notifyIec = notifyIec;
+	}
+
+	public String getNotifyPan() {
+		return notifyPan;
+	}
+
+	public void setNotifyPan(String notifyPan) {
+		this.notifyPan = notifyPan;
+	}
 
 	@Override
 	public String toString() {
 		return "NotifyParty [blNo=" + blNo + ", CostumerCode=" + CostumerCode + ", CostumerName=" + CostumerName
 				+ ", addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2 + ", addressLine3=" + addressLine3
 				+ ", addressLine4=" + addressLine4 + ", city=" + city + ", state=" + state + ", countryCode="
-				+ countryCode + ", zip=" + zip + ", notify2=" + notify2 + "]";
+				+ countryCode + ", zip=" + zip + ", notify2=" + notify2 + ", consigneeName=" + consigneeName
+				+ ", notifyName=" + notifyName + ", notifyIec=" + notifyIec + ", notifyPan=" + notifyPan
+				+ ", getBlNo()=" + getBlNo() + ", getCostumerCode()=" + getCostumerCode() + ", getCostumerName()="
+				+ getCostumerName() + ", getAddressLine1()=" + getAddressLine1() + ", getAddressLine2()="
+				+ getAddressLine2() + ", getAddressLine3()=" + getAddressLine3() + ", getAddressLine4()="
+				+ getAddressLine4() + ", getCity()=" + getCity() + ", getState()=" + getState() + ", getCountryCode()="
+				+ getCountryCode() + ", getZip()=" + getZip() + ", getNotify2()=" + getNotify2()
+				+ ", getConsigneeName()=" + getConsigneeName() + ", getNotifyName()=" + getNotifyName()
+				+ ", getNotifyIec()=" + getNotifyIec() + ", getNotifyPan()=" + getNotifyPan() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
+
+
    
     
 	

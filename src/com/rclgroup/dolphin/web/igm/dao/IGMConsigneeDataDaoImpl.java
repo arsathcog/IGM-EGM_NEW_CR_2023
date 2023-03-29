@@ -119,7 +119,7 @@ public class IGMConsigneeDataDaoImpl extends AncestorJdbcDao implements IGMConsi
 			consignee.setState(rs.getString("STATE"));
 			consignee.setCountryCode(rs.getString("DN_COUNTRY_CODE"));
 			consignee.setZip(rs.getString("ZIP"));
-	
+			
 			return consignee;
 		}
 	}

@@ -16,6 +16,11 @@ public class Consignee {
 	private String state = "";
 	private String countryCode = "";
 	private String zip = "";
+	private String consigneeName;
+	private String notifyName;	
+	private String notifyIec;
+	private String notifyPan;
+	
 	
 	public String getBlNO() {
 		return blNO;
@@ -82,6 +87,30 @@ public class Consignee {
 	}
 	public void setZip(String zip) {
 		this.zip = zip;
+	}
+	public String getConsigneeName() {
+		return consigneeName;
+	}
+	public void setConsigneeName(String consigneeName) {
+		this.consigneeName = consigneeName;
+	}
+	public String getNotifyName() {
+		return notifyName;
+	}
+	public void setNotifyName(String notifyName) {
+		this.notifyName = notifyName;
+	}
+	public String getNotifyIec() {
+		return notifyIec;
+	}
+	public void setNotifyIec(String notifyIec) {
+		this.notifyIec = notifyIec;
+	}
+	public String getNotifyPan() {
+		return notifyPan;
+	}
+	public void setNotifyPan(String notifyPan) {
+		this.notifyPan = notifyPan;
 	}
 	
 }

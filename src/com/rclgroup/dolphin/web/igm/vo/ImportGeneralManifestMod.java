@@ -707,6 +707,10 @@ public class ImportGeneralManifestMod implements Cloneable {
 	
 	private String recieptName;
 	
+	private String notifyName;	
+	private String notifyIec;
+	private String notifyPan;
+	
 
 	
 	public String getAcceptanceName() {
@@ -3962,6 +3966,30 @@ public class ImportGeneralManifestMod implements Cloneable {
 
 	public void setHouseBl(String houseBl) {
 		this.houseBl = houseBl;
+	}
+
+	public String getNotifyName() {
+		return notifyName;
+	}
+
+	public void setNotifyName(String notifyName) {
+		this.notifyName = notifyName;
+	}
+
+	public String getNotifyIec() {
+		return notifyIec;
+	}
+
+	public void setNotifyIec(String notifyIec) {
+		this.notifyIec = notifyIec;
+	}
+
+	public String getNotifyPan() {
+		return notifyPan;
+	}
+
+	public void setNotifyPan(String notifyPan) {
+		this.notifyPan = notifyPan;
 	}
 
 	@Override
