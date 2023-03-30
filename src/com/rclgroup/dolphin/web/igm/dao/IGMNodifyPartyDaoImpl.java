@@ -118,9 +118,13 @@ public class IGMNodifyPartyDaoImpl extends AncestorJdbcDao implements IGMNodifyP
 			notifyparty.setCountryCode(rs.getString("DN_COUNTRY_CODE"));
 			notifyparty.setZip(rs.getString("ZIP"));
 //			notifyparty.setNotify2(rs.getString("NOTIFY2"));
-//			notifyparty.setNotifyName(rs.getString("NOTIFY_NAME"));
-//			notifyparty.setNotifyIec(rs.getString("NOTIFY_IEC"));
-//			notifyparty.setNotifyPan(rs.getString("NOTIFY_PAN"));
+			notifyparty.setNotifyName(rs.getString("NOTIFY_NAME"));
+			notifyparty.setNotifyIec(rs.getString("NOTIFY_IEC"));
+			notifyparty.setNotifyPan(rs.getString("NOTIFY_PAN"));
+			notifyparty.setPortOfDischarge(rs.getString("PORT_OF_DISCHARGE"));
+			notifyparty.setConsigneCheckBox(rs.getString("CONSIGNEE_CHECK_BOX"));
+			notifyparty.setNotifyFwr(rs.getString("CONSIGNEE_FWR"));
+			
 	
 			return notifyparty;
 		}

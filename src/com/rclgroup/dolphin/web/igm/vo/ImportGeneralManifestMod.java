@@ -711,6 +711,11 @@ public class ImportGeneralManifestMod implements Cloneable {
 	private String notifyIec;
 	private String notifyPan;
 	
+//FOR ROB IMPLEMENTATION 
+	
+	private String dnDischargePort;
+	private String flag_discharge;
+	
 
 	
 	public String getAcceptanceName() {
@@ -3777,6 +3782,24 @@ public class ImportGeneralManifestMod implements Cloneable {
 
 	public void setPort_of_call_name_portArrival(String port_of_call_name_portArrival) {
 		this.port_of_call_name_portArrival = port_of_call_name_portArrival;
+	}
+
+
+	
+	public String getDnDischargePort() {
+		return dnDischargePort;
+	}
+
+	public void setDnDischargePort(String dnDischargePort) {
+		this.dnDischargePort = dnDischargePort;
+	}
+
+	public String getFlag_discharge() {
+		return flag_discharge;
+	}
+
+	public void setFlag_discharge(String flag_discharge) {
+		this.flag_discharge = flag_discharge;
 	}
 
 	@Override

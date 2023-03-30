@@ -731,7 +731,7 @@
 					value="{{notifyParty.zip}}" ng-model="notifyParty.zip"></td>
 
 				<td class="veseelRemoveBorder" >Move to Consignee </td>
-				<td><button id="moveToNotifyParty" style="background-color: #167FF6;border-radius: 6px;width:50px"> <i class="fa fa-arrow-left" style="font-size:20px;color:#080808"  ng-click="getDataMoveToNextTab(this,'NotifyParty')"></i></butten></td>
+				<td><button id="moveToNotifyParty" style="background-color: #167FF6;border-radius: 6px;width:50px"> <i class="fa fa-arrow-left" style="font-size:20px;color:#080808" ></i></butten></td>
 			</tr>
 			
 			<tr>

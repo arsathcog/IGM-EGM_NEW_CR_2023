@@ -286,7 +286,8 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setSenderId(rs.getString("SENDER_ID"));
 			objMod.setRecieverId(rs.getString("RECIEVER_ID"));
 			objMod.setAuthReprsntvCd(rs.getString("AUTHREPRSNTVCD"));
-			
+		
+					
 	// ============================More  details===================
 //			objMod.setHblNo(rs.getString("FK_HOUSE_BL_NO"));
 			//objMod.setNeCargoMovmnt(rs.getString("NE_CARGO_MOVMNT"));
@@ -775,6 +776,8 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setTpBondNo(rs.getString("ROAD_TP_BOND_NO"));
 			objMod.setNeCargoMovmnt(rs.getString("NE_CARGO_MOVMNT"));
 			objMod.setConsigneeName(rs.getString("CONSIGNEE_NAME"));
+			objMod.setFlag_discharge(rs.getString("FLAG_DISCHARGE"));
+
 			objMod.setFetch(true);
 			if(isUpdateSaved) {
 				objMod.setSaveFlags("I");

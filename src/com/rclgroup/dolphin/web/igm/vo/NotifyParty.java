@@ -18,6 +18,9 @@ public class NotifyParty
 	private String notifyName;	
 	private String notifyIec;
 	private String notifyPan;
+	private String portOfDischarge;
+	private String consigneCheckBox;
+	private String notifyFwr;
 
 
 	public String getBlNo() {
@@ -145,6 +148,29 @@ public class NotifyParty
 
 	public void setNotifyPan(String notifyPan) {
 		this.notifyPan = notifyPan;
+	}
+	public String getPortOfDischarge() {
+		return portOfDischarge;
+	}
+
+	public void setPortOfDischarge(String portOfDischarge) {
+		this.portOfDischarge = portOfDischarge;
+	}
+
+	public String getConsigneCheckBox() {
+		return consigneCheckBox;
+	}
+
+	public void setConsigneCheckBox(String consigneCheckBox) {
+		this.consigneCheckBox = consigneCheckBox;
+	}
+
+	public String getNotifyFwr() {
+		return notifyFwr;
+	}
+
+	public void setNotifyFwr(String notifyFwr) {
+		this.notifyFwr = notifyFwr;
 	}
 
 	@Override

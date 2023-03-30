@@ -20,6 +20,12 @@ public class Consignee {
 	private String notifyName;	
 	private String notifyIec;
 	private String notifyPan;
+	private String consigneName;
+	private String consigneIec;
+	private String consignePan;
+	private String portOfDischarge;
+	private String consigneCheckBox;
+	private String consigneFwr;
 	
 	
 	public String getBlNO() {
@@ -111,6 +117,42 @@ public class Consignee {
 	}
 	public void setNotifyPan(String notifyPan) {
 		this.notifyPan = notifyPan;
+	}
+	public String getConsigneName() {
+		return consigneName;
+	}
+	public void setConsigneName(String consigneName) {
+		this.consigneName = consigneName;
+	}
+	public String getConsigneIec() {
+		return consigneIec;
+	}
+	public void setConsigneIec(String consigneIec) {
+		this.consigneIec = consigneIec;
+	}
+	public String getConsignePan() {
+		return consignePan;
+	}
+	public void setConsignePan(String consignePan) {
+		this.consignePan = consignePan;
+	}
+	public String getPortOfDischarge() {
+		return portOfDischarge;
+	}
+	public void setPortOfDischarge(String portOfDischarge) {
+		this.portOfDischarge = portOfDischarge;
+	}
+	public String getConsigneCheckBox() {
+		return consigneCheckBox;
+	}
+	public void setConsigneCheckBox(String consigneCheckBox) {
+		this.consigneCheckBox = consigneCheckBox;
+	}
+	public String getConsigneFwr() {
+		return consigneFwr;
+	}
+	public void setConsigneFwr(String consigneFwr) {
+		this.consigneFwr = consigneFwr;
 	}
 	
 }
