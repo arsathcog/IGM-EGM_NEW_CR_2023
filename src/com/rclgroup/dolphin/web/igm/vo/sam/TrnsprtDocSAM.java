@@ -47,7 +47,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setPrtOfAcptCdd(String prtOfAcptCdd) {
-			prtOfAcptCdd = FiledValidation.isNullAndSetlength(prtOfAcptCdd, 6);
+//			prtOfAcptCdd = FiledValidation.isNullAndSetlength(prtOfAcptCdd, 6);
 			this.prtOfAcptCdd = prtOfAcptCdd;
 		}
 		//This value is come from BL Json object "Port of Acceptance Name"(Take from port master setup while generating json file)
@@ -56,7 +56,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setPrtOfAcptName(String prtOfAcptName) {
-			prtOfAcptName = FiledValidation.isNullAndSetlength(prtOfAcptName, 256);
+//			prtOfAcptName = FiledValidation.isNullAndSetlength(prtOfAcptName, 256);
 			this.prtOfAcptName = prtOfAcptName;
 		}
 	 //This value is come from BL Json object "porTrept" Add new field DEL which will come from BL DEL. .  make it 
@@ -65,7 +65,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setPrtOfReceiptCdd(String prtOfReceiptCdd) {
-			prtOfReceiptCdd = FiledValidation.isNullAndSetlength(prtOfReceiptCdd, 10);
+//			prtOfReceiptCdd = FiledValidation.isNullAndSetlength(prtOfReceiptCdd, 10);
 			this.prtOfReceiptCdd = prtOfReceiptCdd;
 		}
 	     //   (Take from inland  master setup while generating json file)
@@ -74,7 +74,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setPrtOfReceiptName(String prtOfReceiptName) {
-			prtOfReceiptName = FiledValidation.isNullAndSetlength(prtOfReceiptName, 256);
+//			prtOfReceiptName = FiledValidation.isNullAndSetlength(prtOfReceiptName, 256);
 			this.prtOfReceiptName = prtOfReceiptName;
 		}
 	        // This value is come from BL Json object "Consignor?s Name"(Shipper name based on shipper code  from BL. Add this new field )
@@ -83,7 +83,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setCnsgnrsName(String cnsgnrsName) {
-			cnsgnrsName = FiledValidation.isNullAndSetlength(cnsgnrsName, 70);
+//			cnsgnrsName = FiledValidation.isNullAndSetlength(cnsgnrsName, 70);
 			this.cnsgnrsName = cnsgnrsName;
 		}
 	      //   (Take from BL while generating json file) 
@@ -110,7 +110,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setCnsgnrStreetAddress(String cnsgnrStreetAddress) {
-			cnsgnrStreetAddress = FiledValidation.isNullAndSetlength(cnsgnrStreetAddress, 70);
+			cnsgnrStreetAddress = FiledValidation.isNullAndSetlength(cnsgnrStreetAddress, 200);
 			this.cnsgnrStreetAddress = cnsgnrStreetAddress;
 		}
 	   // (This value is come from BL Json object) (Add new column. Value will come from shipper. )
@@ -119,7 +119,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setCnsgnrCity(String cnsgnrCity) {
-			cnsgnrCity = FiledValidation.isNullAndSetlength(cnsgnrCity, 70);
+//			cnsgnrCity = FiledValidation.isNullAndSetlength(cnsgnrCity, 70);
 			this.cnsgnrCity = cnsgnrCity;
 		}
 
@@ -149,7 +149,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setCnsgnrCntryCd(String cnsgnrCntryCd) {
-			cnsgnrCntryCd = FiledValidation.isNullAndSetlength(cnsgnrCntryCd, 9);
+//			cnsgnrCntryCd = FiledValidation.isNullAndSetlength(cnsgnrCntryCd, 9);
 			this.cnsgnrCntryCd = cnsgnrCntryCd;
 		}
 	       //     (Add new column. Value will come from shipper. )
@@ -168,7 +168,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setCnsgnesName(String cnsgnesName) {
-			cnsgnesName = FiledValidation.isNullAndSetlength(cnsgnesName, 70);
+//			cnsgnesName = FiledValidation.isNullAndSetlength(cnsgnesName, 70);
 			this.cnsgnesName = cnsgnesName;
 		}
 
@@ -178,7 +178,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setCnsgnesCd(String cnsgnesCd) {
-			cnsgnesCd = FiledValidation.isNullAndSetlength(cnsgnesCd, 17);
+//			cnsgnesCd = FiledValidation.isNullAndSetlength(cnsgnesCd, 17);
 			this.cnsgnesCd = cnsgnesCd;
 		}
 
@@ -188,7 +188,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setTypOfCd(String typOfCd) {
-			typOfCd = FiledValidation.isNullAndSetlength(typOfCd, 3);
+//			typOfCd = FiledValidation.isNullAndSetlength(typOfCd, 3);
 			this.typOfCd = typOfCd;
 		}
 
@@ -198,7 +198,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setCnsgneStreetAddress(String cnsgneStreetAddress) {
-			cnsgneStreetAddress = FiledValidation.isNullAndSetlength(cnsgneStreetAddress, 70);
+			cnsgneStreetAddress = FiledValidation.isNullAndSetlength(cnsgneStreetAddress, 200);
 			this.cnsgneStreetAddress = cnsgneStreetAddress;
 		}
 	      //This value is come from BL Json object  "city"(Already in current IGM screen)
@@ -207,7 +207,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setCnsgneCity(String cnsgneCity) {
-			cnsgneCity = FiledValidation.isNullAndSetlength(cnsgneCity, 70);
+//			cnsgneCity = FiledValidation.isNullAndSetlength(cnsgneCity, 70);
 			this.cnsgneCity = cnsgneCity;
 		}
 
@@ -217,7 +217,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setCnsgneCntrySubDivName(String cnsgneCntrySubDivName) {
-			cnsgneCntrySubDivName = FiledValidation.isNullAndSetlength(cnsgneCntrySubDivName, 35);
+//			cnsgneCntrySubDivName = FiledValidation.isNullAndSetlength(cnsgneCntrySubDivName, 35);
 			this.cnsgneCntrySubDivName = cnsgneCntrySubDivName;
 		}
 	   //optional (Already in current IGM screen)
@@ -226,7 +226,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setCnsgneCntrySubDiv(String cnsgneCntrySubDiv) {
-			cnsgneCntrySubDiv = FiledValidation.isNullAndSetlength(cnsgneCntrySubDiv, 9);
+//			cnsgneCntrySubDiv = FiledValidation.isNullAndSetlength(cnsgneCntrySubDiv, 9);
 			this.cnsgneCntrySubDiv = cnsgneCntrySubDiv;
 		}
 	       //This value is come from BL Json object   "countryCode" (Already in current IGM screen)   mandatory.
@@ -235,7 +235,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setCnsgneCntryCd(String cnsgneCntryCd) {
-			cnsgneCntryCd = FiledValidation.isNullAndSetlength(cnsgneCntryCd, 2);
+//			cnsgneCntryCd = FiledValidation.isNullAndSetlength(cnsgneCntryCd, 2);
 			this.cnsgneCntryCd = cnsgneCntryCd;
 		}
 	         //optional (Already in current IGM screen)
@@ -244,7 +244,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setCnsgnePstcd(String cnsgnePstcd) {
-			cnsgnePstcd = FiledValidation.isNullAndSetlength(cnsgnePstcd, 9);
+//			cnsgnePstcd = FiledValidation.isNullAndSetlength(cnsgnePstcd, 9);
 			this.cnsgnePstcd = cnsgnePstcd;
 		}
 
@@ -254,7 +254,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setNameOfAnyOtherNotfdParty(String nameOfAnyOtherNotfdParty) {
-			nameOfAnyOtherNotfdParty = FiledValidation.isNullAndSetlength(nameOfAnyOtherNotfdParty, 9);
+//			nameOfAnyOtherNotfdParty = FiledValidation.isNullAndSetlength(nameOfAnyOtherNotfdParty, 9);
 			this.nameOfAnyOtherNotfdParty = nameOfAnyOtherNotfdParty;
 		}
 
@@ -264,7 +264,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setPanOfNotfdParty(String panOfNotfdParty) {
-			panOfNotfdParty = FiledValidation.isNullAndSetlength(panOfNotfdParty, 17);
+//typOfNotfdPartyCd			panOfNotfdParty = FiledValidation.isNullAndSetlength(panOfNotfdParty, 17);
 			this.panOfNotfdParty = panOfNotfdParty;
 		}
 
@@ -274,7 +274,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setTypOfNotfdPartyCd(String typOfNotfdPartyCd) {
-			typOfNotfdPartyCd = FiledValidation.isNullAndSetlength(typOfNotfdPartyCd, 3);
+//			typOfNotfdPartyCd = FiledValidation.isNullAndSetlength(typOfNotfdPartyCd, 3);
 			this.typOfNotfdPartyCd = typOfNotfdPartyCd;
 		}
 	     //This value is come from BL Json object   "notifyPartyDlts" (Already in current IGM screen)   mandatory.
@@ -283,7 +283,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setNotfdPartyStreetAddress(String notfdPartyStreetAddress) {
-			notfdPartyStreetAddress = FiledValidation.isNullAndSetlength(notfdPartyStreetAddress, 70);
+//			notfdPartyStreetAddress = FiledValidation.isNullAndSetlength(notfdPartyStreetAddress, 70);
 			this.notfdPartyStreetAddress = notfdPartyStreetAddress;
 		}
 	     
@@ -293,7 +293,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setNotfdPartyCity(String notfdPartyCity) {
-			notfdPartyCity = FiledValidation.isNullAndSetlength(notfdPartyCity, 70);
+//			notfdPartyCity = FiledValidation.isNullAndSetlength(notfdPartyCity, 70);
 			this.notfdPartyCity = notfdPartyCity;
 		}
 	      //   optional (Already in current IGM screen)
@@ -321,7 +321,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setNotfdPartyCntryCd(String notfdPartyCntryCd) {
-			notfdPartyCntryCd = FiledValidation.isNullAndSetlength(notfdPartyCntryCd, 2);
+//			notfdPartyCntryCd = FiledValidation.isNullAndSetlength(notfdPartyCntryCd, 2);
 			this.notfdPartyCntryCd = notfdPartyCntryCd;
 		}
 	       //   optional   (Already in current IGM screen)
@@ -330,7 +330,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setNotfdPartyPstcd(String notfdPartyPstcd) {
-			notfdPartyPstcd = FiledValidation.isNullAndSetlength(notfdPartyPstcd, 9);
+//			notfdPartyPstcd = FiledValidation.isNullAndSetlength(notfdPartyPstcd, 9);
 			this.notfdPartyPstcd = notfdPartyPstcd;
 		}
 

@@ -31,7 +31,7 @@ public class LocCstmSAM {
 	}
   
 	public void setDestPrt(String destPrt) {
-		destPrt = FiledValidation.isNullAndSetlength(destPrt, 10);
+//		destPrt = FiledValidation.isNullAndSetlength(destPrt, 10);
 		this.destPrt = destPrt;
 	}
 //This value is come from BL Json object "MC Location Customsl"
@@ -40,7 +40,7 @@ public class LocCstmSAM {
 	}
 
 	public void setNxtPrtOfUnlading(String nxtPrtOfUnlading) {
-		nxtPrtOfUnlading = FiledValidation.isNullAndSetlength(nxtPrtOfUnlading, 10);
+//		nxtPrtOfUnlading = FiledValidation.isNullAndSetlength(nxtPrtOfUnlading, 10);
 		this.nxtPrtOfUnlading = nxtPrtOfUnlading;
 	}
    //This value is come from BL Json object "Type Of Cargo"
@@ -49,7 +49,7 @@ public class LocCstmSAM {
 	}
 
 	public void setTypOfCrgo(String typOfCrgo) {
-		typOfCrgo = FiledValidation.isNullAndSetlength(typOfCrgo, 2);
+//		typOfCrgo = FiledValidation.isNullAndSetlength(typOfCrgo, 2);
 		this.typOfCrgo = typOfCrgo;
 	}
 //This value is come from BL Json object  "Item Type"
@@ -68,7 +68,7 @@ public class LocCstmSAM {
 	}
 
 	public void setCrgoMvmt(String crgoMvmt) {
-		crgoMvmt = FiledValidation.isNullAndSetlength(crgoMvmt, 4);
+//		crgoMvmt = FiledValidation.isNullAndSetlength(crgoMvmt, 4);
 		this.crgoMvmt = crgoMvmt;
 	}
 

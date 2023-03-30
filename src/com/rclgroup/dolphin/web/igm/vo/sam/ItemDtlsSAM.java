@@ -83,7 +83,7 @@ public class ItemDtlsSAM {
 	}
 
 	public void setTypOfPkgs(String typOfPkgs) {
-		typOfPkgs = FiledValidation.isNullAndSetlength(typOfPkgs, 3);
+//		typOfPkgs = FiledValidation.isNullAndSetlength(typOfPkgs, 3);
 		this.typOfPkgs = typOfPkgs;
 	}
 }

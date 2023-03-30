@@ -53,7 +53,7 @@ public class MCRefSAM {
 	}
 
 	public void setConsolidatedIndctr(String consolidatedIndctr) {
-		consolidatedIndctr = FiledValidation.isNullAndSetlength(consolidatedIndctr, 4);
+//		consolidatedIndctr = FiledValidation.isNullAndSetlength(consolidatedIndctr, 4);
 		this.consolidatedIndctr = consolidatedIndctr;
 	}
     //Same as Item Number from current screen "Previous Declaration"
