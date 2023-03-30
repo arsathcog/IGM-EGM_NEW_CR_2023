@@ -198,7 +198,7 @@ public class TrnsprtDocSAM {
 		}
 
 		public void setCnsgneStreetAddress(String cnsgneStreetAddress) {
-			cnsgneStreetAddress = FiledValidation.isNullAndSetlength(cnsgneStreetAddress, 200);
+		cnsgneStreetAddress = FiledValidation.isNullAndSetlength(cnsgneStreetAddress, 200);
 			this.cnsgneStreetAddress = cnsgneStreetAddress;
 		}
 	      //This value is come from BL Json object  "city"(Already in current IGM screen)

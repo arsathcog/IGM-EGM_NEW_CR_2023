@@ -35,7 +35,7 @@ public class PrsnIdSAM {
 	}
 
 	public void setPrsnIdOrTravelDocIssuingNationCdd(String prsnIdOrTravelDocIssuingNationCdd) {
-		prsnIdOrTravelDocIssuingNationCdd = FiledValidation.isNullAndSetlength(prsnIdOrTravelDocIssuingNationCdd, 2);
+//		prsnIdOrTravelDocIssuingNationCdd = FiledValidation.isNullAndSetlength(prsnIdOrTravelDocIssuingNationCdd, 2);
 		this.prsnIdOrTravelDocIssuingNationCdd = prsnIdOrTravelDocIssuingNationCdd;
 	}
 
