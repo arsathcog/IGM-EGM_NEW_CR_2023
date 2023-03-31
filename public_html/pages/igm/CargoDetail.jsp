@@ -728,7 +728,10 @@
 				<td class="veseelRemoveBorder">Zip
 				</td>
 				<td><input id="NotifyAdress2" type="text" class="seqCss" maxlength="9"
-					value="{{notifyParty.zip}}" ng-model="notifyParty.zip"></td>
+					value="{{notifyParty.zip}}" ng-model="notifyParty.zip">
+						<input type="text" class="cargoCss" ng-model="notifyIec" value="notifyIec">
+						<input type="text" class="cargoCss" ng-model="notifyPan" value="notifyPan">
+					</td>
 
 				<td class="veseelRemoveBorder" >Move to Consignee </td>
 				<td><button id="moveToNotifyParty" style="background-color: #167FF6;border-radius: 6px;width:50px"> <i class="fa fa-arrow-left" style="font-size:20px;color:#080808" ></i></butten></td>
@@ -742,6 +745,8 @@
 			<input type="hidden" class="cargoCss" ng-model="selectedBL.typOfNotfdPartyCd" value="selectedBL.typOfNotfdPartyCd">
 			<input type="hidden" class="cargoCss" ng-model="selectedBL.notfdPartyCntrySubDivName" value="selectedBL.notfdPartyCntrySubDivName">
 			<input type="hidden" class="cargoCss" ng-model="selectedBL.notfdPartyCntrySubDiv" value="selectedBL.notfdPartyCntrySubDiv">
+			<input type="hidden" class="cargoCss" ng-model="notifyIec" value="notifyIec">
+			<input type="hidden" class="cargoCss" ng-model="notifyPan" value="notifyPan">
 			</td>
 			</tr>
 			

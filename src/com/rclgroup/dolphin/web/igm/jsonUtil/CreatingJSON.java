@@ -636,19 +636,18 @@ public class CreatingJSON {
 			mastrCnsgmtDec.setItnry(itnryClassObj);
 			houseCargoDecSAMObj.setItnry(itnry);
 //			--------------------------------------------------------------
-			
+			if(blObj.getMcin() != null || blObj.getMcin() !="" || blObj.getPcin() != null || blObj.getPcin() !="") {
 			PrevRefSAM prevRefObj = new PrevRefSAM();
-			
-			if(blObj.getMcin() != null || blObj.getMcin() !="") {
-				prevRefObj.setCinTyp(settingLength(blObj.getMcin(),4));	
-			}else {
-				if(blObj.getPcin() != null || blObj.getPcin() !="") {
-					prevRefObj.setCinTyp(settingLength(blObj.getPcin(),4));		
+			if(blObj.getMcin() != null || blObj.getMcin() !="" ) {	
+			prevRefObj.setCinTyp(settingLength(blObj.getMcin(),4));	
+				}else if( blObj.getPcin() != null || blObj.getPcin() !="") {
+					 prevRefObj.setCinTyp(settingLength(blObj.getPcin(),4));	
 				}
+			mastrCnsgmtDec.setPrevRef(prevRefObj);
 			}
 //			prevRefObj.setCinTyp(settingLength(blObj.getMcinpcin(),4));	
 			
-			prevRefObj.setMcinPcin(blObj.getMcin());
+//			prevRefObj.setMcinPcin(blObj.getMcin());
 // 			prevRefObj.setCrgoMvmt(blObj.getCargoMovmnt());
 //			prevRefObj.setCsnDt(blObj.getCsn_date()); 				
 //			prevRefObj.setCsnNmbr(settingLength(blObj.getCsn_number(),7)); 
@@ -661,7 +660,7 @@ public class CreatingJSON {
 //			prevRefObj.setTypOfPackage(settingLength(blObj.getType_of_package(),4));
 //			prevRefObj.setPrevMcin("");
 //			prevRef.add(prevRefObj);
-			mastrCnsgmtDec.setPrevRef(prevRefObj);
+			
 //		--------------------------------------------------------------------------------------------------			
 
 			LocCstmSAM locCstmClassObj = new LocCstmSAM();
@@ -687,15 +686,20 @@ public class CreatingJSON {
 				System.out.println(service.getPortOfDestination().substring(0, 2));
 				System.out.println( service.getPortOfDeschargedCfs().substring(0, 2));
 				
-			if(service.getPortOfDestination().substring(0, 2).equals("IN") && blObj.getPortOfDeschargedCfs().substring(0, 2).equals("IN")){
+			if(service.getPortOfDestination().substring(0, 2).equals("IN") && blObj.getPod().substring(0, 2).equals("IN")){
 				locCstmClassObj.setTypOfCrgo(settingLength("IM",2)); // if both value in india base
-			}else if(! service.getPortOfDestination().substring(0, 2).equals("IN") && ! blObj.getPortOfDeschargedCfs().substring(0, 2).equals("IN")){
+			}else if(! service.getPortOfDestination().substring(0, 2).equals("IN") && ! blObj.getPod().substring(0, 2).equals("IN")){
 				locCstmClassObj.setTypOfCrgo(settingLength("TR",2)); // both value is not india base 
-			}else if( !service.getPortOfDestination().substring(0, 2).equals("IN") &&  blObj.getPortOfDeschargedCfs().substring(0, 2).equals("IN")) {
+			}else if( !service.getPortOfDestination().substring(0, 2).equals("IN") &&  blObj.getPod().substring(0, 2).equals("IN")) {
 				locCstmClassObj.setTypOfCrgo(settingLength("TR",2)); //if portOfdest in india base and portOfDis in foreign base then
 			}
 			}
 			
+			if(!blObj.getPortOfDestination().substring(0, 2).equals(blObj.getPod())) {
+			  locCstmClassObj.setNxtPrtOfUnlading (settingLength(blObj.getPortOfDestination(),6)); // New added		
+			}else if(blObj.getPod().equals(blObj.getPortOfDestination())) {
+				locCstmClassObj.setNxtPrtOfUnlading (settingLength(blObj.getPod(),6)); // New added	
+			}
 			locCstmClassObj.setNxtPrtOfUnlading (settingLength("",6)); // New added								//TODO  guru	
 			locCstmClassObj.setItemTyp(settingLength("OT",2)); // Line 61
 //			locCstmClassObj.setCrgoMvmt(settingLength(blObj.getCargoMovmnt(),4));// Line 57

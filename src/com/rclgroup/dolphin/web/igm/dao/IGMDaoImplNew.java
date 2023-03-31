@@ -776,8 +776,10 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setTpBondNo(rs.getString("ROAD_TP_BOND_NO"));
 			objMod.setNeCargoMovmnt(rs.getString("NE_CARGO_MOVMNT"));
 			objMod.setConsigneeName(rs.getString("CONSIGNEE_NAME"));
-			objMod.setFlag_discharge(rs.getString("FLAG_DISCHARGE"));
-
+			objMod.setFlag_discharge(rs.getString("FLAG_DISCHARGE")); 
+			objMod.setBlDischargedStatus(rs.getString("BL_DISCHARGE_STATUS"));
+			objMod.setFlagRob(rs.getString("FLAG_ROB"));
+			
 			objMod.setFetch(true);
 			if(isUpdateSaved) {
 				objMod.setSaveFlags("I");
@@ -803,7 +805,7 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 		public Object mapRow(ResultSet rs, int row) throws SQLException {
 			// System.out.println("#IGMLogger mapRow() started..");
 			ImportGeneralManifestMod objMod = new ImportGeneralManifestMod();
-			
+
 			objMod.setBl(rs.getString("BL_NO")); 
 			objMod.setBlDate(rs.getString("BL_DATE"));
 			objMod.setVessel(rs.getString("VESSEL"));
@@ -829,6 +831,7 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			
 //			objMod.setBlType(rs.getString("BL_TYPE"));
 			objMod.setConsigneeName(rs.getString("CONSIGNEE_NAME"));
+//			objMod.setBl_discharged_status(rs.getString("BL_DISCHARGE_STATUS"));
 			objMod.setFetch(false);
 			objMod.setSaveFlags("N");
 			return objMod;

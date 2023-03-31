@@ -559,7 +559,7 @@ public class IGMNewScreenSvc extends BaseAction {
 			containerDao.setContainerDetails(blObj, IGMContainerDao.RCL_IGM_GET_SAVE_CONTAINOR);
 			objConsignerDao.setConsignerData(blObj, IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER);
 			objConsigneeDao.setConsigneeData(blObj, IGMConsigneeDataDao.RCL_IGM_GET_SAVE_CONSIGNEE);
-			objNotifyPartyDao.setNotifyPartyData(blObj, IGMNodifyPartyDao.RCL_IGM_GET_SAVE_NODIFY_PARTY_DESCRIPTION);
+			objNotifyPartyDao.setNotifyPartyData(blObj, IGMNodifyPartyDao.RCL_IGM_GET_SAVE_NODIFY_PARTY_DESCRIPTION_IMPORT);
 			objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_SAVE_MARKS_DESCRIPTION);
 			objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION);
 			objDao.getBLDataNewForSome(mapParam, IGMDaoNew.SQL_EXTRA);
@@ -712,7 +712,10 @@ public class IGMNewScreenSvc extends BaseAction {
 		    List<ImportGeneralManifestResultSet> finalResult = new ArrayList<>();
 		 
 			List<ImportGeneralManifestMod> bls = new ArrayList<ImportGeneralManifestMod>();
-			 
+			List<ImportGeneralManifestMod> withOutDischargeUniqueBlList = new ArrayList<ImportGeneralManifestMod>();
+			uniqueRecords = uniqueRecords.stream().filter(o->o.getBlDischargedStatus() == null || o.getBlDischargedStatus().trim().equals("")
+					|| !o.getBlDischargedStatus().trim().equals("BL DISCHARGED")).collect(Collectors.toList()); 
+		
 			// first cargomovement to be sorted as per LC and TI
 			List<ImportGeneralManifestMod> listWithItemNumbers = uniqueRecords.stream()
 					.filter(o -> o.getItemNumber() != null && !o.getItemNumber().trim().equals(""))

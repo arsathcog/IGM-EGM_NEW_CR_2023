@@ -665,6 +665,7 @@ public class ImportGeneralManifestMod implements Cloneable {
 	private String package_kind;
 	
 	private int commodity_seq;
+
 	
 //	Name for port
 	private String port_of_call_name_last3;
@@ -715,6 +716,8 @@ public class ImportGeneralManifestMod implements Cloneable {
 	
 	private String dnDischargePort;
 	private String flag_discharge;
+	private String blDischargedStatus;
+	private String flagRob;
 	
 
 	
@@ -3800,6 +3803,22 @@ public class ImportGeneralManifestMod implements Cloneable {
 
 	public void setFlag_discharge(String flag_discharge) {
 		this.flag_discharge = flag_discharge;
+	}
+	
+	public String getBlDischargedStatus() {
+		return blDischargedStatus;
+	}
+
+	public void setBlDischargedStatus(String blDischargedStatus) {
+		this.blDischargedStatus = blDischargedStatus;
+	}
+
+	public String getFlagRob() {
+		return flagRob;
+	}
+
+	public void setFlagRob(String flagRob) {
+		this.flagRob = flagRob;
 	}
 
 	@Override
