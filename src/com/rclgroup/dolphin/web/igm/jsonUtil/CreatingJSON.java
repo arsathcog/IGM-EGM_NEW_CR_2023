@@ -510,8 +510,12 @@ public class CreatingJSON {
 			mCRefClassObj.setLineNo(blObj.getItemNumber()); // Line 60    
 			mCRefClassObj.setMstrBlNo(settingLength(blObj.getBl(),20)); // Line 53
 			mCRefClassObj.setMstrBlDt(blObj.getBlDate()); // Line 53
-			mCRefClassObj.setConsolidatedIndctr(service.getAgentCode());// Line 76   //TODO
-		
+			if(blObj.getHouseBl().equals("") && blObj.getHouseBl()!= null ) {
+				mCRefClassObj.setConsolidatedIndctr("S");// Line 76   //TODO
+			}else {
+				mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
+			}
+
 			if(blObj.getPod().substring(0, 2).equals("IN")) {
 				mCRefClassObj.setPrevDec(("N"));
 			}else if(blObj.getNextport1().substring(0,2).equals("IN")) {
@@ -534,7 +538,7 @@ public class CreatingJSON {
 			trnsprtDocClassObj.setPrtOfReceiptName( settingLength(blObj.getRecieptName(),256));			
 			trnsprtDocClassObj.setPrtOfReceiptCdd(settingLength(blObj.getDn_pld(),10));
 			trnsprtDocClassObj.setPrtOfAcptCdd( settingLength(blObj.getDn_plr(),6));							//TODO  guru
-			trnsprtDocClassObj.setPrtOfReceiptCdd(settingLength(blObj.getPort_of_receipt(),10));
+//			trnsprtDocClassObj.setPrtOfReceiptCdd(settingLength(blObj.getPort_of_receipt(),10));
 //			trnsprtDocClassObj.setTypOfCd(pol);
 //			trnsprtDocClassObj.setUcrTyp(settingLength(blObj.getUcr_type(),3));	  Guru said to comment 		 								//TODO  guru
 //			trnsprtDocClassObj.setUcrCd(settingLength(blObj.getUcr_code(),35));	 Guru said to comment
@@ -855,9 +859,17 @@ public class CreatingJSON {
 					trnsprtDocClassObj.setNotfdPartyCntryCd( settingLength(notyObj.getCountryCode(),2));
 					trnsprtDocClassObj.setNotfdPartyPstcd( settingLength(notyObj.getZip(),9));
 					trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(notyObj.getCostumerCode(),3));
+					if(!notyObj.getNotifyPan().equals("") || notyObj.getNotifyPan() != null) {
+						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(notyObj.getNotifyPan(),17));
+					}else {
+						for (Consignee cnsneeDtl : consigneeDtls) {
+							trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
+						}
+					}
 				}
 			}
-			trnsprtDocClassObj.setPanOfNotfdParty(settingLength(blObj.getPan_of_notified_party(),17));
+			
+			
 			
 			for (Consignee cnsneeDtl : consigneeDtls) {
 				if ((blObj.getBl()).equals(cnsneeDtl.getBlNO()))
@@ -871,7 +883,14 @@ public class CreatingJSON {
 					trnsprtDocClassObj.setCnsgneCntrySubDiv(blObj.getGstStateCode());
 					trnsprtDocClassObj.setCnsgneCntryCd( settingLength(cnsneeDtl.getCountryCode(),2));
 					trnsprtDocClassObj.setCnsgnePstcd( settingLength(cnsneeDtl.getZip(),9));
-					trnsprtDocClassObj.setCnsgnesCd(settingLength(cnsneeDtl.getCustomerCode(),17));
+					if(cnsneeDtl.getConsigneIec().equals("") &&cnsneeDtl.getConsigneIec()!= null ) {
+						trnsprtDocClassObj.setCnsgnesCd(settingLength(cnsneeDtl.getConsigneIec(),17));
+					}else {
+						for (NotifyParty notyObj : notifyPartyDetailes) {
+						trnsprtDocClassObj.setCnsgnesCd(settingLength(notyObj.getNotifyIec(),17));
+						}
+					}
+				
 					trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(settingLength(cnsneeDtl.getCustomerName(),70));
 				}
 			}
@@ -893,11 +912,11 @@ public class CreatingJSON {
 				voyageTransportEquipmentClassObj.setEquipmentSealType(cntnerDtl.getEquipment_seal_type());
 				
 				voyageTransportEquipmentClassObj.setEquipmentSealNumber(cntnerDtl.getContainerSealNumber());
-				voyageTransportEquipmentClassObj.setContainerAgentCode(cntnerDtl.getContainerAgentCode()); 
+				voyageTransportEquipmentClassObj.setContainerAgentCode(service.getAgentCode()); 
 				voyageTransportEquipmentClassObj.setContainerWeight(cntnerDtl.getContainerWeight());
 				voyageTransportEquipmentClassObj.setTotalNumberOfPackages(cntnerDtl.getTotalNumberOfPackagesInContainer());
 //				voyageTransportEquipmentClassObj.setContainerBondFlag("D");
-				voyageTransportEquipmentClassObj.setStowagePositionOfContainer(pol);
+				voyageTransportEquipmentClassObj.setStowagePositionOfContainer(blObj.getStowageImport());
 				voyageTransportEquipmentList.add(voyageTransportEquipmentClassObj);
 			}
 			mster.setVoyageTransportEquipment(voyageTransportEquipmentList);   // Correct
@@ -1435,7 +1454,11 @@ public class CreatingJSON {
 			mCRefClassObj.setMstrBlDt(blObj.getMasterBlDate()); // Line 53
 			mCRefClassObj.setConsolidatedIndctr(blObj.getConsolidated_indicator());// Line 76
 			mCRefClassObj.setPrevDec(settingLength(blObj.getPrevious_declaration(),4)); // Line77
-			mCRefClassObj.setConsolidatorPan(settingLength(blObj.getConsolidator_pan(),16)); // Line 78
+			if(blObj.getHouseBl().equals("") && blObj.getHouseBl()!= null ) {
+				mCRefClassObj.setConsolidatedIndctr("S");// Line 76   //TODO
+			}else {
+				mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
+			}
 			
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);
 			
@@ -1546,8 +1569,8 @@ public class CreatingJSON {
 
 			//===============================================
 			
-			trnsprtDocClassObj.setPrtOfAcptName( settingLength(blObj.getPort_of_acceptance_name(),256));
-			trnsprtDocClassObj.setPrtOfReceiptName( settingLength(blObj.getPort_of_receipt_name(),256));
+			trnsprtDocClassObj.setPrtOfAcptName( settingLength(blObj.getAcceptanceName(),256));			//TODO  guru
+			trnsprtDocClassObj.setPrtOfReceiptName( settingLength(blObj.getRecieptName(),256));
 			trnsprtDocClassObj.setPrtOfAcptCdd( settingLength(blObj.getPort_of_acceptance(),6));
 			trnsprtDocClassObj.setPrtOfReceiptCdd( settingLength(blObj.getPort_of_receipt(),10));
 //			trnsprtDocClassObj.setUcrTyp(settingLength(blObj.getUcr_type(),3));  Guru said to comment 
@@ -3155,7 +3178,7 @@ public class CreatingJSON {
 			trnsprtDocClassObj.setPrtOfAcptName( settingLength(blObj.getPort_of_acceptance_name(),256));
 			trnsprtDocClassObj.setPrtOfReceiptName( settingLength(blObj.getPort_of_receipt_name(),256));
 			trnsprtDocClassObj.setPrtOfAcptCdd( settingLength(blObj.getPort_of_acceptance(),6));
-			trnsprtDocClassObj.setPrtOfReceiptCdd(settingLength(blObj.getPort_of_receipt(),10));
+			trnsprtDocClassObj.setPrtOfReceiptCdd( settingLength(blObj.getPort_of_receipt(),10));
 			trnsprtDocClassObj.setUcrTyp(settingLength(blObj.getUcr_type(),3));
 			trnsprtDocClassObj.setUcrCd( settingLength(blObj.getUcr_code(),35));	
 
@@ -3852,7 +3875,11 @@ public class CreatingJSON {
 			mCRefClassObj.setLineNo(settingLength(blObj.getBl(),20)); // Line 60
 			mCRefClassObj.setMstrBlNo(settingLength(blObj.getBl(),20)); // Line 53
 			mCRefClassObj.setMstrBlDt(blObj.getBlDate());// Line 53
-			mCRefClassObj.setConsolidatedIndctr(settingLength(blObj.getAgentCode(), 4));// Line 76
+			if(blObj.getHouseBl().equals("") && blObj.getHouseBl()!= null ) {
+				mCRefClassObj.setConsolidatedIndctr("S");// Line 76   //TODO
+			}else {
+				mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
+			}
 			
 			if(blObj.getPod().substring(0, 2).equals("IN")) {
 				mCRefClassObj.setPrevDec(("N"));
@@ -6514,7 +6541,11 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			mCRefClassObj.setMstrBlDt(blObj.getBlDate()); // Line 53
 			mCRefClassObj.setConsolidatedIndctr(settingLength(blObj.getAgentCode(),4));// Line 76
 			mCRefClassObj.setPrevDec(blObj.getPrevious_declaration()); // Line77
-			mCRefClassObj.setConsolidatorPan(settingLength(blObj.getAgentCode(),16));  // Line 78
+			if(blObj.getHouseBl().equals("") && blObj.getHouseBl()!= null ) {
+				mCRefClassObj.setConsolidatedIndctr("S");// Line 76   //TODO
+			}else {
+				mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
+			}
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);
 			mCRef.add(mCRefClassObj);
 			
@@ -6634,8 +6665,8 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			houseCargoDecSCEObj.setItemDtls(itemDtls);
 			// ------------------------------------------------------
 			TrnsprtDocSCE trnsprtDocClassObj = new TrnsprtDocSCE();
-			trnsprtDocClassObj.setPrtOfAcptName( settingLength(blObj.getPort_of_acceptance_name(),256));
-			trnsprtDocClassObj.setPrtOfReceiptName( settingLength(blObj.getPort_of_receipt_name(),256));
+			trnsprtDocClassObj.setPrtOfAcptName( settingLength(blObj.getAcceptanceName(),256));			//TODO  guru
+			trnsprtDocClassObj.setPrtOfReceiptName( settingLength(blObj.getRecieptName(),256));
 			trnsprtDocClassObj.setPrtOfAcptCdd( settingLength(blObj.getPort_of_acceptance(),6));
 			trnsprtDocClassObj.setPrtOfReceiptCdd( settingLength(blObj.getPort_of_receipt(),10));
 			trnsprtDocClassObj.setCnsgnrsName(generatedFileNameOfJson);	

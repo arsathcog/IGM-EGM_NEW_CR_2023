@@ -729,8 +729,7 @@
 				</td>
 				<td><input id="NotifyAdress2" type="text" class="seqCss" maxlength="9"
 					value="{{notifyParty.zip}}" ng-model="notifyParty.zip">
-						<input type="text" class="cargoCss" ng-model="notifyIec" value="notifyIec">
-						<input type="text" class="cargoCss" ng-model="notifyPan" value="notifyPan">
+						
 					</td>
 
 				<td class="veseelRemoveBorder" >Move to Consignee </td>

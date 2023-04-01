@@ -114,15 +114,24 @@ public class IGMMarksAndDescDaoImpl extends AncestorJdbcDao implements IGMMarksA
 //			marksnumber.setMarksNumbers(rs.getString("MARKS_NO"));
 
              String s2 = "(S)";
-//             if(rs.getString("MARKS_NO")!= null || !rs.getString("MARKS_NO").equals("null")) {
-            	 int i = rs.getString("MARKS_NO").lastIndexOf(s2);
-     			if(rs.getString("MARKS_NO").lastIndexOf(s2) != -1)
+             try {
+             if(rs.getString("MARKS_NO")!= null || !rs.getString("MARKS_NO").equals("null")) {
+//            	 int i = rs.getString("MARKS_NO").lastIndexOf(s2);
+     			if(rs.getString("MARKS_NO").lastIndexOf("(S)") != -1)
      			{
+     				 int i = rs.getString("MARKS_NO").lastIndexOf(s2);
 //     				System.out.println(rs.getString("MARKS_NO").substring(i+3));
      				marksnumber.setMarksNumbers(rs.getString("MARKS_NO").substring(i+3));
+     			}else {
+     				marksnumber.setMarksNumbers(rs.getString("MARKS_NO"));
      			}
      			
-//             }
+            }else {
+            	marksnumber.setMarksNumbers(rs.getString("MARKS_NO"));
+            }
+             }catch (Exception e) {
+            	 marksnumber.setMarksNumbers(rs.getString("MARKS_NO"));
+			}
 			
 			marksnumber.setDescription(rs.getString("DESCRIPTION"));
 			marksnumber.setBldate(rs.getString("bldate"));

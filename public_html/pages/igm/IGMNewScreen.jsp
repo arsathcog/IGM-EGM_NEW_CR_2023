@@ -1872,9 +1872,9 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 		   /* 	var selectedIndex = obj.blIndex; */
 		   $("body").append('<div class="loading"></div>');
 
-		   if ($scope.consignee.consigneeName != "BANK" || $scope.consignee.consigneeName != "TO THE ORDER OF" ||
-		      $scope.consignee.consigneeName != "TO ORDER" || $scope.consignee.consigneeName != "TO ORDER OF" &&
-		      $scope.notifyParty.notifyName == "SAME AS CONSIGNEE") {
+		   if ( ($scope.consignee.consigneeName != "BANK" || $scope.consignee.consigneeName != "TO THE ORDER OF" ||
+		      $scope.consignee.consigneeName != "TO ORDER" || $scope.consignee.consigneeName != "TO ORDER OF")&&
+		       $scope.notifyParty.notifyName == "SAME AS CONSIGNEE" ) {
 		      $scope.BLS[$scope.blIndex].notifyParty[0].costumerCode = $scope.BLS[$scope.blIndex].consignee[0].customerCode;
 		      $scope.BLS[$scope.blIndex].notifyParty[0].costumerName = $scope.BLS[$scope.blIndex].consignee[0].customerName;
 		      $scope.BLS[$scope.blIndex].notifyParty[0].addressLine1 = $scope.BLS[$scope.blIndex].consignee[0].addressLine1;
@@ -1890,21 +1890,21 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 
 		      $scope.notifyIec = $scope.consignee.consigneIec;
 		      $scope.notifyPan = $scope.consignee.consignePan;
-
-
+		      
 		      swal("Message", "Consignee Data copy to Notify Party.", "info");
 		      $("body").find('.loading').remove();
-		   } else if ($scope.consignee.consigneeName != "BANK" || $scope.consignee.consigneeName != "TO THE ORDER OF" ||
-		      $scope.consignee.consigneeName != "TO ORDER" || $scope.consignee.consigneeName != "TO ORDER OF" &&
-		      $scope.notifyParty.forwader == "FWR") {
 
+		     
+		   } else if (($scope.consignee.consigneeName != "BANK" || $scope.consignee.consigneeName != "TO THE ORDER OF" ||
+		      $scope.consignee.consigneeName != "TO ORDER" || $scope.consignee.consigneeName != "TO ORDER OF" )&&
+		      $scope.notifyParty.forwader == "FWR") {
 
 		      $scope.consigneIec = $scope.consignee.consigneIec;
 		      $scope.notifyPan = $scope.notifyParty.notifyPan;
 
 
-		   } else if ($scope.notifyParty.countryCode != "IN" && $scope.consignee.portOfDischarge.substring(0, 2) == "IN" &&
-		      $scope.notifyParty.notifyName != "SAME AS CONSIGNEE" || $scope.notifyParty.forwader != "FWR") {
+		   } else if (($scope.notifyParty.countryCode != "IN" && $scope.consignee.portOfDischarge.substring(0, 2) == "IN")&&
+		     ( $scope.notifyParty.notifyName != "SAME AS CONSIGNEE" || $scope.notifyParty.forwader != "FWR")) {
 
 		      $scope.BLS[$scope.blIndex].notifyParty[0].costumerCode = $scope.BLS[$scope.blIndex].consignee[0].customerCode;
 		      $scope.BLS[$scope.blIndex].notifyParty[0].costumerName = $scope.BLS[$scope.blIndex].consignee[0].customerName;
@@ -1922,9 +1922,9 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 		      $scope.notifyIec = $scope.consignee.consigneIec;
 		      $scope.notifyPan = $scope.consignee.consignePan;
 
-		   } else if ($scope.consignee.consigneeName == "BANK" || $scope.consignee.consigneeName == "TO THE ORDER OF" ||
-		      $scope.consignee.consigneeName == "TO ORDER" || $scope.consignee.consigneeName == "TO ORDER OF" &&
-		      $scope.notifyParty.notifyName != "SAME AS CONSIGNEE" || $scope.notifyParty.forwader != "FWR") {
+		   } else if (($scope.consignee.consigneeName == "BANK" || $scope.consignee.consigneeName == "TO THE ORDER OF" ||
+		      $scope.consignee.consigneeName == "TO ORDER" || $scope.consignee.consigneeName == "TO ORDER OF" )&&
+		      ($scope.notifyParty.notifyName != "SAME AS CONSIGNEE" || $scope.notifyParty.forwader != "FWR")) {
 		      $scope.BLS[$scope.blIndex].consignee[0].customerCode = $scope.BLS[$scope.blIndex].notifyParty[0].costumerCode;
 		      $scope.BLS[$scope.blIndex].consignee[0].costumerName = $scope.BLS[$scope.blIndex].notifyParty[0].costumerName;
 		      $scope.BLS[$scope.blIndex].consignee[0].addressLine1 = $scope.BLS[$scope.blIndex].notifyParty[0].addressLine1;
@@ -1944,8 +1944,8 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 
 		      swal("Message", "Notify Party Data copy to Consignee.", "info");
 		      $("body").find('.loading').remove();
-		   } else if ($scope.consignee.consigneeName != "BANK" || $scope.consignee.consigneeName != "TO THE ORDER OF" ||
-		      $scope.consignee.consigneeName != "TO ORDER" || $scope.consignee.consigneeName != "TO ORDER OF" &&
+		   } else if (($scope.consignee.consigneeName != "BANK" || $scope.consignee.consigneeName != "TO THE ORDER OF" ||
+		      $scope.consignee.consigneeName != "TO ORDER" || $scope.consignee.consigneeName != "TO ORDER OF" )&&
 		      $scope.notifyParty.countryCode != "IN" && $scope.consignee.portOfDischarge.substring(0, 2) == "IN") {
 		      $scope.BLS[$scope.blIndex].consignee[0].customerCode = $scope.BLS[$scope.blIndex].notifyParty[0].costumerCode;
 		      $scope.BLS[$scope.blIndex].consignee[0].costumerName = $scope.BLS[$scope.blIndex].notifyParty[0].costumerName;
@@ -1969,6 +1969,11 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 		   } else if ($scope.notifyParty.notifyFwr == "FWR") {
 		      $scope.notifyPan = $scope.notifyParty.notifyPan;
 		   } else {
+			   $scope.consigneIec = $scope.consignee.consigneIec;
+			   $scope.consignePan = $scope.consignee.consignePan;
+			   $scope.notifyIec = $scope.notifyParty.notifyIec;
+			   $scope.notifyPan = $scope.notifyParty.notifyPan;
+			   
 			   
 		   }
 		}
