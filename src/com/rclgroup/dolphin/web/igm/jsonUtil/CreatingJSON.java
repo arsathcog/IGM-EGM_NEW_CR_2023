@@ -510,7 +510,7 @@ public class CreatingJSON {
 			mCRefClassObj.setLineNo(blObj.getItemNumber()); // Line 60    
 			mCRefClassObj.setMstrBlNo(settingLength(blObj.getBl(),20)); // Line 53
 			mCRefClassObj.setMstrBlDt(blObj.getBlDate()); // Line 53
-			if(blObj.getHouseBl().equals("") && blObj.getHouseBl()!= null ) {
+			if(!blObj.getHouseBl().equals("") ||  blObj.getHouseBl()!= null ) {
 				mCRefClassObj.setConsolidatedIndctr("S");// Line 76   //TODO
 			}else {
 				mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
@@ -6649,6 +6649,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			
 			houseCargoDecSCEObj.setTrnsprtDocMsr(trnsprtDocMsr);
 			// ------------------------------------------------------
+			if(blObj.getConsolidatedIndicator().equals("S")) {
 			ItemDtlsSCE itemDtlsClassObj = new ItemDtlsSCE();
 			// trnsprtEqmtClassObj.setHSCE((String)blObj.get(" ")); not cleared by guru
 			itemDtlsClassObj.setCrgoItemSeqNmbr(blObj.getCommodity_seq()+"");
@@ -6662,6 +6663,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			itemDtlsClassObj.setHsCd(blObj.getCommdity_code());
 			itemDtls.add(itemDtlsClassObj);
 			mastrCnsgmtDec.setItemDtls(itemDtlsClassObj);
+			}
 			houseCargoDecSCEObj.setItemDtls(itemDtls);
 			// ------------------------------------------------------
 			TrnsprtDocSCE trnsprtDocClassObj = new TrnsprtDocSCE();
@@ -6691,10 +6693,17 @@ ImportGeneralManifestMod objForm = blList.get(0);
 					trnsprtDocClassObj.setNotfdPartyCntryCd( settingLength(notyObj.getCountryCode(),2));
 					trnsprtDocClassObj.setNotfdPartyPstcd( settingLength(notyObj.getZip(),9));
 					trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(notyObj.getCostumerCode(),3));
+					if(!notyObj.getNotifyPan().equals("") || notyObj.getNotifyPan() != null) {
+						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(notyObj.getNotifyPan(),17));
+					}else {
+						for (Consignee cnsneeDtl : consigneeDtls) {
+							trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
+						}
+					}
 				}
 			}
-			trnsprtDocClassObj.setPanOfNotfdParty( settingLength(blObj.getPan_of_notified_party(),17));
-			trnsprtDocClassObj.setTypOfCd(pol);
+//			trnsprtDocClassObj.setPanOfNotfdParty( settingLength(blObj.getPan_of_notified_party(),17));
+//			trnsprtDocClassObj.setTypOfCd(pol);
 			// ------------------------------------------------------------------
 			for (MarksNumber marksAndNumberDtls : marksNumberDtls) {
 
@@ -6724,8 +6733,13 @@ ImportGeneralManifestMod objForm = blList.get(0);
 					trnsprtDocClassObj.setCnsgneCntrySubDiv(blObj.getGstStateCode());
 					trnsprtDocClassObj.setCnsgneCntryCd(settingLength(cnsneeDtl.getCountryCode(),2));
 					trnsprtDocClassObj.setCnsgnePstcd( settingLength(cnsneeDtl.getZip(),9));
-					trnsprtDocClassObj.setCnsgnesCd( settingLength(cnsneeDtl.getCustomerCode(),17));
-					trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(settingLength(cnsneeDtl.getCustomerName(),70));
+					if(cnsneeDtl.getConsigneIec().equals("") &&cnsneeDtl.getConsigneIec()!= null ) {
+						trnsprtDocClassObj.setCnsgnesCd(settingLength(cnsneeDtl.getConsigneIec(),17));
+					}else {
+						for (NotifyParty notyObj : notifyPartyDetailes) {
+						trnsprtDocClassObj.setCnsgnesCd(settingLength(notyObj.getNotifyIec(),17));
+						}
+					}
 				}
 			}
 
