@@ -863,6 +863,7 @@ public class CreatingJSON {
 					trnsprtDocClassObj.setNotfdPartyCntryCd( settingLength(notyObj.getCountryCode(),2));
 					trnsprtDocClassObj.setNotfdPartyPstcd( settingLength(notyObj.getZip(),9));
 					trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(notyObj.getCostumerCode(),3));
+					try {
 					if(!notyObj.getNotifyPan().equals("") || notyObj.getNotifyPan() != null) {
 						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(notyObj.getNotifyPan(),17));
 					}else {
@@ -870,6 +871,11 @@ public class CreatingJSON {
 							trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
 						}
 					}
+				}catch (Exception e) {
+					for (Consignee cnsneeDtl : consigneeDtls) {
+						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
+					}
+				}
 				}
 			}
 			
@@ -6703,9 +6709,15 @@ ImportGeneralManifestMod objForm = blList.get(0);
 					trnsprtDocClassObj.setNotfdPartyCntryCd( settingLength(notyObj.getCountryCode(),2));
 					trnsprtDocClassObj.setNotfdPartyPstcd( settingLength(notyObj.getZip(),9));
 					trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(notyObj.getCostumerCode(),3));
+					try {
 					if(!notyObj.getNotifyPan().equals("") || notyObj.getNotifyPan() != null) {
 						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(notyObj.getNotifyPan(),17));
 					}else {
+						for (Consignee cnsneeDtl : consigneeDtls) {
+							trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
+						}
+					}
+					}catch (Exception e) {
 						for (Consignee cnsneeDtl : consigneeDtls) {
 							trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
 						}
@@ -6744,7 +6756,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 					trnsprtDocClassObj.setCnsgneCntryCd(settingLength(cnsneeDtl.getCountryCode(),2));
 					trnsprtDocClassObj.setCnsgnePstcd( settingLength(cnsneeDtl.getZip(),9));
 					try {
-						if(  cnsneeDtl.getConsigneIec()!= null || !cnsneeDtl.getConsigneIec().equals("") ) {
+						if(cnsneeDtl.getConsigneIec()!= null || !cnsneeDtl.getConsigneIec().equals("") ) {
 							trnsprtDocClassObj.setCnsgnesCd(settingLength(cnsneeDtl.getConsigneIec(),17));
 						}else {
 							for (NotifyParty notyObj : notifyPartyDetailes) {
