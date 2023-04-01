@@ -84,7 +84,7 @@
             <td><input type="text" class="roundshap2"
                
                ng-model="selectedServcies.fromItemNo" ></td>
-            <td><input type="text" class="roundshap2"
+            <td><input type="text" onkeypress="return onlyNumberKey(event)" class="roundshap2"
                value="{{changefromItemNo()}}"
                ng-model="selectedServcies.toItemNo" disabled="disabled"></td>
             <td><input type="text" class="roundshap2"
@@ -113,4 +113,15 @@
             <!-- </td> -->
          </tr>
       </table>
+      
+        <script>
+		function onlyNumberKey(evt) {
+			
+			// Only ASCII character in that range allowed
+			var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+			if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+				return false;
+			return true;
+		}
+	</script>
    
