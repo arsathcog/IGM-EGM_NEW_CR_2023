@@ -1717,6 +1717,12 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	$scope.containerStatusArray=["FCL","LCL","EMP"];
 	$scope.cargoNatureArray=["C","CP","DB","LB","P"];
 	$scope.unitArray=["KGS","MTS","MBT"];
+	$scope.users = [
+		{value:'Excel', name: 'Excel' },
+		{value:'ACK File', name: 'ACK File'},
+	  ]
+	  $scope.selected = 3;
+	$scope.fileTypeArray = ["Excel","ACK File"];
 	$scope.cargoMovmentArray=["LC","TI","TC","DT","FT"];
 	$scope.itemTypeArray = ["LC", "MT" , "PE" , "TC" , "TI" , "GC"];
 	$scope.currencyArray=["INR","USD"];
@@ -1921,6 +1927,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 
 		      $scope.notifyIec = $scope.consignee.consigneIec;
 		      $scope.notifyPan = $scope.consignee.consignePan;
+		      $("body").find('.loading').remove();
 
 		   } else if (($scope.consignee.consigneeName == "BANK" || $scope.consignee.consigneeName == "TO THE ORDER OF" ||
 		      $scope.consignee.consigneeName == "TO ORDER" || $scope.consignee.consigneeName == "TO ORDER OF" )&&
@@ -1962,17 +1969,21 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 
 		      $scope.consigneIec = $scope.notifyParty.notifyIec;
 		      $scope.consignePan = $scope.notifyParty.notifyPan;
+		      $("body").find('.loading').remove();
 
 
 		   } else if ($scope.consignee.consigneFwr == "FWR") {
 		      $scope.consignePan = $scope.consignee.consignePan;
+		      $("body").find('.loading').remove();
 		   } else if ($scope.notifyParty.notifyFwr == "FWR") {
 		      $scope.notifyPan = $scope.notifyParty.notifyPan;
+		      $("body").find('.loading').remove();
 		   } else {
 			   $scope.consigneIec = $scope.consignee.consigneIec;
 			   $scope.consignePan = $scope.consignee.consignePan;
 			   $scope.notifyIec = $scope.notifyParty.notifyIec;
 			   $scope.notifyPan = $scope.notifyParty.notifyPan;
+			   $("body").find('.loading').remove();
 			   
 			   
 		   }
@@ -2155,6 +2166,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				$scope.BLS = data.data.blDetails;
 				$scope.selectAllFetch = true;
 				document.getElementById("subCheckBox").checked = true;
+				/* $scope.getExtraDetails(); */
 			});
 			
 	}
@@ -2166,8 +2178,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 		var totalNmbrOfLinesCount = 0;
 		var containerMsBlCount = 0;
 		var countMsBl = 0 ;
-		
-		
+
 		console.log(this);
 		//$scope.selectedServcies.totalItems=
 			if($scope.BLS.length==0){
@@ -2849,6 +2860,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 	    });
 	
 	}
+	
 
 
 	$scope.getCarogoDetails=function() {
