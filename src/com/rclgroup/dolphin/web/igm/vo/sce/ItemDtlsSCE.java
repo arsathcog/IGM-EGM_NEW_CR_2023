@@ -12,15 +12,15 @@ public class ItemDtlsSCE {
 	private String imdgCd;
 	private String nmbrOfPkgs;
 	private String typOfPkgs;
-	private String amendment;
+//	private String amendment;
 
-  	public String getAmendment() {
-  		return amendment;
-  	}
-
-  	public void setAmendment(String amendment) {
-  		this.amendment = amendment;
-  	}
+//  	public String getAmendment() {
+//  		return amendment;
+//  	}
+//
+//  	public void setAmendment(String amendment) {
+//  		this.amendment = amendment;
+//  	}
 	public String getHsCd() {
 		return hsCd;
 	}

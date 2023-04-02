@@ -13,7 +13,7 @@ public class TrnsprtDocMsrSCE {
 //	private String crncyCd;
 	private String grossVolume;
 	private String unitOfVolume;
-	 private String amendment;
+//	 private String amendment;
 	public String getNmbrOfPkgs() {
 		return nmbrOfPkgs;
 	}
@@ -96,11 +96,11 @@ public class TrnsprtDocMsrSCE {
 	public void setUnitOfVolume(String unitOfVolume) {
 		this.unitOfVolume = unitOfVolume;
 	}
-	public String getAmendment() {
-		return amendment;
-	}
-	public void setAmendment(String amendment) {
-		this.amendment = amendment;
-	}
+//	public String getAmendment() {
+//		return amendment;
+//	}
+//	public void setAmendment(String amendment) {
+//		this.amendment = amendment;
+//	}
  	
 }

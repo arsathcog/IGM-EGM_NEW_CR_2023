@@ -36,15 +36,15 @@ public class TrnsprtDocSCE {
 	private String goodsDescAsPerBl;
 //	private String ucrTyp;
 //	private String ucrCd;
-	private String amendment;
+//	private String amendment;
 	private String cnsgneCntrySubDivName;
-	public String getAmendment() {
-		return amendment;
-	}
-
-	public void setAmendment(String amendment) {
-		this.amendment = amendment;
-	}
+//	public String getAmendment() {
+//		return amendment;
+//	}
+//
+//	public void setAmendment(String amendment) {
+//		this.amendment = amendment;
+//	}
 
   //This value is come from BL Json object "Port of Acceptance"  (Add new field  BL POL in BL section)
 	public String getPrtOfAcptCdd() {

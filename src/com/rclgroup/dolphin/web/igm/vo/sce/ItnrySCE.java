@@ -9,15 +9,15 @@ public class ItnrySCE {
 	private String nxtPrtOfCallCdd;
 	private String nxtPrtOfCallName;
 	private String modeOfTrnsprt;
-	private String amendment;
+//	private String amendment;
 
-  	public String getAmendment() {
-  		return amendment;
-  	}
-
-  	public void setAmendment(String amendment) {
-  		this.amendment = amendment;
-  	}
+//  	public String getAmendment() {
+//  		return amendment;
+//  	}
+//
+//  	public void setAmendment(String amendment) {
+//  		this.amendment = amendment;
+//  	}
 
      //This value is come from BL Json object  "Port of call sequence numbe"
 	public String getPrtOfCallSeqNmbr() {
