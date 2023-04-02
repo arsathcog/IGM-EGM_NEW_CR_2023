@@ -2549,7 +2549,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 		$scope.blIndex = $scope.blIndex+1;
 		$scope.selectedBL= $scope.BLS[$scope.blIndex]
 		$scope.getCarogoDetails();
-		$scope.getExtraDetails();
+		/* $scope.getExtraDetails(); */
 		if(($scope.selectedBL.isBlSave == 'true' || $scope.selectedBL.isBlSave == true) && ($scope.selectedBL.itemNumber !=null || $scope.selectedBL.itemNumber !="")){
 			$scope.selectedBL.saveFlags="U"
 		}
@@ -2562,7 +2562,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
     	$scope.blIndex = $scope.blIndex-1;
 		$scope.selectedBL= $scope.BLS[$scope.blIndex]
 		$scope.getCarogoDetails();
-		$scope.getExtraDetails();
+		/* $scope.getExtraDetails(); */
 		if(($scope.selectedBL.isBlSave == 'true' || $scope.selectedBL.isBlSave == true) && ($scope.selectedBL.itemNumber !=null || $scope.selectedBL.itemNumber !="")){
 			$scope.selectedBL.saveFlags="U"
 		}

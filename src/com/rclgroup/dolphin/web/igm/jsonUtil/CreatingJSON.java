@@ -579,7 +579,11 @@ public class CreatingJSON {
 				// trnsprtEqmtClassObj.setHsCd((String)blObj.get(" ")); not cleared by guru
 				itemDtlsClassObj.setCrgoItemSeqNmbr( settingLength(blObj.getCommodity_seq()+"",5));				//TODO  guru
 				itemDtlsClassObj.setCrgoItemDesc( settingLength(blObj.getCargo_item_description(),256));					//TODO  guru
-				itemDtlsClassObj.setUnoCd( settingLength(blObj.getUno_code(),5));										
+				if(blObj.getDgFlag() != null && blObj.getDgFlag().equals(" ") ) {
+					itemDtlsClassObj.setUnoCd( settingLength(blObj.getUno_code(),5));
+					}else {
+						itemDtlsClassObj.setUnoCd( settingLength("ZZZZZ",5));
+					}									
 				itemDtlsClassObj.setImdgCd( settingLength(blObj.getImdg_code(),3));										//TODO  guru
 				itemDtlsClassObj.setNmbrOfPkgs( settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6)); 
 				
@@ -6543,12 +6547,18 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			
 			
 			ItnrySCE itnryClassObj = new ItnrySCE();
-			itnryClassObj.setPrtOfCallSeqNmbr(settingLength(blObj.getPort_of_call_sequence_number(),5));
-		    itnryClassObj.setModeOfTrnsprt(blObj.getCargoMovmnt());
-			itnryClassObj.setNxtPrtOfCallCdd(settingLength("NSA",10));
-			itnryClassObj.setNxtPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));
-			itnryClassObj.setPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));
-			itnryClassObj.setPrtOfCallCdd (settingLength("SHK",10));
+			if(blObj.getPortOfLoading()!= null && blObj.getPod()!= null) {
+				itnryClassObj.setPrtOfCallSeqNmbr(settingLength("1",5)); 
+			}else if (blObj.getPortOfLoading()!= null && blObj.getPod()!= null && blObj.getPortOfDestination() != null ) {
+				itnryClassObj.setPrtOfCallSeqNmbr(settingLength("2",5)); 		
+			}else if(blObj.getPortOfLoading()!= null && blObj.getPod()!= null && 
+					blObj.getPortOfDestination() != null && blObj.getPortOfDeschargedCfs() != null ) {
+				itnryClassObj.setPrtOfCallSeqNmbr(settingLength("3",5)); 
+			}
+			itnryClassObj.setNxtPrtOfCallCdd(settingLength(blObj.getPod(),10));    //TODO  guru
+			itnryClassObj.setNxtPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));		//TODO  guru
+			itnryClassObj.setPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));			//TODO  guru
+			itnryClassObj.setPrtOfCallCdd(settingLength(blObj.getPortOfLoading(),10));				//TODO  guru
 			itnryClassObj.setModeOfTrnsprt(settingLength(blObj.getMode_of_transport(),4));
 			itnry.add(itnryClassObj);
 			mastrCnsgmtDec.setItnry(itnryClassObj);
@@ -6705,6 +6715,8 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			itemDtlsClassObj.setCrgoItemDesc( settingLength(blObj.getCargo_item_description(),256));
 			if(blObj.getDgFlag() != null && blObj.getDgFlag().equals(" ") ) {
 			itemDtlsClassObj.setUnoCd( settingLength(blObj.getUno_code(),5));
+			}else {
+				itemDtlsClassObj.setUnoCd( settingLength("ZZZZZ",5));
 			}
 			itemDtlsClassObj.setImdgCd( settingLength(blObj.getImdg_code(),3));
 			itemDtlsClassObj.setNmbrOfPkgs(settingLength(blObj.getTotal_number_of_packages(),8)); 
@@ -6732,34 +6744,35 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			for (NotifyParty notyObj : notifyPartyDetailes) {
 
 				if ((blObj.getBl()).equals(notyObj.getBlNo())) {
-					String add = (String) notyObj.getAddressLine1() + notyObj.getAddressLine2()
-							+ (String) notyObj.getAddressLine3() + (String) notyObj.getAddressLine4();
-					// set all values in TrnsprtDoc Class Obj
-					trnsprtDocClassObj.setNotfdPartyStreetAddress(settingLength(add,70));
+					String add =  notyObj.getAddressLine1() + notyObj.getAddressLine2()
+							+  notyObj.getAddressLine3() +  notyObj.getAddressLine4();
+					trnsprtDocClassObj.setNotfdPartyStreetAddress(settingLength(add,256));
 					trnsprtDocClassObj.setNotfdPartyCity( settingLength(notyObj.getCity(),70));
-					trnsprtDocClassObj.setNotfdPartyCntrySubDivName( settingLength(notyObj.getState(),35));
-				    trnsprtDocClassObj.setNotfdPartyCntrySubDiv((""));
+					trnsprtDocClassObj.setNotfdPartyCntrySubDivName( settingLength(notyObj.getState(),35)); // will be provided by customer
 					trnsprtDocClassObj.setNotfdPartyCntryCd( settingLength(notyObj.getCountryCode(),2));
 					trnsprtDocClassObj.setNotfdPartyPstcd( settingLength(notyObj.getZip(),9));
-					trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(notyObj.getCostumerCode(),3));
 					try {
-					if(!notyObj.getNotifyPan().equals("") || notyObj.getNotifyPan() != null) {
+					if(!notyObj.getNotifyPan().equals("")) {
 						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(notyObj.getNotifyPan(),17));
-						trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(notyObj.getNotifyPan(),13));
+						trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(notyObj.getNotifyPan(),3));
+						trnsprtDocClassObj.setTypOfCd( settingLength(notyObj.getNotifyPan(),3));
 					}else {
 						for (Consignee cnsneeDtl : consigneeDtls) {
 							trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
-							trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(cnsneeDtl.getConsignePan(),17));
+							trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(cnsneeDtl.getConsignePan(),3));
+							trnsprtDocClassObj.setTypOfCd( settingLength(cnsneeDtl.getConsignePan(),3));
 						}
 					}
-					}catch (Exception e) {
-						for (Consignee cnsneeDtl : consigneeDtls) {
-							trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
-							trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(cnsneeDtl.getConsignePan(),13));
-						}
+				}catch (Exception e) {
+					for (Consignee cnsneeDtl : consigneeDtls) {
+						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
+						trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(cnsneeDtl.getConsignePan(),3));
+						trnsprtDocClassObj.setTypOfCd( settingLength(cnsneeDtl.getConsignePan(),3));
 					}
+				  }
 				}
 			}
+			
 //			trnsprtDocClassObj.setPanOfNotfdParty( settingLength(blObj.getPan_of_notified_party(),17));
 //			trnsprtDocClassObj.setTypOfCd(pol);
 			// ------------------------------------------------------------------
@@ -6995,6 +7008,11 @@ ImportGeneralManifestMod objForm = blList.get(0);
 //			shipItnry.add(shipItnry33);
 //			// ------------------------------------------------------
 //			houseCargoDec.add(houseCargoDecSCEObj);
+			for (ContainerDetails cntnerDtl : containerDtls) {
+
+//				System.out.println("   coneeDtls  " + i + (cntnerDtl.getContainerSealNumber()));
+				containerCount++;
+			}
 			
 			mastrCnsgmtDecList.add(mastrCnsgmtDec);
 			mster.setMastrCnsgmtDec(mastrCnsgmtDecList);
@@ -7019,12 +7037,6 @@ ImportGeneralManifestMod objForm = blList.get(0);
 //		//mastrCnsgmtDec.setmCAdtnlDec(mcAdtnlDec);
 //		
 //		mastrCnsgmtDecList.add(mastrCnsgmtDec);
-		for (ContainerDetails cntnerDtl : containerDtls) {
-
-//			System.out.println("   coneeDtls  " + i + (cntnerDtl.getContainerSealNumber()));
-			containerCount++;
-		}
-
 		VoyageDtlsSCE voyageDtlsClassObj = new VoyageDtlsSCE();
 //		voyageDtlsClassObj.setVoyageNo(voyage); // Line10 not required 
 		voyageDtlsClassObj.setCnvnceRefNmbr(settingLength(service.getViaVcn(),35)); // Line 193
@@ -7221,7 +7233,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 		// "Default value: IECHE01"
 		headerFieldClassObj.setMessageID("SACHM22");
 		headerFieldClassObj.setSequenceOrControlNumber(getSeqNo+1);// old screen String sId (
-		headerFieldClassObj.setDate("T" + getTimeHeader());
+		headerFieldClassObj.setDate(getTimeHeader());
 		headerFieldClassObj.setTime("T" + getIsdTime());
 		// "Default value: ES"
 		headerFieldClassObj.setReportingEvent("SCE");

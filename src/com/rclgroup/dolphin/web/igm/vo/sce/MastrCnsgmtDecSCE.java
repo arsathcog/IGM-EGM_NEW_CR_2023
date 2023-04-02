@@ -11,10 +11,10 @@ public class MastrCnsgmtDecSCE {
 	private ItemDtlsSCE itemDtls;
 	private List<TrnsprtEqmtSCE> trnsprtEqmt;
 	private ItnrySCE itnry;
-	private PrevRefSCE prevRef;
+//	private PrevRefSCE prevRef;
 	private HouseCargoDecSCE houseCargoDec;
-	private List<MCSuprtDocsSCE> mCSuprtDocs;
-	private List<MCAdtnlDecSCE> mCAdtnlDec;
+//	private List<MCSuprtDocsSCE> mCSuprtDocs;
+//	private List<MCAdtnlDecSCE> mCAdtnlDec;
 	
 
 	public List<TrnsprtEqmtSCE> getTrnsprtEqmt() {
@@ -29,18 +29,18 @@ public class MastrCnsgmtDecSCE {
 	public void setHouseCargoDec(HouseCargoDecSCE houseCargoDec) {
 		this.houseCargoDec = houseCargoDec;
 	}
-	public List<MCSuprtDocsSCE> getmCSuprtDocs() {
-		return mCSuprtDocs;
-	}
-	public void setmCSuprtDocs(List<MCSuprtDocsSCE> mCSuprtDocs) {
-		this.mCSuprtDocs = mCSuprtDocs;
-	}
-	public List<MCAdtnlDecSCE> getmCAdtnlDec() {
-		return mCAdtnlDec;
-	}
-	public void setmCAdtnlDec(List<MCAdtnlDecSCE> mCAdtnlDec) {
-		this.mCAdtnlDec = mCAdtnlDec;
-	}
+//	public List<MCSuprtDocsSCE> getmCSuprtDocs() {
+//		return mCSuprtDocs;
+//	}
+//	public void setmCSuprtDocs(List<MCSuprtDocsSCE> mCSuprtDocs) {
+//		this.mCSuprtDocs = mCSuprtDocs;
+//	}
+//	public List<MCAdtnlDecSCE> getmCAdtnlDec() {
+//		return mCAdtnlDec;
+//	}
+//	public void setmCAdtnlDec(List<MCAdtnlDecSCE> mCAdtnlDec) {
+//		this.mCAdtnlDec = mCAdtnlDec;
+//	}
 	public MCRefSCE getmCRef() {
 		return mCRef;
 	}
@@ -83,12 +83,12 @@ public class MastrCnsgmtDecSCE {
 	public void setItnry(ItnrySCE itnry) {
 		this.itnry = itnry;
 	}
-	public PrevRefSCE getPrevRef() {
-		return prevRef;
-	}
-	public void setPrevRef(PrevRefSCE prevRef) {
-		this.prevRef = prevRef;
-	}
+//	public PrevRefSCE getPrevRef() {
+//		return prevRef;
+//	}
+//	public void setPrevRef(PrevRefSCE prevRef) {
+//		this.prevRef = prevRef;
+//	}
 	
 	
 	
