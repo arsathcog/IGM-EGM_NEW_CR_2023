@@ -6604,7 +6604,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 				}catch (Exception e) {
 					mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
 				}
-				
+		    mCRefClassObj.setConsolidatorPan(settingLength(service.getAgentCode(),16));
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);
 			mCRef.add(mCRefClassObj);
 			
@@ -6627,16 +6627,21 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			// ----------------------------
 			LocCstmSCE locCstmClassObj = new LocCstmSCE();
 
-			if(blObj.getPortOfDestination() != null || blObj.getPortOfDestination() != "") {
-				locCstmClassObj.setFirstPrtOfEntry( service.getPortArrival());
-			locCstmClassObj.setNxtPrtOfUnlading(settingLength("",6));  // New added
+			locCstmClassObj.setFirstPrtOfEntry( service.getPortArrival());
+			
+			if(!blObj.getPortOfDestination().equals(blObj.getPod())) {
+				  locCstmClassObj.setNxtPrtOfUnlading (settingLength(blObj.getPortOfDestination(),6)); // New added		
+				}else if(blObj.getPod().equals(blObj.getPortOfDestination())) {
+					locCstmClassObj.setNxtPrtOfUnlading (settingLength(blObj.getPod(),6)); // New added	
+				}
 //			locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),6)); // New added
+			
 			if(blObj.getPortOfDestination().equalsIgnoreCase(blObj.getPod()) ) {
 				locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDeschargedCfs(),6));
 			}else {
-				locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),6));
+				locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),8));
 			}
-			}
+		
 			
 //			locCstmClassObj.setTypOfCrgo(settingLength(blObj.getType_of_cargo(),2)); // Line 90
 			if(blObj.getPortOfDeschargedCfs() != null && blObj.getPortOfDeschargedCfs().equals(" ") && 
@@ -6649,7 +6654,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			}else if(! blObj.getPortOfDestination().substring(0, 2).equals("IN") && ! blObj.getPortOfDeschargedCfs().substring(0, 2).equals("IN")){
 				locCstmClassObj.setTypOfCrgo(settingLength("TR",2)); // both value is not india base 
 			}else if(blObj.getPortOfDestination().substring(0, 2)=="IN" && ! blObj.getPortOfDeschargedCfs().substring(0, 2).equals("IN")) {
-				locCstmClassObj.setTypOfCrgo(settingLength("TR",2)); //if portOfdest in india base and portOfDis in foreign base then
+				locCstmClassObj.setTypOfCrgo(settingLength(blObj.getType_of_cargo(),2)); //if portOfdest in india base and portOfDis in foreign base then
 			}
 			}
 			}
