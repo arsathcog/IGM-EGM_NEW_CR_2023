@@ -563,7 +563,7 @@ public class IGMNewScreenSvc extends BaseAction {
 			objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_SAVE_MARKS_DESCRIPTION);
 			objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION);
 			objDao.getBLDataNewForSome(mapParam, IGMDaoNew.SQL_EXTRA);
-			objDao.getStowageImport(mapParam, blsInput);
+			objDao.getStowageImport(mapParam,IGMDaoNew.SQL_STOWAGE_IMPORT);
 		}
 
 		if (objForm.getUnSavedBlList() != null && !objForm.getUnSavedBlList().equals("")) {
@@ -594,7 +594,7 @@ public class IGMNewScreenSvc extends BaseAction {
 			objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_MASTER_MARKS_DESCRIPTION);
 			objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_MASTER_PREV_DECLARATION);
 			objDao.getBLDataNewForSome(mapParam, IGMDaoNew.SQL_EXTRA);
-			objDao.getStowageImport(mapParam, blsInput);
+			objDao.getStowageImport(mapParam,IGMDaoNew.SQL_STOWAGE_IMPORT);
 		}	
 		
 		net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();

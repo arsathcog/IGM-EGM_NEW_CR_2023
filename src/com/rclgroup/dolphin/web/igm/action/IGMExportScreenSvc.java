@@ -644,6 +644,10 @@ System.out.println("getCarogoDetails() Called.");
 		    List<ImportGeneralManifestResultSet> finalResult = new ArrayList<>();
 		 
 			List<ImportGeneralManifestMod> bls = new ArrayList<ImportGeneralManifestMod>();
+			
+			List<ImportGeneralManifestMod> withOutDischargeUniqueBlList = new ArrayList<ImportGeneralManifestMod>();
+			uniqueRecords = uniqueRecords.stream().filter(o->o.getBlDischargedStatus() == null || o.getBlDischargedStatus().trim().equals("")
+					|| !o.getBlDischargedStatus().trim().equals("BL DISCHARGED")).collect(Collectors.toList()); 
 			 
 			// first cargomovement to be sorted as per LC and TI
 			List<ImportGeneralManifestMod> listWithItemNumbers = uniqueRecords.stream()
