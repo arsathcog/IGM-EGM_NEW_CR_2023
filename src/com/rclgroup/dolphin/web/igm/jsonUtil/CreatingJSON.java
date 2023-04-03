@@ -887,20 +887,20 @@ public class CreatingJSON {
 					try {
 					if(!notyObj.getNotifyPan().equals("")) {
 						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(notyObj.getNotifyPan(),17));
-						trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(notyObj.getNotifyPan(),3));
-						trnsprtDocClassObj.setTypOfCd( settingLength(notyObj.getNotifyPan(),3));
+						trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(notyObj.getNotifyPan(),30));
+						trnsprtDocClassObj.setTypOfCd( settingLength(notyObj.getNotifyPan(),30));
 					}else {
 						for (Consignee cnsneeDtl : consigneeDtls) {
 							trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
-							trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(cnsneeDtl.getConsignePan(),3));
-							trnsprtDocClassObj.setTypOfCd( settingLength(cnsneeDtl.getConsignePan(),3));
+							trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(cnsneeDtl.getConsignePan(),30));
+							trnsprtDocClassObj.setTypOfCd( settingLength(cnsneeDtl.getConsignePan(),30));
 						}
 					}
 				}catch (Exception e) {
 					for (Consignee cnsneeDtl : consigneeDtls) {
 						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
-						trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(cnsneeDtl.getConsignePan(),3));
-						trnsprtDocClassObj.setTypOfCd( settingLength(cnsneeDtl.getConsignePan(),3));
+						trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(cnsneeDtl.getConsignePan(),30));
+						trnsprtDocClassObj.setTypOfCd( settingLength(cnsneeDtl.getConsignePan(),30));
 					}
 				}
 				}
@@ -6507,8 +6507,8 @@ ImportGeneralManifestMod objForm = blList.get(0);
 		// Creating object of all class
 		
 		List<ShipItnrySCE> shipItnry = new ArrayList<ShipItnrySCE>();
-//		List<MCSuprtDocsSCE> mcSuprtDoc = new ArrayList<MCSuprtDocsSCE>();
-//		List<MCAdtnlDecSCE> mcAdtnlDec= new ArrayList<MCAdtnlDecSCE>();
+		List<MCSuprtDocsSCE> mcSuprtDoc = new ArrayList<MCSuprtDocsSCE>();
+		List<MCAdtnlDecSCE> mcAdtnlDec= new ArrayList<MCAdtnlDecSCE>();
 		List<MastrCnsgmtDecSCE> mastrCnsgmtDecList = new ArrayList<MastrCnsgmtDecSCE>();
 		
 	
@@ -6538,7 +6538,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			List<TrnsprtDocMsrSCE> trnsprtDocMsr = new ArrayList<TrnsprtDocMsrSCE>();
 			List<ItnrySCE> itnry = new ArrayList<ItnrySCE>();
 			List<TrnsprtDocSCE> trnsprtDoc = new ArrayList<TrnsprtDocSCE>();
-//			List<PrevRefSCE> prevRef = new ArrayList<PrevRefSCE>();
+			List<PrevRefSCE> prevRef = new ArrayList<PrevRefSCE>();
 			List<TrnshprSCE> trnshpr = new ArrayList<TrnshprSCE>();
 			List<HouseCargoDecSCE> houseCargoDec = new ArrayList<HouseCargoDecSCE>();
 			List<HCAdtnlDecSCE> hcAdtnlDec= new ArrayList<HCAdtnlDecSCE>();
@@ -6754,20 +6754,21 @@ ImportGeneralManifestMod objForm = blList.get(0);
 					try {
 					if(!notyObj.getNotifyPan().equals("")) {
 						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(notyObj.getNotifyPan(),17));
-						trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(notyObj.getNotifyPan(),3));
-						trnsprtDocClassObj.setTypOfCd( settingLength(notyObj.getNotifyPan(),3));
+						trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(notyObj.getNotifyPan(),30));
+						trnsprtDocClassObj.setTypOfCd( settingLength(notyObj.getNotifyPan(),30));
 					}else {
 						for (Consignee cnsneeDtl : consigneeDtls) {
 							trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
-							trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(cnsneeDtl.getConsignePan(),3));
-							trnsprtDocClassObj.setTypOfCd( settingLength(cnsneeDtl.getConsignePan(),3));
+							trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(cnsneeDtl.getConsignePan(),30));
+							trnsprtDocClassObj.setTypOfCd( settingLength(cnsneeDtl.getConsignePan(),30));
 						}
+						
 					}
 				}catch (Exception e) {
 					for (Consignee cnsneeDtl : consigneeDtls) {
 						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
-						trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(cnsneeDtl.getConsignePan(),3));
-						trnsprtDocClassObj.setTypOfCd( settingLength(cnsneeDtl.getConsignePan(),3));
+						trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(cnsneeDtl.getConsignePan(),30));
+						trnsprtDocClassObj.setTypOfCd( settingLength(cnsneeDtl.getConsignePan(),30));
 					}
 				  }
 				}
