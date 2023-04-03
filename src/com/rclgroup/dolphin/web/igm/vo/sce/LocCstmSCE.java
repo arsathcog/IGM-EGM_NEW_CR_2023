@@ -29,7 +29,7 @@ public class LocCstmSCE {
 	}
 
 	public void setFirstPrtOfEntry(String firstPrtOfEntry) {
-		firstPrtOfEntry = FiledValidation.isNullAndSetlength(firstPrtOfEntry, 6);
+//		firstPrtOfEntry = FiledValidation.isNullAndSetlength(firstPrtOfEntry, 6);
 		this.firstPrtOfEntry = firstPrtOfEntry;
 	}
 
@@ -39,7 +39,7 @@ public class LocCstmSCE {
 	}
   
 	public void setDestPrt(String destPrt) {
-		destPrt = FiledValidation.isNullAndSetlength(destPrt, 10);
+//		destPrt = FiledValidation.isNullAndSetlength(destPrt, 10);
 		this.destPrt = destPrt;
 	}
 //This value is come from BL Json object "MC Location Customsl"
@@ -48,7 +48,7 @@ public class LocCstmSCE {
 	}
 
 	public void setNxtPrtOfUnlading(String nxtPrtOfUnlading) {
-		nxtPrtOfUnlading = FiledValidation.isNullAndSetlength(nxtPrtOfUnlading, 10);
+//		nxtPrtOfUnlading = FiledValidation.isNullAndSetlength(nxtPrtOfUnlading, 10);
 		this.nxtPrtOfUnlading = nxtPrtOfUnlading;
 	}
    //This value is come from BL Json object "Type Of Cargo"
@@ -57,7 +57,7 @@ public class LocCstmSCE {
 	}
 
 	public void setTypOfCrgo(String typOfCrgo) {
-		typOfCrgo = FiledValidation.isNullAndSetlength(typOfCrgo, 2);
+//		typOfCrgo = FiledValidation.isNullAndSetlength(typOfCrgo, 2);
 		this.typOfCrgo = typOfCrgo;
 	}
 //This value is come from BL Json object  "Item Type"
@@ -66,7 +66,7 @@ public class LocCstmSCE {
 	}
 
 	public void setItemTyp(String itemTyp) {
-		itemTyp = FiledValidation.isNullAndSetlength(itemTyp, 2);
+//		itemTyp = FiledValidation.isNullAndSetlength(itemTyp, 2);
 		this.itemTyp = itemTyp;
 	}
 
@@ -76,7 +76,7 @@ public class LocCstmSCE {
 	}
 
 	public void setCrgoMvmt(String crgoMvmt) {
-		crgoMvmt = FiledValidation.isNullAndSetlength(crgoMvmt, 4);
+//		crgoMvmt = FiledValidation.isNullAndSetlength(crgoMvmt, 4);
 		this.crgoMvmt = crgoMvmt;
 	}
 
@@ -86,7 +86,7 @@ public class LocCstmSCE {
 	}
 
 	public void setNatrOfCrgo(String natrOfCrgo) {
-		natrOfCrgo = FiledValidation.isNullAndSetlength(natrOfCrgo, 4);
+//		natrOfCrgo = FiledValidation.isNullAndSetlength(natrOfCrgo, 4);
 		this.natrOfCrgo = natrOfCrgo;
 	}
 

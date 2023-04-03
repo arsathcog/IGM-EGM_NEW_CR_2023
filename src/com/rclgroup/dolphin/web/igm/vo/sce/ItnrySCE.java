@@ -46,7 +46,7 @@ public class ItnrySCE {
 	}
 
 	public void setPrtOfCallName(String prtOfCallName) {
-		prtOfCallName = FiledValidation.isNullAndSetlength(prtOfCallCdd, 10);
+//		prtOfCallName = FiledValidation.isNullAndSetlength(prtOfCallCdd, 10);
 		this.prtOfCallName = prtOfCallName;
 	}
  //This value is come from BL Json object   "Next port of call coded"
@@ -65,7 +65,7 @@ public class ItnrySCE {
 	}
 
 	public void setNxtPrtOfCallName(String nxtPrtOfCallName) {
-		nxtPrtOfCallName = FiledValidation.isNullAndSetlength(nxtPrtOfCallName, 256);
+//		nxtPrtOfCallName = FiledValidation.isNullAndSetlength(nxtPrtOfCallName, 256);
 		this.nxtPrtOfCallName = nxtPrtOfCallName;
 	}
 //This value is come from BL Json object   "modeofTransport"

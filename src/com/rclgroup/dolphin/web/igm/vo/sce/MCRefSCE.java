@@ -93,7 +93,7 @@ public class MCRefSCE {
 	}
 
 	public void setConsolidatorPan(String consolidatorPan) {
-		consolidatorPan = FiledValidation.isNullAndSetlength(consolidatorPan, 35);
+//		consolidatorPan = FiledValidation.isNullAndSetlength(consolidatorPan, 35);
 		this.consolidatorPan = consolidatorPan;
 	}
 }

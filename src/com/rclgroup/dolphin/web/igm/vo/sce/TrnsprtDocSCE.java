@@ -61,7 +61,7 @@ public class TrnsprtDocSCE {
 	}
 
 	public void setPrtOfAcptName(String prtOfAcptName) {
-		prtOfAcptName = FiledValidation.isNullAndSetlength(prtOfAcptName, 256);
+//		prtOfAcptName = FiledValidation.isNullAndSetlength(prtOfAcptName, 256);
 		this.prtOfAcptName = prtOfAcptName;
 	}
  //This value is come from BL Json object "porTrept" Add new field DEL which will come from BL DEL. .  make it 
