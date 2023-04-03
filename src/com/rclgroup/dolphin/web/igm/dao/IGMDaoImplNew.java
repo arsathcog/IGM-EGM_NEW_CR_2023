@@ -776,9 +776,14 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setTpBondNo(rs.getString("ROAD_TP_BOND_NO"));
 			objMod.setNeCargoMovmnt(rs.getString("NE_CARGO_MOVMNT"));
 			objMod.setConsigneeName(rs.getString("CONSIGNEE_NAME"));
+			
 			objMod.setFlag_discharge(rs.getString("FLAG_DISCHARGE")); 
 			objMod.setBlDischargedStatus(rs.getString("BL_DISCHARGE_STATUS"));
 			objMod.setFlagRob(rs.getString("FLAG_ROB"));
+			
+			objMod.setFlagRobDischarge(rs.getString("FLAG_ROB_DISCHARGE"));
+			objMod.setBlLoadStatus(rs.getString("BL_LOADED_STATUS"));
+			objMod.setFlagLoaded(rs.getString("FLAG_LOADED"));
 			
 			objMod.setFetch(true);
 			if(isUpdateSaved) {
