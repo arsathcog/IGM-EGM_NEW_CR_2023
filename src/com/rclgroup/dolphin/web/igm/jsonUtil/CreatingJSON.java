@@ -6628,7 +6628,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			LocCstmSCE locCstmClassObj = new LocCstmSCE();
 
 			if(blObj.getPortOfDestination() != null || blObj.getPortOfDestination() != "") {
-			locCstmClassObj.setFirstPrtOfEntry( settingLength (blObj.getPortArrival(),6));
+				locCstmClassObj.setFirstPrtOfEntry( service.getPortArrival());
 			locCstmClassObj.setNxtPrtOfUnlading(settingLength("",6));  // New added
 //			locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),6)); // New added
 			if(blObj.getPortOfDestination().equalsIgnoreCase(blObj.getPod()) ) {
@@ -6657,15 +6657,15 @@ ImportGeneralManifestMod objForm = blList.get(0);
 //			locCstmClassObj.setCrgoMvmt(settingLength(blObj.getCargoMovmnt(),4)); // Line 57
 			//condition added as per discussion
 //			locCstmClassObj.setCrgoMvmt(settingLength(blObj.getCargoMovmnt(),4));// Line 57
-			if(blObj.getPod() != null && blObj.getPod().equals(" ") &&   blObj.getPortOfDestination() != null && 
-					blObj.getPortOfDestination().equals(" ")) {
-			if(blObj.getPod().substring(0, 2).equals("IN") && blObj.getPortOfDestination().substring(0, 2)=="IN" && blObj.getPod().equals(blObj.getPortOfDestination())) {
+			if(blObj.getPod() != null || !blObj.getPod().equals(" ") &&   blObj.getPortOfDestination() != null || 
+					!blObj.getPortOfDestination().equals(" ")) {
+			if((blObj.getPod().substring(0,2).equals("IN") && blObj.getPortOfDestination().substring(0, 2).equals("IN")) && (blObj.getPod().equals(blObj.getPortOfDestination()))) {
 				locCstmClassObj.setCrgoMvmt(settingLength("LC",4));	
-			}else if(blObj.getPod().substring(0, 2).equals("IN") && blObj.getPortOfDestination().substring(0, 2).equals("IN") && ! blObj.getPod().equals(blObj.getPortOfDestination())){
+			}else if(blObj.getPod().substring(0,2).equals("IN") && blObj.getPortOfDestination().substring(0, 2).equals("IN") && ! blObj.getPod().equals(service.getPortOfDestination())&& blObj.getMode_of_transport()== "3"){
 				locCstmClassObj.setCrgoMvmt(settingLength("TI",4));	
-			}else if(! blObj.getPod().substring(0, 2).equals("IN") && !blObj.getPortOfDestination().substring(0, 2).equals("IN")) {
-				locCstmClassObj.setCrgoMvmt(settingLength("FT",4));	
-			}else if(blObj.getPod().substring(0, 2).equals("IN" ) && blObj.getPortOfDestination().substring(0, 2).equals("IN")) {
+			}else if(! blObj.getPod().substring(0,2).equals("IN") && blObj.getPortOfDestination().substring(0, 2).equals("IN")) {
+				locCstmClassObj.setCrgoMvmt(settingLength("DT",4));	
+			}else if(!blObj.getPod().substring(0,2).equals("IN" ) && ! blObj.getPortOfDestination().substring(0, 2).equals("IN")) {
 				locCstmClassObj.setCrgoMvmt(settingLength("FT",4));	
 			}
 			}

@@ -719,6 +719,11 @@ public class ImportGeneralManifestMod implements Cloneable {
 	private String blDischargedStatus;
 	private String flagRob;
 	
+	
+	private String flagLoaded;
+	private String blLoadStatus;
+	private String flagRobDischarge;
+	
 
 	
 	public String getAcceptanceName() {
@@ -3819,6 +3824,30 @@ public class ImportGeneralManifestMod implements Cloneable {
 
 	public void setFlagRob(String flagRob) {
 		this.flagRob = flagRob;
+	}
+	
+	public String getFlagLoaded() {
+		return flagLoaded;
+	}
+
+	public void setFlagLoaded(String flagLoaded) {
+		this.flagLoaded = flagLoaded;
+	}
+
+	public String getBlLoadStatus() {
+		return blLoadStatus;
+	}
+
+	public void setBlLoadStatus(String blLoadStatus) {
+		this.blLoadStatus = blLoadStatus;
+	}
+
+	public String getFlagRobDischarge() {
+		return flagRobDischarge;
+	}
+
+	public void setFlagRobDischarge(String flagRobDischarge) {
+		this.flagRobDischarge = flagRobDischarge;
 	}
 
 	@Override
