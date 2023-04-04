@@ -1070,9 +1070,9 @@ public class CreatingJSON {
 					}
 				
 					if(personOnBoardMod.get(g).getPrsnIdOrTravelDocIssuingNationCdd()== null ||personOnBoardMod.get(g).getPrsnIdOrTravelDocIssuingNationCdd().equals("") ) {
-						prsnIdclassObj.setPrsnIdOrTravelDocIssuingNationCdd(settingLength("NA",2));
+						prsnIdclassObj.setPrsnIdOrTravelDocIssuingNationCdd(settingLength("NA", 4));
 					}else {
-						prsnIdclassObj.setPrsnIdOrTravelDocIssuingNationCdd(settingLength(personOnBoardMod.get(g).getPrsnIdOrTravelDocIssuingNationCdd(),2));
+						prsnIdclassObj.setPrsnIdOrTravelDocIssuingNationCdd(settingLength(personOnBoardMod.get(g).getPrsnIdOrTravelDocIssuingNationCdd(),4));
 					}
 					if(personOnBoardMod.get(g).getPrsnIdOrTravelDocNmbr()==null || personOnBoardMod.get(g).getPrsnIdOrTravelDocNmbr().equals("")){
 						prsnIdclassObj.setPrsnIdOrTravelDocNmbr(settingLength("NA",70));
@@ -1080,9 +1080,9 @@ public class CreatingJSON {
 						prsnIdclassObj.setPrsnIdOrTravelDocNmbr(settingLength(personOnBoardMod.get(g).getPrsnIdOrTravelDocNmbr(),70));
 					}
 					if(personOnBoardMod.get(g).getPrsnIdOrTravelDocTypCdd()== null || personOnBoardMod.get(g).getPrsnIdOrTravelDocTypCdd().equals("")) {
-						prsnIdclassObj.setPrsnIdOrTravelDocTypCdd(settingLength("NA",3));
+						prsnIdclassObj.setPrsnIdOrTravelDocTypCdd(settingLength("NA",4));
 					}else {
-						prsnIdclassObj.setPrsnIdOrTravelDocTypCdd(settingLength(personOnBoardMod.get(g).getPrsnIdOrTravelDocTypCdd(),3));
+						prsnIdclassObj.setPrsnIdOrTravelDocTypCdd(settingLength(personOnBoardMod.get(g).getPrsnIdOrTravelDocTypCdd(),4));
 					}
 					
 //				-----------------------------------------------------------------------------------------------	
@@ -6644,18 +6644,17 @@ ImportGeneralManifestMod objForm = blList.get(0);
 		
 			
 //			locCstmClassObj.setTypOfCrgo(settingLength(blObj.getType_of_cargo(),2)); // Line 90
-			if(blObj.getPortOfDeschargedCfs() != null && blObj.getPortOfDeschargedCfs().equals(" ") && 
-					blObj.getPortOfDestination() != null &&  blObj.getPortOfDestination().equals(" ")) {
-			if(blObj.getPortOfDestination() != null || blObj.getPortOfDestination() != "") {
-			System.out.println(blObj.getPortOfDestination().substring(0, 2));
-			System.out.println( blObj.getPortOfDeschargedCfs().substring(0, 2));
-			if(blObj.getPortOfDestination().substring(0, 2).equals("IN") && blObj.getPortOfDeschargedCfs().substring(0, 2).equals("IN")){
+			if(blObj.getPortOfDestination() != null || !blObj.getPortOfDestination().equals(" ") &&
+					blObj.getPod() != null ||  !blObj.getPod().equals(" ")) {
+//				System.out.println(service.getPortOfDestination().substring(0, 2));
+//				System.out.println( service.getPortOfDeschargedCfs().substring(0, 2));
+				
+			if(blObj.getPortOfDestination().substring(0, 2).equals("IN") && blObj.getPod().substring(0, 2).equals("IN")){
 				locCstmClassObj.setTypOfCrgo(settingLength("IM",2)); // if both value in india base
-			}else if(! blObj.getPortOfDestination().substring(0, 2).equals("IN") && ! blObj.getPortOfDeschargedCfs().substring(0, 2).equals("IN")){
+			}else if(! blObj.getPortOfDestination().substring(0, 2).equals("IN") && ! blObj.getPod().substring(0, 2).equals("IN")){
 				locCstmClassObj.setTypOfCrgo(settingLength("TR",2)); // both value is not india base 
-			}else if(blObj.getPortOfDestination().substring(0, 2)=="IN" && ! blObj.getPortOfDeschargedCfs().substring(0, 2).equals("IN")) {
-				locCstmClassObj.setTypOfCrgo(settingLength(blObj.getType_of_cargo(),2)); //if portOfdest in india base and portOfDis in foreign base then
-			}
+			}else if( !blObj.getPortOfDestination().substring(0, 2).equals("IN") &&  blObj.getPod().substring(0, 2).equals("IN")) {
+				locCstmClassObj.setTypOfCrgo(settingLength("TR",2)); //if portOfdest in india base and portOfDis in foreign base then
 			}
 			}
 			locCstmClassObj.setItemTyp(settingLength(blObj.getItemType(),2)); // Line 61

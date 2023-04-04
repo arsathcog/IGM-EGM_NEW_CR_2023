@@ -193,7 +193,7 @@ public class TrnsprtDocSCE {
 	}
 
 	public void setTypOfCd(String typOfCd) {
-		typOfCd = FiledValidation.isNullAndSetlength(typOfCd, 3);
+//		typOfCd = FiledValidation.isNullAndSetlength(typOfCd, 3);
 		this.typOfCd = typOfCd;
 	}
 
@@ -289,7 +289,7 @@ public class TrnsprtDocSCE {
 	}
 
 	public void setTypOfNotfdPartyCd(String typOfNotfdPartyCd) {
-		typOfNotfdPartyCd = FiledValidation.isNullAndSetlength(typOfNotfdPartyCd, 3);
+		typOfNotfdPartyCd = FiledValidation.isNullAndSetlength(typOfNotfdPartyCd, 30);
 		this.typOfNotfdPartyCd = typOfNotfdPartyCd;
 	}
      //This value is come from BL Json object   "notifyPartyDlts" (Already in current IGM screen)   mandatory.
@@ -317,7 +317,7 @@ public class TrnsprtDocSCE {
 	}
 
 	public void setNotfdPartyCntrySubDivName(String notfdPartyCntrySubDivName) {
-		notfdPartyCntrySubDivName = FiledValidation.isNullAndSetlength(notfdPartyCntrySubDivName, 35);
+//		notfdPartyCntrySubDivName = FiledValidation.isNullAndSetlength(notfdPartyCntrySubDivName, 35);
 		this.notfdPartyCntrySubDivName = notfdPartyCntrySubDivName;
 	}
       //   optional (Already in current IGM screen)
