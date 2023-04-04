@@ -202,9 +202,9 @@ $(document).ready(function(){
                <table border="0" cellspacing="0" cellpadding="0">
                   <tr>
 								<td>
-								<select class="smallDPCss" ng-model="seletedFile"  ng-init="selectedValue = 'ackFile'">
+								<select class="smallDPCss" ng-model="seletedFile"  ng-init="seletedFile = 'ackFile'">
 										<option value="excelFile" >Excel</option>
-										<option selected="selected" value="ackFile">ACK File</option>
+										<option value="ackFile" >Ack</option>
 								</select></td>
 
 								<td>

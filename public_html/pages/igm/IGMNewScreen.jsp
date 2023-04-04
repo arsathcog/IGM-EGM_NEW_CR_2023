@@ -1750,6 +1750,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	$rootScope.pupUpName = '' ;
 	$rootScope.curPage = 0;
 	$rootScope.pageSize = 10;
+	$scope.onlyNumbers = /^\d+$/;
 	$scope.init = function () {
 	  // alert(2)
 	}
