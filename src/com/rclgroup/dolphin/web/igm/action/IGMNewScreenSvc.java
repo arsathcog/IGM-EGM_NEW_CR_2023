@@ -222,7 +222,7 @@ public class IGMNewScreenSvc extends BaseAction {
 		Map<String, String> 			mapParam 			=   createHeaderParams(objForm);
 		List<ImportGeneralManifestMod>  blObj 				=   null;
 
-		Map<Object, Object> mapSaveBL1 = objDao.getBLDataNewForSome(mapParam, IGMDaoNew.SQL_EXTRA);
+		Map<Object, Object> mapSaveBL1 = objDao.getOneBLDataNewFor(mapParam, IGMDaoNew.SQL_EXTRA);
 		blObj = (List<ImportGeneralManifestMod>) mapSaveBL1.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA);
 		
 		
@@ -312,8 +312,8 @@ public class IGMNewScreenSvc extends BaseAction {
 		List<ImportGeneralManifestMod> result = (List<ImportGeneralManifestMod>) mapReturn.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA);
 		net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();
 		
-		 Map<Object, Object> mapReturnBL = objImportDao.getBLDataNewForSome(mapParam, IGMDaoNew.SQL_EXTRA);
-		 List<ImportGeneralManifestMod> resultBL1 = (List<ImportGeneralManifestMod>) mapReturnBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA);
+//		 Map<Object, Object> mapReturnBL = objImportDao.getOneBLDataNewFor(mapParam, IGMDaoNew.SQL_EXTRA);
+//		 List<ImportGeneralManifestMod> resultBL1 = (List<ImportGeneralManifestMod>) mapReturnBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA);
 		 
 		jsonObj = new net.sf.json.JSONObject();
 		jsonObj.put("result", getUniqueRecords(result));
@@ -529,6 +529,7 @@ public class IGMNewScreenSvc extends BaseAction {
 		IGMContainerDaoImpl 			containerDao 		= 	(IGMContainerDaoImpl) getDao(DAO_BEAN_CONTAINER_ID);
 		List<ContainerDetails>  		containerList 		=	null;
 		List<ImportGeneralManifestMod>  blObj 				=   new LinkedList<ImportGeneralManifestMod>();
+		Map<String, String> 			paramVal			=   createHeaderParams(objForm);
 		
 		
 		
@@ -562,8 +563,8 @@ public class IGMNewScreenSvc extends BaseAction {
 			objNotifyPartyDao.setNotifyPartyData(blObj, IGMNodifyPartyDao.RCL_IGM_GET_SAVE_NODIFY_PARTY_DESCRIPTION_IMPORT);
 			objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_SAVE_MARKS_DESCRIPTION);
 			objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION);
-			objDao.getBLDataNewForSome(mapParam, IGMDaoNew.SQL_EXTRA);
-			objDao.getStowageImport(mapParam,IGMDaoNew.SQL_STOWAGE_IMPORT);
+			objDao.getBLDataNewForSome(paramVal,IGMDaoNew.SQL_EXTRA, blObj);
+			objDao.getStowageImport(paramVal,IGMDaoNew.SQL_STOWAGE_IMPORT);
 		}
 
 		if (objForm.getUnSavedBlList() != null && !objForm.getUnSavedBlList().equals("")) {
@@ -593,8 +594,8 @@ public class IGMNewScreenSvc extends BaseAction {
 			objNotifyPartyDao.setNotifyPartyData(blObj, IGMNodifyPartyDao.RCL_IGM_MASTER_NODIFY_PARTY_DESCRIPTION);
 			objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_MASTER_MARKS_DESCRIPTION);
 			objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_MASTER_PREV_DECLARATION);
-			objDao.getBLDataNewForSome(mapParam, IGMDaoNew.SQL_EXTRA);
-			objDao.getStowageImport(mapParam,IGMDaoNew.SQL_STOWAGE_IMPORT);
+			objDao.getBLDataNewForSome(paramVal, IGMDaoNew.SQL_EXTRA,blObj);
+			objDao.getStowageImport(paramVal,IGMDaoNew.SQL_STOWAGE_IMPORT);
 		}	
 		
 		net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();

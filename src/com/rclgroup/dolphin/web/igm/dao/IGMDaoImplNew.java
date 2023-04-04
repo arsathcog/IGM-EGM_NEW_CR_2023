@@ -1010,9 +1010,19 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 	}
 
 	@Override
-	public Map<Object, Object> getBLDataNewForSome(Map<String, String> amapParam, String procedureName)
+	public Map<Object, Object> getBLDataNewForSome(Map<String, String> amapParam, String procedureName,List<ImportGeneralManifestMod> listOfBL)
 			throws BusinessException, DataAccessException {
 		System.out.println("#IGMLogger getBLDataNewForSome() started..");
+		Map<String, ImportGeneralManifestMod> mapBlWithContainerDetails = new HashMap<String, ImportGeneralManifestMod>();
+		String blsInput = null;
+		for (ImportGeneralManifestMod bl : listOfBL) {
+			if (blsInput == null)
+				blsInput = "'" + bl.getBl() + "'";
+			else
+				blsInput += ",'" + bl.getBl() + "'";
+			mapBlWithContainerDetails.put(bl.getBl(), bl);
+		}
+
 		String[][] arrParam = { { KEY_REF_IGM_DATA, BLANK + ORACLE_CURSOR, PARAM_OUT, BLANK },
 //				{ KEY_IGM_POD, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_POD) },
 				{ KEY_IGM_BL, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_BL) },
@@ -1211,6 +1221,56 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			System.out.println(" getTEMP_UPLOAD_DIR() "+path);
 			
 		return path;
+	}
+
+	@Override
+	public Map<Object, Object> getOneBLDataNewFor(Map<String, String> mapParam, String procedureName) throws BusinessException {
+		String[][] arrParam = { { KEY_REF_IGM_DATA, BLANK + ORACLE_CURSOR, PARAM_OUT, BLANK },
+//				{ KEY_IGM_POD, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_POD) },
+				{ KEY_IGM_BL, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) mapParam.get(KEY_IGM_BL) },
+//				{ KEY_IGM_BL, BLANK + ORACLE_VARCHAR, PARAM_IN,"SINCB1101118203" },
+//    		    { KEY_IGM_CONTAINER_NUM, BLANK + ORACLE_VARCHAR, PARAM_IN,null},
+				{ KEY_IGM_POD, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) mapParam.get(KEY_IGM_POD)},
+				{ KEY_IGM_VESSEL, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) mapParam.get(KEY_IGM_VESSEL)},
+				{ KEY_IGM_VOYAGE, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) mapParam.get(KEY_IGM_VOYAGE)},
+				{ KEY_IGM_POD_TERMINAL, BLANK + ORACLE_VARCHAR, PARAM_IN,(String) mapParam.get(KEY_IGM_POD_TERMINAL) },
+				{ KEY_IGM_CONSIGNEE_COUNTRYCODE, BLANK + ORACLE_VARCHAR, PARAM_IN,(String) mapParam.get(KEY_IGM_CONSIGNEE_COUNTRYCODE)},
+				{ KEY_IGM_CONSIGNEE_STATE, BLANK + ORACLE_VARCHAR, PARAM_IN,(String) mapParam.get(KEY_IGM_CONSIGNEE_STATE)},
+////	    	{ KEY_IGM_FROM_DATE, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_FROM_DATE) },
+////			{ KEY_IGM_TO_DATE, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_TO_DATE) },
+////			{ KEY_IGM_BL_STATUS, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_BL_STATUS) },
+//				{ KEY_IGM_POL, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_POL) },
+//				{ KEY_IGM_DEL, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_DEL) },
+//				{ KEY_IGM_DEPOT, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_DEPOT) },
+//				{ KEY_IGM_POL_TERMINAL, BLANK + ORACLE_VARCHAR, PARAM_IN,
+//						(String) amapParam.get(KEY_IGM_POL_TERMINAL) },
+//				{ KEY_IGM_CONSIGNEE_STATE, BLANK + ORACLE_VARCHAR, PARAM_IN,
+//							(String) amapParam.get(KEY_IGM_CONSIGNEE_STATE) },
+//				{ KEY_IGM_PORT, BLANK + ORACLE_VARCHAR, PARAM_IN,(String) amapParam.get(KEY_IGM_PORT) },
+//				{ KEY_IGM_DIRECTION, BLANK + ORACLE_VARCHAR, PARAM_IN, null },
+				{ KEY_IGM_ERROR, BLANK + ORACLE_VARCHAR, PARAM_OUT, BLANK } };
+
+		this.blrNumber = new HashSet<String>();
+
+		this.PodTerminal = new HashSet<String>();
+
+		/* stored procedure object */
+		JdbcStoredProcedure objSP = new JdbcStoredProcedure(getDataSource(), procedureName,
+				new MoreDataRowMapper(), arrParam);
+
+		/* Return Result from SP execute */
+		Map mapResult = objSP.execute();
+		
+		System.out.println("executed result...............");
+
+		/* Stores return error code from SP */
+		String strRetError = (String) mapResult.get(KEY_IGM_ERROR);
+		/* If return error code is Failure, throw Business Exception */
+		if (isErrorCode(strRetError)) {
+			System.out.println("Error while getting igm data from DB : " + strRetError);
+			throw ExceptionFactory.createApplicationException(strRetError);
+		}
+		return mapResult;
 	}
 
 	 

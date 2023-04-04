@@ -2166,7 +2166,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				$scope.BLS = data.data.blDetails;
 				$scope.selectAllFetch = true;
 				document.getElementById("subCheckBox").checked = true;
-				/* $scope.getExtraDetails(); */
+				 /* $scope.getExtraDetails(); */ 
 			});
 			
 	}

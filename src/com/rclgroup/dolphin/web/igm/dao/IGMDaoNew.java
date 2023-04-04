@@ -681,7 +681,7 @@ public interface IGMDaoNew {
 
 	public Map<Object, Object> getBLDataNew(Map<String, String> mapParam, String procedureName, boolean b)throws BusinessException, DataAccessException;
 
-	public Map<Object, Object> getBLDataNewForSome(Map<String, String> mapParam, String procedureName)throws BusinessException, DataAccessException;
+	public Map<Object, Object> getBLDataNewForSome(Map<String, String> mapParam, String procedureName,List<ImportGeneralManifestMod> listOfBL)throws BusinessException, DataAccessException;
 	
 	public Map<Object, Object> getStowageImport(Map<String, String> mapParam, String procedureName)throws BusinessException, DataAccessException;
 	
@@ -696,6 +696,8 @@ public interface IGMDaoNew {
 	public void updateSqnNoForJsonFile(ImportGeneralManifestMod service, int getSeqNo, String tyep, String fileName);
 
 	public String getTEMP_UPLOAD_DIR();
+
+	public Map<Object, Object> getOneBLDataNewFor(Map<String, String> mapParam,  String procedureName) throws BusinessException;
 	
 	
 }
