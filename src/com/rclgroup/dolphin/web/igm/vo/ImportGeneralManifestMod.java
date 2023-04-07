@@ -690,6 +690,7 @@ public class ImportGeneralManifestMod implements Cloneable {
 	
 	private int cargo_msmt;
 	
+	
 	private String gstStateCode;
 	
 	private String dn_plr;

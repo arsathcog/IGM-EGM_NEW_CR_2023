@@ -442,7 +442,7 @@ roundshap4 {
     	   var GETSELECTALLBL           =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getSelectAllOption", pageContext)%>';
     	   var UPLOAD_ACK       		=	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/ackFileUpload", pageContext)%>';
     	   var EXTRADETAILSSEARCH       =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getCarogoDetailsAndMore", pageContext)%>';
-    	   var GETSTOWAGEIMPORT		        =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getStowageImport", pageContext)%>';	
+    	   var 	GETSTOWAGEIMPORT	        =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getStowageImport", pageContext)%>';	
     	   	
     	   
             <%String strUserFsc = null;
@@ -1750,7 +1750,6 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	$rootScope.pupUpName = '' ;
 	$rootScope.curPage = 0;
 	$rootScope.pageSize = 10;
-	$scope.onlyNumbers = /^\d+$/;
 	$scope.init = function () {
 	  // alert(2)
 	}

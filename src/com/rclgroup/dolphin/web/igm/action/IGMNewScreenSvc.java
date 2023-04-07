@@ -842,7 +842,7 @@ public class IGMNewScreenSvc extends BaseAction {
 			
 		}		
 		net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();
-	    jsonObj.put("blDetails", blObj.get(0));
+	    jsonObj.put("blDetails", blObj);
 	    jsonObj.write(response.getWriter());
 		return null;
 	}
