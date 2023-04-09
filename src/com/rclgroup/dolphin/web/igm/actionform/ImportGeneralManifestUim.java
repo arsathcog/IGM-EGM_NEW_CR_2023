@@ -340,12 +340,76 @@ public class ImportGeneralManifestUim extends PaginationForm {
 	
 	private String container;
 	
+private boolean isHbl = true;
+	
+	private String dgFlag ; 
+	
+	private String commdity_code;
+	
+	private String package_kind;
+	
+	private int commodity_seq;
+
+	
+//	Name for port
+	private String port_of_call_name_last3;
+	
+	private String port_of_call_name_last2;
+	
+	private String port_of_call_name_last1;
+	
+	private String port_of_call_name_nextport1;
+	
+	private String port_of_call_name_nextport2;
+	
+	private String port_of_call_name_nextport3;
+	
+	private String port_of_call_name_portOrigin;
+	
+	private String port_of_call_name_portArrival;
+	
 	private String stowageImport;
 	
 	private String stowageExport;
 	
 
+	private String hsCd;
 	
+	private String flagDg;
+	
+	private int cargo_msmt;
+	
+	
+	private String gstStateCode;
+	
+	private String dn_plr;
+	
+	private String portName;
+	
+	private String pointName;
+	
+	private String dn_pld;
+
+	
+	private String acceptanceName;
+	
+	private String recieptName;
+	
+	private String notifyName;	
+	private String notifyIec;
+	private String notifyPan;
+
+	//FOR ROB IMPLEMENTATION 
+	
+		private String dnDischargePort;
+		private String flag_discharge;
+		private String blDischargedStatus;
+		private String flagRob;
+		
+		
+		private String flagLoaded;
+		private String blLoadStatus;
+		private String flagRobDischarge;
 	
 	public String getFileTypeEgm() {
 		return fileTypeEgm;
@@ -2028,6 +2092,275 @@ public class ImportGeneralManifestUim extends PaginationForm {
 	public void setConsigneeCountryCode(String consigneeCountryCode) {
 		this.consigneeCountryCode = consigneeCountryCode;
 	}
+	
+	
+
+	public String getHsCd() {
+		return hsCd;
+	}
+
+	public void setHsCd(String hsCd) {
+		this.hsCd = hsCd;
+	}
+
+	public String getFlagDg() {
+		return flagDg;
+	}
+
+	public void setFlagDg(String flagDg) {
+		this.flagDg = flagDg;
+	}
+
+	public int getCargo_msmt() {
+		return cargo_msmt;
+	}
+
+	public void setCargo_msmt(int cargo_msmt) {
+		this.cargo_msmt = cargo_msmt;
+	}
+
+	public String getGstStateCode() {
+		return gstStateCode;
+	}
+
+	public void setGstStateCode(String gstStateCode) {
+		this.gstStateCode = gstStateCode;
+	}
+
+	public String getDn_plr() {
+		return dn_plr;
+	}
+
+	public void setDn_plr(String dn_plr) {
+		this.dn_plr = dn_plr;
+	}
+
+	public String getPortName() {
+		return portName;
+	}
+
+	public void setPortName(String portName) {
+		this.portName = portName;
+	}
+
+	public String getPointName() {
+		return pointName;
+	}
+
+	public void setPointName(String pointName) {
+		this.pointName = pointName;
+	}
+
+	public String getDn_pld() {
+		return dn_pld;
+	}
+
+	public void setDn_pld(String dn_pld) {
+		this.dn_pld = dn_pld;
+	}
+
+	public String getAcceptanceName() {
+		return acceptanceName;
+	}
+
+	public void setAcceptanceName(String acceptanceName) {
+		this.acceptanceName = acceptanceName;
+	}
+
+	public String getRecieptName() {
+		return recieptName;
+	}
+
+	public void setRecieptName(String recieptName) {
+		this.recieptName = recieptName;
+	}
+
+	public String getNotifyName() {
+		return notifyName;
+	}
+
+	public void setNotifyName(String notifyName) {
+		this.notifyName = notifyName;
+	}
+
+	public String getNotifyIec() {
+		return notifyIec;
+	}
+
+	public void setNotifyIec(String notifyIec) {
+		this.notifyIec = notifyIec;
+	}
+
+	public String getNotifyPan() {
+		return notifyPan;
+	}
+
+	public void setNotifyPan(String notifyPan) {
+		this.notifyPan = notifyPan;
+	}
+
+	public String getDnDischargePort() {
+		return dnDischargePort;
+	}
+
+	public void setDnDischargePort(String dnDischargePort) {
+		this.dnDischargePort = dnDischargePort;
+	}
+
+	public String getFlag_discharge() {
+		return flag_discharge;
+	}
+
+	public void setFlag_discharge(String flag_discharge) {
+		this.flag_discharge = flag_discharge;
+	}
+
+	public String getBlDischargedStatus() {
+		return blDischargedStatus;
+	}
+
+	public void setBlDischargedStatus(String blDischargedStatus) {
+		this.blDischargedStatus = blDischargedStatus;
+	}
+
+	public String getFlagRob() {
+		return flagRob;
+	}
+
+	public void setFlagRob(String flagRob) {
+		this.flagRob = flagRob;
+	}
+
+	public String getFlagLoaded() {
+		return flagLoaded;
+	}
+
+	public void setFlagLoaded(String flagLoaded) {
+		this.flagLoaded = flagLoaded;
+	}
+
+	public String getBlLoadStatus() {
+		return blLoadStatus;
+	}
+
+	public void setBlLoadStatus(String blLoadStatus) {
+		this.blLoadStatus = blLoadStatus;
+	}
+
+	public String getFlagRobDischarge() {
+		return flagRobDischarge;
+	}
+
+	public void setFlagRobDischarge(String flagRobDischarge) {
+		this.flagRobDischarge = flagRobDischarge;
+	}
+	
+	
+	
+
+	public boolean isHbl() {
+		return isHbl;
+	}
+
+	public void setHbl(boolean isHbl) {
+		this.isHbl = isHbl;
+	}
+
+	public String getDgFlag() {
+		return dgFlag;
+	}
+
+	public void setDgFlag(String dgFlag) {
+		this.dgFlag = dgFlag;
+	}
+
+	public String getCommdity_code() {
+		return commdity_code;
+	}
+
+	public void setCommdity_code(String commdity_code) {
+		this.commdity_code = commdity_code;
+	}
+
+	public String getPackage_kind() {
+		return package_kind;
+	}
+
+	public void setPackage_kind(String package_kind) {
+		this.package_kind = package_kind;
+	}
+
+	public int getCommodity_seq() {
+		return commodity_seq;
+	}
+
+	public void setCommodity_seq(int commodity_seq) {
+		this.commodity_seq = commodity_seq;
+	}
+
+	public String getPort_of_call_name_last3() {
+		return port_of_call_name_last3;
+	}
+
+	public void setPort_of_call_name_last3(String port_of_call_name_last3) {
+		this.port_of_call_name_last3 = port_of_call_name_last3;
+	}
+
+	public String getPort_of_call_name_last2() {
+		return port_of_call_name_last2;
+	}
+
+	public void setPort_of_call_name_last2(String port_of_call_name_last2) {
+		this.port_of_call_name_last2 = port_of_call_name_last2;
+	}
+
+	public String getPort_of_call_name_last1() {
+		return port_of_call_name_last1;
+	}
+
+	public void setPort_of_call_name_last1(String port_of_call_name_last1) {
+		this.port_of_call_name_last1 = port_of_call_name_last1;
+	}
+
+	public String getPort_of_call_name_nextport1() {
+		return port_of_call_name_nextport1;
+	}
+
+	public void setPort_of_call_name_nextport1(String port_of_call_name_nextport1) {
+		this.port_of_call_name_nextport1 = port_of_call_name_nextport1;
+	}
+
+	public String getPort_of_call_name_nextport2() {
+		return port_of_call_name_nextport2;
+	}
+
+	public void setPort_of_call_name_nextport2(String port_of_call_name_nextport2) {
+		this.port_of_call_name_nextport2 = port_of_call_name_nextport2;
+	}
+
+	public String getPort_of_call_name_nextport3() {
+		return port_of_call_name_nextport3;
+	}
+
+	public void setPort_of_call_name_nextport3(String port_of_call_name_nextport3) {
+		this.port_of_call_name_nextport3 = port_of_call_name_nextport3;
+	}
+
+	public String getPort_of_call_name_portOrigin() {
+		return port_of_call_name_portOrigin;
+	}
+
+	public void setPort_of_call_name_portOrigin(String port_of_call_name_portOrigin) {
+		this.port_of_call_name_portOrigin = port_of_call_name_portOrigin;
+	}
+
+	public String getPort_of_call_name_portArrival() {
+		return port_of_call_name_portArrival;
+	}
+
+	public void setPort_of_call_name_portArrival(String port_of_call_name_portArrival) {
+		this.port_of_call_name_portArrival = port_of_call_name_portArrival;
+	}
 
 	@Override
 	public String toString() {
@@ -2052,6 +2385,7 @@ public class ImportGeneralManifestUim extends PaginationForm {
 				+ CargoDeclaration + ", PassengerList=" + PassengerList + ", CrewEffect=" + CrewEffect
 				+ ", MaritimeDeclaration=" + MaritimeDeclaration + ", serialNumber=" + serialNumber + ", BLDetails="
 				+ BLDetails + ", vesselVoyageDtls=" + vesselVoyageDtls + ", consigneeDtls=" + consigneeDtls
+				+ ", consigneeState=" + consigneeState + ", consigneeCountryCode=" + consigneeCountryCode
 				+ ", notifyPartyDlts=" + notifyPartyDlts + ", containerDetailsDtls=" + containerDetailsDtls
 				+ ", marksNumberDtlstls=" + marksNumberDtlstls + ", file1=" + file1 + ", file2=" + file2
 				+ ", departureManifestNumber=" + departureManifestNumber + ", departureManifestDate="
@@ -2070,15 +2404,32 @@ public class ImportGeneralManifestUim extends PaginationForm {
 				+ ", totalnoTransarrivdep=" + totalnoTransarrivdep + ", consignerDtlstls=" + consignerDtlstls
 				+ ", last1=" + last1 + ", last2=" + last2 + ", last3=" + last3 + ", generatFalg=" + generatFalg
 				+ ", numberofCrewManifested=" + numberofCrewManifested + ", requestParam=" + requestParam
-				+ ", fileType=" + fileType + ", personOnBoardMod=" + personOnBoardMod + ", crewEfctMod=" + crewEfctMod
-				+ ", shipStoresMod=" + shipStoresMod + ", itemType=" + itemType + ", podTerminalPort=" + podTerminalPort
-				+ ", polTerminalPort=" + polTerminalPort + ", blType=" + blType + ", consolidatedIndicator="
-				+ consolidatedIndicator + ", type_of_cargo=" + type_of_cargo + ", neCargoMovmnt=" + neCargoMovmnt
-				+ ", senderId=" + senderId + ", recieverId=" + recieverId + ", authRepCd=" + authRepCd
-				+ ", totalNmbrOfLines=" + totalNmbrOfLines + ", personOnBoardModList=" + personOnBoardModList
-				+ ", crewEfctModsList=" + crewEfctModsList + ", igmShipStoresModsList=" + igmShipStoresModsList
-				+ ", isBlSave=" + isBlSave + ", saveFlags=" + saveFlags + ", isFetch=" + isFetch + "]";
+				+ ", fileType=" + fileType + ", fileTypeEgm=" + fileTypeEgm + ", personOnBoardMod=" + personOnBoardMod
+				+ ", crewEfctMod=" + crewEfctMod + ", shipStoresMod=" + shipStoresMod + ", itemType=" + itemType
+				+ ", podTerminalPort=" + podTerminalPort + ", polTerminalPort=" + polTerminalPort + ", blType=" + blType
+				+ ", consolidatedIndicator=" + consolidatedIndicator + ", type_of_cargo=" + type_of_cargo
+				+ ", neCargoMovmnt=" + neCargoMovmnt + ", senderId=" + senderId + ", recieverId=" + recieverId
+				+ ", authRepCd=" + authRepCd + ", totalNmbrOfLines=" + totalNmbrOfLines + ", personOnBoardModList="
+				+ personOnBoardModList + ", crewEfctModsList=" + crewEfctModsList + ", igmShipStoresModsList="
+				+ igmShipStoresModsList + ", isBlSave=" + isBlSave + ", saveFlags=" + saveFlags + ", ackJson=" + ackJson
+				+ ", container=" + container + ", isHbl=" + isHbl + ", dgFlag=" + dgFlag + ", commdity_code="
+				+ commdity_code + ", package_kind=" + package_kind + ", commodity_seq=" + commodity_seq
+				+ ", port_of_call_name_last3=" + port_of_call_name_last3 + ", port_of_call_name_last2="
+				+ port_of_call_name_last2 + ", port_of_call_name_last1=" + port_of_call_name_last1
+				+ ", port_of_call_name_nextport1=" + port_of_call_name_nextport1 + ", port_of_call_name_nextport2="
+				+ port_of_call_name_nextport2 + ", port_of_call_name_nextport3=" + port_of_call_name_nextport3
+				+ ", port_of_call_name_portOrigin=" + port_of_call_name_portOrigin + ", port_of_call_name_portArrival="
+				+ port_of_call_name_portArrival + ", stowageImport=" + stowageImport + ", stowageExport="
+				+ stowageExport + ", hsCd=" + hsCd + ", flagDg=" + flagDg + ", cargo_msmt=" + cargo_msmt
+				+ ", gstStateCode=" + gstStateCode + ", dn_plr=" + dn_plr + ", portName=" + portName + ", pointName="
+				+ pointName + ", dn_pld=" + dn_pld + ", acceptanceName=" + acceptanceName + ", recieptName="
+				+ recieptName + ", notifyName=" + notifyName + ", notifyIec=" + notifyIec + ", notifyPan=" + notifyPan
+				+ ", dnDischargePort=" + dnDischargePort + ", flag_discharge=" + flag_discharge
+				+ ", blDischargedStatus=" + blDischargedStatus + ", flagRob=" + flagRob + ", flagLoaded=" + flagLoaded
+				+ ", blLoadStatus=" + blLoadStatus + ", flagRobDischarge=" + flagRobDischarge + ", isFetch=" + isFetch
+				+ "]";
 	}
+
 
 
 	/*

@@ -442,7 +442,7 @@ roundshap4 {
     	   var GETSELECTALLBL           =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getSelectAllOption", pageContext)%>';
     	   var UPLOAD_ACK       		=	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/ackFileUpload", pageContext)%>';
     	   var EXTRADETAILSSEARCH       =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getCarogoDetailsAndMore", pageContext)%>';
-    	   var GETSTOWAGEIMPORT		        =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getStowageImport", pageContext)%>';	
+    	   var 	GETSTOWAGEIMPORT	        =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getStowageImport", pageContext)%>';	
     	   	
     	   
             <%String strUserFsc = null;
