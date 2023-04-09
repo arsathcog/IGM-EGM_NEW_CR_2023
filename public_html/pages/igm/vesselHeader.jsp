@@ -81,10 +81,11 @@
             <td><input type="text" class="roundshap2"
                value="{{selectedServcies.customTerminalCode}}"
                ng-model="selectedServcies.customTerminalCode" ></td>
-            <td><input type="text"  ng-model="selectedServcies.fromItemNo"  ng-pattern="onlyNumbers"
-                  class="roundshap2"
-               
-               ng-model="selectedServcies.fromItemNo" ></td>
+            <td><input type="text" onkeypress="return onlyNumberKey(event)"
+
+                 ng-model="selectedServcies.fromItemNo"  
+                  class="roundshap2"         
+               value={{selectedServcies.fromItemNo}} ></td>
             <td><input type="text" class="roundshap2"
                value="{{changefromItemNo()}}"
                ng-model="selectedServcies.toItemNo" disabled="disabled"></td>
@@ -113,6 +114,16 @@
             </td> -->
             <!-- </td> -->
          </tr>
+         <script>
+		function onlyNumberKey(evt) {
+			
+			// Only ASCII character in that range allowed
+			var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+			if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+				return false;
+			return true;
+		}
+	</script>
           
       </table>
       
