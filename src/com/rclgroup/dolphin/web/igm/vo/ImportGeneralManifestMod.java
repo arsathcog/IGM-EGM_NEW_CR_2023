@@ -3,6 +3,7 @@ package com.rclgroup.dolphin.web.igm.vo;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.rclgroup.dolphin.web.igm.actionform.ImportGeneralManifestUim;
 import com.rclgroup.dolphin.web.igm.vo.IGMCrewEfctMod;
 import com.rclgroup.dolphin.web.igm.vo.IGMPersonOnBoardMod;
 import com.rclgroup.dolphin.web.igm.vo.IGMShipStoresMod;
@@ -250,6 +251,8 @@ public class ImportGeneralManifestMod implements Cloneable {
 
 	/** The hbl no. */
 	private String hblNo;
+	
+	private int hblCount;
 	
 	private String houseBl;
 
@@ -713,20 +716,40 @@ public class ImportGeneralManifestMod implements Cloneable {
 	private String notifyIec;
 	private String notifyPan;
 	
-//FOR ROB IMPLEMENTATION 
+	private String blCriteria ;
 	
 	private String dnDischargePort;
+	
 	private String flag_discharge;
-	private String blDischargedStatus;
-	private String flagRob;
 	
-	
-	private String flagLoaded;
-	private String blLoadStatus;
 	private String flagRobDischarge;
 	
-
+	private String blLoadStatus;
 	
+	private String flagLoaded;
+	
+	private String flagRob;
+	
+	private String blDischargedStatus;
+	
+	private List<ImportGeneralManifestUim> hblArr = new ArrayList<>();
+	
+	public List<ImportGeneralManifestUim> getHblArr() {
+		return hblArr;
+	}
+
+	public void setHblArr(List<ImportGeneralManifestUim> hblArr) {
+		this.hblArr = hblArr;
+	}
+	
+	public String getBlCriteria() {
+		return blCriteria;
+	}
+
+	public void setBlCriteria(String blCriteria) {
+		this.blCriteria = blCriteria;
+	}
+
 	public String getAcceptanceName() {
 		return acceptanceName;
 	}
@@ -2472,6 +2495,15 @@ public class ImportGeneralManifestMod implements Cloneable {
 	public void setHblNo(String hblNo) {
 		this.hblNo = hblNo;
 	}
+	
+
+	public int getHblCount() {
+		return hblCount;
+	}
+
+	public void setHblCount(int hblCount) {
+		this.hblCount = hblCount;
+	}
 
 	/**
 	 * Gets the dpd Movement.
@@ -3850,7 +3882,7 @@ public class ImportGeneralManifestMod implements Cloneable {
 	public void setFlagRobDischarge(String flagRobDischarge) {
 		this.flagRobDischarge = flagRobDischarge;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

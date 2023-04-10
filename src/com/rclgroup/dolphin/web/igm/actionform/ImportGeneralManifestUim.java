@@ -312,6 +312,8 @@ public class ImportGeneralManifestUim extends PaginationForm {
 	
 	private String blType;
 	
+	private String blCriteria ;
+	
 	private String consolidatedIndicator;
 	
 	private String type_of_cargo;
@@ -340,7 +342,7 @@ public class ImportGeneralManifestUim extends PaginationForm {
 	
 	private String container;
 	
-private boolean isHbl = true;
+    private boolean isHbl = true;
 	
 	private String dgFlag ; 
 	
@@ -372,8 +374,11 @@ private boolean isHbl = true;
 	
 	private String stowageExport;
 	
-
-	private String hsCd;
+	private int hblCount;
+	
+	private List<ImportGeneralManifestUim> hblArr = new ArrayList<>();
+	
+	private String hblNo;
 	
 	private String flagDg;
 	
@@ -411,6 +416,8 @@ private boolean isHbl = true;
 		private String blLoadStatus;
 		private String flagRobDischarge;
 	
+		private String hsCd;
+		
 	public String getFileTypeEgm() {
 		return fileTypeEgm;
 	}
@@ -2360,6 +2367,38 @@ private boolean isHbl = true;
 
 	public void setPort_of_call_name_portArrival(String port_of_call_name_portArrival) {
 		this.port_of_call_name_portArrival = port_of_call_name_portArrival;
+	}
+	
+	public String getBlCriteria() {
+		return blCriteria;
+	}
+
+	public void setBlCriteria(String blCriteria) {
+		this.blCriteria = blCriteria;
+	}
+
+	public int getHblCount() {
+		return hblCount;
+	}
+
+	public void setHblCount(int hblCount) {
+		this.hblCount = hblCount;
+	}
+
+	public List<ImportGeneralManifestUim> getHblArr() {
+		return hblArr;
+	}
+
+	public void setHblArr(List<ImportGeneralManifestUim> hblArr) {
+		this.hblArr = hblArr;
+	}
+
+	public String getHblNo() {
+		return hblNo;
+	}
+
+	public void setHblNo(String hblNo) {
+		this.hblNo = hblNo;
 	}
 
 	@Override

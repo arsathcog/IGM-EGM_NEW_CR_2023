@@ -123,8 +123,9 @@ public class IGMNewScreenSvc extends BaseAction {
 	
 	private static final String GET_STOWAGE_IMPORT = "getStowageImport";
 	
+	private static final String GET_HBL_LIST = "getHblList";
 	
-	
+	private static final String GET_CAROGODETAILS_HBL = "getCarogoDetailsHBL";
 	
 	
 	/** Define Parameter End. */
@@ -174,7 +175,39 @@ public class IGMNewScreenSvc extends BaseAction {
             return getCarogoDetailsAndMore(mapping,form, request, response);
 		}else if(GET_STOWAGE_IMPORT.equals(strAction)) {
             return getStowageImport(mapping,form, request, response);
+		}else if(GET_HBL_LIST.equals(strAction)) {
+            return getHblListImport(mapping,form, request, response);
+		}else if(GET_CAROGODETAILS_HBL.equals(strAction)) {
+            return getCarogoDetailsHBL(mapping,form, request, response);
 		}
+		return null;
+	}
+
+
+	private ActionForward getCarogoDetailsHBL(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		 	System.out.println("IGMNewScreenSvc getCarogoDetailsHBL() called.");
+		return null;
+	}
+
+
+	private ActionForward getHblListImport(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws BusinessException, IOException {
+		 
+		System.out.println("IGMNewScreenSvc getHblListImport() Called[Started]");
+		
+		IGMDaoNew 				 		objDao 				=   (IGMDaoNew) getDao(DAO_BEAN_ID);
+		ImportGeneralManifestUim 		objForm 			= 	(ImportGeneralManifestUim) form;
+		Map 							mapResult 			=	 new HashMap<>();
+		
+		if(null != objForm.getItemNumber() && !objForm.getItemNumber().equals("")) {
+			mapResult =	objDao.getHblListJdbc(objForm,"saved");
+		} else {
+			mapResult =	objDao.getHblListJdbc(objForm,"master");
+		} 
+		net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();
+	    jsonObj.put("hblDetails", mapResult.get("P_O_REFIGMTABFIND"));
+	    jsonObj.write(response.getWriter());
 		return null;
 	}
 

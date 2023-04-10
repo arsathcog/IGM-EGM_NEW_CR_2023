@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.dao.DataAccessException;
 
 import com.niit.control.common.exception.BusinessException;
+import com.rclgroup.dolphin.web.igm.actionform.ImportGeneralManifestUim;
 import com.rclgroup.dolphin.web.igm.vo.ImportGeneralManifestMod;
 import com.rclgroup.dolphin.web.igm.vo.PortMod;
 
@@ -57,12 +58,10 @@ public interface IGMDaoNew {
 	
 	public static final String SQL_STOWAGE_EXPORT=  "RCL_IGM_FILE_INFO.RCL_IGM_STOWAGE_EXPORT";
 	
+	public static final String SQL_RCL_IGM_BL_MASTER =  "RCL_IGM_BL_INFO.RCL_IGM_MASTER_HBL";
 
+	public static final String SQL_RCL_IGM_BL_SAVE =  "RCL_IGM_BL_INFO.RCL_IGM_SAVE_HBL";
 	
-	
-	
-	
-
 	/** The Constant KEY_REF_IGM_DATA. */
 	public static final String KEY_REF_IGM_DATA = "P_O_REFIGMTABFIND";
 
@@ -607,6 +606,9 @@ public interface IGMDaoNew {
 	public static final String KEY_IGM_NOTIFYPARTY_STATE = "P_I_V_NOTIFYPARTY_STATE";
 	public static final String KEY_IGM_NOTIFYPARTY_ZIP = "P_I_V_NOTIFYPARTY_ZIP";
 
+	public static final String SQL_SAVEED_MASTER_HBL = "RCL_IGM_BL_INFO.RCL_IGM_SAVE_MASTER_HBL";
+	
+	
 	/**
 	 * Gets the IGM data.
 	 *
@@ -697,7 +699,7 @@ public interface IGMDaoNew {
 
 	public String getTEMP_UPLOAD_DIR();
 
+	public Map getHblListJdbc(ImportGeneralManifestUim objForm,String blType) throws BusinessException;
+	
 	public Map<Object, Object> getOneBLDataNewFor(Map<String, String> mapParam,  String procedureName) throws BusinessException;
-	
-	
 }

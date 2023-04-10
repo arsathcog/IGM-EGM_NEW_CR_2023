@@ -18,6 +18,7 @@ import com.niit.control.common.exception.ExceptionFactory;
 import com.niit.control.dao.AncestorJdbcDao;
 import com.niit.control.dao.JdbcRowMapper;
 import com.niit.control.dao.JdbcStoredProcedure;
+import com.rclgroup.dolphin.web.igm.actionform.ImportGeneralManifestUim;
 import com.rclgroup.dolphin.web.igm.jsonUtil.Utils;
 import com.rclgroup.dolphin.web.igm.vo.CFSCustomCode;
 import com.rclgroup.dolphin.web.igm.vo.DropDownMod;
@@ -832,10 +833,58 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			
 //			objMod.setBlType(rs.getString("BL_TYPE"));
 			objMod.setConsigneeName(rs.getString("CONSIGNEE_NAME"));
-//			objMod.setBl_discharged_status(rs.getString("BL_DISCHARGE_STATUS"));
 			objMod.setFetch(false);
 			objMod.setSaveFlags("N");
-			objMod.setBlDischargedStatus(rs.getString("BL_DISCHARGE_STATUS"));
+			objMod.setBlCriteria("MBL");
+			objMod.setHblCount(rs.getInt("HBLCOUNT"));
+			return objMod;
+		}
+	}
+	private class ImportGeneralManifestRowMapperHBLDetails extends JdbcRowMapper {
+		private boolean isSaved;
+
+		public ImportGeneralManifestRowMapperHBLDetails(boolean isSaved) {
+			this.isSaved = isSaved;
+		}
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see com.niit.control.dao.JdbcRowMapper#mapRow(java.sql.ResultSet, int)
+		 */
+
+		public Object mapRow(ResultSet rs, int row) throws SQLException {
+			// System.out.println("#IGMLogger mapRow() started..");
+			ImportGeneralManifestMod objMod = new ImportGeneralManifestMod();
+
+			objMod.setBl(rs.getString("BL_NO"));
+			objMod.setHblNo(rs.getString("HBL_NO"));
+			objMod.setBlDate(rs.getString("BL_DATE"));
+			objMod.setVessel(rs.getString("VESSEL"));
+			objMod.setVoyage(rs.getString("VOYAGE"));
+			objMod.setItemNumber(rs.getString("ITEM_NUMBER"));
+			if (rs.getString("ITEM_NUMBER") != null && !rs.getString("ITEM_NUMBER").equals("")) {
+				objMod.setIsBlSave(String.valueOf(true));
+			} else {
+				objMod.setIsBlSave(String.valueOf(false));
+			}
+			objMod.setCargoMovmnt(rs.getString("CARGO_MOVMNT"));
+			objMod.setPod(rs.getString("POD"));
+			objMod.setPortOfLoading(rs.getString("POL"));
+
+			if (rs.getString("BL_TYPE").equalsIgnoreCase("C")) {
+				objMod.setBlType("COC");
+			} else if (rs.getString("BL_TYPE").equalsIgnoreCase("S")) {
+				objMod.setBlType("SOC");
+			} else {
+				objMod.setBlType(rs.getString("BL_TYPE"));
+			}
+
+//			objMod.setBlType(rs.getString("BL_TYPE"));
+			objMod.setConsigneeName(rs.getString("CONSIGNEE_NAME"));
+			objMod.setFetch(false);
+			objMod.setSaveFlags("N");
+			objMod.setBlCriteria("HBL");
+			//objMod.setHblCount(rs.getInt("HBLCOUNT"));
 			return objMod;
 		}
 	}
@@ -1223,9 +1272,11 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			
 		return path;
 	}
-
+	
 	@Override
 	public Map<Object, Object> getOneBLDataNewFor(Map<String, String> mapParam, String procedureName) throws BusinessException {
+		
+
 		String[][] arrParam = { { KEY_REF_IGM_DATA, BLANK + ORACLE_CURSOR, PARAM_OUT, BLANK },
 //				{ KEY_IGM_POD, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_POD) },
 				{ KEY_IGM_BL, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) mapParam.get(KEY_IGM_BL) },
@@ -1272,7 +1323,41 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			throw ExceptionFactory.createApplicationException(strRetError);
 		}
 		return mapResult;
+	
 	}
 
-	 
+	@Override
+	public Map getHblListJdbc(ImportGeneralManifestUim objForm, String blType) throws BusinessException {
+
+		String procedure = "";
+
+		String[][] arrParam = { { KEY_REF_IGM_DATA, BLANK + ORACLE_CURSOR, PARAM_OUT, BLANK },
+				{ KEY_IGM_BL, BLANK + ORACLE_VARCHAR, PARAM_IN, objForm.getBl() },
+				{ KEY_IGM_ERROR, BLANK + ORACLE_VARCHAR, PARAM_OUT, BLANK } };
+
+		
+		if(blType.equals("saved")) {
+			procedure = SQL_RCL_IGM_BL_MASTER;
+		}else { 
+			procedure = SQL_RCL_IGM_BL_SAVE;
+			  }
+
+		JdbcStoredProcedure objSP = new JdbcStoredProcedure(getDataSource(), procedure,
+				new ImportGeneralManifestRowMapperHBLDetails(true), arrParam);
+
+		/* Return Result from SP execute */
+		Map mapResult = objSP.execute();
+
+		/* Stores return error code from SP */
+		String strRetError = (String) mapResult.get(KEY_IGM_ERROR);
+		/* If return error code is Failure, throw Business Exception */
+		if (isErrorCode(strRetError)) {
+			System.out.println("Error while getting igm data from DB : " + strRetError);
+			throw ExceptionFactory.createApplicationException(strRetError);
+		}
+
+		return mapResult;
+
+	}
+	
 }

@@ -109,7 +109,13 @@
                 <forward name="failure" path="rcl.ezl.sigm001New.page"></forward>
         </action>
         
-            <action path="/getCarogoDetailsAndMore" type="com.rclgroup.dolphin.web.igm.action.IGMNewScreenSvc" parameter="getCarogoDetailsAndMore"
+        <action path="/getCarogoDetailsHBL" type="com.rclgroup.dolphin.web.igm.action.IGMNewScreenSvc" parameter="getCarogoDetailsHBL"
+                 name="figm001" validate="false" scope="request">
+                <forward name="success" path="rcl.ezl.sigm001New.page"></forward>
+                <forward name="failure" path="rcl.ezl.sigm001New.page"></forward>
+        </action>
+        
+        <action path="/getCarogoDetailsAndMore" type="com.rclgroup.dolphin.web.igm.action.IGMNewScreenSvc" parameter="getCarogoDetailsAndMore"
                  name="figm001" validate="false" scope="request">
                 <forward name="success" path="rcl.ezl.sigm001New.page"></forward>
                 <forward name="failure" path="rcl.ezl.sigm001New.page"></forward>
@@ -121,6 +127,11 @@
                 <forward name="failure" path="rcl.ezl.sigm001New.page"></forward>
         </action>
         
+        <action path="/getHblList" type="com.rclgroup.dolphin.web.igm.action.IGMNewScreenSvc" parameter="getHblList"
+                 name="figm001" validate="false" scope="request">
+                <forward name="success" path="rcl.ezl.sigm001New.page"></forward>
+                <forward name="failure" path="rcl.ezl.sigm001New.page"></forward>
+        </action>
              
         <action path="/getStowageExport" type="com.rclgroup.dolphin.web.igm.action.IGMExportScreenSvc" parameter="getStowageExport"
                  name="figm001" validate="false" scope="request">
