@@ -2442,7 +2442,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 			var blCountCheck = 0;
 			$window.jsonData=data.data;			
 			$scope.getData();
-			$scope.getConsinee();
+			/* $scope.getConsinee(); */
 			$scope.prsnOnBordTable=data.data.personOnBoardMod;
 			$scope.shipStoreTable=data.data.shipStoresMod;
 			$scope.crewEffetTable=data.data.crewEfctMod;
@@ -2571,7 +2571,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 		$scope.consigner =$scope.selectedBL.consigner[0];
 		$scope.notifyParty =$scope.selectedBL.notifyParty[0];
 		
-		
+		$("body").find('.loading').remove();
 		 
     }
 	
@@ -2591,7 +2591,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 		if(($scope.selectedBL.isBlSave == 'true' || $scope.selectedBL.isBlSave == true) && ($scope.selectedBL.itemNumber !=null || $scope.selectedBL.itemNumber !="")){
 			$scope.selectedBL.saveFlags="U"
 		}
-		$scope.getConsinee();
+		/* $scope.getConsinee(); */
 		$scope.containerValue();
 		$("#dialog-tabs").tabs({ active: 4 });
     }
@@ -2626,7 +2626,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 		if(($scope.selectedBL.isBlSave == 'true' || $scope.selectedBL.isBlSave == true) && ($scope.selectedBL.itemNumber !=null || $scope.selectedBL.itemNumber !="")){
 			$scope.selectedBL.saveFlags="U"
 		}
-		$scope.getConsinee();
+	/* 	$scope.getConsinee(); */
 		$scope.getContainerDetails();
 		$("#dialog-tabs").tabs({ active: 4 });}
     }  
@@ -2639,7 +2639,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 		if(($scope.selectedBL.isBlSave == 'true' || $scope.selectedBL.isBlSave == true) && ($scope.selectedBL.itemNumber !=null || $scope.selectedBL.itemNumber !="")){
 			$scope.selectedBL.saveFlags="U"
 		}
-		$scope.getConsinee();
+	/* 	$scope.getConsinee(); */
 		$scope.getCarogoDetails();
 		/* $scope.getExtraDetails(); */
 		$("#dialog-tabs").tabs({ active: 4 });}
@@ -3187,10 +3187,10 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 					
 						
 						debugger;
-						$scope.BLS[$scope.blIndex].consignee = result.data.blDetails.consignee
-						$scope.BLS[$scope.blIndex].consigner = result.data.blDetails.consigner
-						$scope.BLS[$scope.blIndex].marksNumber = result.data.blDetails.marksNumber
-						$scope.BLS[$scope.blIndex].notifyParty = result.data.blDetails.notifyParty
+						$scope.BLS[$scope.blIndex].consignee = result.data.blDetails[0].consignee
+						$scope.BLS[$scope.blIndex].consigner = result.data.blDetails[0].consigner
+						$scope.BLS[$scope.blIndex].marksNumber = result.data.blDetails[0].marksNumber
+						$scope.BLS[$scope.blIndex].notifyParty = result.data.blDetails[0].notifyParty
 						$scope.BLS[$scope.blIndex].notifyPartyTwo = result.data.blDetails.notifyPartyTwo
 						$scope.BLS[$scope.blIndex].previousDeclaration = result.data.blDetails.previousDeclaration
 						
