@@ -81,7 +81,7 @@
             <td><input type="text" class="roundshap2"
                value="{{selectedServcies.customTerminalCode}}"
                ng-model="selectedServcies.customTerminalCode" ></td>
-            <td><input type="text" onkeypress="return onlyNumberKey(event)"
+            <td><input type="text" onkeypress="return onlyNumKey(event)"
 
                  ng-model="selectedServcies.fromItemNo"  
                   class="roundshap2"         
@@ -115,7 +115,7 @@
             <!-- </td> -->
          </tr>
          <script>
-		function onlyNumberKey(evt) {
+		function onlyNumKey(evt) {
 			
 			// Only ASCII character in that range allowed
 			var ASCIICode = (evt.which) ? evt.which : evt.keyCode
