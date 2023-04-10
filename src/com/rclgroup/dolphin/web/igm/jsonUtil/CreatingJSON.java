@@ -523,7 +523,7 @@ public class CreatingJSON {
 
 			if(blObj.getPod().substring(0, 2).equals("IN")) {
 				mCRefClassObj.setPrevDec(("N"));
-			}else if(blObj.getNextport1().substring(0,2).equals("IN")) {
+			}else {
 				mCRefClassObj.setPrevDec(settingLength("Y",4));
 			}
 //			mCRefClassObj.setPrevDec(settingLength(blObj.getPrevious_declaration(),4)); // Line77				//TODO  guru	

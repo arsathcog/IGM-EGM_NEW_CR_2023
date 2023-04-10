@@ -760,7 +760,7 @@ System.out.println("getCarogoDetails() Called.");
 			objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_MASTER_PREV_DECLARATION);
 		}		
 		net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();
-	    jsonObj.put("blDetails", blObj.get(0));
+	    jsonObj.put("blDetails", blObj);
 	    jsonObj.write(response.getWriter());
 		return null;
 	}
