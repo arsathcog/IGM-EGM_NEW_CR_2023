@@ -13,18 +13,18 @@ public class HouseCargoDecSAM {
 	private List<TrnsprtEqmtSAM> trnsprtEqmt;
 	private List<ItnrySAM> itnry;
 	private List<PrevRefSAM> prevRef;
-	private List<HCCrgoSuprtDocsSAM> hCCrgoSuprtDocs;
-	private List<HCAdtnlDecSAM>hcAdtnlDec;
-	private List<HCPrevRefSAM>hcPrevRef;
+//	private List<HCCrgoSuprtDocsSAM> hCCrgoSuprtDocs;
+//	private List<HCAdtnlDecSAM>hcAdtnlDec;
+//	private List<HCPrevRefSAM>hcPrevRef;
 	
 	
 	
-	public List<HCPrevRefSAM> getHcPrevRef() {
-		return hcPrevRef;
-	}
-	public void setHcPrevRef(List<HCPrevRefSAM> hcPrevRef) {
-		this.hcPrevRef = hcPrevRef;
-	}
+//	public List<HCPrevRefSAM> getHcPrevRef() {
+//		return hcPrevRef;
+//	}
+//	public void setHcPrevRef(List<HCPrevRefSAM> hcPrevRef) {
+//		this.hcPrevRef = hcPrevRef;
+//	}
 	
 	public HCRefSAM gethCRef() {
 		return hCRef;
@@ -80,18 +80,18 @@ public class HouseCargoDecSAM {
 	public void setPrevRef(List<PrevRefSAM> prevRef) {
 		this.prevRef = prevRef;
 	}
-	public List<HCCrgoSuprtDocsSAM> gethCCrgoSuprtDocs() {
-		return hCCrgoSuprtDocs;
-	}
-	public void sethCCrgoSuprtDocs(List<HCCrgoSuprtDocsSAM> hCCrgoSuprtDocs) {
-		this.hCCrgoSuprtDocs = hCCrgoSuprtDocs;
-	}
-	public List<HCAdtnlDecSAM> getHcAdtnlDec() {
-		return hcAdtnlDec;
-	}
-	public void setHcAdtnlDec(List<HCAdtnlDecSAM> hcAdtnlDec) {
-		this.hcAdtnlDec = hcAdtnlDec;
-	}
+//	public List<HCCrgoSuprtDocsSAM> gethCCrgoSuprtDocs() {
+//		return hCCrgoSuprtDocs;
+//	}
+//	public void sethCCrgoSuprtDocs(List<HCCrgoSuprtDocsSAM> hCCrgoSuprtDocs) {
+//		this.hCCrgoSuprtDocs = hCCrgoSuprtDocs;
+//	}
+//	public List<HCAdtnlDecSAM> getHcAdtnlDec() {
+//		return hcAdtnlDec;
+//	}
+//	public void setHcAdtnlDec(List<HCAdtnlDecSAM> hcAdtnlDec) {
+//		this.hcAdtnlDec = hcAdtnlDec;
+//	}
 
 
 
