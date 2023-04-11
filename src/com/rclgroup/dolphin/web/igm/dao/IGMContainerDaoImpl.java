@@ -97,7 +97,10 @@ public class IGMContainerDaoImpl extends AncestorJdbcDao implements IGMContainer
 
 		if (listOfContainer != null) {
 			for (ContainerDetails containerDetails : listOfContainer) {
-				mapBlWithContainerDetails.get(containerDetails.getBlNo()).getContainerDetailes().add(containerDetails);
+			
+				if (containerDetails != null) {
+					mapBlWithContainerDetails.get(containerDetails.getBlNo()).getContainerDetailes().add(containerDetails);
+				}
 			}
 
 		}
