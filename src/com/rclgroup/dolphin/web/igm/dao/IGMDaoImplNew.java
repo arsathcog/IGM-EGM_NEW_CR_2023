@@ -1332,7 +1332,7 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 		String procedure = "";
 
 		String[][] arrParam = { { KEY_REF_IGM_DATA, BLANK + ORACLE_CURSOR, PARAM_OUT, BLANK },
-				{ KEY_IGM_BL, BLANK + ORACLE_VARCHAR, PARAM_IN, objForm.getBl() },
+				{ KEY_IGM_BL, BLANK + ORACLE_VARCHAR, PARAM_IN, "LCHSB22035374" },
 				{ KEY_IGM_ERROR, BLANK + ORACLE_VARCHAR, PARAM_OUT, BLANK } };
 
 		
