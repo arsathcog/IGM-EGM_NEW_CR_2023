@@ -2489,11 +2489,13 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 		}
 		for(var d=0;d<$scope.BLS.length;d++){
 			if(($scope.BLS[d].isBlSave=="true" || $scope.BLS[d].isBlSave==true) && ($scope.BLS[d].saveFlags == "U" || $scope.BLS[d].saveFlags == "I" )){
-					if(($scope.BLS[d].fetch == "false" || $scope.BLS[d].fetch == false) || ($scope.BLS[d].containerDetailes == undefined  || $scope.BLS[d].containerDetailes.length==0)){
-						swal("Message","Please Check Carogo And Container Data : "+$scope.BLS[d].bl,"info");
-						return false;
-					}
-			}
+				if(($scope.BLS[d].fetch == "false" || $scope.BLS[d].fetch == false) ||
+				( $("#selectAllCheckBox")[0].checked == false && ($scope.BLS[d].containerDetailes == undefined 
+				|| $scope.BLS[d].containerDetailes.length==0) )){
+					swal("Message","Please Check Carogo And Container Data : "+$scope.BLS[d].bl,"info");
+					return false;
+				}
+		}
 		}
 		
 		$( "body" ).append('<div class="loading"></div>');
@@ -2908,10 +2910,17 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 	
 	    $scope.getCarogoDetails();
 	    $scope.containerValue(); /* getting contaner details */
-	
+
+		if( $scope.container.containerNumber != null){
+			$scope.contnrNum =  $scope.container.containerNumber;
+			}else{
+				$scope.contnrNum = null;
+
+				}
+		
 	    console.log(document.getElementById("podTerminal").value);
 	    var bl = $scope.BLS[$scope.blIndex].bl;
-	    var container = $scope.container.containerNumber;
+	    var container =	$scope.contnrNum;
 	    var podTerminal = result1.result[$window.selectedIndex].terminal;
 	    var pod = $scope.selectedServcies.pod;
 	    var vessel = $scope.selectedServcies.vessel;
