@@ -2262,7 +2262,6 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				$scope.getCarogoDetails();
 				$scope.getConsinee();
 				$scope.containerValue();
-				
 			}
 			$scope.selectedServcies.totalItem = count;
 			$scope.selectedServcies.totalNmbrOfLines = totalNmbrOfLinesCount ;
