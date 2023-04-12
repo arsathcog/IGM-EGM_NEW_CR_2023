@@ -86,6 +86,7 @@ public class NotifyPartyTwo {
 	public void setNotify2(String notify2) {
 		this.notify2 = notify2;
 	}
+	
 	@Override
 	public String toString() {
 		return "NotifyPartyTwo [blNo=" + blNo + ", CostumerCode=" + CostumerCode + ", CostumerName=" + CostumerName
@@ -93,8 +94,5 @@ public class NotifyPartyTwo {
 				+ ", addressLine4=" + addressLine4 + ", city=" + city + ", state=" + state + ", countryCode="
 				+ countryCode + ", zip=" + zip + ", notify2=" + notify2 + "]";
 	}
-	
-	
-	   
 	   
 }

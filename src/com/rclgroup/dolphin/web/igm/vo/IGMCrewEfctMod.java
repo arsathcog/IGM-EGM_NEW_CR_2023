@@ -3,23 +3,29 @@ package com.rclgroup.dolphin.web.igm.vo;
 public class IGMCrewEfctMod {
 
 	private String personOnBoardSequenceNo;
+	
 	private String sequenceNo;
+	
 	private String crewEfctsVsslSeqNmbr;
+	
 	private String crewEfctDescCdd;
+	
 	private String crewEfctsDesc;
+	
 	private String crewEfctQntyOnbrd;
+	
 	private String crewEfctQntyCdOnbrd;
+	
 	private String blNo;
+	
 	private String vessel;
+	
 	private String voyage ;
+	
 	private String pod ;
 	
 	private String $$hashKey;
 	
-	
-	
-	
-
 	public String getPersonOnBoardSequenceNo() {
 		return personOnBoardSequenceNo;
 	}
@@ -116,4 +122,13 @@ public class IGMCrewEfctMod {
 		this.pod = pod;
 	}
 
+	@Override
+	public String toString() {
+		return "IGMCrewEfctMod [personOnBoardSequenceNo=" + personOnBoardSequenceNo + ", sequenceNo=" + sequenceNo
+				+ ", crewEfctsVsslSeqNmbr=" + crewEfctsVsslSeqNmbr + ", crewEfctDescCdd=" + crewEfctDescCdd
+				+ ", crewEfctsDesc=" + crewEfctsDesc + ", crewEfctQntyOnbrd=" + crewEfctQntyOnbrd
+				+ ", crewEfctQntyCdOnbrd=" + crewEfctQntyCdOnbrd + ", blNo=" + blNo + ", vessel=" + vessel + ", voyage="
+				+ voyage + ", pod=" + pod + ", $$hashKey=" + $$hashKey + "]";
+	}
+	
 }

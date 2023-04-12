@@ -788,6 +788,8 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			}else {
 				objMod.setSaveFlags("N");
 			}
+			objMod.setHblCount(rs.getInt("HBLCOUNT"));
+			objMod.setBlCriteria("MBL"); 
 			return objMod;
 		}
 	}

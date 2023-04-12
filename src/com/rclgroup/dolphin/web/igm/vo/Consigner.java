@@ -82,6 +82,13 @@ public class Consigner {
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
-
 	
+	@Override
+	public String toString() {
+		return "Consigner [blNO=" + blNO + ", customerCode=" + customerCode + ", customerName=" + customerName
+				+ ", addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2 + ", addressLine3=" + addressLine3
+				+ ", addressLine4=" + addressLine4 + ", city=" + city + ", state=" + state + ", countryCode="
+				+ countryCode + ", zip=" + zip + "]";
+	}
+
 }

@@ -155,4 +155,15 @@ public class Consignee {
 		this.consigneFwr = consigneFwr;
 	}
 	
+	@Override
+	public String toString() {
+		return "Consignee [blNO=" + blNO + ", customerCode=" + customerCode + ", customerName=" + customerName
+				+ ", addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2 + ", addressLine3=" + addressLine3
+				+ ", addressLine4=" + addressLine4 + ", city=" + city + ", state=" + state + ", countryCode="
+				+ countryCode + ", zip=" + zip + ", consigneeName=" + consigneeName + ", notifyName=" + notifyName
+				+ ", notifyIec=" + notifyIec + ", notifyPan=" + notifyPan + ", consigneName=" + consigneName
+				+ ", consigneIec=" + consigneIec + ", consignePan=" + consignePan + ", portOfDischarge="
+				+ portOfDischarge + ", consigneCheckBox=" + consigneCheckBox + ", consigneFwr=" + consigneFwr + "]";
+	}
+	
 }

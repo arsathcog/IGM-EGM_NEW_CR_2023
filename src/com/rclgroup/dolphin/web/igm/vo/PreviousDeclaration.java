@@ -3,13 +3,18 @@ package com.rclgroup.dolphin.web.igm.vo;
 public class PreviousDeclaration {
 	
 	private String blNo;
+	
 	private String previous_declaration = "N";
+	
 	private String split_indicator;
+	
 	private String csn_number;
+	
 	private String csn_date;
+	
 	private String previous_mcin;
+	
 	private String previous_pcin;
-
 	
 	public String getBlNo() {
 		return blNo;
@@ -87,4 +92,6 @@ public class PreviousDeclaration {
 		builder.append("]");
 		return builder.toString();
 	}
+	
+	
 }

@@ -3,29 +3,48 @@ package com.rclgroup.dolphin.web.igm.vo;
 public class ContainerDetails {
 	
 	private String blNo;
+	
 	private String containerNumber;
+	
 	private String equipment_seal_type;
+	
 	private String containerSealNumber;
+	
 	private String containerAgentCode;
+	
 	private String agentCode;
+	
 	private String status;
+	
 	private String soc_flag;
+	
 	private String containerBondFlag;
+	
 	private String containerType;
+	
 	private String containerSize;
+	
 	private String typeDetail;
+	
 	private String totalNumberOfPackagesInContainer;
+	
 	private String containerWeight;
+	
 	private String cbm;
+	
 	private String isoCode;
+	
 	private String unos;
+	
 	private String imo;
+	
 	private String classification;
+	
 	private String remarks;
+	
 	private String equipmentLoadStatus;
+	
 	private String containerWeightUnit;
-	
-	
 	
 	public String getContainerBondFlag() {
 		return containerBondFlag;
@@ -154,11 +173,17 @@ public class ContainerDetails {
 		this.containerWeightUnit = containerWeightUnit;
 	}
 	
-	
-	
-	
-
-	
-
+	@Override
+	public String toString() {
+		return "ContainerDetails [blNo=" + blNo + ", containerNumber=" + containerNumber + ", equipment_seal_type="
+				+ equipment_seal_type + ", containerSealNumber=" + containerSealNumber + ", containerAgentCode="
+				+ containerAgentCode + ", agentCode=" + agentCode + ", status=" + status + ", soc_flag=" + soc_flag
+				+ ", containerBondFlag=" + containerBondFlag + ", containerType=" + containerType + ", containerSize="
+				+ containerSize + ", typeDetail=" + typeDetail + ", totalNumberOfPackagesInContainer="
+				+ totalNumberOfPackagesInContainer + ", containerWeight=" + containerWeight + ", cbm=" + cbm
+				+ ", isoCode=" + isoCode + ", unos=" + unos + ", imo=" + imo + ", classification=" + classification
+				+ ", remarks=" + remarks + ", equipmentLoadStatus=" + equipmentLoadStatus + ", containerWeightUnit="
+				+ containerWeightUnit + "]";
+	}
 
 }

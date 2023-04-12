@@ -13,8 +13,11 @@ public class MarksNumber {
 	private String bldate;
 
 	private String notifyPartyCode;
+	
 	private String previous_declaration = "N";
+	
 	private String split_indicator;
+	
 	private String csn_number;
 
 	private String csn_date;
@@ -119,6 +122,13 @@ public class MarksNumber {
 		this.previous_pcin = previous_pcin;
 	}
 
-	// Remarks dro
+	@Override
+	public String toString() {
+		return "MarksNumber [blNO=" + blNO + ", marksNumbers=" + marksNumbers + ", description=" + description
+				+ ", droRemarks=" + droRemarks + ", bldate=" + bldate + ", notifyPartyCode=" + notifyPartyCode
+				+ ", previous_declaration=" + previous_declaration + ", split_indicator=" + split_indicator
+				+ ", csn_number=" + csn_number + ", csn_date=" + csn_date + ", previous_mcin=" + previous_mcin
+				+ ", previous_pcin=" + previous_pcin + "]";
+	}
 
 }

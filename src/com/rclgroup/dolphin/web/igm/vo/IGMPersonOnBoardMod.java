@@ -1,32 +1,59 @@
 package com.rclgroup.dolphin.web.igm.vo;
 
 public class IGMPersonOnBoardMod {
+	
 	private Integer seqNo;
+	
 	private String blNo;
+	
 	private String prsnTypCdd;
+	
 	private String prsnFamilyName;
+	
 	private String vessel;
+	
 	private String voyage;
+	
 	private String pod;
+	
 	private String prsnGivenName;
+	
 	private String prsnNatnltyCdd;
+	
 	private String psngrInTransitIndctr;
+	
 	private String crewmemberRankOrRatingCdd;
+	
 	private String crewmemberRankOrRating;
+	
 	private String psngrPrtOfEmbrktnCdd;
+	
 	private String psngrPrtOfDsmbrktnCdd;
+	
 	private String prsnGenderCdd;
+	
 	private String prsnDtOfBirth;
+	
 	private String prsnPlaceOfBirthName;
+	
 	private String prsnCntryOfBirthCdd;
+	
 	private String prsnIdDocExpiryDt;
+	
 	private String prsnIdOrTravelDocIssuingNationCdd;
+	
 	private String prsnIdOrTravelDocNmbr;
+	
 	private String prsnIdOrTravelDocTypCdd;
+	
 	private String psngrPrtOfEmbrktnName;
+	
 	private String visa;
+	
 	private String pnrNumber;
+	
 	private String psngrPrtOfDsmbrktnName;
+	
 	private String $$hashKey;
 
 	
@@ -205,31 +232,7 @@ public class IGMPersonOnBoardMod {
 	public void setPsngrPrtOfDsmbrktnName(String psngrPrtOfDsmbrktnName) {
 		this.psngrPrtOfDsmbrktnName = psngrPrtOfDsmbrktnName;
 	}
-
-	@Override
-	public String toString() {
-		return "IGMPersonOnBoardMod [prsnTypCdd=" + prsnTypCdd + ", prsnFamilyName=" + prsnFamilyName
-				+ ", prsnGivenName=" + prsnGivenName + ", prsnNatnltyCdd=" + prsnNatnltyCdd + ", psngrInTransitIndctr="
-				+ psngrInTransitIndctr + ", crewmemberRankOrRatingCdd=" + crewmemberRankOrRatingCdd
-				+ ", psngrPrtOfEmbrktnCdd=" + psngrPrtOfEmbrktnCdd + ", psngrPrtOfDsmbrktnCdd=" + psngrPrtOfDsmbrktnCdd
-				+ ", prsnGenderCdd=" + prsnGenderCdd + ", prsnDtOfBirth=" + prsnDtOfBirth + ", prsnPlaceOfBirthName="
-				+ prsnPlaceOfBirthName + ", prsnCntryOfBirthCdd=" + prsnCntryOfBirthCdd + ", prsnIdDocExpiryDt="
-				+ prsnIdDocExpiryDt + ", prsnIdOrTravelDocIssuingNationCdd=" + prsnIdOrTravelDocIssuingNationCdd
-				+ ", prsnIdOrTravelDocNmbr=" + prsnIdOrTravelDocNmbr + ", prsnIdOrTravelDocTypCdd="
-				+ prsnIdOrTravelDocTypCdd + ", getPrsnTypCdd()=" + getPrsnTypCdd() + ", getPrsnFamilyName()="
-				+ getPrsnFamilyName() + ", getPrsnGivenName()=" + getPrsnGivenName() + ", getPrsnNatnltyCdd()="
-				+ getPrsnNatnltyCdd() + ", getPsngrInTransitIndctr()=" + getPsngrInTransitIndctr()
-				+ ", getCrewmemberRankOrRatingCdd()=" + getCrewmemberRankOrRatingCdd() + ", getPsngrPrtOfEmbrktnCdd()="
-				+ getPsngrPrtOfEmbrktnCdd() + ", getPsngrPrtOfDsmbrktnCdd()=" + getPsngrPrtOfDsmbrktnCdd()
-				+ ", getPrsnGenderCdd()=" + getPrsnGenderCdd() + ", getPrsnDtOfBirth()=" + getPrsnDtOfBirth()
-				+ ", getPrsnPlaceOfBirthName()=" + getPrsnPlaceOfBirthName() + ", getPrsnCntryOfBirthCdd()="
-				+ getPrsnCntryOfBirthCdd() + ", getPrsnIdDocExpiryDt()=" + getPrsnIdDocExpiryDt()
-				+ ", getPrsnIdOrTravelDocIssuingNationCdd()=" + getPrsnIdOrTravelDocIssuingNationCdd()
-				+ ", getPrsnIdOrTravelDocNmbr()=" + getPrsnIdOrTravelDocNmbr() + ", getPrsnIdOrTravelDocTypCdd()="
-				+ getPrsnIdOrTravelDocTypCdd() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
-	}
-
+	
 	public String getCrewmemberRankOrRating() {
 		return crewmemberRankOrRating;
 	}
@@ -268,6 +271,30 @@ public class IGMPersonOnBoardMod {
 
 	public void setPod(String pod) {
 		this.pod = pod;
+	}
+
+	@Override
+	public String toString() {
+		return "IGMPersonOnBoardMod [prsnTypCdd=" + prsnTypCdd + ", prsnFamilyName=" + prsnFamilyName
+				+ ", prsnGivenName=" + prsnGivenName + ", prsnNatnltyCdd=" + prsnNatnltyCdd + ", psngrInTransitIndctr="
+				+ psngrInTransitIndctr + ", crewmemberRankOrRatingCdd=" + crewmemberRankOrRatingCdd
+				+ ", psngrPrtOfEmbrktnCdd=" + psngrPrtOfEmbrktnCdd + ", psngrPrtOfDsmbrktnCdd=" + psngrPrtOfDsmbrktnCdd
+				+ ", prsnGenderCdd=" + prsnGenderCdd + ", prsnDtOfBirth=" + prsnDtOfBirth + ", prsnPlaceOfBirthName="
+				+ prsnPlaceOfBirthName + ", prsnCntryOfBirthCdd=" + prsnCntryOfBirthCdd + ", prsnIdDocExpiryDt="
+				+ prsnIdDocExpiryDt + ", prsnIdOrTravelDocIssuingNationCdd=" + prsnIdOrTravelDocIssuingNationCdd
+				+ ", prsnIdOrTravelDocNmbr=" + prsnIdOrTravelDocNmbr + ", prsnIdOrTravelDocTypCdd="
+				+ prsnIdOrTravelDocTypCdd + ", getPrsnTypCdd()=" + getPrsnTypCdd() + ", getPrsnFamilyName()="
+				+ getPrsnFamilyName() + ", getPrsnGivenName()=" + getPrsnGivenName() + ", getPrsnNatnltyCdd()="
+				+ getPrsnNatnltyCdd() + ", getPsngrInTransitIndctr()=" + getPsngrInTransitIndctr()
+				+ ", getCrewmemberRankOrRatingCdd()=" + getCrewmemberRankOrRatingCdd() + ", getPsngrPrtOfEmbrktnCdd()="
+				+ getPsngrPrtOfEmbrktnCdd() + ", getPsngrPrtOfDsmbrktnCdd()=" + getPsngrPrtOfDsmbrktnCdd()
+				+ ", getPrsnGenderCdd()=" + getPrsnGenderCdd() + ", getPrsnDtOfBirth()=" + getPrsnDtOfBirth()
+				+ ", getPrsnPlaceOfBirthName()=" + getPrsnPlaceOfBirthName() + ", getPrsnCntryOfBirthCdd()="
+				+ getPrsnCntryOfBirthCdd() + ", getPrsnIdDocExpiryDt()=" + getPrsnIdDocExpiryDt()
+				+ ", getPrsnIdOrTravelDocIssuingNationCdd()=" + getPrsnIdOrTravelDocIssuingNationCdd()
+				+ ", getPrsnIdOrTravelDocNmbr()=" + getPrsnIdOrTravelDocNmbr() + ", getPrsnIdOrTravelDocTypCdd()="
+				+ getPrsnIdOrTravelDocTypCdd() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
 	}
 
 }

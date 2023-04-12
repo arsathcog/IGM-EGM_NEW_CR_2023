@@ -2446,36 +2446,32 @@ public class ImportGeneralManifestUim extends PaginationForm {
 				+ ", fileType=" + fileType + ", fileTypeEgm=" + fileTypeEgm + ", personOnBoardMod=" + personOnBoardMod
 				+ ", crewEfctMod=" + crewEfctMod + ", shipStoresMod=" + shipStoresMod + ", itemType=" + itemType
 				+ ", podTerminalPort=" + podTerminalPort + ", polTerminalPort=" + polTerminalPort + ", blType=" + blType
-				+ ", consolidatedIndicator=" + consolidatedIndicator + ", type_of_cargo=" + type_of_cargo
-				+ ", neCargoMovmnt=" + neCargoMovmnt + ", senderId=" + senderId + ", recieverId=" + recieverId
-				+ ", authRepCd=" + authRepCd + ", totalNmbrOfLines=" + totalNmbrOfLines + ", personOnBoardModList="
-				+ personOnBoardModList + ", crewEfctModsList=" + crewEfctModsList + ", igmShipStoresModsList="
-				+ igmShipStoresModsList + ", isBlSave=" + isBlSave + ", saveFlags=" + saveFlags + ", ackJson=" + ackJson
-				+ ", container=" + container + ", isHbl=" + isHbl + ", dgFlag=" + dgFlag + ", commdity_code="
-				+ commdity_code + ", package_kind=" + package_kind + ", commodity_seq=" + commodity_seq
-				+ ", port_of_call_name_last3=" + port_of_call_name_last3 + ", port_of_call_name_last2="
+				+ ", blCriteria=" + blCriteria + ", consolidatedIndicator=" + consolidatedIndicator + ", type_of_cargo="
+				+ type_of_cargo + ", neCargoMovmnt=" + neCargoMovmnt + ", senderId=" + senderId + ", recieverId="
+				+ recieverId + ", authRepCd=" + authRepCd + ", totalNmbrOfLines=" + totalNmbrOfLines
+				+ ", personOnBoardModList=" + personOnBoardModList + ", crewEfctModsList=" + crewEfctModsList
+				+ ", igmShipStoresModsList=" + igmShipStoresModsList + ", isBlSave=" + isBlSave + ", saveFlags="
+				+ saveFlags + ", ackJson=" + ackJson + ", container=" + container + ", isHbl=" + isHbl + ", dgFlag="
+				+ dgFlag + ", commdity_code=" + commdity_code + ", package_kind=" + package_kind + ", commodity_seq="
+				+ commodity_seq + ", port_of_call_name_last3=" + port_of_call_name_last3 + ", port_of_call_name_last2="
 				+ port_of_call_name_last2 + ", port_of_call_name_last1=" + port_of_call_name_last1
 				+ ", port_of_call_name_nextport1=" + port_of_call_name_nextport1 + ", port_of_call_name_nextport2="
 				+ port_of_call_name_nextport2 + ", port_of_call_name_nextport3=" + port_of_call_name_nextport3
 				+ ", port_of_call_name_portOrigin=" + port_of_call_name_portOrigin + ", port_of_call_name_portArrival="
 				+ port_of_call_name_portArrival + ", stowageImport=" + stowageImport + ", stowageExport="
-				+ stowageExport + ", hsCd=" + hsCd + ", flagDg=" + flagDg + ", cargo_msmt=" + cargo_msmt
-				+ ", gstStateCode=" + gstStateCode + ", dn_plr=" + dn_plr + ", portName=" + portName + ", pointName="
-				+ pointName + ", dn_pld=" + dn_pld + ", acceptanceName=" + acceptanceName + ", recieptName="
-				+ recieptName + ", notifyName=" + notifyName + ", notifyIec=" + notifyIec + ", notifyPan=" + notifyPan
-				+ ", dnDischargePort=" + dnDischargePort + ", flag_discharge=" + flag_discharge
-				+ ", blDischargedStatus=" + blDischargedStatus + ", flagRob=" + flagRob + ", flagLoaded=" + flagLoaded
-				+ ", blLoadStatus=" + blLoadStatus + ", flagRobDischarge=" + flagRobDischarge + ", isFetch=" + isFetch
-				+ "]";
+				+ stowageExport + ", hblCount=" + hblCount + ", hblArr=" + hblArr + ", hblNo=" + hblNo + ", flagDg="
+				+ flagDg + ", cargo_msmt=" + cargo_msmt + ", gstStateCode=" + gstStateCode + ", dn_plr=" + dn_plr
+				+ ", portName=" + portName + ", pointName=" + pointName + ", dn_pld=" + dn_pld + ", acceptanceName="
+				+ acceptanceName + ", recieptName=" + recieptName + ", notifyName=" + notifyName + ", notifyIec="
+				+ notifyIec + ", notifyPan=" + notifyPan + ", dnDischargePort=" + dnDischargePort + ", flag_discharge="
+				+ flag_discharge + ", blDischargedStatus=" + blDischargedStatus + ", flagRob=" + flagRob
+				+ ", flagLoaded=" + flagLoaded + ", blLoadStatus=" + blLoadStatus + ", flagRobDischarge="
+				+ flagRobDischarge + ", hsCd=" + hsCd + ", isFetch=" + isFetch + "]";
 	}
-
-
 
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see java.lang.Object#toString()
 	 */
-	
-
 }

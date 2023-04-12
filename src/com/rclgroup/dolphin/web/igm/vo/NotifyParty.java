@@ -190,8 +190,4 @@ public class NotifyParty
 				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 
-
-   
-    
-	
 }

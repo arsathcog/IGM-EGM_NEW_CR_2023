@@ -3,15 +3,25 @@ package com.rclgroup.dolphin.web.igm.vo;
 public class IGMShipStoresMod {
 
 	private String blNo;
+	
 	private String articleNameCdd;
+	
 	private String articleNameText;
+	
 	private String locOnbrdText;
+	
 	private String qntyOnbrd;
+	
 	private String qntyCdOnbrd;
+	
 	private String vessel;
+	
 	private String voyage ;
+	
 	private String pod ;
+	
 	private String $$hashKey;
+	
 	private String vesselSrno;
 	
 	public String getVesselSrno() {
@@ -101,4 +111,13 @@ public class IGMShipStoresMod {
 	public void setPod(String pod) {
 		this.pod = pod;
 	}
+
+	@Override
+	public String toString() {
+		return "IGMShipStoresMod [blNo=" + blNo + ", articleNameCdd=" + articleNameCdd + ", articleNameText="
+				+ articleNameText + ", locOnbrdText=" + locOnbrdText + ", qntyOnbrd=" + qntyOnbrd + ", qntyCdOnbrd="
+				+ qntyCdOnbrd + ", vessel=" + vessel + ", voyage=" + voyage + ", pod=" + pod + ", $$hashKey="
+				+ $$hashKey + ", vesselSrno=" + vesselSrno + "]";
+	}
+	
 }

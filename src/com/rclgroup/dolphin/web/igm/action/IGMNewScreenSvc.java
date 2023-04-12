@@ -467,7 +467,7 @@ public class IGMNewScreenSvc extends BaseAction {
 				}
 			}
 		}
-		
+		System.out.println(">>>"+blsForSavingCont.toString());
 		getSaveDataList(blsForSavingCont,deleteBL,insertBL);
 
 		String blsConInput = null;
