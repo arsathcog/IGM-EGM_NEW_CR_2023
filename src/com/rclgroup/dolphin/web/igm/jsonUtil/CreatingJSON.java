@@ -493,9 +493,9 @@ public class CreatingJSON {
 //			============================house Cargo =======================
 			
 			List<HouseCargoDecSAM> houseCargoDec = new ArrayList<HouseCargoDecSAM>();
-			List<HCAdtnlDecSAM> hcAdtnlDec= new ArrayList<HCAdtnlDecSAM>();
-			List<HCPrevRefSAM> hcPrevRef= new ArrayList<HCPrevRefSAM>();
-			List<HCCrgoSuprtDocsSAM> crgoSuprtDoc = new ArrayList<HCCrgoSuprtDocsSAM>();
+//			List<HCAdtnlDecSAM> hcAdtnlDec= new ArrayList<HCAdtnlDecSAM>();
+//			List<HCPrevRefSAM> hcPrevRef= new ArrayList<HCPrevRefSAM>();
+//			List<HCCrgoSuprtDocsSAM> crgoSuprtDoc = new ArrayList<HCCrgoSuprtDocsSAM>();
 //			System.out.println("gstcode........." +blObj.getGstStateCode() + "... "+blObj.getPointName()+"..."+blObj.getPointName()
 //			+".."+blObj.getPortName()+"..."+blObj.getDn_pld()+".."+blObj.getDn_plr());
 //		--------------------------------------------------------------------------------------	
@@ -849,7 +849,7 @@ public class CreatingJSON {
 //			PrevRef.setNmbrOfPkgs(generatedFileNameOfJson);
 //			PrevRef.setTypOfPackage(pol);
 //			hcPrevRef.add(PrevRef);
-			houseCargoDecSAMObj.setHcPrevRef(hcPrevRef);	
+//			houseCargoDecSAMObj.setHcPrevRef(hcPrevRef);	
 			
 //		-------------------------------------------------------	
 //			MCSuprtDocsSAM mcSuprtDocs = new MCSuprtDocsSAM ();  		
@@ -6469,7 +6469,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 
 	public static JsonMainObjctSCE getSCE(List<ImportGeneralManifestMod> blList,ImportGeneralManifestMod service,List<IGMPersonOnBoardMod> personOnBoardMod ,List<IGMShipStoresMod> shipStoresMod,int getSeqNo)  {
 
-		ImportGeneralManifestMod objForm = blList.get(0);
+	//	ImportGeneralManifestMod objForm = (ImportGeneralManifestMod) blList;
 		JsonMainObjctSCE org = new JsonMainObjctSCE();
 		MasterSCE mster = new MasterSCE();
 		
@@ -6522,11 +6522,11 @@ ImportGeneralManifestMod objForm = blList.get(0);
 				continue;
 			}
 			fromItemNoTemp++;
-			List<NotifyParty> notifyPartyDetailes = objForm.getNotifyParty();
-			List<Consignee> consigneeDtls = objForm.getConsignee();
-			List<MarksNumber> marksNumberDtls = objForm.getMarksNumber();
-			List<Consigner> consignerDtls = objForm.getConsigner();
-			List<ContainerDetails> containerDtls = objForm.getContainerDetailes();
+			List<NotifyParty> notifyPartyDetailes = blObj.getNotifyParty();
+			List<Consignee> consigneeDtls = blObj.getConsignee();
+			List<MarksNumber> marksNumberDtls = blObj.getMarksNumber();
+			List<Consigner> consignerDtls = blObj.getConsigner();
+			List<ContainerDetails> containerDtls = blObj.getContainerDetailes();
 			
 			MastrCnsgmtDecSCE mastrCnsgmtDec = new MastrCnsgmtDecSCE();
 			HouseCargoDecSCE houseCargoDecSCEObj = new HouseCargoDecSCE();
@@ -6541,8 +6541,8 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			List<PrevRefSCE> prevRef = new ArrayList<PrevRefSCE>();
 			List<TrnshprSCE> trnshpr = new ArrayList<TrnshprSCE>();
 			List<HouseCargoDecSCE> houseCargoDec = new ArrayList<HouseCargoDecSCE>();
-			List<HCAdtnlDecSCE> hcAdtnlDec= new ArrayList<HCAdtnlDecSCE>();
-			List<HCCrgoSuprtDocsSCE> crgoSuprtDoc = new ArrayList<HCCrgoSuprtDocsSCE>();
+//			List<HCAdtnlDecSCE> hcAdtnlDec= new ArrayList<HCAdtnlDecSCE>();
+//			List<HCCrgoSuprtDocsSCE> crgoSuprtDoc = new ArrayList<HCCrgoSuprtDocsSCE>();
 			
 			
 			

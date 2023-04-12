@@ -12,8 +12,8 @@ public class HouseCargoDecSCE {
 	private List<TrnsprtEqmtSCE> trnsprtEqmt;
 	private List<ItnrySCE> itnry;
 	private List<PrevRefSCE> prevRef;
-	private List<HCCrgoSuprtDocsSCE> hCCrgoSuprtDocs;
-	private List<HCAdtnlDecSCE>hcAdtnlDec;
+//	private List<HCCrgoSuprtDocsSCE> hCCrgoSuprtDocs;
+//	private List<HCAdtnlDecSCE>hcAdtnlDec;
 	
 	public List<HCRefSCE> gethCRef() {
 		return hCRef;
@@ -69,18 +69,18 @@ public class HouseCargoDecSCE {
 	public void setPrevRef(List<PrevRefSCE> prevRef) {
 		this.prevRef = prevRef;
 	}
-	public List<HCCrgoSuprtDocsSCE> gethCCrgoSuprtDocs() {
-		return hCCrgoSuprtDocs;
-	}
-	public void sethCCrgoSuprtDocs(List<HCCrgoSuprtDocsSCE> hCCrgoSuprtDocs) {
-		this.hCCrgoSuprtDocs = hCCrgoSuprtDocs;
-	}
-	public List<HCAdtnlDecSCE> getHcAdtnlDec() {
-		return hcAdtnlDec;
-	}
-	public void setHcAdtnlDec(List<HCAdtnlDecSCE> hcAdtnlDec) {
-		this.hcAdtnlDec = hcAdtnlDec;
-	}
+//	public List<HCCrgoSuprtDocsSCE> gethCCrgoSuprtDocs() {
+//		return hCCrgoSuprtDocs;
+//	}
+//	public void sethCCrgoSuprtDocs(List<HCCrgoSuprtDocsSCE> hCCrgoSuprtDocs) {
+//		this.hCCrgoSuprtDocs = hCCrgoSuprtDocs;
+//	}
+//	public List<HCAdtnlDecSCE> getHcAdtnlDec() {
+//		return hcAdtnlDec;
+//	}
+//	public void setHcAdtnlDec(List<HCAdtnlDecSCE> hcAdtnlDec) {
+//		this.hcAdtnlDec = hcAdtnlDec;
+//	}
 
 
 
