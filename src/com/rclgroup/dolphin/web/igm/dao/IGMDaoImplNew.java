@@ -785,6 +785,8 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setFetch(true);
 			if(isUpdateSaved) {
 				objMod.setSaveFlags("I");
+			}else if(isSaved){
+				objMod.setSaveFlags("U");
 			}else {
 				objMod.setSaveFlags("N");
 			}
