@@ -2256,14 +2256,16 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 						} 
 				
 				}
-				$( "body" ).append('<div class="loading"></div>');
-				$scope.blIndex=obj.$index;
-				$scope.selectedBL= $scope.BLS[$scope.blIndex]
-				$scope.getCarogoDetails();
-				$scope.getConsinee();
-				$scope.getContainerDetails();
-				$scope.containerValue();
-				$("body").find('.loading').remove();
+				if($('[name=chk]')[obj.$index].checked==true){
+					$( "body" ).append('<div class="loading"></div>');
+					$scope.blIndex=obj.$index;
+					$scope.selectedBL= $scope.BLS[$scope.blIndex]
+					$scope.getCarogoDetails();
+					$scope.getConsinee();
+					$scope.getContainerDetails();
+					$scope.containerValue();
+				}
+				
 			}
 			$scope.selectedServcies.totalItem = count;
 			$scope.selectedServcies.totalNmbrOfLines = totalNmbrOfLinesCount ;

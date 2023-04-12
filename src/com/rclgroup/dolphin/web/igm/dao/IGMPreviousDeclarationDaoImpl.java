@@ -28,8 +28,11 @@ public class IGMPreviousDeclarationDaoImpl extends AncestorJdbcDao implements IG
 				{ KEY_IGM_PREV_DECLARATION_DTLS, BLANK + ORACLE_VARCHAR, PARAM_IN, containeer }, };
 
 		JdbcStoredProcedure objSP = new JdbcStoredProcedure(getDataSource(), procedureName, arrParam);
-
-		objSP.execute();
+		try {
+				objSP.execute();
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
 		}
 	}
 
