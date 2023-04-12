@@ -598,7 +598,7 @@
          </td>
          </tr>
          <tr  ng-if="pageType=='EGM'" >
-         <th>shipping BL</th>
+         <th>shipping Bill</th>
          <td>
          	<input class="browse" id="ackFile" type="file" name="fileJson" accept="application/json">
          </td>

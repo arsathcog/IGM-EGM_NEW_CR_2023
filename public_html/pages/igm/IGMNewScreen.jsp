@@ -3121,12 +3121,12 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 					
 						
 						debugger;
-						$scope.BLS[$scope.blIndex].consignee = result.data.blDetails.consignee
-						$scope.BLS[$scope.blIndex].consigner = result.data.blDetails.consigner
-						$scope.BLS[$scope.blIndex].marksNumber = result.data.blDetails.marksNumber
-						$scope.BLS[$scope.blIndex].notifyParty = result.data.blDetails.notifyParty
-						$scope.BLS[$scope.blIndex].notifyPartyTwo = result.data.blDetails.notifyPartyTwo
-						$scope.BLS[$scope.blIndex].previousDeclaration = result.data.blDetails.previousDeclaration
+						$scope.BLS[$scope.blIndex].consignee = result.data.blDetails[0].consignee
+						$scope.BLS[$scope.blIndex].consigner = result.data.blDetails[0].consigner
+						$scope.BLS[$scope.blIndex].marksNumber = result.data.blDetails[0].marksNumber
+						$scope.BLS[$scope.blIndex].notifyParty = result.data.blDetails[0].notifyParty
+						$scope.BLS[$scope.blIndex].notifyPartyTwo = result.data.blDetails[0].notifyPartyTwo
+						$scope.BLS[$scope.blIndex].previousDeclaration = result.data.blDetails[0].previousDeclaration
 						
 						$scope.getConsinee();
 						$scope.getExtraDetails();
