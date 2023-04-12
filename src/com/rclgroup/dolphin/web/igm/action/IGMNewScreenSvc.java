@@ -477,7 +477,7 @@ public class IGMNewScreenSvc extends BaseAction {
 		marksNumber.clear(); 
 		containerDetailes.clear();  
 		previousDeclarations.clear();
-		for (ImportGeneralManifestMod mod : deleteBL) {
+		for (ImportGeneralManifestMod mod : blsForSavingCont) {
 
 			if (blsConInput == null)
 				blsConInput = "'" + mod.getBl() + "'";
