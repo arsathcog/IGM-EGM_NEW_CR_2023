@@ -2795,7 +2795,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 	
 	    form = document.getElementById('ackFileForm');
 	    console.log(form);
-	    var fileData = new FormData(document.getElementById("ackFileForm"));
+	    var fileData = new FormData(form);
 	    console.log(fileData, "ackfileeeeeeee")
 	
 	    $http({
@@ -2852,7 +2852,8 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 	 	   if(($scope.selectedBL.isBlSave == 'true' || $scope.selectedBL.isBlSave == true) && ($scope.selectedBL.itemNumber !=null && $scope.selectedBL.itemNumber !="")){
 				$scope.selectedBL.saveFlags="U"
 			} */
-	
+
+
 	    $scope.getConsinee();
 	    var bl = $scope.BLS[$scope.blIndex].bl;
 	

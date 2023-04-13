@@ -382,7 +382,7 @@ System.out.println("getCarogoDetails() Called.");
 		marksNumber.clear(); 
 		containerDetailes.clear();  
 		previousDeclarations.clear();
-		for (ImportGeneralManifestMod mod : deleteBL) {
+		for (ImportGeneralManifestMod mod : blsForSavingCont) {
 
 			if (blsConInput == null)
 				blsConInput = "'" + mod.getBl() + "'";
@@ -400,7 +400,7 @@ System.out.println("getCarogoDetails() Called.");
 		objPreviousDao.deletePreviousDeclData(previousDeclarations,IGMPPreviousDeclarationDao.RCL_IGM_DELETE_PREV_DECLARATION_EXPORT, blsConInput);
 		
 		String blsInput = null;
-		for (ImportGeneralManifestMod mod : insertBL) {
+		for (ImportGeneralManifestMod mod : blsForSavingCont) {
 
 			if (blsInput == null)
 				blsInput = "'" + mod.getBl() + "'";
