@@ -162,8 +162,6 @@ public class Consignee {
 	public void setStateName(String stateName) {
 		this.stateName = stateName;
 	}
-	
-	
 	@Override
 	public String toString() {
 		return "Consignee [blNO=" + blNO + ", customerCode=" + customerCode + ", customerName=" + customerName
@@ -172,7 +170,11 @@ public class Consignee {
 				+ countryCode + ", zip=" + zip + ", consigneeName=" + consigneeName + ", notifyName=" + notifyName
 				+ ", notifyIec=" + notifyIec + ", notifyPan=" + notifyPan + ", consigneName=" + consigneName
 				+ ", consigneIec=" + consigneIec + ", consignePan=" + consignePan + ", portOfDischarge="
-				+ portOfDischarge + ", consigneCheckBox=" + consigneCheckBox + ", consigneFwr=" + consigneFwr + "]";
+				+ portOfDischarge + ", consigneCheckBox=" + consigneCheckBox + ", consigneFwr=" + consigneFwr
+				+ ", stateName=" + stateName + "]";
 	}
+	
+	
+	
 	
 }
