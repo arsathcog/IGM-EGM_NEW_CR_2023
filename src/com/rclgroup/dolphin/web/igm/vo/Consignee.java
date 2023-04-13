@@ -26,6 +26,7 @@ public class Consignee {
 	private String portOfDischarge;
 	private String consigneCheckBox;
 	private String consigneFwr;
+	private String stateName;
 	
 	
 	public String getBlNO() {
@@ -154,6 +155,14 @@ public class Consignee {
 	public void setConsigneFwr(String consigneFwr) {
 		this.consigneFwr = consigneFwr;
 	}
+	
+	public String getStateName() {
+		return stateName;
+	}
+	public void setStateName(String stateName) {
+		this.stateName = stateName;
+	}
+	
 	
 	@Override
 	public String toString() {

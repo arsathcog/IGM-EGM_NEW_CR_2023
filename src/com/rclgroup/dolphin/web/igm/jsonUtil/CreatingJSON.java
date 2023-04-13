@@ -916,7 +916,7 @@ public class CreatingJSON {
 					trnsprtDocClassObj.setCnsgneStreetAddress(settingLength(add,70));
 					trnsprtDocClassObj.setCnsgnesName(  settingLength(cnsneeDtl.getCustomerName(),70));
 					trnsprtDocClassObj.setCnsgneCity( settingLength(cnsneeDtl.getCity(),70));
-					trnsprtDocClassObj.setCnsgneCntrySubDivName(  settingLength(cnsneeDtl.getState(),35));
+					trnsprtDocClassObj.setCnsgneCntrySubDivName(settingLength(cnsneeDtl.getStateName(),35));
 					trnsprtDocClassObj.setCnsgneCntrySubDiv(blObj.getGstStateCode());
 					trnsprtDocClassObj.setCnsgneCntryCd( settingLength(cnsneeDtl.getCountryCode(),2));
 					trnsprtDocClassObj.setCnsgnePstcd( settingLength(cnsneeDtl.getZip(),9));
@@ -1493,7 +1493,7 @@ public class CreatingJSON {
 			//===============================================
 			MCRefSDM mCRefClassObj = new MCRefSDM();
 			mCRefClassObj.setLineNo(blObj.getItemNumber()); // Line 60
-			mCRefClassObj.setMstrBlNo(settingLength(blObj.getMasterBl(),20)); // Line 53
+			mCRefClassObj.setMstrBlNo(settingLength(blObj.getBl(),20));// Line 53
 			mCRefClassObj.setMstrBlDt(blObj.getMasterBlDate()); // Line 53
 			mCRefClassObj.setConsolidatedIndctr(blObj.getConsolidated_indicator());// Line 76
 			mCRefClassObj.setPrevDec(settingLength(blObj.getPrevious_declaration(),4)); // Line77
