@@ -2603,6 +2603,30 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 		$scope.containerValue();
 		$("#dialog-tabs").tabs({ active: 4 });
     }
+	
+	$rootScope.setIndexHBL = function (index,obj) {
+		debugger;
+		var perentRow = 0;
+		for(var s=0;s<$scope.BLS.length;s++){
+			if($scope.BLS[s].bl==obj.item1.bl){
+				perentRow = s;
+			}
+		}
+		$scope.selectedHBLRow = index;
+		$scope.blIndex=perentRow;
+		$scope.selectedBL = $scope.BLS[$scope.blIndex];
+		$scope.getCarogoDetailsHBL();
+		//$scope.onUploadAck();
+		
+		/* $scope.getExtraDetails(); */
+		if(($scope.selectedBL.isBlSave == 'true' || $scope.selectedBL.isBlSave == true) && ($scope.selectedBL.itemNumber !=null || $scope.selectedBL.itemNumber !="")){
+			$scope.selectedBL.saveFlags="U"
+		}
+		$scope.getConsinee();
+		$scope.containerValue();
+		$("#dialog-tabs").tabs({ active: 4 });
+    }
+	
 	$rootScope.setNext = function () {  
 		if(resultLength-1>$scope.blIndex){
 		$scope.blIndex = $scope.blIndex+1;
