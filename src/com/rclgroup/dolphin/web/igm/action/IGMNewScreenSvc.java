@@ -489,9 +489,9 @@ public class IGMNewScreenSvc extends BaseAction {
 		objBlDao.deleteBLData(deleteBL,IGMBLDataDao.RCL_IGM_DELETE_BL);
 		containerDao.deleteContainer(containerDetailes, blsConInput,IGMContainerDao.RCL_IGM_DELETE_CONTAINOR);
 		objConsigneeDao.deleteConsigneeData(consignee, blsConInput,IGMConsigneeDataDao.RCL_IGM_DELETE_CONSIGNEE);
-		objConsignerDao.deleteConsignerData(consigner, blsConInput,IGMConsignerDataDao.RCL_IGM_SAVE_CONSIGNER);
-		objNodifyDao.deleteNodifyData(notifyParty, blsConInput,IGMNodifyPartyDao.RCL_IGM_SAVE_NODIFY_PARTY_DESCRIPTION);
-		objMarksDescDao.deleteMarkDescData(marksNumber, blsConInput,IGMMarksAndDescDao.RCL_IGM_SAVE_MARKS_NUMBER_DESCRIPTION);
+		objConsignerDao.deleteConsignerData(consigner, blsConInput,IGMConsignerDataDao.RCL_IGM_DELETE_CONSIGNER);
+		objNodifyDao.deleteNodifyData(notifyParty, blsConInput,IGMNodifyPartyDao.RCL_IGM_DELETE_NODIFY_PARTY_DESCRIPTION);
+		objMarksDescDao.deleteMarkDescData(marksNumber, blsConInput,IGMMarksAndDescDao.RCL_IGM_DELETE_MARKS_NUMBER_DESCRIPTION);
 		objPreviousDao.deletePreviousDeclData(previousDeclarations,IGMPPreviousDeclarationDao.RCL_IGM_DELETE_PREV_DECLARATION, blsConInput);
 		
 		String blsInput = null;
