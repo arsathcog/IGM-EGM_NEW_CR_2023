@@ -8,7 +8,7 @@
             <th class="TableLeftSub tableVessel-width" ng-if="selectedServcies.fromItemNo != null && selectedServcies.fromItemNo !='' " >Select All
             	<input type="checkbox"  value="Y" name="selectall" id = "selectAllCheckBox" onclick="selectsAll()" ng-model="isBlSelecteSav" ng-checked = "isBlSelecteSave == 'true'" ng-click="blcheckTotalIteamSelectAll(this)" >
             </th>
-	    <th class="TableLeftSub tableVessel-width">HBL NO<i class="fas fa-angle-down"></i></th>
+	    <th class="TableLeftSub tableVessel-width">HBL NO<i class="fa fa-angle-double-down"></i></th>
             <th class="TableLeftSub tableVessel-width">BL NO</th>
             <th class="TableLeftSub tableVessel-width">BL Date</th>
             <th class="TableLeftSub tableVessel-width">Vessel Code</th>
