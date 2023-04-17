@@ -2843,10 +2843,10 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 	            console.log($scope.ackFileResponse[i].mcResponse.cinType);
 	            console.log($scope.ackFileResponse[i].mcResponse.mcinPcin);
 	            if ($scope.ackFileResponse[i].MCRef.lineNo == $scope.selectedBL.itemNumber && $scope.ackFileResponse[i].mcResponse.cinType == "PCIN") {
-	                $scope.selectedBL.pcin = $scope.ackFileResponse[i].mcResponse.mcinPcin;
+	                $scope.selectedBL.pcin = $scope.ackFileResponse[i].mcResponse.mcin;
 	            } else {
 	                if ($scope.ackFileResponse[i].MCRef.lineNo == $scope.selectedBL.itemNumber && $scope.ackFileResponse[i].mcResponse.cinType == "MCIN")
-	                    $scope.selectedBL.mcin = $scope.ackFileResponse[i].mcResponse.mcinPcin;
+	                    $scope.selectedBL.mcin = $scope.ackFileResponse[i].mcResponse.mcin;
 	            }
 	
 	        }
