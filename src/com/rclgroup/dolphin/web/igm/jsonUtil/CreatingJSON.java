@@ -554,7 +554,7 @@ public class CreatingJSON {
 			trnsprtDocMsrClassObj.setNmbrOfPkgs(settingLength(blObj.getTotal_number_of_packages(),9)); 
 			  	
 			trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getPackage_kind());
-			trnsprtDocMsrClassObj.setGrossWeight(settingLengthForDouble(blObj.getGrossWeight(),12,3));    //TODO  	
+			trnsprtDocMsrClassObj.setGrossWeight(settingLengthForDouble(blObj.getGrosWeight(),12,3));    //TODO  	
 //			trnsprtDocMsrClassObj.setNetWeight(settingLengthForDouble(blObj.getNetWeight(),12,3));				 //TODO  guru	
 			trnsprtDocMsrClassObj.setUnitOfWeight(settingLength("KGS",3));			 
 //			trnsprtDocMsrClassObj.setInvoiceValueOfCnsgmt(settingLengthForDouble(blObj.getInvoiceValueFc(),16,2)); Guru said to comment // not cleared by Guru    //TODO  guru	
@@ -1803,7 +1803,7 @@ public class CreatingJSON {
 				voyageTransportEquipmentClassObj.setSocFlag(settingLength(cntnerDtl.getSoc_flag(),1));
 				
 				voyageTransportEquipmentClassObj.setContainerAgentCode(settingLength(service.getAgentCode(),17));
-				voyageTransportEquipmentClassObj.setContainerWeight(cntnerDtl.getIsoCode());
+				voyageTransportEquipmentClassObj.setContainerWeight(cntnerDtl.getContainerWeight());
 				voyageTransportEquipmentClassObj.setTotalNumberOfPackages(settingLength(cntnerDtl.getTotalNumberOfPackagesInContainer(),8));
 				voyageTransportEquipmentClassObj.setStowagePositionOfContainer(settingLength(service.getStowageExport(),17));
 //				voyageTransportEquipmentClassObj.setContainerBondFlag(settingLength("",1)); guru said to comment
@@ -3926,7 +3926,7 @@ public class CreatingJSON {
 			
 			if(blObj.getPod().substring(0, 2).equals("IN")) {
 				mCRefClassObj.setPrevDec(("N"));
-			}else if(blObj.getNextport1().substring(0,2).equals("IN")) {
+			}else  {
 				mCRefClassObj.setPrevDec(settingLength("Y",4));
 			} // Line77
 			
