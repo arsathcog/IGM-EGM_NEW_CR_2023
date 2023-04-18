@@ -76,7 +76,7 @@ public class MCRefSDM {
 		}
 
 		public void setPrevDec(String prevDec) {
-			prevDec = FiledValidation.isNullAndSetlength(prevDec, 4);
+//			prevDec = FiledValidation.isNullAndSetlength(prevDec, 4);
 			this.prevDec = prevDec;
 		}
 	    //Same as Item Number from current screen  "Consolidator PAN"
@@ -85,7 +85,7 @@ public class MCRefSDM {
 		}
 
 		public void setConsolidatorPan(String consolidatorPan) {
-			consolidatorPan = FiledValidation.isNullAndSetlength(consolidatorPan, 35);
+	//		consolidatorPan = FiledValidation.isNullAndSetlength(consolidatorPan, 35);
 			this.consolidatorPan = consolidatorPan;
 		}
 }

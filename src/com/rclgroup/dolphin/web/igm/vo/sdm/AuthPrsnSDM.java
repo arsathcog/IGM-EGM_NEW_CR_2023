@@ -18,7 +18,7 @@ public class AuthPrsnSDM {
 	}
 
 	public void setSbmtrTyp(String sbmtrTyp) {
-		sbmtrTyp = FiledValidation.isNullAndSetlength(sbmtrTyp, 4);
+//		sbmtrTyp = FiledValidation.isNullAndSetlength(sbmtrTyp, 4);
 		this.sbmtrTyp = sbmtrTyp;
 	}
   //The value of  "submitterCode" current screen
@@ -27,7 +27,7 @@ public class AuthPrsnSDM {
 	}
 
 	public void setSbmtrCd(String sbmtrCd) {
-		sbmtrCd = FiledValidation.isNullAndSetlength(sbmtrCd, 15);
+//		sbmtrCd = FiledValidation.isNullAndSetlength(sbmtrCd, 15);
 		this.sbmtrCd = sbmtrCd;
 	}
     //The value of  "authorizedRepresentativeCode" current screen

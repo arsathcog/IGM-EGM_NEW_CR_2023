@@ -235,9 +235,9 @@ public class TrnsprtDocSCX {
 //		this.cnsgneCntrySubDiv = cnsgneCntrySubDiv;
 //	}
 //       //This value is come from BL Json object   "countryCode" (Already in current IGM screen)   mandatory.
-//	public String getCnsgneCntryCd() {
-//		return cnsgneCntryCd;
-//	}
+	public String getCnsgneCntryCd() {
+		return cnsgneCntryCd;
+	}
 
 	public void setCnsgneCntryCd(String cnsgneCntryCd) {
 		cnsgneCntryCd = FiledValidation.isNullAndSetlength(cnsgneCntryCd, 2);
