@@ -243,7 +243,6 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setVoyage_details_movement(rs.getString("VOYAGE_DETAILS"));
 			objMod.setShip_itinerary_sequence(rs.getString("SHIP_ITINERARY_SEQUENCE"));
 			objMod.setShip_itinerary(rs.getString("SHIP_ITINERARY"));
-			objMod.setPort_of_call_name(rs.getString("PORT_OF_CALL_NAME"));
 			objMod.setArrival_departure_details(rs.getString("ARRIVAL_DEPARTURE_DETAILS"));
 			objMod.setTotal_no_of_transport_equipment_reported_on_arrival_departure(
 					rs.getString("TOTAL_NO_OF_TRANSPORT_EQUIPMENT_REPORTED_ON_ARRIVAL_DEPARTURE"));
@@ -715,7 +714,10 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setType_of_packages_hidden(rs.getString("TYPE_OF_PACKAGES_HID"));
 			objMod.setPort_of_call_sequence_number(rs.getString("PORT_OF_CALL_SEQUENCE_NUMBER"));
 			objMod.setPort_of_call_coded(rs.getString("PORT_OF_CALL_CODED"));
+//			objMod.setPort_of_call_name(rs.getString("PORT_OF_CALL_NAME"));
 			objMod.setNext_port_of_call_coded(rs.getString("NEXT_PORT_OF_CALL_CODED"));
+//			objMod.setNext_port_of_call_name(rs.getString("next_port_of_call_name"));
+			
 			objMod.setMc_location_customs(rs.getString("MC_LOCATION_CUSTOMS"));
 			if(rs.getString("FLAG_DG") == null || rs.getString("FLAG_DG").equals("N")) {
 				objMod.setUno_code("ZZZZZ");
@@ -1028,11 +1030,12 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 		if(service.getVoyage()!=null && !service.getVoyage().equals("")) {
 			getSeqQuery.append(" AND VOYAGE = '"+ service.getVoyage()+"'");
 		}
-		if(service.getPod()!=null && !service.getPod().equals("") && !type.equals("EGM")) {
-			getSeqQuery.append(" AND PORT = '"+ service.getPol()+"'");
-		}
-		if(service.getPol()!=null && !service.getPol().equals("") && !type.equals("IGM")) {
+		if(service.getPod()!=null && !service.getPod().equals("") && type.equals("IGM")) {
 			getSeqQuery.append(" AND PORT = '"+ service.getPod()+"'");
+		}
+		if(service.getPol()!=null && !service.getPol().equals("") && type.equals("EGM")) {
+			
+			getSeqQuery.append(" AND PORT = '"+ service.getPol()+"'");
 		}
 		if(fileName!=null && !fileName.equals("")) {
 			getSeqQuery.append(" AND FILE_NAME = '"+ fileName+"'");
@@ -1050,17 +1053,19 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 	public void updateSqnNoForJsonFile(ImportGeneralManifestMod service,int getSeqNo,String tyep,String fileName) {
 		StringBuilder getSeqQuery = new StringBuilder();
 		
+		int seqNo = getSeqNo+1;
+		
 		if(tyep.equals("IGM")) {
 			if(getSeqNo == 0) {
-				getSeqQuery.append("INSERT INTO JSON_FILE_GENERATE_DETAILS  (VESSEL,VOYAGE,PORT,GENERATE_COUNT,FILE_NAME) values('"+service.getVessel()+"','"+service.getVoyage()+"','"+service.getPod()+"',"+getSeqNo+1+",'"+fileName+"')");
+				getSeqQuery.append("INSERT INTO JSON_FILE_GENERATE_DETAILS  (VESSEL,VOYAGE,PORT,GENERATE_COUNT,FILE_NAME) values('"+service.getVessel()+"','"+service.getVoyage()+"','"+service.getPod()+"',"+seqNo+",'"+fileName+"')");
 			}else {
-				getSeqQuery.append("update JSON_FILE_GENERATE_DETAILS set getSeqNo = "+getSeqNo+1+" where VESSEL='"+service.getVessel()+"' and VOYAGE = '"+service.getVoyage()+"' and PORT= '"+service.getPod()+"' and FILE_NAME='"+fileName+"' ");
+				getSeqQuery.append("update JSON_FILE_GENERATE_DETAILS set GENERATE_COUNT = "+seqNo+" where VESSEL='"+service.getVessel()+"' and VOYAGE = '"+service.getVoyage()+"' and PORT= '"+service.getPod()+"' and FILE_NAME='"+fileName+"' ");
 			}
 		}else {
 			if(getSeqNo == 0) {
-				getSeqQuery.append("INSERT INTO JSON_FILE_GENERATE_DETAILS  (VESSEL,VOYAGE,PORT,GENERATE_COUNT,FILE_NAME) values('"+service.getVessel()+"','"+service.getVoyage()+"','"+service.getPol()+"',"+getSeqNo+1+",'"+fileName+"')");
+				getSeqQuery.append("INSERT INTO JSON_FILE_GENERATE_DETAILS  (VESSEL,VOYAGE,PORT,GENERATE_COUNT,FILE_NAME) values('"+service.getVessel()+"','"+service.getVoyage()+"','"+service.getPol()+"',"+seqNo+",'"+fileName+"')");
 			}else {
-				getSeqQuery.append("update JSON_FILE_GENERATE_DETAILS set getSeqNo = "+getSeqNo+1+" where VESSEL='"+service.getVessel()+"' and VOYAGE = '"+service.getVoyage()+"' and PORT= '"+service.getPol()+"' and FILE_NAME='"+fileName+"' ");
+				getSeqQuery.append("update JSON_FILE_GENERATE_DETAILS set GENERATE_COUNT = "+seqNo+" where VESSEL='"+service.getVessel()+"' and VOYAGE = '"+service.getVoyage()+"' and PORT= '"+service.getPol()+"' and FILE_NAME='"+fileName+"' ");
 			}
 		}
 		

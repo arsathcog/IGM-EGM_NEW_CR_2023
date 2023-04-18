@@ -1476,7 +1476,7 @@ public class CreatingJSON {
 				itnryClassObj.setPrtOfCallSeqNmbr(settingLength("3",5)); 
 			}
 			itnryClassObj.setNxtPrtOfCallCdd(settingLength(blObj.getPod(),10));    //TODO  guru
-			itnryClassObj.setNxtPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));		//TODO  guru
+			itnryClassObj.setNxtPrtOfCallName(settingLength(blObj.getNext_port_of_call_name(),256));		//TODO  guru
 			itnryClassObj.setPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));			//TODO  guru
 			itnryClassObj.setPrtOfCallCdd(settingLength(blObj.getPortOfLoading(),10));	
 			itnryClassObj.setModeOfTrnsprt(settingLength(blObj.getMode_of_transport(),4));
@@ -1619,20 +1619,22 @@ public class CreatingJSON {
 			itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getPackage_kind(),3));
 			itemDtls.add(itemDtlsClassObj);
 			mastrCnsgmtDec.setItemDtls(itemDtlsClassObj);
-			houseCargoDecSDMObj.setItemDtls(itemDtls);
+		
 			}else {
 				if(blObj.isHbl()==true) {
 					if(blObj.getConsolidatedIndicator().equals("H")) {
 						ItemDtlsSDM itemDtlsClassObj = new ItemDtlsSDM();
-						// trnsprtEqmtClassObj.setHsCd((String)blObj.get(" ")); not cleared by guru
-						itemDtlsClassObj.setCrgoItemSeqNmbr( settingLength(blObj.getCargo_item_sequence_no(),5));				//TODO  guru
-						itemDtlsClassObj.setCrgoItemDesc( settingLength(blObj.getCargo_item_description(),256));					//TODO  guru
-						itemDtlsClassObj.setUnoCd( settingLength(blObj.getUno_code(),5));										
-						itemDtlsClassObj.setImdgCd( settingLength(blObj.getImdg_code(),3));										//TODO  guru
-						itemDtlsClassObj.setNmbrOfPkgs( settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6)); 
-						itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getPackage_kind(),3));
 						itemDtlsClassObj.setHsCd(blObj.getCommdity_code());
-						itemDtls.add(itemDtlsClassObj);
+						//	itemDtlsClassObj.setCrgoItemSeqNmbr(blObj.getCommodity_seq()+"");
+							itemDtlsClassObj.setCrgoItemSeqNmbr( settingLength(blObj.getCommodity_seq()+"",5));	
+							itemDtlsClassObj.setCrgoItemDesc( settingLength(blObj.getCargo_item_description(),256));
+							itemDtlsClassObj.setUnoCd( settingLength(blObj.getUno_code(),5));
+							itemDtlsClassObj.setImdgCd( settingLength(blObj.getImdg_code(),4));
+							itemDtlsClassObj.setNmbrOfPkgs(settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6)); 
+							itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getPackage_kind(),3));
+							itemDtls.add(itemDtlsClassObj);
+							mastrCnsgmtDec.setItemDtls(itemDtlsClassObj);
+						houseCargoDecSDMObj.setItemDtls(itemDtls);
 					}
 				}
 				
@@ -3917,12 +3919,19 @@ public class CreatingJSON {
 			
 			
 			ItnrySCX itnryClassObj = new ItnrySCX();
-			itnryClassObj.setPrtOfCallSeqNmbr(settingLength(blObj.getPort_of_call_sequence_number(), 5));
-			itnryClassObj.setNxtPrtOfCallCdd(settingLength("PKG", 10));
-			itnryClassObj.setNxtPrtOfCallName(settingLength(blObj.getPort_of_call_name(), 256));
-			itnryClassObj.setPrtOfCallName(settingLength(blObj.getPort_of_call_name(), 256));
-			itnryClassObj.setPrtOfCallCdd(settingLength("NSA",10));
-			itnryClassObj.setModeOfTrnsprt(settingLength("sea", 1));
+			if(blObj.getPortOfLoading()!= null && blObj.getPod()!= null) {
+				itnryClassObj.setPrtOfCallSeqNmbr(settingLength("1",5)); 
+			}else if (blObj.getPortOfLoading()!= null && blObj.getPod()!= null && blObj.getPortOfDestination() != null ) {
+				itnryClassObj.setPrtOfCallSeqNmbr(settingLength("2",5)); 		
+			}else if(blObj.getPortOfLoading()!= null && blObj.getPod()!= null && 
+					blObj.getPortOfDestination() != null && blObj.getPortOfDeschargedCfs() != null ) {
+				itnryClassObj.setPrtOfCallSeqNmbr(settingLength("3",5)); 
+			}
+			itnryClassObj.setNxtPrtOfCallCdd(settingLength(blObj.getPod(),10));    //TODO  guru
+			itnryClassObj.setNxtPrtOfCallName(settingLength(blObj.getNext_port_of_call_name(),256));		//TODO  guru
+			itnryClassObj.setPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));			//TODO  guru
+			itnryClassObj.setPrtOfCallCdd(settingLength(blObj.getPortOfLoading(),10));	
+			itnryClassObj.setModeOfTrnsprt(settingLength(blObj.getMode_of_transport(),4));
 			itnry.add(itnryClassObj);
 			mastrCnsgmtDec.setItnry(itnryClassObj);
 			houseCargoDecSCXObj.setItnry(itnry);
@@ -3992,27 +4001,17 @@ public class CreatingJSON {
 			// ----------------------------
 			LocCstmSCX locCstmClassObj = new LocCstmSCX();
 
-			locCstmClassObj.setFirstPrtOfEntry(settingLength(blObj.getPortArrival(), 6));
+			locCstmClassObj.setFirstPrtOfEntry(settingLength(blObj.getPod(), 6));
 //			locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(), 6));// New added
-			if(blObj.getPortOfDestination() != null || blObj.getPortOfDestination() != "") {
-			if(blObj.getPortOfDestination().equals(blObj.getPod())) {
-				locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDeschargedCfs(),6));
-			}else {
-				locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),6));
-			}
-			}
-			
-			locCstmClassObj.setNxtPrtOfUnlading(settingLength(blObj.getPortOfDestination(),6)); // New added
+			locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),6));// New added
+			locCstmClassObj.setNxtPrtOfUnlading(settingLength(blObj.getPortOfDestination(),6));  // New added
+	
 			locCstmClassObj.setTypOfCrgo(settingLength(blObj.getType_of_cargo(), 2)); // Line 90
-			if(blObj.getPortOfDeschargedCfs() != null && blObj.getPortOfDeschargedCfs().equals(" ") &&
-					blObj.getPortOfDestination() != null &&  blObj.getPortOfDestination().equals(" ")) {
-			if(blObj.getPortOfDestination().substring(0, 2).equals("IN") && blObj.getPortOfDeschargedCfs().substring(0, 2).equals("IN")){
+			
+			if(blObj.getPortOfDestination().substring(0, 2).equals("IN") && blObj.getPod().substring(0, 2).equals("IN")){
 				locCstmClassObj.setTypOfCrgo(settingLength("EX",2)); // if both value in india base
-			}else if(! blObj.getPortOfDestination().substring(0, 2).equals("IN") && ! blObj.getPortOfDeschargedCfs().substring(0, 2).equals("IN")){
+			}else {
 				locCstmClassObj.setTypOfCrgo(settingLength("TR",2)); // both value is not india base 
-			}else if(blObj.getPortOfDestination().substring(0, 2)=="IN" && ! blObj.getPortOfDeschargedCfs().substring(0, 2).equals("IN")) {
-				locCstmClassObj.setTypOfCrgo(settingLength("TR",2)); //if portOfdest in india base and portOfDis in foreign base then
-			}
 			}
 			
 			locCstmClassObj.setItemTyp(settingLength("OT", 2)); // Line 61
@@ -4040,12 +4039,13 @@ public class CreatingJSON {
 //			trnsprtDocMsrClassObj.setCrncyCd(settingLength(blObj.getCurrency(), 3)); // not cleared by Guru
 //			trnsprtDocMsrClassObj.setMarksNoOnPkgs(settingLength("", 512));
 //			if("".equals(blObj.getVolume()) || blObj.getVolume().isEmpty()) {
-			trnsprtDocMsrClassObj.setGrossVolume(settingLengthForDouble(blObj.getVolume(), 12, 3));
-//			}
-			
-			if(! "".equals(blObj.getVolume())&&  blObj.getVolume() != null ) {
-				trnsprtDocMsrClassObj.setUnitOfVolume(settingLength("CBM",3));
-			}
+			if(!"".equals(blObj.getCargo_msmt()) || blObj.getCargo_msmt()!= 0) {
+				trnsprtDocMsrClassObj.setGrossVolume (settingLengthForDouble(blObj.getVolume(),12,3));
+	     		}
+				if(! "".equals(blObj.getGross_volume())&&  blObj.getGross_volume() != null ) {
+					trnsprtDocMsrClassObj.setUnitOfVolume(settingLength("CBM",3));
+				}
+				
 			
 //			if(blObj.isHbl()==true) {
 //				trnsprtDocMsrClassObj.setNetWeight(generatedFileNameOfJson);
@@ -4053,6 +4053,7 @@ public class CreatingJSON {
 			trnsprtDocMsr.add(trnsprtDocMsrClassObj); // below in mark nad no loop
 			houseCargoDecSCXObj.setTrnsprtDocMsr(trnsprtDocMsr);
 			// ------------------------------------------------------
+			if(blObj.getConsolidatedIndicator().equals("S")) {
 			ItemDtlsSCX itemDtlsClassObj = new ItemDtlsSCX();
 			itemDtlsClassObj.setHsCd(blObj.getCommdity_code());
 			itemDtlsClassObj.setCrgoItemSeqNmbr(settingLength(blObj.getCommodity_seq()+"", 5));
@@ -4064,11 +4065,34 @@ public class CreatingJSON {
 			itemDtls.add(itemDtlsClassObj);
 			mastrCnsgmtDec.setItemDtls(itemDtlsClassObj);
 			houseCargoDecSCXObj.setItemDtls(itemDtls);
+			}else {
+				if(blObj.isHbl()==true) {
+					if(blObj.getConsolidatedIndicator().equals("H")) {
+						ItemDtlsSCX itemDtlsClassObj = new ItemDtlsSCX();
+						itemDtlsClassObj.setHsCd(blObj.getCommdity_code());
+						//	itemDtlsClassObj.setCrgoItemSeqNmbr(blObj.getCommodity_seq()+"");
+							itemDtlsClassObj.setCrgoItemSeqNmbr( settingLength(blObj.getCommodity_seq()+"",5));	
+							itemDtlsClassObj.setCrgoItemDesc( settingLength(blObj.getCargo_item_description(),256));
+							itemDtlsClassObj.setUnoCd( settingLength(blObj.getUno_code(),5));
+							itemDtlsClassObj.setImdgCd( settingLength(blObj.getImdg_code(),4));
+							itemDtlsClassObj.setNmbrOfPkgs(settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6)); 
+							itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getPackage_kind(),3));
+							itemDtls.add(itemDtlsClassObj);
+							mastrCnsgmtDec.setItemDtls(itemDtlsClassObj);
+							houseCargoDecSCXObj.setItemDtls(itemDtls);
+				
+			}
+				}
+			}
 			// ------------------------------------------------------
 	
 			TrnsprtDocSCX trnsprtDocClassObj = new TrnsprtDocSCX();
 //			trnsprtDocClassObj.setUcrTyp(settingLength(blObj.getUcr_type(), 3));
 //			trnsprtDocClassObj.setUcrCd(settingLength(blObj.getUcr_code(), 35));
+			trnsprtDocClassObj.setPrtOfAcptName( settingLength(blObj.getAcceptanceName(),256));			//TODO  guru
+			trnsprtDocClassObj.setPrtOfReceiptName( settingLength(blObj.getRecieptName(),256));
+			trnsprtDocClassObj.setPrtOfAcptCdd( settingLength(blObj.getPort_of_acceptance(),6));
+			trnsprtDocClassObj.setPrtOfReceiptCdd( settingLength(blObj.getPort_of_receipt(),10));
 
 			for (NotifyParty notyObj : notifyPartyDetailes) {
 
@@ -4448,7 +4472,7 @@ public class CreatingJSON {
 		voyageDtlsClassObj.setTotalNoOfTrnsprtEqmtMnfsted( settingLength(containerCount+"",5));// Line:-46
 //		voyageDtlsClassObj.setCrgoDescCdd(objForm.getCargoDeclaration()); // Line:-195
 //		voyageDtlsClassObj.setBriefCrgoDesc(objForm.getBrief_cargo_des()); // Line:-195
-		voyageDtlsClassObj.setTotalNmbrOfLines(settingLength(service.getTotalItems() ,5));// Line38 (objForm.getTotalItem()); nitun
+		voyageDtlsClassObj.setTotalNmbrOfLines(settingLength(service.getTotalItem() ,5));// Line38 (objForm.getTotalItem()); nitun
 //		voyageDtlsClassObj.setExptdDtAndTimeOfArvl(objForm.getArrivalDate() + "T" + getTime(objForm.getArrivalTime()));
 		// voyageDtlsClassObj.setExptdDtAndTimeOfDptr(objForm.getArrivalDate() + "T" +
 		// getTime(objForm.getArrivalTime()));
@@ -4467,8 +4491,8 @@ public class CreatingJSON {
 				vesselDtlsList.add(vesselDtls);
 				// ----------------------------
 				AuthPrsnSCX authPrsClassObj = new AuthPrsnSCX();
-				authPrsClassObj.setSbmtrTyp(settingLength(service.getAgentCode(), 4)); //
-				authPrsClassObj.setSbmtrCd(settingLength(service.getSubmitter_code(), 15)); //
+				authPrsClassObj.setSbmtrTyp(settingLength(service.getSubmitter_type(),4)); //
+				authPrsClassObj.setSbmtrCd(settingLength(service.getAgentCode(),15)); //
 				authPrsClassObj.setAuthReprsntvCd(settingLength(service.getAuthReprsntvCd(),10));   //
 //		 		authPrsClassObj.setShpngLineCd("RCL"); // VALUE AL WAYS RCL
 //				authPrsClassObj.setAuthSeaCarrierCd(settingLength(objForm.getAuthorized_sea_carrier_code(), 10)); // LinNo:-211
@@ -4481,21 +4505,16 @@ public class CreatingJSON {
 				// ----------------------------
 				DecRefSCX decRefClaObj = new DecRefSCX();
 
-				// decRefClaObj.setMsgTyp(objForm.getMesstype());
-				decRefClaObj.setMsgTyp(settingLength(msgTyp, 1));
-				decRefClaObj.setPrtofRptng(settingLength(service.getCustomCode(),10)); // value from old screen [Pod]
-				// decRefClaObj.setJobNo(objForm.getJobNum()); // sid will give this Number
-				decRefClaObj.setJobNo(getSeqNo +1);
-				// decRefClaObj.setJobDt(objForm.getJobDate()); //sid told me to keep crunt date
-				decRefClaObj.setJobDt(currDate);
-				decRefClaObj.setRptngEvent(settingLength(rpngEvent, 4));
-//				decRefClaObj.setMnfstNoRotnNo(settingLength(objForm.getManifest_no_csn_no(), 7)); //
-//				decRefClaObj.setMnfstDtRotnDt(objForm.getManifest_date_csn_date()); //
-//				decRefClaObj.setVesselTypMvmt(settingLength(objForm.getVessel_type_movement(), 2)); //
-				// #
-				// * decRefClaObj.setDptrMnfstNo(); //
-				// *decRefClaObj.setDptrMnfstDt(""); //
-				// #
+				  decRefClaObj.setMsgTyp(settingLength( msgTyp,1));
+				    decRefClaObj.setPrtofRptng(settingLength(service.getCustomCode(),10));
+				    decRefClaObj.setJobNo(getSeqNo +1);
+				    decRefClaObj.setJobDt(currDate);
+				    decRefClaObj.setRptngEvent(settingLength(rpngEvent,4));
+//				    decRefClaObj.setMnfstNoRotnNo(settingLength(service.getRotnNo(),7));
+//				    decRefClaObj.setMnfstDtRotnDt(service.getRotnDate()	);
+//				    decRefClaObj.setVesselTypMvmt(settingLength("FI",2));
+				    mster.setDecRef(decRefClaObj);
+				    decRefClaObj = null;
 				List<DecRefSCX> decRefList = new ArrayList<DecRefSCX>();
 				decRefList.add(decRefClaObj);
 				List<VoyageDtlsSCX> voyageDtlsList = new ArrayList<VoyageDtlsSCX>();
