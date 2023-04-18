@@ -6,13 +6,13 @@ public class MastrCnsgmtDecSDM {
 	
 	private MCRefSDM mCRef;
 	private LocCstmSDM locCstm;
-    private List<TrnshprSDM> trnshpr;
+//    private List<TrnshprSDM> trnshpr;
 	private TrnsprtDocSDM trnsprtDoc;
     private TrnsprtDocMsrSDM trnsprtDocMsr;
 	private ItemDtlsSDM itemDtls;
 	private List<TrnsprtEqmtSDM> trnsprtEqmt;
 	private ItnrySDM itnry;
-	private PrevRefSDM prevRef;
+//	private PrevRefSDM prevRef;
 	private HouseCargoDecSDM houseCargoDec;
 	private List<MCSuprtDocsSDM> mCSuprtDocs;
 	private List<MCAdtnlDecSDM> mCAdtnlDec;
@@ -40,16 +40,16 @@ public class MastrCnsgmtDecSDM {
 	}
 
 
-
-	public List<TrnshprSDM> getTrnshpr() {
-		return trnshpr;
-	}
-
-
-
-	public void setTrnshpr(List<TrnshprSDM> trnshpr) {
-		this.trnshpr = trnshpr;
-	}
+//
+//	public List<TrnshprSDM> getTrnshpr() {
+//		return trnshpr;
+//	}
+//
+//
+//
+//	public void setTrnshpr(List<TrnshprSDM> trnshpr) {
+//		this.trnshpr = trnshpr;
+//	}
 
 
 
@@ -114,15 +114,15 @@ public class MastrCnsgmtDecSDM {
 
 
 
-	public PrevRefSDM getPrevRef() {
-		return prevRef;
-	}
-
-
-
-	public void setPrevRef(PrevRefSDM prevRef) {
-		this.prevRef = prevRef;
-	}
+//	public PrevRefSDM getPrevRef() {
+//		return prevRef;
+//	}
+//
+//
+//
+//	public void setPrevRef(PrevRefSDM prevRef) {
+//		this.prevRef = prevRef;
+//	}
 
 
 	public HouseCargoDecSDM getHouseCargoDec() {
@@ -163,10 +163,14 @@ public class MastrCnsgmtDecSDM {
 
 	@Override
 	public String toString() {
-		return "MastrCnsgmtDecSDM [mCRef=" + mCRef + ", locCstm=" + locCstm + ", trnshpr=" + trnshpr + ", trnsprtDoc="
-				+ trnsprtDoc + ", trnsprtDocMsr=" + trnsprtDocMsr + ", itemDtls=" + itemDtls + ", trnsprtEqmt="
-				+ trnsprtEqmt + ", itnry=" + itnry + ", prevRef=" + prevRef + ", houseCargoDec=" + houseCargoDec
-				+ ", mCSuprtDocs=" + mCSuprtDocs + ", mCAdtnlDec=" + mCAdtnlDec + "]";
+		return "MastrCnsgmtDecSDM [mCRef=" + mCRef + ", locCstm=" + locCstm + ", trnsprtDoc=" + trnsprtDoc
+				+ ", trnsprtDocMsr=" + trnsprtDocMsr + ", itemDtls=" + itemDtls + ", trnsprtEqmt=" + trnsprtEqmt
+				+ ", itnry=" + itnry + ", houseCargoDec=" + houseCargoDec + ", mCSuprtDocs=" + mCSuprtDocs
+				+ ", mCAdtnlDec=" + mCAdtnlDec + "]";
 	}
+
+
+
+
 	
 }
