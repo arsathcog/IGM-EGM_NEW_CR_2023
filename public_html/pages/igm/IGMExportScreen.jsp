@@ -2074,7 +2074,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				jsonData.result[0].BLS = data.data.blDetails;
 				$scope.BLS = data.data.blDetails;
 				$scope.selectAllFetch = true;
-				document.getElementById("subCheckBox").checked = true;
+				/*  document.getElementById("subCheckBox").checked = true;*/
 			});
 	}
 	
@@ -2368,6 +2368,22 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 						}
 					}
 				}
+			}
+			var blCountCheck = 0;
+
+			for(var i=0; i<$scope.BLS.length;i++){
+				var iteam = $scope.BLS[i];
+				if(iteam.isBlSave=="true"){
+					blCountCheck++;
+				}
+			}
+			debugger;
+			if($scope.BLS.length == blCountCheck){
+				$scope.isBlSelecteSave = 'true';
+			}
+			if($scope.isBlSelecteSave == 'true' && $scope.BLS.length > blCountCheck){
+				document.getElementById("selectAllCheckBox").checked = false;
+				$scope.selectAllFetch = false;
 			}
 			$("body").find('.loading').remove();
 			swal("Message","Saved Successfully..!","info");

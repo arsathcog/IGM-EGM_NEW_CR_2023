@@ -400,7 +400,7 @@ System.out.println("getCarogoDetails() Called.");
 		objPreviousDao.deletePreviousDeclData(previousDeclarations,IGMPPreviousDeclarationDao.RCL_IGM_DELETE_PREV_DECLARATION_EXPORT, blsConInput);
 		
 		String blsInput = null;
-		for (ImportGeneralManifestMod mod : blsForSavingCont) {
+		for (ImportGeneralManifestMod mod : insertBL) {
 
 			if (blsInput == null)
 				blsInput = "'" + mod.getBl() + "'";
