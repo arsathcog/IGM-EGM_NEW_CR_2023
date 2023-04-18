@@ -1506,9 +1506,13 @@ public class CreatingJSON {
 			
 			mCRefClassObj.setConsolidatedIndctr(blObj.getConsolidated_indicator());// Line 76
 //			mCRefClassObj.setPrevDec(settingLength(blObj.getPrevious_declaration(),4)); // Line77
-			if(blObj.getHouseBl().equals("") && blObj.getHouseBl()!= null ) {
+			try {
+			if(!blObj.getHouseBl().equals("") && blObj.getHouseBl()!= null ) {
 				mCRefClassObj.setConsolidatedIndctr("S");// Line 76   //TODO
 			}else {
+				mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
+			}
+			}catch (Exception e) {
 				mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
 			}
 			if(blObj.getPod().substring(0, 2).equals("IN")) {
@@ -1516,6 +1520,7 @@ public class CreatingJSON {
 			}else {
 				mCRefClassObj.setPrevDec(settingLength("Y",4));
 			}
+			
 //			mCRefClassObj.setPrevDec(settingLength(blObj.getPrevious_declaration(),4)); // Line77				//TODO  guru	
 			mCRefClassObj.setConsolidatorPan(settingLength(service.getAgentCode(),16)); // Line 78		
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);
@@ -1604,7 +1609,7 @@ public class CreatingJSON {
 			
 
 			//===============================================
-			if(blObj.getConsolidatedIndicator().equals("S")) {
+//			if(blObj.getConsolidatedIndicator().equals("S")) {
 			ItemDtlsSDM itemDtlsClassObj = new ItemDtlsSDM();
 			itemDtlsClassObj.setHsCd(blObj.getCommdity_code());
 		//	itemDtlsClassObj.setCrgoItemSeqNmbr(blObj.getCommodity_seq()+"");
@@ -1620,25 +1625,25 @@ public class CreatingJSON {
 			itemDtls.add(itemDtlsClassObj);
 			mastrCnsgmtDec.setItemDtls(itemDtlsClassObj);
 		
-			}else {
-				if(blObj.isHbl()==true) {
-					if(blObj.getConsolidatedIndicator().equals("H")) {
-						ItemDtlsSDM itemDtlsClassObj = new ItemDtlsSDM();
-						itemDtlsClassObj.setHsCd(blObj.getCommdity_code());
-						//	itemDtlsClassObj.setCrgoItemSeqNmbr(blObj.getCommodity_seq()+"");
-							itemDtlsClassObj.setCrgoItemSeqNmbr( settingLength(blObj.getCommodity_seq()+"",5));	
-							itemDtlsClassObj.setCrgoItemDesc( settingLength(blObj.getCargo_item_description(),256));
-							itemDtlsClassObj.setUnoCd( settingLength(blObj.getUno_code(),5));
-							itemDtlsClassObj.setImdgCd( settingLength(blObj.getImdg_code(),4));
-							itemDtlsClassObj.setNmbrOfPkgs(settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6)); 
-							itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getPackage_kind(),3));
-							itemDtls.add(itemDtlsClassObj);
-							mastrCnsgmtDec.setItemDtls(itemDtlsClassObj);
-						houseCargoDecSDMObj.setItemDtls(itemDtls);
-					}
-				}
-				
-			}
+//			}else {
+//				if(blObj.isHbl()==true) {
+//					if(blObj.getConsolidatedIndicator().equals("H")) {
+//						ItemDtlsSDM itemDtlsClassObj = new ItemDtlsSDM();
+//						itemDtlsClassObj.setHsCd(blObj.getCommdity_code());
+//						//	itemDtlsClassObj.setCrgoItemSeqNmbr(blObj.getCommodity_seq()+"");
+//							itemDtlsClassObj.setCrgoItemSeqNmbr( settingLength(blObj.getCommodity_seq()+"",5));	
+//							itemDtlsClassObj.setCrgoItemDesc( settingLength(blObj.getCargo_item_description(),256));
+//							itemDtlsClassObj.setUnoCd( settingLength(blObj.getUno_code(),5));
+//							itemDtlsClassObj.setImdgCd( settingLength(blObj.getImdg_code(),4));
+//							itemDtlsClassObj.setNmbrOfPkgs(settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6)); 
+//							itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getPackage_kind(),3));
+//							itemDtls.add(itemDtlsClassObj);
+//							mastrCnsgmtDec.setItemDtls(itemDtlsClassObj);
+//						houseCargoDecSDMObj.setItemDtls(itemDtls);
+//					}
+//				}
+//				
+//			}
 
 			//===============================================
 			
@@ -3955,12 +3960,16 @@ public class CreatingJSON {
 			mCRefClassObj.setLineNo(settingLength(blObj.getBl(),20)); // Line 60
 			mCRefClassObj.setMstrBlNo(settingLength(blObj.getBl(),20)); // Line 53
 			mCRefClassObj.setMstrBlDt(blObj.getBlDate());// Line 53
+			try {
 			if(blObj.getHouseBl().equals("") && blObj.getHouseBl()!= null ) {
 				mCRefClassObj.setConsolidatedIndctr("S");// Line 76   //TODO
 			}else {
 				mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
 			}
-			
+			}catch (Exception e) {
+				mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
+				
+			}
 			if(blObj.getPod().substring(0, 2).equals("IN")) {
 				mCRefClassObj.setPrevDec(("N"));
 			}else  {
