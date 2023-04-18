@@ -815,6 +815,9 @@ System.out.println("getCarogoDetails() Called.");
 
 			 Object manifestFile = CreatingJSON.getJsonFile(blListNew, objForm.getFileType(), service, personOnBoardMod,
 					crewEfctMod, shipStoresMod, getSeqNo);
+			 
+				objDao.updateSqnNoForJsonFile(service, getSeqNo, "EGM",objForm.getFileType());
+			 
 				try{	
 				net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();
 			    jsonObj.put("jsonFile",manifestFile );

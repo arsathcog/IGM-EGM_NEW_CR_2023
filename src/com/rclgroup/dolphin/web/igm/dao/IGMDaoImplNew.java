@@ -11,7 +11,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.StringTokenizer;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.dao.DataAccessException;
 
 import com.niit.control.common.exception.BusinessException;
 import com.niit.control.common.exception.ExceptionFactory;
@@ -24,9 +26,6 @@ import com.rclgroup.dolphin.web.igm.vo.CFSCustomCode;
 import com.rclgroup.dolphin.web.igm.vo.DropDownMod;
 import com.rclgroup.dolphin.web.igm.vo.ImportGeneralManifestMod;
 import com.rclgroup.dolphin.web.igm.vo.PortMod;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.dao.DataAccessException;
 
 /**
  * The Class ImportGeneralManifestDaoImpl.
@@ -714,9 +713,9 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setType_of_packages_hidden(rs.getString("TYPE_OF_PACKAGES_HID"));
 			objMod.setPort_of_call_sequence_number(rs.getString("PORT_OF_CALL_SEQUENCE_NUMBER"));
 			objMod.setPort_of_call_coded(rs.getString("PORT_OF_CALL_CODED"));
-//			objMod.setPort_of_call_name(rs.getString("PORT_OF_CALL_NAME"));
+			objMod.setPort_of_call_name(rs.getString("PORT_OF_CALL_NAME"));
 			objMod.setNext_port_of_call_coded(rs.getString("NEXT_PORT_OF_CALL_CODED"));
-//			objMod.setNext_port_of_call_name(rs.getString("next_port_of_call_name"));
+			objMod.setNext_port_of_call_name(rs.getString("next_port_of_call_name"));
 			
 			objMod.setMc_location_customs(rs.getString("MC_LOCATION_CUSTOMS"));
 			if(rs.getString("FLAG_DG") == null || rs.getString("FLAG_DG").equals("N")) {
@@ -794,11 +793,12 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			}
 			objMod.setHblCount(rs.getInt("HBLCOUNT"));
 			objMod.setBlCriteria("MBL"); 
-			objMod.setDn_plr("DN_PLR"); 
-			objMod.setDn_pld("DN_PLD");
-			objMod.setAcceptanceName("ACCEPTANCE_NAME");
-			objMod.setRecieptName("RECIEPT_NAME");
-			
+			objMod.setDn_plr(rs.getString("DN_PLR")); 
+			objMod.setDn_pld(rs.getString("DN_PLD"));
+			objMod.setAcceptanceName(rs.getString("ACCEPTANCE_NAME"));
+			objMod.setRecieptName(rs.getString("RECIEPT_NAME"));
+			objMod.setStowageExport(rs.getString("STOWAGE_POSITION"));
+	
 			return objMod;
 		}
 	}
