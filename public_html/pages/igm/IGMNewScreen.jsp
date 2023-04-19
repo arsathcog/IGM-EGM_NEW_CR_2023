@@ -2498,7 +2498,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 		for(var d=0;d<$scope.BLS.length;d++){
 			if(($scope.BLS[d].isBlSave=="true" || $scope.BLS[d].isBlSave==true) && ($scope.BLS[d].saveFlags == "U" || $scope.BLS[d].saveFlags == "I" )){
 					if(($scope.BLS[d].fetch == "false" || $scope.BLS[d].fetch == false) ||(document.getElementById("selectAllCheckBox").checked = false && ($scope.BLS[d].containerDetailes == undefined  || $scope.BLS[d].containerDetailes.length==0))){
-						swal("Message","Please Check Carogo And Container Data : "+$scope.BLS[d].bl,"info");
+						swal("Message","Please Check Carogo Data : "+$scope.BLS[d].bl,"info");
 						return false;
 					}
 			}
