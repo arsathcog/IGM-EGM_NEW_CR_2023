@@ -2907,6 +2907,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 						$scope.BLS[$scope.blIndex].notifyPartyTwo = result.data.blDetails[0].notifyPartyTwo
 						$scope.BLS[$scope.blIndex].previousDeclaration = result.data.blDetails[0].previousDeclaration
 						$scope.getConsinee();
+						$scope.getDataMoveToNextTab();
 						$("body").find('.loading').remove();
 			});
 	}

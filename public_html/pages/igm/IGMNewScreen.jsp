@@ -3213,7 +3213,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 						$scope.BLS[$scope.blIndex].previousDeclaration = result.data.blDetails[0].previousDeclaration
 						
 						$scope.getConsinee();
-						$scope.getExtraDetails();
+					/* 	$scope.getExtraDetails(); */
 						
 						$scope.getDataMoveToNextTab();
 					 
