@@ -1364,7 +1364,7 @@ function showDialgPort(index){
 
 		function genrateFile() {
 			debugger;
-			delete jsonData.result[0].service.$$hashKey;
+			/* delete jsonData.result[0].service.$$hashKey; */
 			delete prsnOnBordTable.$$hashKey;
 
 			if ($("#fileType").val() == "SAA" || $("#fileType").val() == "SEI"
