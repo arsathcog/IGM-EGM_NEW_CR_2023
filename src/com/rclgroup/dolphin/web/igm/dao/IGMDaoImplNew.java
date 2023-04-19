@@ -797,7 +797,7 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setDn_pld(rs.getString("DN_PLD"));
 			objMod.setAcceptanceName(rs.getString("ACCEPTANCE_NAME"));
 			objMod.setRecieptName(rs.getString("RECIEPT_NAME"));
-//			objMod.setStowageExport(rs.getString("STOWAGE_POSITION"));
+			objMod.setStowageExport(rs.getString("STOWAGE_POSITION"));
 //			objMod.setGstStateCode(rs.getString("GST_STATE_CODE"));
 	
 			return objMod;
@@ -835,11 +835,15 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setPod(rs.getString("POD"));
 			objMod.setPortOfLoading(rs.getString("POL"));
 			
+			try {
 			if(rs.getString("BL_TYPE").equalsIgnoreCase("C")) {
 				objMod.setBlType("COC");
 			}else if (rs.getString("BL_TYPE").equalsIgnoreCase("S")){
 				objMod.setBlType("SOC");
 			}else {
+				objMod.setBlType(rs.getString("BL_TYPE"));
+			}
+			}catch (Exception e) {
 				objMod.setBlType(rs.getString("BL_TYPE"));
 			}
 			
