@@ -2105,6 +2105,15 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 					totalNmbrOfLinesCount = totalNmbrOfLinesCount + iteam.containerDetailes.length;
 				} 
 			}
+				if($('[name=chk]')[obj.$index].checked==true){
+					$( "body" ).append('<div class="loading"></div>');
+					$scope.blIndex=obj.$index;
+					$scope.selectedBL= $scope.BLS[$scope.blIndex]
+					$scope.getCarogoDetails();
+					$scope.getConsinee();
+					$scope.getContainerDetails();
+					$scope.containerValue();
+				}
 				}
 			$scope.selectedServcies.totalItem = count;
 			$scope.selectedServcies.totalNmbrOfLines = totalNmbrOfLinesCount ;

@@ -1633,6 +1633,8 @@ public class ImportGeneralManifestMod implements Cloneable {
 	 * @param blDate the new bl date
 	 */
 	public void setBlDate(String blDate) {
+
+		try {
 		if(blDate == null || blDate.equals("")) {
 			this.blDate = blDate;
 		}else if(blDate.contains("/")) {
@@ -1642,7 +1644,9 @@ public class ImportGeneralManifestMod implements Cloneable {
 		}else {
 			this.blDate = blDate.substring(6,8)+"/"+blDate.substring(4,6)+"/"+blDate.substring(0,4);
 		}
-		
+		}catch (Exception e) {
+			return;
+		}
 	}
 
 	/**
