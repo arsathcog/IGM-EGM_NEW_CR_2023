@@ -797,7 +797,7 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setDn_pld(rs.getString("DN_PLD"));
 			objMod.setAcceptanceName(rs.getString("ACCEPTANCE_NAME"));
 			objMod.setRecieptName(rs.getString("RECIEPT_NAME"));
-//			objMod.setStowageExport(rs.getString("STOWAGE_POSITION"));
+			objMod.setStowageExport(rs.getString("STOWAGE_POSITION"));
 //			objMod.setGstStateCode(rs.getString("GST_STATE_CODE"));
 	
 			return objMod;
