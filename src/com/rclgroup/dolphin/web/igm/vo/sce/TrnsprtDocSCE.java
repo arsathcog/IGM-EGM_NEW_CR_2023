@@ -12,8 +12,8 @@ public class TrnsprtDocSCE {
 //	private String cnsgnrCdTyp;  not required
 	private String cnsgnrStreetAddress;
 	private String cnsgnrCity; 
-//	private String cnsgnrCntrySubDivName; not required
-// 	private String cnsgnrCntrySubDivCd; not required
+	private String cnsgnrCntrySubDivName;
+ 	private String cnsgnrCntrySubDivCd; 
 	private String cnsgnrCntryCd;
 //	private String cnsgnrPstcd;  not required
 	private String cnsgnesName;
@@ -129,24 +129,24 @@ public class TrnsprtDocSCE {
 	}
 
       // This value is come from BL Json object  "Consignor country sub division name"  (Add new column. Value will come from shipper. )
-//	public String getCnsgnrCntrySubDivName() {
-//		return cnsgnrCntrySubDivName;
-//	}
-//
-//	public void setCnsgnrCntrySubDivName(String cnsgnrCntrySubDivName) {
+	public String getCnsgnrCntrySubDivName() {
+		return cnsgnrCntrySubDivName;
+	}
+
+	public void setCnsgnrCntrySubDivName(String cnsgnrCntrySubDivName) {
 //		cnsgnrCntrySubDivName = FiledValidation.isNullAndSetlength(cnsgnrCntrySubDivName, 35);
-//		this.cnsgnrCntrySubDivName = cnsgnrCntrySubDivName;
-//	}
+		this.cnsgnrCntrySubDivName = cnsgnrCntrySubDivName;
+	}
 
           //  (Add new column. Value will come from shipper. )
-//	public String getCnsgnrCntrySubDivCd() {
-//		return cnsgnrCntrySubDivCd;
-//	}
-//
-//	public void setCnsgnrCntrySubDivCd(String cnsgnrCntrySubDivCd) {
+	public String getCnsgnrCntrySubDivCd() {
+		return cnsgnrCntrySubDivCd;
+	}
+
+	public void setCnsgnrCntrySubDivCd(String cnsgnrCntrySubDivCd) {
 //		cnsgnrCntrySubDivCd = FiledValidation.isNullAndSetlength(cnsgnrCntrySubDivCd, 2);
-//		this.cnsgnrCntrySubDivCd = cnsgnrCntrySubDivCd;
-//	}
+		this.cnsgnrCntrySubDivCd = cnsgnrCntrySubDivCd;
+	}
 
      //This value is come from BL Json object  "Consignor Country Code" (Add new column. Value will come from shipper. )
 	public String getCnsgnrCntryCd() {

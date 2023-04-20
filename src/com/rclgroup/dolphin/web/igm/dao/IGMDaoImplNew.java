@@ -165,6 +165,7 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setMariTimeDecl(rs.getString("MARITIME_DECL"));
 			objMod.setItemNumber(rs.getString("ITEM_NUMBER"));
 			objMod.setCargoNature(rs.getString("CARGO_NATURE"));
+			System.out.println(rs.getString("CARGO_MOVMNT"));
 			objMod.setCargoMovmnt(rs.getString("CARGO_MOVMNT"));
 			objMod.setItemType(rs.getString("ITEM_TYPE"));
 			objMod.setCargoMovmntType(rs.getString("CARGO_MOVMNT_TYPE"));
@@ -542,6 +543,7 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 		String strRetError = (String) mapResult.get(KEY_IGM_ERROR);
 		/* If return error code is Failure, throw Business Exception */
 		if (isErrorCode(strRetError)) {
+			
 			System.out.println("Error while getting igm data from DB : " + strRetError);
 			throw ExceptionFactory.createApplicationException(strRetError);
 		}
@@ -715,7 +717,7 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setPort_of_call_coded(rs.getString("PORT_OF_CALL_CODED"));
 //			objMod.setPort_of_call_name(rs.getString("port_OF_call_name"));
 			objMod.setNext_port_of_call_coded(rs.getString("NEXT_PORT_OF_CALL_CODED"));
-			objMod.setNext_port_of_call_name(rs.getString("next_port_of_call_name"));
+//			objMod.setNext_port_of_call_name(rs.getString("next_port_of_call_name"));
 			
 			objMod.setMc_location_customs(rs.getString("MC_LOCATION_CUSTOMS"));
 			if(rs.getString("FLAG_DG") == null || rs.getString("FLAG_DG").equals("N")) {
@@ -723,8 +725,7 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			}else {
 				objMod.setUno_code(rs.getString("UNO_CODE"));
 			}
-		
-//			objMod.setUno_code(rs.getString("UNO_CODE"));
+
 			objMod.setImdg_code(rs.getString("IMDG_CODE"));
 			objMod.setItemNumber(rs.getString("ITEM_NUMBER"));
 			
@@ -797,7 +798,7 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setDn_pld(rs.getString("DN_PLD"));
 			objMod.setAcceptanceName(rs.getString("ACCEPTANCE_NAME"));
 			objMod.setRecieptName(rs.getString("RECIEPT_NAME"));
-			objMod.setStowageExport(rs.getString("STOWAGE_POSITION"));
+//			objMod.setStowageExport(rs.getString("STOWAGE_POSITION"));
 //			objMod.setGstStateCode(rs.getString("GST_STATE_CODE"));
 	
 			return objMod;
@@ -825,13 +826,19 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setVessel(rs.getString("VESSEL"));
 			objMod.setVoyage(rs.getString("VOYAGE"));
 			objMod.setItemNumber(rs.getString("ITEM_NUMBER"));
-			System.out.println("ITEM_NUMBER : "+rs.getString("ITEM_NUMBER"));
+//			System.out.println("ITEM_NUMBER : "+rs.getString("ITEM_NUMBER"));
 			if(rs.getString("ITEM_NUMBER")!=null && !rs.getString("ITEM_NUMBER").equals("")) {
 				objMod.setIsBlSave(String.valueOf(true));
 			}else {
 				objMod.setIsBlSave(String.valueOf(false));
 			}
-			objMod.setCargoMovmnt(rs.getString("CARGO_MOVMNT"));
+			System.out.println(rs.getString("CARGO_MOVMNT"));
+			if(rs.getString("CARGO_MOVMNT") != null ) {
+				objMod.setCargoMovmnt(rs.getString("CARGO_MOVMNT"));
+			}else {
+				objMod.setCargoMovmnt("");
+			}
+			
 			objMod.setPod(rs.getString("POD"));
 			objMod.setPortOfLoading(rs.getString("POL"));
 			

@@ -539,10 +539,10 @@ public class CreatingJSON {
 			mastrCnsgmtDec.setTrnshpr(trnshprObj);	
 //		----------------------------------------------------------------------------------------	
 			TrnsprtDocSAM trnsprtDocClassObj = new TrnsprtDocSAM();
-			trnsprtDocClassObj.setPrtOfAcptName( settingLength(blObj.getAcceptanceName(),256));			//TODO  guru
-			trnsprtDocClassObj.setPrtOfReceiptName( settingLength(blObj.getRecieptName(),256));			
-			trnsprtDocClassObj.setPrtOfReceiptCdd(settingLength(blObj.getDn_pld(),10));
-			trnsprtDocClassObj.setPrtOfAcptCdd( settingLength(blObj.getDn_plr(),6));							//TODO  guru
+			trnsprtDocClassObj.setPrtOfAcptName( settingLength(blObj.getPort_of_acceptance_name(),256));			//TODO  guru
+			trnsprtDocClassObj.setPrtOfReceiptName( settingLength(blObj.getPort_of_receipt_name(),256));			
+			trnsprtDocClassObj.setPrtOfReceiptCdd(settingLength(blObj.getPort_of_acceptance(),10));
+			trnsprtDocClassObj.setPrtOfAcptCdd( settingLength(blObj.getPort_of_receipt(),6));							//TODO  guru
 //			trnsprtDocClassObj.setPrtOfReceiptCdd(settingLength(blObj.getPort_of_receipt(),10));
 //			trnsprtDocClassObj.setTypOfCd(pol);
 //			trnsprtDocClassObj.setUcrTyp(settingLength(blObj.getUcr_type(),3));	  Guru said to comment 		 								//TODO  guru
@@ -602,7 +602,7 @@ public class CreatingJSON {
 						itemDtlsClassObj.setUnoCd( settingLength(blObj.getUno_code(),5));										
 						itemDtlsClassObj.setImdgCd( settingLength(blObj.getImdg_code(),3));										//TODO  guru
 						itemDtlsClassObj.setNmbrOfPkgs( settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6)); 
-						itemDtlsClassObj.setTypOfPkgs(settingLength("",3));
+						itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getPackage_kind(),3));
 						itemDtlsClassObj.setHsCd(generatedFileNameOfJson);
 
 						itemDtls.add(itemDtlsClassObj);
@@ -881,7 +881,8 @@ public class CreatingJSON {
 							+  notyObj.getAddressLine3() +  notyObj.getAddressLine4();
 					trnsprtDocClassObj.setNotfdPartyStreetAddress(settingLength(add,256));
 					trnsprtDocClassObj.setNotfdPartyCity( settingLength(notyObj.getCity(),70));
-					trnsprtDocClassObj.setNotfdPartyCntrySubDivName( settingLength(notyObj.getStateName(),35)); // will be provided by customer
+					trnsprtDocClassObj.setNotfdPartyCntrySubDivName(settingLength(notyObj.getStateName(),35)); // will be provided by customer
+					trnsprtDocClassObj.setNotfdPartyCntrySubDiv(settingLength(notyObj.getState(),35));
 					trnsprtDocClassObj.setNotfdPartyCntryCd( settingLength(notyObj.getCountryCode(),2));
 					trnsprtDocClassObj.setNotfdPartyPstcd( settingLength(notyObj.getZip(),9));
 					try {
@@ -917,7 +918,7 @@ public class CreatingJSON {
 					trnsprtDocClassObj.setCnsgnesName(  settingLength(cnsneeDtl.getCustomerName(),70));
 					trnsprtDocClassObj.setCnsgneCity( settingLength(cnsneeDtl.getCity(),70));
 					trnsprtDocClassObj.setCnsgneCntrySubDivName(settingLength(cnsneeDtl.getStateName(),35));
-					trnsprtDocClassObj.setCnsgneCntrySubDiv(blObj.getGstStateCode());
+					trnsprtDocClassObj.setCnsgneCntrySubDiv(cnsneeDtl.getState());
 					trnsprtDocClassObj.setCnsgneCntryCd( settingLength(cnsneeDtl.getCountryCode(),2));
 					trnsprtDocClassObj.setCnsgnePstcd( settingLength(cnsneeDtl.getZip(),9));
 					try {
@@ -5380,7 +5381,7 @@ public class CreatingJSON {
 					trnsprtDocClassObj.setCnsgnrCity(settingLength(cnsnerDtls.getCity(),70));
 					trnsprtDocClassObj.setCnsgnrCntrySubDivName( settingLength(cnsnerDtls.getStateName(),35));
 					trnsprtDocClassObj.setCnsgnrCdTyp( settingLength(cnsnerDtls.getCustomerCode(),3));
-					// trnsprtDocClassObj.setCnsgnrCntrySubDivCd((String) cnsnerDtls.get(""));
+					 trnsprtDocClassObj.setCnsgnrCntrySubDivCd((String) cnsnerDtls.getState());
 					trnsprtDocClassObj.setCnsgnrCntryCd( settingLength(cnsnerDtls.getCountryCode(),2));
 					trnsprtDocClassObj.setCnsgnrPstcd(settingLength(cnsnerDtls.getZip(),9));
 					trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(settingLength(cnsnerDtls.getCustomerName(),70));
@@ -6535,6 +6536,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 		String currDate = LocalDate.now().toString().replaceAll("-", "");
 		String currTime = new StringBuffer().append(LocalTime.now().getHour()).append(LocalTime.now().getMinute())
 				.toString();
+		
 		int fromItemNoTemp =Integer.valueOf(service.getFromItemNo());
 		System.out.println("currTime = " + currTime);
 		String decHeader = "Declaration";
@@ -6751,8 +6753,8 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			// ---------------------------------------------------------
 			TrnsprtDocMsrSCE trnsprtDocMsrClassObj = new TrnsprtDocMsrSCE();
 			trnsprtDocMsrClassObj.setNmbrOfPkgs( settingLength(blObj.getTotal_number_of_packages(),8)); 
-			trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getType_of_package());
-			trnsprtDocMsrClassObj.setGrossWeight(settingLengthForDouble(blObj.getGrossWeight(),12,3));
+			trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getPackage_kind());
+			trnsprtDocMsrClassObj.setGrossWeight(settingLengthForDouble(blObj.getGrosWeight(),12,3));
 //			trnsprtDocMsrClassObj.setNetWeight(settingLengthForDouble(blObj.getNetWeight(),12,3));  no need
 			trnsprtDocMsrClassObj.setUnitOfWeight(settingLength("KGS",3));
 //			trnsprtDocMsrClassObj.setInvoiceValueOfCnsgmt(settingLengthForDouble(blObj.getInvoiceValueFc(),16,2)); // not cleared by Guru
@@ -6765,7 +6767,6 @@ ImportGeneralManifestMod objForm = blList.get(0);
 				trnsprtDocMsrClassObj.setUnitOfVolume(settingLength("CBM",3));
 			}
 			trnsprtDocMsr.add(trnsprtDocMsrClassObj); // below in mark nad no loop
-			
 			houseCargoDecSCEObj.setTrnsprtDocMsr(trnsprtDocMsr);
 			// ------------------------------------------------------
 			if(blObj.getConsolidatedIndicator().equals("S")) {
@@ -6788,10 +6789,10 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			houseCargoDecSCEObj.setItemDtls(itemDtls);
 			// ------------------------------------------------------
 			TrnsprtDocSCE trnsprtDocClassObj = new TrnsprtDocSCE();
-			trnsprtDocClassObj.setPrtOfAcptName( settingLength(blObj.getAcceptanceName(),256));			//TODO  guru
-			trnsprtDocClassObj.setPrtOfReceiptName( settingLength(blObj.getRecieptName(),256));
-			trnsprtDocClassObj.setPrtOfAcptCdd( settingLength(blObj.getPort_of_acceptance(),6));
-			trnsprtDocClassObj.setPrtOfReceiptCdd( settingLength(blObj.getPort_of_receipt(),10));
+			trnsprtDocClassObj.setPrtOfAcptName( settingLength(blObj.getPort_of_acceptance_name(),256));			//TODO  guru
+			trnsprtDocClassObj.setPrtOfReceiptName( settingLength(blObj.getPort_of_receipt_name(),256));			
+			trnsprtDocClassObj.setPrtOfReceiptCdd(settingLength(blObj.getPort_of_acceptance(),10));
+			trnsprtDocClassObj.setPrtOfAcptCdd( settingLength(blObj.getPort_of_receipt(),6));
 			trnsprtDocClassObj.setCnsgnrsName(generatedFileNameOfJson);	
 //			trnsprtDocClassObj.setUcrTyp( settingLength(blObj.getUcr_type(),3)); not required
 //			trnsprtDocClassObj.setUcrCd(settingLength(blObj.getUcr_code(),35));	 not required
@@ -6808,6 +6809,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 							+  notyObj.getAddressLine3() +  notyObj.getAddressLine4();
 					trnsprtDocClassObj.setNotfdPartyStreetAddress(settingLength(add,256));
 					trnsprtDocClassObj.setNotfdPartyCity( settingLength(notyObj.getCity(),70));
+					trnsprtDocClassObj.setNotfdPartyCntrySubDiv(settingLength(notyObj.getState(),35));
 					trnsprtDocClassObj.setNotfdPartyCntrySubDivName( settingLength(notyObj.getStateName(),35)); // will be provided by customer
 					trnsprtDocClassObj.setNotfdPartyCntryCd( settingLength(notyObj.getCountryCode(),2));
 					trnsprtDocClassObj.setNotfdPartyPstcd( settingLength(notyObj.getZip(),9));
@@ -6861,8 +6863,8 @@ ImportGeneralManifestMod objForm = blList.get(0);
 					trnsprtDocClassObj.setCnsgneStreetAddress(settingLength(add,70));
 					trnsprtDocClassObj.setCnsgnesName( settingLength(cnsneeDtl.getCustomerName(),70));
 					trnsprtDocClassObj.setCnsgneCity(  settingLength(cnsneeDtl.getCity(),70));
-					trnsprtDocClassObj.setCnsgneCntrySubDivName(  settingLength(cnsneeDtl.getStateName(),35));
-					trnsprtDocClassObj.setCnsgneCntrySubDiv(blObj.getGstStateCode());
+					trnsprtDocClassObj.setCnsgneCntrySubDivName(settingLength(cnsneeDtl.getStateName(),35));
+					trnsprtDocClassObj.setCnsgneCntrySubDiv(cnsneeDtl.getState());
 					trnsprtDocClassObj.setCnsgneCntryCd(settingLength(cnsneeDtl.getCountryCode(),2));
 					trnsprtDocClassObj.setCnsgnePstcd( settingLength(cnsneeDtl.getZip(),9));
 					try {
@@ -6891,7 +6893,9 @@ ImportGeneralManifestMod objForm = blList.get(0);
 					trnsprtDocClassObj.setCnsgnrStreetAddress(settingLength(add,70));
 					trnsprtDocClassObj.setCnsgnrsName( settingLength(cnsnerDtls.getCustomerName(),70));
 					trnsprtDocClassObj.setCnsgnrCity( settingLength(cnsnerDtls.getCity(),70));
-//					trnsprtDocClassObj.setCnsgnrCntrySubDivName( settingLength(cnsnerDtls.getState(),35));
+					trnsprtDocClassObj.setCnsgnrCntrySubDivName( settingLength(cnsnerDtls.getStateName(),35));
+					trnsprtDocClassObj.setCnsgnrCntrySubDivCd(settingLength(cnsnerDtls.getState(),35));
+					
 //					trnsprtDocClassObj.setCnsgnrsCd( settingLength(cnsnerDtls.getCustomerCode(),17));
 					// trnsprtDocClassObj.setCnsgnrCntrySubDivCd((String) cnsnerDtls.get(""));
 					trnsprtDocClassObj.setCnsgnrCntryCd( settingLength(cnsnerDtls.getCountryCode(),2));
