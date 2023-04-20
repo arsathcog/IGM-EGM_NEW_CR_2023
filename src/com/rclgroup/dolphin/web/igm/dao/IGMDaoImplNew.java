@@ -713,7 +713,7 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setType_of_packages_hidden(rs.getString("TYPE_OF_PACKAGES_HID"));
 			objMod.setPort_of_call_sequence_number(rs.getString("PORT_OF_CALL_SEQUENCE_NUMBER"));
 			objMod.setPort_of_call_coded(rs.getString("PORT_OF_CALL_CODED"));
-			objMod.setPort_of_call_name(rs.getString("port_OF_call_name"));
+//			objMod.setPort_of_call_name(rs.getString("port_OF_call_name"));
 			objMod.setNext_port_of_call_coded(rs.getString("NEXT_PORT_OF_CALL_CODED"));
 			objMod.setNext_port_of_call_name(rs.getString("next_port_of_call_name"));
 			
