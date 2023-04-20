@@ -1475,7 +1475,7 @@ public class CreatingJSON {
 					blObj.getPortOfDestination() != null && blObj.getPortOfDeschargedCfs() != null ) {
 				itnryClassObj.setPrtOfCallSeqNmbr(settingLength("3",5)); 
 			}
-			itnryClassObj.setNxtPrtOfCallCdd(settingLength(blObj.getPod(),10));    //TODO  guru
+			itnryClassObj.setNxtPrtOfCallCdd(settingLength(blObj.getNext_port_of_call_coded(),10));    //TODO  guru
 			itnryClassObj.setNxtPrtOfCallName(settingLength(blObj.getNext_port_of_call_name(),256));		//TODO  guru
 			itnryClassObj.setPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));			//TODO  guru
 			itnryClassObj.setPrtOfCallCdd(settingLength(blObj.getPortOfLoading(),10));	
@@ -1648,9 +1648,9 @@ public class CreatingJSON {
 			//===============================================
 			
 			trnsprtDocClassObj.setPrtOfAcptName( settingLength(blObj.getAcceptanceName(),256));			//TODO  guru
-			trnsprtDocClassObj.setPrtOfReceiptName( settingLength(blObj.getRecieptName(),256));
-			trnsprtDocClassObj.setPrtOfAcptCdd( settingLength(blObj.getPort_of_acceptance(),6));
-			trnsprtDocClassObj.setPrtOfReceiptCdd( settingLength(blObj.getPort_of_receipt(),10));
+			trnsprtDocClassObj.setPrtOfReceiptName( settingLength(blObj.getRecieptName(),256));			
+			trnsprtDocClassObj.setPrtOfReceiptCdd(settingLength(blObj.getDn_pld(),10));
+			trnsprtDocClassObj.setPrtOfAcptCdd( settingLength(blObj.getPort_of_acceptance(),6));	
 //			trnsprtDocClassObj.setUcrTyp(settingLength(blObj.getUcr_type(),3));  Guru said to comment 
 //			trnsprtDocClassObj.setUcrCd( settingLength(blObj.getUcr_code(),35));	 Guru said to comment
 
@@ -1665,7 +1665,7 @@ public class CreatingJSON {
 					trnsprtDocClassObj.setNotfdPartyCntryCd( settingLength(notyObj.getCountryCode(),2));
 //					trnsprtDocClassObj.setNotfdPartyPstcd( settingLength(notyObj.getZip(),9));
 //					trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(notyObj.getCostumerCode(),3));
-					trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(notyObj.getCostumerName());
+//					trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(notyObj.getCostumerName());
 				}
 			}
 //			trnsprtDocClassObj.setPanOfNotfdParty( settingLength(blObj.getPan_of_notified_party(),17));
@@ -1714,7 +1714,7 @@ public class CreatingJSON {
 					trnsprtDocClassObj.setCnsgnrCntrySubDivName( settingLength(cnsnerDtls.getStateName(),35));  //Guru said to comment
 					trnsprtDocClassObj.setCnsgnrsCd( settingLength(cnsnerDtls.getCustomerCode(),17));
 					trnsprtDocClassObj.setCnsgnrCdTyp("");
-					trnsprtDocClassObj.setCnsgnrCntrySubDivCd((String)(""));
+					trnsprtDocClassObj.setCnsgnrCntrySubDivCd((String)(cnsnerDtls.getState()));
 					trnsprtDocClassObj.setCnsgnrCntryCd( settingLength(cnsnerDtls.getCountryCode(),2));
 					trnsprtDocClassObj.setCnsgnrPstcd( settingLength(cnsnerDtls.getZip(),9)); 
 //					trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(settingLength(cnsnerDtls.getCustomerName(),70));
@@ -3157,7 +3157,7 @@ public class CreatingJSON {
 			itnryClassObj.setNxtPrtOfCallCdd(settingLength(blObj.getNext_port_of_call_coded(),10));
 			itnryClassObj.setNxtPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));
 			itnryClassObj.setPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));
-			itnryClassObj.setPrtOfCallCdd(settingLength(blObj.getPort_of_call_cod(),10));
+			itnryClassObj.setPrtOfCallCdd(settingLength(blObj.getPort_of_call_coded(),10));
 			itnryClassObj.setModeOfTrnsprt(settingLength(blObj.getMode_of_transport(),1));
 			itnry.add(itnryClassObj);
 			houseCargoDecSAAObj.setItnry(itnry);

@@ -2683,7 +2683,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 				async : true,
 				url : url,
 			  }).then(function(result, status, headers, config) {			 
-							 
+				  $("body").find('.loading').remove();
 				  if (val === 'P'){
 						$scope.prsnOnBordTable=result.data.personOnBoardMod;
 						$scope.selectedServcies.noOfCrew = Object.keys($scope.prsnOnBordTable).length;

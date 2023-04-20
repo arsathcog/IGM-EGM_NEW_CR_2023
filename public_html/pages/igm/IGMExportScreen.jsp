@@ -2967,9 +2967,9 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
  		  }).then(function(result, status, headers, config) {	
 
  			 console.log( result.data.blDetails ,"export........................");	
-
+/* 
  			  $scope.selectedBL.stowageExport = result.data.blDetails[0].stowageExport;
-
+ */
  		  }); 
  			  
 	
