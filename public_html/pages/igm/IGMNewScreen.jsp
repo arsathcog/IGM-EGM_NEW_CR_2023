@@ -2220,6 +2220,82 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 			
 	}
 	
+	$scope.hblcheckTotalIteam=function(obj)
+	{
+			debugger;
+			var payloadSaved = "";
+			var payloadUnSaved = "";
+			var count = 0;
+			if($("#selectAllCheckBox")[0].checked == true){
+				for(var i=0; i<$scope.BLS.length;i++){
+					var iteam = $scope.BLS[i];
+					iteam.isBlSave=true
+				    count++;
+					if($scope.BLS[i].isBlSave == true && $scope.BLS[i].itemNumber != "" && $scope.BLS[i].itemNumber != null){
+						if(payloadSaved == "" && $scope.selectAllFetch == false){
+							payloadSaved =  $scope.BLS[i].bl;
+						}else{
+							payloadSaved = payloadSaved + "," + $scope.BLS[i].bl;
+						}
+					}else{
+						if(payloadUnSaved == "" && $scope.selectAllFetch == false){
+							payloadUnSaved =  $scope.BLS[i].bl;
+						}else{
+							payloadUnSaved = payloadUnSaved + "," + $scope.BLS[i].bl;
+						}
+					}
+				}
+			}else{
+				for(var i=0; i<$scope.BLS.length;i++){
+					var iteam = $scope.BLS[i];
+					iteam.isBlSave=false;
+					if(iteam.saveFlags= 'N' && iteam.itemNumber!=null && iteam.itemNumber!=""){
+						iteam.saveFlags='D';
+					}else{
+						iteam.saveFlags='N';
+					}
+					
+				}
+				count=0;
+				payloadSaved = "";
+				payloadUnSaved = "";
+			}
+			 
+			$scope.selectedServcies.totalItem=count;
+			totalIteamNo=count;
+			
+			if(payloadUnSaved == "" && payloadSaved == "" ){
+				return false;
+			}
+			
+			if( $scope.selectAllFetch == true){
+				return false;
+			}
+			 
+			sendData ="?savedBlList="+payloadSaved+"&unSavedBlList="+payloadUnSaved+"&vessel="+$scope.selectedServcies.vessel+"&voyage="+$scope.selectedServcies.voyage+"&pod="+$scope.selectedServcies.pod;
+			$( "body" ).append('<div class="loading"></div>');
+			$http({
+				method : "POST",
+				async : true,
+				url : $window.GETSELECTALLBL+sendData,
+				dataType: 'json',
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+				beforeSend:function()
+				{
+					loadingfun();
+				},
+			}).then(function(data, status, headers, config) {
+				$("body").find('.loading').remove();
+				debugger;
+				jsonData.result[0].BLS = data.data.blDetails;
+				$scope.BLS = data.data.blDetails;
+				$scope.selectAllFetch = true;
+				document.getElementById("subCheckBox").checked = true;
+				 /* $scope.getExtraDetails(); */ 
+			});
+			
+	}
+	
 	$scope.blcheckTotalIteam=function(obj)
 	{
 		debugger;
