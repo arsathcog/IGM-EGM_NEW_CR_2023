@@ -499,9 +499,9 @@ public class CreatingJSON {
 			
 
 			if(blObj.getPod().substring(0, 2).equals("IN")) {
-				mCRefClassObj.setPrevDec(("N"));
+				mCRefClassObj.setPrevDec(("S"));
 			}else {
-				mCRefClassObj.setPrevDec(settingLength("Y",4));
+				mCRefClassObj.setPrevDec(settingLength("N",4));
 			}
 //			mCRefClassObj.setPrevDec(settingLength(blObj.getPrevious_declaration(),4)); // Line77				//TODO  guru	
 			mCRefClassObj.setConsolidatorPan(settingLength(service.getAgentCode(),16)); // Line 78		
@@ -6626,9 +6626,9 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			mCRefClassObj.setMstrBlDt(blObj.getBlDate()); // Line 53
 			mCRefClassObj.setConsolidatorPan(settingLength(blObj.getAgentCode(),4));// Line 76
 			if(blObj.getPod().substring(0, 2).equals("IN")) {
-				mCRefClassObj.setPrevDec(("N"));
+				mCRefClassObj.setPrevDec(("S"));
 			}else{
-				mCRefClassObj.setPrevDec(settingLength("Y",4));
+				mCRefClassObj.setPrevDec(settingLength("N",4));
 			}
 			
 			try {
