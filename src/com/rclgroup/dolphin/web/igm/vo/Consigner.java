@@ -15,6 +15,8 @@ public class Consigner {
 	private String state;
 	private String countryCode;
 	private String zip;
+	private String stateName;
+
 	
 	public String getBlNO() {
 		return blNO;
@@ -83,6 +85,12 @@ public class Consigner {
 		this.zip = zip;
 	}
 	
+	public String getStateName() {
+		return stateName;
+	}
+	public void setStateName(String stateName) {
+		this.stateName = stateName;
+	}
 	@Override
 	public String toString() {
 		return "Consigner [blNO=" + blNO + ", customerCode=" + customerCode + ", customerName=" + customerName

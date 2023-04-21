@@ -71,7 +71,15 @@ public class MCRefSCE {
 	}
 
 	public void setMstrBlDt(String mstrBlDt) {
-		this.mstrBlDt = mstrBlDt;
+		if (mstrBlDt==null) {
+			this.mstrBlDt = mstrBlDt;
+		} else {
+			if (mstrBlDt.contains("/")) {
+				String dateArray[] = mstrBlDt.split("/");
+				mstrBlDt = dateArray[2]+"/" + dateArray[1] + "/"+dateArray[0];
+				this.mstrBlDt = mstrBlDt;
+			}
+		}
 	}
 
 	public void setConsolidatedIndctr(String consolidatedIndctr) {

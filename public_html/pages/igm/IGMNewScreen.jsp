@@ -2574,7 +2574,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 		for(var d=0;d<$scope.BLS.length;d++){
 			if(($scope.BLS[d].isBlSave=="true" || $scope.BLS[d].isBlSave==true) && ($scope.BLS[d].saveFlags == "U" || $scope.BLS[d].saveFlags == "I" )){
 					if(($scope.BLS[d].fetch == "false" || $scope.BLS[d].fetch == false) ||(document.getElementById("selectAllCheckBox").checked = false && ($scope.BLS[d].containerDetailes == undefined  || $scope.BLS[d].containerDetailes.length==0))){
-						swal("Message","Please Check Carogo And Container Data : "+$scope.BLS[d].bl,"info");
+						swal("Message","Please Check Carogo Data : "+$scope.BLS[d].bl,"info");
 						return false;
 					}
 			}
@@ -2759,7 +2759,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 				async : true,
 				url : url,
 			  }).then(function(result, status, headers, config) {			 
-							 
+				  $("body").find('.loading').remove();
 				  if (val === 'P'){
 						$scope.prsnOnBordTable=result.data.personOnBoardMod;
 						$scope.selectedServcies.noOfCrew = Object.keys($scope.prsnOnBordTable).length;
@@ -2895,7 +2895,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 	
 	    form = document.getElementById('ackFileForm');
 	    console.log(form);
-	    var fileData = new FormData(document.getElementById("ackFileForm"));
+	    var fileData = new FormData(form);
 	    console.log(fileData, "ackfileeeeeeee")
 	
 	    $http({
@@ -2919,10 +2919,10 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 	            console.log($scope.ackFileResponse[i].mcResponse.cinType);
 	            console.log($scope.ackFileResponse[i].mcResponse.mcinPcin);
 	            if ($scope.ackFileResponse[i].MCRef.lineNo == $scope.selectedBL.itemNumber && $scope.ackFileResponse[i].mcResponse.cinType == "PCIN") {
-	                $scope.selectedBL.pcin = $scope.ackFileResponse[i].mcResponse.mcinPcin;
+	                $scope.selectedBL.pcin = $scope.ackFileResponse[i].mcResponse.mcin;
 	            } else {
 	                if ($scope.ackFileResponse[i].MCRef.lineNo == $scope.selectedBL.itemNumber && $scope.ackFileResponse[i].mcResponse.cinType == "MCIN")
-	                    $scope.selectedBL.mcin = $scope.ackFileResponse[i].mcResponse.mcinPcin;
+	                    $scope.selectedBL.mcin = $scope.ackFileResponse[i].mcResponse.mcin;
 	            }
 	
 	        }
@@ -2952,7 +2952,8 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 	 	   if(($scope.selectedBL.isBlSave == 'true' || $scope.selectedBL.isBlSave == true) && ($scope.selectedBL.itemNumber !=null && $scope.selectedBL.itemNumber !="")){
 				$scope.selectedBL.saveFlags="U"
 			} */
-	
+
+
 	    $scope.getConsinee();
 	    var bl = $scope.BLS[$scope.blIndex].bl;
 	
@@ -3197,7 +3198,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 						$scope.BLS[$scope.blIndex].portOfDestination  =  result.data.blDetails[0].portOfDestination
 						$scope.BLS[$scope.blIndex].portOrigin  =  result.data.blDetails[0].portOrigin
 						$scope.BLS[$scope.blIndex].port_of_acceptance  =  result.data.blDetails[0].port_of_acceptance
-						$scope.BLS[$scope.blIndex].port_of_acceptance_name  =  result.data.blDetails[0].port_of_acceptance_name
+						$scope.BLS[$scope.blIndex].port_of_acceptance_name  =  result.data.blDetails[0].acceptanceName
 						$scope.BLS[$scope.blIndex].port_of_call_cod  =  result.data.blDetails[0].port_of_call_cod
 						$scope.BLS[$scope.blIndex].port_of_call_coded  =  result.data.blDetails[0].port_of_call_coded
 						$scope.BLS[$scope.blIndex].port_of_call_name  =  result.data.blDetails[0].port_of_call_name
@@ -3275,10 +3276,11 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 						$scope.BLS[$scope.blIndex].volume  =  result.data.blDetails[0].volume
 						$scope.BLS[$scope.blIndex].voyage_details_movement  =  result.data.blDetails[0].voyage_details_movement
 						$scope.BLS[$scope.blIndex].weigh  =  result.data.blDetails[0].weigh
-						$scope.BLS[$scope.blIndex].weight  =  result.data.blDetails[0].weight
-
-					
-						
+						$scope.BLS[$scope.blIndex].weight  =  result.data.blDetails[0].weight 
+						$scope.BLS[$scope.blIndex].package_kind  =  result.data.blDetails[0].package_kind
+						$scope.BLS[$scope.blIndex].commdity_code  =  result.data.blDetails[0].commdity_code
+						$scope.BLS[$scope.blIndex].commodity_seq  =  result.data.blDetails[0].commodity_seq
+				
 						debugger;
 						$scope.BLS[$scope.blIndex].consignee = result.data.blDetails[0].consignee
 						$scope.BLS[$scope.blIndex].consigner = result.data.blDetails[0].consigner
@@ -3288,7 +3290,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 						$scope.BLS[$scope.blIndex].previousDeclaration = result.data.blDetails[0].previousDeclaration
 						
 						$scope.getConsinee();
-						$scope.getExtraDetails();
+					/* 	$scope.getExtraDetails(); */
 						
 						$scope.getDataMoveToNextTab();
 					 

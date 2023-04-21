@@ -6,7 +6,7 @@ package com.rclgroup.dolphin.web.igm.vo;
  */
 public class Consignee {
 	private String blNO;
-	private String customerCode = "";
+	private String customerCode;
 	private String customerName = "";	
 	private String addressLine1 = "";
 	private String addressLine2 = "";

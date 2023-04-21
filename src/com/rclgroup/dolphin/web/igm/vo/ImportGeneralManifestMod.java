@@ -520,8 +520,10 @@ public class ImportGeneralManifestMod implements Cloneable {
 	private String port_of_call_sequence_number;
 
 	private String port_of_call_coded;
-
+	
 	private String next_port_of_call_coded;
+	
+	private String next_port_of_call_name;
 
 	private String mc_location_customs;
 
@@ -1631,6 +1633,8 @@ public class ImportGeneralManifestMod implements Cloneable {
 	 * @param blDate the new bl date
 	 */
 	public void setBlDate(String blDate) {
+
+		try {
 		if(blDate == null || blDate.equals("")) {
 			this.blDate = blDate;
 		}else if(blDate.contains("/")) {
@@ -1640,7 +1644,9 @@ public class ImportGeneralManifestMod implements Cloneable {
 		}else {
 			this.blDate = blDate.substring(6,8)+"/"+blDate.substring(4,6)+"/"+blDate.substring(0,4);
 		}
-		
+		}catch (Exception e) {
+			return;
+		}
 	}
 
 	/**
@@ -3379,6 +3385,14 @@ public class ImportGeneralManifestMod implements Cloneable {
 
 	public void setNext_port_of_call_coded(String next_port_of_call_coded) {
 		this.next_port_of_call_coded = next_port_of_call_coded;
+	}
+	
+	public String getNext_port_of_call_name() {
+		return next_port_of_call_name;
+	}
+
+	public void setNext_port_of_call_name(String next_port_of_call_name) {
+		this.next_port_of_call_name = next_port_of_call_name;
 	}
 
 	public String getConsigneeName() {

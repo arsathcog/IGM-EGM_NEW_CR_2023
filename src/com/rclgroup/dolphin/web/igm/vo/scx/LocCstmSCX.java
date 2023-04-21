@@ -34,7 +34,7 @@ public class LocCstmSCX {
 	}
 
 	public void setFirstPrtOfEntry(String firstPrtOfEntry) {
-		firstPrtOfEntry = FiledValidation.isNullAndSetlength(firstPrtOfEntry, 6);
+//		firstPrtOfEntry = FiledValidation.isNullAndSetlength(firstPrtOfEntry, 6);
 		this.firstPrtOfEntry = firstPrtOfEntry;
 	}
 
@@ -44,7 +44,7 @@ public class LocCstmSCX {
 	}
   
 	public void setDestPrt(String destPrt) {
-		destPrt = FiledValidation.isNullAndSetlength(destPrt, 10);
+//		destPrt = FiledValidation.isNullAndSetlength(destPrt, 10);
 		this.destPrt = destPrt;
 	}
 //This value is come from BL Json object "MC Location Customsl"
@@ -53,7 +53,7 @@ public class LocCstmSCX {
 	}
 
 	public void setNxtPrtOfUnlading(String nxtPrtOfUnlading) {
-		nxtPrtOfUnlading = FiledValidation.isNullAndSetlength(nxtPrtOfUnlading, 10);
+//		nxtPrtOfUnlading = FiledValidation.isNullAndSetlength(nxtPrtOfUnlading, 10);
 		this.nxtPrtOfUnlading = nxtPrtOfUnlading;
 	}
    //This value is come from BL Json object "Type Of Cargo"

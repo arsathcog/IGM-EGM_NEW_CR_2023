@@ -21,6 +21,7 @@ public class NotifyParty
 	private String portOfDischarge;
 	private String consigneCheckBox;
 	private String notifyFwr;
+	private String stateName;
 
 
 	public String getBlNo() {
@@ -173,6 +174,16 @@ public class NotifyParty
 		this.notifyFwr = notifyFwr;
 	}
 
+	
+	
+	public String getStateName() {
+		return stateName;
+	}
+
+	public void setStateName(String stateName) {
+		this.stateName = stateName;
+	}
+
 	@Override
 	public String toString() {
 		return "NotifyParty [blNo=" + blNo + ", CostumerCode=" + CostumerCode + ", CostumerName=" + CostumerName
@@ -180,14 +191,19 @@ public class NotifyParty
 				+ ", addressLine4=" + addressLine4 + ", city=" + city + ", state=" + state + ", countryCode="
 				+ countryCode + ", zip=" + zip + ", notify2=" + notify2 + ", consigneeName=" + consigneeName
 				+ ", notifyName=" + notifyName + ", notifyIec=" + notifyIec + ", notifyPan=" + notifyPan
-				+ ", getBlNo()=" + getBlNo() + ", getCostumerCode()=" + getCostumerCode() + ", getCostumerName()="
-				+ getCostumerName() + ", getAddressLine1()=" + getAddressLine1() + ", getAddressLine2()="
-				+ getAddressLine2() + ", getAddressLine3()=" + getAddressLine3() + ", getAddressLine4()="
-				+ getAddressLine4() + ", getCity()=" + getCity() + ", getState()=" + getState() + ", getCountryCode()="
-				+ getCountryCode() + ", getZip()=" + getZip() + ", getNotify2()=" + getNotify2()
-				+ ", getConsigneeName()=" + getConsigneeName() + ", getNotifyName()=" + getNotifyName()
-				+ ", getNotifyIec()=" + getNotifyIec() + ", getNotifyPan()=" + getNotifyPan() + ", getClass()="
+				+ ", portOfDischarge=" + portOfDischarge + ", consigneCheckBox=" + consigneCheckBox + ", notifyFwr="
+				+ notifyFwr + ", stateName=" + stateName + ", getBlNo()=" + getBlNo() + ", getCostumerCode()="
+				+ getCostumerCode() + ", getCostumerName()=" + getCostumerName() + ", getAddressLine1()="
+				+ getAddressLine1() + ", getAddressLine2()=" + getAddressLine2() + ", getAddressLine3()="
+				+ getAddressLine3() + ", getAddressLine4()=" + getAddressLine4() + ", getCity()=" + getCity()
+				+ ", getState()=" + getState() + ", getCountryCode()=" + getCountryCode() + ", getZip()=" + getZip()
+				+ ", getNotify2()=" + getNotify2() + ", getConsigneeName()=" + getConsigneeName() + ", getNotifyName()="
+				+ getNotifyName() + ", getNotifyIec()=" + getNotifyIec() + ", getNotifyPan()=" + getNotifyPan()
+				+ ", getPortOfDischarge()=" + getPortOfDischarge() + ", getConsigneCheckBox()=" + getConsigneCheckBox()
+				+ ", getNotifyFwr()=" + getNotifyFwr() + ", getStateName()=" + getStateName() + ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
+
+
 
 }

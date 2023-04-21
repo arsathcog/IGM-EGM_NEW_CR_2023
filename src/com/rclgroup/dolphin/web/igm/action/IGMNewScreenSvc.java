@@ -924,8 +924,10 @@ public class IGMNewScreenSvc extends BaseAction {
 
 		int getSeqNo = objDao.getSeqNoJdbc(service, "IGM", objForm.getFileType());
 
+		
 		Object manifestFile = CreatingJSON.getJsonFile(blListNew, objForm.getFileType(), service, personOnBoardMod,
 				crewEfctMod, shipStoresMod, getSeqNo);
+		objDao.updateSqnNoForJsonFile(service, getSeqNo, "IGM",objForm.getFileType());
 		System.out.println("Object Done..... 1");
 		try {
 			net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();

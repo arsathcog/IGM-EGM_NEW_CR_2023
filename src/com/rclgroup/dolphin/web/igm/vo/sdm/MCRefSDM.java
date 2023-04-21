@@ -63,7 +63,15 @@ public class MCRefSDM {
 		}
 
 		public void setMstrBlDt(String mstrBlDt) {
-			this.mstrBlDt = mstrBlDt;
+			if (mstrBlDt==null) {
+				this.mstrBlDt = mstrBlDt;
+			} else {
+				if (mstrBlDt.contains("/")) {
+					String dateArray[] = mstrBlDt.split("/");
+					mstrBlDt = dateArray[2]+"/" + dateArray[1] + "/"+dateArray[0];
+					this.mstrBlDt = mstrBlDt;
+				}
+			}
 		}
 
 		public void setConsolidatedIndctr(String consolidatedIndctr) {
@@ -76,7 +84,7 @@ public class MCRefSDM {
 		}
 
 		public void setPrevDec(String prevDec) {
-			prevDec = FiledValidation.isNullAndSetlength(prevDec, 4);
+//			prevDec = FiledValidation.isNullAndSetlength(prevDec, 4);
 			this.prevDec = prevDec;
 		}
 	    //Same as Item Number from current screen  "Consolidator PAN"
@@ -85,7 +93,7 @@ public class MCRefSDM {
 		}
 
 		public void setConsolidatorPan(String consolidatorPan) {
-			consolidatorPan = FiledValidation.isNullAndSetlength(consolidatorPan, 35);
+	//		consolidatorPan = FiledValidation.isNullAndSetlength(consolidatorPan, 35);
 			this.consolidatorPan = consolidatorPan;
 		}
 }

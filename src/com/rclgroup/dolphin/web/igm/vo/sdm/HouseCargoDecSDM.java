@@ -5,13 +5,13 @@ import java.util.List;
 public class HouseCargoDecSDM {
 	private List<HCRefSDM> hCRef;
 	private List<LocCstmSDM> locCstm;
-    private List<TrnshprSDM> trnshpr;
+//    private List<TrnshprSDM> trnshpr;
 	private List<TrnsprtDocSDM> trnsprtDoc;
     private List<TrnsprtDocMsrSDM> trnsprtDocMsr;
 	private List<ItemDtlsSDM> itemDtls;
 	private List<TrnsprtEqmtSDM> trnsprtEqmt;
 	private List<ItnrySDM> itnry;
-	private List<PrevRefSDM> prevRef;
+//	private List<PrevRefSDM> prevRef;
 	private List<HCCrgoSuprtDocsSDM> hCCrgoSuprtDocs;
 	private List<HCAdtnlDecSDM>hcAdtnlDec;
 	
@@ -27,12 +27,12 @@ public class HouseCargoDecSDM {
 	public void setLocCstm(List<LocCstmSDM> locCstm) {
 		this.locCstm = locCstm;
 	}
-	public List<TrnshprSDM> getTrnshpr() {
-		return trnshpr;
-	}
-	public void setTrnshpr(List<TrnshprSDM> trnshpr) {
-		this.trnshpr = trnshpr;
-	}
+//	public List<TrnshprSDM> getTrnshpr() {
+//		return trnshpr;
+//	}
+//	public void setTrnshpr(List<TrnshprSDM> trnshpr) {
+//		this.trnshpr = trnshpr;
+//	}
 	public List<TrnsprtDocSDM> getTrnsprtDoc() {
 		return trnsprtDoc;
 	}
@@ -63,12 +63,12 @@ public class HouseCargoDecSDM {
 	public void setItnry(List<ItnrySDM> itnry) {
 		this.itnry = itnry;
 	}
-	public List<PrevRefSDM> getPrevRef() {
-		return prevRef;
-	}
-	public void setPrevRef(List<PrevRefSDM> prevRef) {
-		this.prevRef = prevRef;
-	}
+//	public List<PrevRefSDM> getPrevRef() {
+//		return prevRef;
+//	}
+//	public void setPrevRef(List<PrevRefSDM> prevRef) {
+//		this.prevRef = prevRef;
+//	}
 	public List<HCCrgoSuprtDocsSDM> gethCCrgoSuprtDocs() {
 		return hCCrgoSuprtDocs;
 	}

@@ -57,7 +57,7 @@ public class LocCstmSCU {
 	}
 
 	public void setTypOfCrgo(String typOfCrgo) {
-		typOfCrgo = FiledValidation.isNullAndSetlength(typOfCrgo, 2);
+//		typOfCrgo = FiledValidation.isNullAndSetlength(typOfCrgo, 2);
 		this.typOfCrgo = typOfCrgo;
 	}
 //This value is come from BL Json object  "Item Type"

@@ -54,7 +54,7 @@ public class MCRefSCX {
 		} else {
 			if (mstrBlDt.contains("/")) {
 				String dateArray[] = mstrBlDt.split("/");
-				mstrBlDt = dateArray[2] + dateArray[1] + dateArray[0];
+				mstrBlDt = dateArray[2]+"/" + dateArray[1] + "/"+dateArray[0];
 				this.mstrBlDt = mstrBlDt;
 			}
 		}

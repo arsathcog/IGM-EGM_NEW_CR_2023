@@ -20,8 +20,8 @@ public class MasterSDM {
 	private List<PrsnOnBoardSDM> prsnOnBoard;
 	private List<ShipStoresSDM> shipStore;
 	private List<VoyageTransportEquipmentSDM> voyageTransportEquipment;
-	private List<TmSuprtDocsSDM> tmSuprtDocs;
-	private List<TmAdtnlDecSDM> tmAdtnlDec;
+//	private List<TmSuprtDocsSDM> tmSuprtDocs;
+//	private List<TmAdtnlDecSDM> tmAdtnlDec;
 	
 	
 	 
@@ -73,24 +73,23 @@ public class MasterSDM {
 	public void setVoyageTransportEquipment(List<VoyageTransportEquipmentSDM> voyageTransportEquipment) {
 		this.voyageTransportEquipment = voyageTransportEquipment;
 	}
-	public List<TmSuprtDocsSDM> getTmSuprtDocs() {
-		return tmSuprtDocs;
-	}
-	public void setTmSuprtDocs(List<TmSuprtDocsSDM> tmSuprtDocs) {
-		this.tmSuprtDocs = tmSuprtDocs;
-	}
-	public List<TmAdtnlDecSDM> getTmAdtnlDec() {
-		return tmAdtnlDec;
-	}
-	public void setTmAdtnlDec(List<TmAdtnlDecSDM> tmAdtnlDec) {
-		this.tmAdtnlDec = tmAdtnlDec;
-	}
+//	public List<TmSuprtDocsSDM> getTmSuprtDocs() {
+//		return tmSuprtDocs;
+//	}
+//	public void setTmSuprtDocs(List<TmSuprtDocsSDM> tmSuprtDocs) {
+//		this.tmSuprtDocs = tmSuprtDocs;
+//	}
+//	public List<TmAdtnlDecSDM> getTmAdtnlDec() {
+//		return tmAdtnlDec;
+//	}
+//	public void setTmAdtnlDec(List<TmAdtnlDecSDM> tmAdtnlDec) {
+//		this.tmAdtnlDec = tmAdtnlDec;
+//	}
 	@Override
 	public String toString() {
 		return "MasterSDM [decRef=" + decRef + ", authPrsn=" + authPrsn + ", vesselDtls=" + vesselDtls + ", voyageDtls="
 				+ voyageDtls + ", mastrCnsgmtDec=" + mastrCnsgmtDec + ", prsnOnBoard=" + prsnOnBoard + ", shipStore="
-				+ shipStore + ", voyageTransportEquipment=" + voyageTransportEquipment + ", tmSuprtDocs=" + tmSuprtDocs
-				+ ", tmAdtnlDec=" + tmAdtnlDec + "]";
+				+ shipStore + ", voyageTransportEquipment=" + voyageTransportEquipment+ "]";
 	}
 	
 	 

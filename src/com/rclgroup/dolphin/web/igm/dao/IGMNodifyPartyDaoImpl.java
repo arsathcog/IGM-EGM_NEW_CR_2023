@@ -124,6 +124,7 @@ public class IGMNodifyPartyDaoImpl extends AncestorJdbcDao implements IGMNodifyP
 			notifyparty.setPortOfDischarge(rs.getString("PORT_OF_DISCHARGE"));
 			notifyparty.setConsigneCheckBox(rs.getString("CONSIGNEE_CHECK_BOX"));
 			notifyparty.setNotifyFwr(rs.getString("CONSIGNEE_FWR"));
+			notifyparty.setStateName(rs.getString("STATE_NAME"));
 			
 	
 			return notifyparty;

@@ -382,7 +382,7 @@ System.out.println("getCarogoDetails() Called.");
 		marksNumber.clear(); 
 		containerDetailes.clear();  
 		previousDeclarations.clear();
-		for (ImportGeneralManifestMod mod : deleteBL) {
+		for (ImportGeneralManifestMod mod : blsForSavingCont) {
 
 			if (blsConInput == null)
 				blsConInput = "'" + mod.getBl() + "'";
@@ -805,7 +805,7 @@ System.out.println("getCarogoDetails() Called.");
 		 List<ImportGeneralManifestMod> blListNew = new ArrayList<ImportGeneralManifestMod>();
 		 	for(int l=0;l<blList.size();l++) {
 			ImportGeneralManifestMod obj = blList.get(l);
-			if(obj.isFetch()==true) {
+			if(obj.getIsBlSave()=="true") {
 				blListNew.add(obj);
 			} 
 		 }
@@ -815,6 +815,9 @@ System.out.println("getCarogoDetails() Called.");
 
 			 Object manifestFile = CreatingJSON.getJsonFile(blListNew, objForm.getFileType(), service, personOnBoardMod,
 					crewEfctMod, shipStoresMod, getSeqNo);
+			 
+				objDao.updateSqnNoForJsonFile(service, getSeqNo, "EGM",objForm.getFileType());
+			 
 				try{	
 				net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();
 			    jsonObj.put("jsonFile",manifestFile );
@@ -1062,13 +1065,13 @@ System.out.println("getCarogoDetails() Called.");
 			String blsInput = objForm.getUnSavedBlList();
 			Map<Object, Object> mapReturnBL = null;
 			
-			mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD, objForm.getPod());
+			mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD, mod.getPod());
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_SERVICE, objForm.getIgmservice());
-			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, objForm.getVessel());
-			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, objForm.getVoyage());
+			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, mod.getVessel());
+			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, mod.getVoyage());
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
 			
-			mapReturnBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_MSTR_DATA_NEW, true,true);
+			mapReturnBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_MSTR_DATA_EXPORT_NEW, true,true);
 			blObj.addAll((List<ImportGeneralManifestMod>) mapReturnBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
 			containerDao.setContainerDetails(blObj, IGMContainerDao.RCL_IGM_GET_MASTER_CONTAINOR);
 			objConsignerDao.setConsignerData(blObj, IGMConsignerDataDao.RCL_IGM_GET_MASTER_CONSIGNER);
