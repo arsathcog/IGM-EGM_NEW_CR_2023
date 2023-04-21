@@ -14,8 +14,8 @@ public class MastrCnsgmtDecSDM {
 	private ItnrySDM itnry;
 //	private PrevRefSDM prevRef;
 	private HouseCargoDecSDM houseCargoDec;
-	private List<MCSuprtDocsSDM> mCSuprtDocs;
-	private List<MCAdtnlDecSDM> mCAdtnlDec;
+//	private List<MCSuprtDocsSDM> mCSuprtDocs;
+//	private List<MCAdtnlDecSDM> mCAdtnlDec;
 	
 	public MCRefSDM getmCRef() {
 		return mCRef;
@@ -137,37 +137,40 @@ public class MastrCnsgmtDecSDM {
 
 
 
-	public List<MCSuprtDocsSDM> getmCSuprtDocs() {
-		return mCSuprtDocs;
-	}
-
-
-
-	public void setmCSuprtDocs(List<MCSuprtDocsSDM> mCSuprtDocs) {
-		this.mCSuprtDocs = mCSuprtDocs;
-	}
-
-
-
-	public List<MCAdtnlDecSDM> getmCAdtnlDec() {
-		return mCAdtnlDec;
-	}
-
-
-
-	public void setmCAdtnlDec(List<MCAdtnlDecSDM> mCAdtnlDec) {
-		this.mCAdtnlDec = mCAdtnlDec;
-	}
-
-
-
 	@Override
 	public String toString() {
 		return "MastrCnsgmtDecSDM [mCRef=" + mCRef + ", locCstm=" + locCstm + ", trnsprtDoc=" + trnsprtDoc
 				+ ", trnsprtDocMsr=" + trnsprtDocMsr + ", itemDtls=" + itemDtls + ", trnsprtEqmt=" + trnsprtEqmt
-				+ ", itnry=" + itnry + ", houseCargoDec=" + houseCargoDec + ", mCSuprtDocs=" + mCSuprtDocs
-				+ ", mCAdtnlDec=" + mCAdtnlDec + "]";
+				+ ", itnry=" + itnry + ", houseCargoDec=" + houseCargoDec + "]";
 	}
+
+
+
+//	public List<MCSuprtDocsSDM> getmCSuprtDocs() {
+//		return mCSuprtDocs;
+//	}
+//
+//
+//
+//	public void setmCSuprtDocs(List<MCSuprtDocsSDM> mCSuprtDocs) {
+//		this.mCSuprtDocs = mCSuprtDocs;
+//	}
+//
+//
+//
+//	public List<MCAdtnlDecSDM> getmCAdtnlDec() {
+//		return mCAdtnlDec;
+//	}
+//
+//
+//
+//	public void setmCAdtnlDec(List<MCAdtnlDecSDM> mCAdtnlDec) {
+//		this.mCAdtnlDec = mCAdtnlDec;
+//	}
+
+
+
+
 
 
 
