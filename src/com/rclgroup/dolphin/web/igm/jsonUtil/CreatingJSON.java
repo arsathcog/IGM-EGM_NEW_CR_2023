@@ -2159,6 +2159,11 @@ public class CreatingJSON {
 		// ---------------------------------------------------
 		VesselDtlsSDM vesselDtls = new VesselDtlsSDM();
 		vesselDtls.setModeOfTrnsprt(settingLength(service.getMode_of_transport(),1)); // Line 191
+		if(service.getTypeTransportMeans().equals("imovsl")) {
+			vesselDtls.setTypOfTrnsprtMeans(" "); // not found
+		}else {
+			vesselDtls.setTypOfTrnsprtMeans(settingLength(service.getTypeTransportMeans(),25));
+		}
 		vesselDtls.setTypOfTrnsprtMeans(settingLength(service.getTypeTransportMeans(),25)); // not found
 		vesselDtls.setTrnsprtMeansId(settingLength(service.getImoCode(),25));
 		vesselDtls.setShipTyp(settingLength("50",3)); // Line 192
@@ -6677,8 +6682,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			}else {
 				locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),8));
 			}
-		
-			
+
 //			locCstmClassObj.setTypOfCrgo(settingLength(blObj.getType_of_cargo(),2)); // Line 90
 			if(blObj.getPortOfDestination() != null || !blObj.getPortOfDestination().equals(" ") &&
 					blObj.getPod() != null ||  !blObj.getPod().equals(" ")) {

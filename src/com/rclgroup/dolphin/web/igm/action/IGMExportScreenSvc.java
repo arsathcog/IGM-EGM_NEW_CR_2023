@@ -805,7 +805,7 @@ System.out.println("getCarogoDetails() Called.");
 		 List<ImportGeneralManifestMod> blListNew = new ArrayList<ImportGeneralManifestMod>();
 		 	for(int l=0;l<blList.size();l++) {
 			ImportGeneralManifestMod obj = blList.get(l);
-			if(obj.isFetch()==true) {
+			if(obj.getIsBlSave()=="true") {
 				blListNew.add(obj);
 			} 
 		 }
