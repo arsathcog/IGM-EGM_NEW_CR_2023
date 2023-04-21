@@ -3202,9 +3202,9 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 						$scope.BLS[$scope.blIndex].weigh  =  result.data.blDetails[0].weigh
 						$scope.BLS[$scope.blIndex].weight  =  result.data.blDetails[0].weight 
 						$scope.BLS[$scope.blIndex].package_kind  =  result.data.blDetails[0].package_kind
-
-					
-						
+						$scope.BLS[$scope.blIndex].commdity_code  =  result.data.blDetails[0].commdity_code
+						$scope.BLS[$scope.blIndex].commodity_seq  =  result.data.blDetails[0].commodity_seq
+				
 						debugger;
 						$scope.BLS[$scope.blIndex].consignee = result.data.blDetails[0].consignee
 						$scope.BLS[$scope.blIndex].consigner = result.data.blDetails[0].consigner

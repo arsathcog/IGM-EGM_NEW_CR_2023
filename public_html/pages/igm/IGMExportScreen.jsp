@@ -1385,7 +1385,7 @@ function showDialgPort(index){
 				if (jsonData.result[0]["BLS"][x].isBlSave == 'true'
 						&& jsonData.result[0]["BLS"][x].itemNumber != ""
 						&& jsonData.result[0]["BLS"][x].itemNumber != null) {
-					if (jsonData.result[0]["BLS"][x].fetch == false) {
+					if (jsonData.result[0]["BLS"][x].fetch == true) {
 						if (blNoSaved == "") {
 							blNoSaved = blNoSaved + "'"
 									+ jsonData.result[0]["BLS"][x].bl + "'";
@@ -2820,7 +2820,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 						$scope.BLS[$scope.blIndex].portOfDestination  =  result.data.blDetails[0].portOfDestination
 						$scope.BLS[$scope.blIndex].portOrigin  =  result.data.blDetails[0].portOrigin
 						$scope.BLS[$scope.blIndex].port_of_acceptance  =  result.data.blDetails[0].port_of_acceptance
-						$scope.BLS[$scope.blIndex].port_of_acceptance_name  =  result.data.blDetails[0].port_of_acceptance_name
+						$scope.BLS[$scope.blIndex].port_of_acceptance_name  =  result.data.blDetails[0].acceptanceName
 						$scope.BLS[$scope.blIndex].port_of_call_cod  =  result.data.blDetails[0].port_of_call_cod
 						$scope.BLS[$scope.blIndex].port_of_call_coded  =  result.data.blDetails[0].port_of_call_coded
 						$scope.BLS[$scope.blIndex].port_of_call_name  =  result.data.blDetails[0].port_of_call_name
@@ -2899,6 +2899,10 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 						$scope.BLS[$scope.blIndex].voyage_details_movement  =  result.data.blDetails[0].voyage_details_movement
 						$scope.BLS[$scope.blIndex].weigh  =  result.data.blDetails[0].weigh
 						$scope.BLS[$scope.blIndex].weight  =  result.data.blDetails[0].weight
+						$scope.BLS[$scope.blIndex].package_kind  =  result.data.blDetails[0].package_kind
+						$scope.BLS[$scope.blIndex].commdity_code  =  result.data.blDetails[0].commdity_code
+						$scope.BLS[$scope.blIndex].commodity_seq  =  result.data.blDetails[0].commodity_seq
+	
 						debugger;
 						$scope.BLS[$scope.blIndex].consignee = result.data.blDetails[0].consignee
 						$scope.BLS[$scope.blIndex].consigner = result.data.blDetails[0].consigner
