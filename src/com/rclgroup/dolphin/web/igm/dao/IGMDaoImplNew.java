@@ -794,8 +794,8 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			}
 			objMod.setHblCount(rs.getInt("HBLCOUNT"));
 			objMod.setBlCriteria("MBL"); 
-			objMod.setDn_plr(rs.getString("DN_PLR")); 
-			objMod.setDn_pld(rs.getString("DN_PLD"));
+			objMod.setPort_of_receipt(rs.getString("DN_PLR")); 
+			objMod.setPort_of_acceptance(rs.getString("DN_PLD"));
 			objMod.setAcceptanceName(rs.getString("ACCEPTANCE_NAME"));
 			objMod.setRecieptName(rs.getString("RECIEPT_NAME"));
 //			objMod.setStowageExport(rs.getString("STOWAGE_POSITION"));
