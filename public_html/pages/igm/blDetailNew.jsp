@@ -53,10 +53,11 @@
                      
          </tr>
 	 <tr>
-		         	 <td colspan = "15" >
+		         	 <td colspan = "14" >
 			         	 <table id="{{item.bl}}" style="display:none;float:left;margin-left:200px">
 			         	  <tr>
 			         	    <th class="TableLeftSub tableVessel-width">Sqn NO</th>
+			         	    <th class="TableLeftSub tableVessel-width">Select HBL</th>
 			         	    <th class="TableLeftSub tableVessel-width">BL NO</th>
 				            <th class="TableLeftSub tableVessel-width">BL Date</th>
 				            <th class="TableLeftSub tableVessel-width">Vessel Code</th>
@@ -71,6 +72,8 @@
 			         	  </tr>
 			         	  <tr ng-repeat="item1 in item.hblArr"  ng-dblclick="setIndexHBL($index,this);">	
 			         	  			<td class="bl_detail_Newl">{{$index + 1}}</td>
+			         	  			<td class="bl_detail_Newl"><input type="checkbox" name="chkHbl" id = "subCheckBoxHbl" onclick="unSelects(this)" ng-model="item1.isBlSave" ng-checked="item1.isBlSave == 'true'"  
+            		   						ng-click="hblcheckTotalIteam(this)" value="item1.isBlSave'"></td>
 			         	  			<td class="bl_detail_Newl">{{item1.hblNo}}</td>
 									<td class="bl_detail_Newl">{{item1.blDate}}</td>
 						            <td class="bl_detail_Newl">{{item1.vessel}}</td>
