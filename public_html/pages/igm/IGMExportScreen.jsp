@@ -2826,7 +2826,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 						$scope.BLS[$scope.blIndex].port_of_call_name  =  result.data.blDetails[0].port_of_call_name
 						$scope.BLS[$scope.blIndex].port_of_call_sequence_number  =  result.data.blDetails[0].port_of_call_sequence_number
 						$scope.BLS[$scope.blIndex].port_of_receipt  =  result.data.blDetails[0].port_of_receipt
-						$scope.BLS[$scope.blIndex].recieptName  =  result.data.blDetails[0].port_of_receipt_name
+						$scope.BLS[$scope.blIndex].recieptName  =  result.data.blDetails[0].recieptName
 						$scope.BLS[$scope.blIndex].port_of_registry  =  result.data.blDetails[0].port_of_registry
 						$scope.BLS[$scope.blIndex].port_of_reporting  =  result.data.blDetails[0].port_of_reporting
 						$scope.BLS[$scope.blIndex].position  =  result.data.blDetails[0].position

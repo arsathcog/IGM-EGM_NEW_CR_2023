@@ -692,12 +692,12 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 					rs.getString("FIRST_PORT_OF_ENTRY_LAST_PORT_OF_DEPARTURE"));
 			objMod.setType_of_cargo(rs.getString("TYPE_OF_CARGO"));
 			objMod.setSplit_indicator_list(rs.getString("SPLIT_INDICATOR_LIST"));
-			objMod.setPort_of_acceptance(rs.getString("PORT_OF_ACCEPTANCE"));
-			objMod.setPort_of_receipt(rs.getString("PORT_OF_RECEIPT"));
+//			objMod.setPort_of_acceptance(rs.getString("PORT_OF_ACCEPTANCE"));
+//			objMod.setPort_of_receipt(rs.getString("PORT_OF_RECEIPT"));
 			objMod.setUcr_type(rs.getString("UCR_TYPE"));
 			objMod.setUcr_code(rs.getString("UCR_CODE"));
-			objMod.setAcceptanceName(rs.getString("PORT_OF_ACCEPTANCE_NAME"));
-			objMod.setPort_of_receipt_name(rs.getString("PORT_OF_RECEIPT_NAME"));
+//			objMod.setAcceptanceName(rs.getString("PORT_OF_ACCEPTANCE_NAME"));
+//			objMod.setPort_of_receipt_name(rs.getString("PORT_OF_RECEIPT_NAME"));
 			objMod.setPan_of_notified_party(rs.getString("PAN_OF_NOTIFIED_PARTY"));
 			objMod.setUnit_of_weight(rs.getString("UNIT_OF_WEIGHT"));
 			
