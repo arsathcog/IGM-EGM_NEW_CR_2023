@@ -940,7 +940,6 @@ public class CreatingJSON {
 			
 			
 			for(int g=0;g<personOnBoardMod.size();g++) {
-				if(personOnBoardMod.get(g).getBlNo().equals(blObj.getBl())) {
 				
 					PrsnOnBoardSAM prsnOnBoard = new PrsnOnBoardSAM();
 					
@@ -1080,9 +1079,7 @@ public class CreatingJSON {
 					
 					prsnOnBoardList.add(prsnOnBoard);
      			}
-		  }
-			
-			
+		
 			mastrCnsgmtDecList.add(mastrCnsgmtDec);
 			mster.setMastrCnsgmtDec(mastrCnsgmtDecList);
 			houseCargoDec.add(houseCargoDecSAMObj);
@@ -1821,7 +1818,7 @@ public class CreatingJSON {
 			mster.setVoyageTransportEquipment(voyageTransportEquipmentList);   // Correct
 			//===============================================
 			for(int g = 0 ;g<personOnBoardMod.size();g++) {
-				if(personOnBoardMod.get(g).getBlNo().equals(blObj.getBl())) {
+				
 					PrsnOnBoardSDM prsnOnBoard = new PrsnOnBoardSDM();
 					prsnOnBoard.setPrsnOnBoardSeqNmbr(settingLength(g+1+"",5));
 					
@@ -1972,11 +1969,9 @@ public class CreatingJSON {
 					
 					prsnOnBoardList.add(prsnOnBoard);
 				}
-			}
+			
 			
 			for(int l = 0;l<shipStoresMod.size();l++) {
-				
-				if(blObj.getBl().equals(shipStoresMod.get(l).getBlNo().trim())) {
 					ShipStoresSDM shipStores = new ShipStoresSDM();
 					shipStores.setSeqNmbr(settingLength(l+1+"",5));
 					shipStores.setArticleNameCdd(settingLength(shipStoresMod.get(l).getArticleNameCdd(),18));
@@ -1986,8 +1981,6 @@ public class CreatingJSON {
 					shipStores.setQntyOnbrd(settingLengthForDouble(shipStoresMod.get(l).getQntyOnbrd(),16,6));
 					shipStoresList.add(shipStores);
 				}
-				
-			}
 			mastrCnsgmtDecList.add(mastrCnsgmtDec);
 			mster.setMastrCnsgmtDec(mastrCnsgmtDecList);
 			houseCargoDec.add(houseCargoDecSDMObj);

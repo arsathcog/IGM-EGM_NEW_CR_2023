@@ -29,13 +29,15 @@ public class PersonOnBoardDaoImpl extends AncestorJdbcDao implements PersonOnBoa
 	public static final String KEY_IGM_ERROR = "P_O_V_ERROR";
 
 	@Override
-	public void savePersonOnBoard(List<IGMPersonOnBoardMod> personDetailes, String blsInput) throws Exception {
+	public void savePersonOnBoard(List<IGMPersonOnBoardMod> personDetailes, ImportGeneralManifestUim objForm) throws Exception {
 		// TODO Auto-generated method stub
 
 		ObjectMapper mapper = new ObjectMapper();
 		String person = mapper.writeValueAsString(personDetailes);
 		System.out.println("savePersonOnBoard() started");
-		String[][] arrParam = { { "P_I_V_BL", BLANK + ORACLE_VARCHAR, PARAM_IN, blsInput },
+		String[][] arrParam = { { "P_I_V_VESSEL", BLANK + ORACLE_VARCHAR, PARAM_IN, objForm.getVessel() },
+				{ "P_I_V_VOYAGE", BLANK + ORACLE_VARCHAR, PARAM_IN, objForm.getVoyage() },
+				{ "P_I_V_POD", BLANK + ORACLE_VARCHAR, PARAM_IN, objForm.getPod()},
 				{ KEY_IGM_CONTAINER_DTLS, BLANK + ORACLE_VARCHAR, PARAM_IN, person }, };
 
 		JdbcStoredProcedure objSP = new JdbcStoredProcedure(getDataSource(), RCL_IGM_SAVE_PERSON_DETAILES, arrParam);
@@ -60,13 +62,15 @@ public class PersonOnBoardDaoImpl extends AncestorJdbcDao implements PersonOnBoa
 	}
 
 	@Override
-	public void saveCrewEfect(List<IGMCrewEfctMod> personDetailes, String blsInput) throws Exception {
+	public void saveCrewEfect(List<IGMCrewEfctMod> personDetailes, ImportGeneralManifestUim objForm) throws Exception {
 		// TODO Auto-generated method stub
 
 		ObjectMapper mapper = new ObjectMapper();
 		String person = mapper.writeValueAsString(personDetailes);
 		System.out.println("saveCrewEfect() started");
-		String[][] arrParam = { { "P_I_V_BL", BLANK + ORACLE_VARCHAR, PARAM_IN, blsInput },
+		String[][] arrParam = { { "P_I_V_VESSEL", BLANK + ORACLE_VARCHAR, PARAM_IN, objForm.getVessel() },
+				{ "P_I_V_VOYAGE", BLANK + ORACLE_VARCHAR, PARAM_IN, objForm.getVoyage() },
+				{ "P_I_V_POD", BLANK + ORACLE_VARCHAR, PARAM_IN, objForm.getPod()},
 				{ KEY_IGM_CONTAINER_DTLS, BLANK + ORACLE_VARCHAR, PARAM_IN, person }, };
 
 		JdbcStoredProcedure objSP = new JdbcStoredProcedure(getDataSource(), RCL_IGM_SAVE_CREW_EFFECT_FORMATE,
@@ -76,13 +80,15 @@ public class PersonOnBoardDaoImpl extends AncestorJdbcDao implements PersonOnBoa
 
 	}
 
-	public void saveShipStore(List<IGMShipStoresMod> personDetailes, String blsInput) throws Exception {
+	public void saveShipStore(List<IGMShipStoresMod> personDetailes, ImportGeneralManifestUim objForm) throws Exception {
 		// TODO Auto-generated method stub
 
 		ObjectMapper mapper = new ObjectMapper();
 		String person = mapper.writeValueAsString(personDetailes);
 		System.out.println("saveShipStore() started");
-		String[][] arrParam = { { "P_I_V_BL", BLANK + ORACLE_VARCHAR, PARAM_IN, blsInput },
+		String[][] arrParam = {{ "P_I_V_VESSEL", BLANK + ORACLE_VARCHAR, PARAM_IN, objForm.getVessel() },
+				{ "P_I_V_VOYAGE", BLANK + ORACLE_VARCHAR, PARAM_IN, objForm.getVoyage() },
+				{ "P_I_V_POD", BLANK + ORACLE_VARCHAR, PARAM_IN, objForm.getPod()},
 				{ KEY_IGM_CONTAINER_DTLS, BLANK + ORACLE_VARCHAR, PARAM_IN, person }, };
 
 		JdbcStoredProcedure objSP = new JdbcStoredProcedure(getDataSource(), RCL_IGM_SAVE_SHIP_STORE_FORMAT, arrParam);
