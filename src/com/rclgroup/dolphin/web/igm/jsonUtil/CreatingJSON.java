@@ -524,12 +524,10 @@ public class CreatingJSON {
 //			trnsprtDocClassObj.setTypOfCd(pol);
 //			trnsprtDocClassObj.setUcrTyp(settingLength(blObj.getUcr_type(),3));	  Guru said to comment 		 								//TODO  guru
 //			trnsprtDocClassObj.setUcrCd(settingLength(blObj.getUcr_code(),35));	 Guru said to comment
-	//		
 //		--------------------------------------------------------------------------------------------------	
 			
 			TrnsprtDocMsrSAM trnsprtDocMsrClassObj = new TrnsprtDocMsrSAM();
-			trnsprtDocMsrClassObj.setNmbrOfPkgs(settingLength(blObj.getTotal_number_of_packages(),9)); 
-			  	
+			trnsprtDocMsrClassObj.setNmbrOfPkgs(settingLength(blObj.getTotal_number_of_packages(),9));  	
 			trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getPackage_kind());
 			trnsprtDocMsrClassObj.setGrossWeight(settingLengthForDouble(blObj.getGrosWeight(),12,3));    //TODO  	
 //			trnsprtDocMsrClassObj.setNetWeight(settingLengthForDouble(blObj.getNetWeight(),12,3));				 //TODO  guru	
@@ -538,20 +536,18 @@ public class CreatingJSON {
 //			trnsprtDocMsrClassObj.setCrncyCd(settingLength(blObj.getCurrency(),3));      Guru said to comment	 
 			trnsprtDocMsrClassObj.setMarksNoOnPkgs(settingLength("",512)); 
 			
-			if("".equals(blObj.getCargo_msmt()) || blObj.getCargo_msmt()== 0) {
-				trnsprtDocMsrClassObj.setGrossVolume(settingLengthForDouble(blObj.getVolume(),12,3));
-	     		}else {
-	     			trnsprtDocMsrClassObj.setGrossVolume(settingLengthForDouble("0",12,3));
-	     		}
 			
-			if(! "".equals(blObj.getGross_volume())&&  blObj.getGross_volume() != null ) {
+			if("".equals(blObj.getCargo_msmt()) || blObj.getCargo_msmt() != 0) {
+				trnsprtDocMsrClassObj.setGrossVolume(settingLengthForDouble(blObj.getVolume(),12,3));
+	     		}
+			if(! "".equals(trnsprtDocMsrClassObj.getGrossVolume()) && trnsprtDocMsrClassObj.getGrossVolume() != null) {
 				trnsprtDocMsrClassObj.setUnitOfVolume(settingLength("CBM",3));
 			}
 			
 			
 //		----------------------------------------------------------------------------------------	
-			
-			if(blObj.getConsolidatedIndicator().equals("S")) {
+	
+			if(mCRefClassObj.getConsolidatedIndctr().equals("S")) {
 				ItemDtlsSAM itemDtlsClassObj = new ItemDtlsSAM();
 				// trnsprtEqmtClassObj.setHsCd((String)blObj.get(" ")); not cleared by guru
 				itemDtlsClassObj.setCrgoItemSeqNmbr( settingLength(blObj.getCommodity_seq()+"",5));				//TODO  guru
@@ -571,7 +567,7 @@ public class CreatingJSON {
 				mastrCnsgmtDec.setItemDtls(itemDtlsClassObj);
 			}else {
 				if(blObj.isHbl()==true) {
-					if(blObj.getConsolidatedIndicator().equals("H")) {
+					if(mCRefClassObj.getConsolidatedIndctr().equals("H")) {
 						ItemDtlsSAM itemDtlsClassObj = new ItemDtlsSAM();
 						// trnsprtEqmtClassObj.setHsCd((String)blObj.get(" ")); not cleared by guru
 						itemDtlsClassObj.setCrgoItemSeqNmbr( settingLength(blObj.getCargo_item_sequence_no(),5));				//TODO  guru
@@ -586,6 +582,7 @@ public class CreatingJSON {
 					}
 				}
 			}
+		
 //		----------------------------------------------------------------------------------------
 			int j = 0 ;
 			Set<String> containseSets= new HashSet<>();
@@ -688,7 +685,6 @@ public class CreatingJSON {
 			}
 			
 			locCstmClassObj.setTypOfCrgo(settingLength(blObj.getType_of_cargo(),2)); // Line 90		
-			
 			if(blObj.getPortOfDestination() != null || !blObj.getPortOfDestination().equals(" ") &&
 					blObj.getPod() != null ||  !blObj.getPod().equals(" ")) {
 //				System.out.println(service.getPortOfDestination().substring(0, 2));
@@ -4061,7 +4057,7 @@ public class CreatingJSON {
 			houseCargoDecSCXObj.setItemDtls(itemDtls);
 			}else {
 				if(blObj.isHbl()==true) {
-					if(blObj.getConsolidatedIndicator().equals("H")) {
+					if(mCRefClassObj.getConsolidatedIndctr().equals("H")) {
 						ItemDtlsSCX itemDtlsClassObj = new ItemDtlsSCX();
 						itemDtlsClassObj.setHsCd(blObj.getCommdity_code());
 						//	itemDtlsClassObj.setCrgoItemSeqNmbr(blObj.getCommodity_seq()+"");
@@ -6752,7 +6748,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			trnsprtDocMsr.add(trnsprtDocMsrClassObj); // below in mark nad no loop
 			houseCargoDecSCEObj.setTrnsprtDocMsr(trnsprtDocMsr);
 			// ------------------------------------------------------
-			if(blObj.getConsolidatedIndicator().equals("S")) {
+			if(mCRefClassObj.getConsolidatedIndctr().equals("S")) {
 			ItemDtlsSCE itemDtlsClassObj = new ItemDtlsSCE();
 			// trnsprtEqmtClassObj.setHSCE((String)blObj.get(" ")); not cleared by guru
 			itemDtlsClassObj.setCrgoItemSeqNmbr(blObj.getCommodity_seq()+"");
@@ -6773,9 +6769,9 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			// ------------------------------------------------------
 			TrnsprtDocSCE trnsprtDocClassObj = new TrnsprtDocSCE();
 			trnsprtDocClassObj.setPrtOfAcptName( settingLength(blObj.getAcceptanceName(),256));			//TODO  guru
-			trnsprtDocClassObj.setPrtOfReceiptName( settingLength(blObj.getRecieptName(),256));				
-			trnsprtDocClassObj.setPrtOfReceiptCdd(settingLength(blObj.getPort_of_acceptance(),10));
-			trnsprtDocClassObj.setPrtOfAcptCdd( settingLength(blObj.getPort_of_receipt(),6));
+			trnsprtDocClassObj.setPrtOfReceiptName( settingLength(blObj.getRecieptName(),256));	
+			trnsprtDocClassObj.setPrtOfReceiptCdd(settingLength(blObj.getPort_of_receipt(),10));
+			trnsprtDocClassObj.setPrtOfAcptCdd( settingLength(blObj.getPort_of_acceptance(),6));
 			trnsprtDocClassObj.setCnsgnrsName(generatedFileNameOfJson);	
 //			trnsprtDocClassObj.setUcrTyp( settingLength(blObj.getUcr_type(),3)); not required
 //			trnsprtDocClassObj.setUcrCd(settingLength(blObj.getUcr_code(),35));	 not required
