@@ -3,16 +3,16 @@ package com.rclgroup.dolphin.web.igm.vo.sdm;
 import com.rclgroup.dolphin.web.igm.vo.FiledValidation;
 
 public class TrnsprtDocMsrSDM {
-	private String nmbrOfPkgs;
-	private String typsOfPkgs;
-	private String marksNoOnPkgs;
-	private String grossWeight;
+	private String nmbrOfPkgs = null;
+	private String typsOfPkgs = null;
+	private String marksNoOnPkgs = null;
+	private String grossWeight = null;
 //	private String netWeight;
-	private String unitOfWeight;
+	private String unitOfWeight = null;
 //	private String invoiceValueOfCnsgmt;
 //	private String crncyCd;
-	private String grossVolume;
-	private String unitOfVolume;
+	private String grossVolume = null;
+	private String unitOfVolume = null;
 
     //This value is come from BL Json object  "Number of Packages"  (Same like above. Details in 3.5.6.3	MC Location_Customs)
 	public String getNmbrOfPkgs() {

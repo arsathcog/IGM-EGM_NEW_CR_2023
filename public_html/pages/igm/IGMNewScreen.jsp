@@ -1478,7 +1478,10 @@ function showDialgPort(index){
 					}
 					downloadfilename=one+'_'+'SACHM23'+'_'+fileNme+'_'+two+'_'+three+'_'+fore+'_'+'DEC'+'.json';
 					
-					var sampleBytes = new String(JSON.stringify(StringResult.jsonFile));
+					var sampleBytes = new String(JSON.stringify(result, (key, value) => {
+						  if (value !== null) return value
+					}));
+					
 					var saveByteArray = (function() {
 						var a = document.createElement("a");
 						document.body.appendChild(a);
@@ -3280,6 +3283,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 						$scope.BLS[$scope.blIndex].package_kind  =  result.data.blDetails[0].package_kind
 						$scope.BLS[$scope.blIndex].commdity_code  =  result.data.blDetails[0].commdity_code
 						$scope.BLS[$scope.blIndex].commodity_seq  =  result.data.blDetails[0].commodity_seq
+						$scope.BLS[$scope.blIndex].gstStateCode  =  result.data.blDetails[0].gstStateCode
 				
 						debugger;
 						$scope.BLS[$scope.blIndex].consignee = result.data.blDetails[0].consignee

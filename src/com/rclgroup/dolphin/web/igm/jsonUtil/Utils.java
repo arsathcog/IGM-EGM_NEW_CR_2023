@@ -18,4 +18,14 @@ public class Utils {
 	public static String JobDate() {
 		return new SimpleDateFormat("dd/MM/yyyy").format(new Date());
 	}
+	
+	public static String emptyCheck(String jsonVal) {
+		
+		if ( null == jsonVal  && jsonVal.equals("") ) {
+			return null;
+		}
+		return jsonVal;
+		
+		
+	}
 }
