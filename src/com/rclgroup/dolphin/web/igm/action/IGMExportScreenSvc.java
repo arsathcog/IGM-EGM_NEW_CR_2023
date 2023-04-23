@@ -880,11 +880,11 @@ System.out.println("getCarogoDetails() Called.");
 		
 		PersonOnBoardDao objPersonDao = (PersonOnBoardDao) getDao(DAO_BEAN_PERSON);
 		if(flage.equals("P"))
-		    objPersonDao.savePersonOnBoard(list, objForm.getBl());
+		    objPersonDao.savePersonOnBoard(list, objForm);
 		else if(flage.equals("S"))
-			objPersonDao.saveShipStore(list, objForm.getBl());
+			objPersonDao.saveShipStore(list, objForm);
 		else
-			objPersonDao.saveCrewEfect(list, objForm.getBl());
+			objPersonDao.saveCrewEfect(list, objForm);
 		
 		net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();
 		jsonObj = new net.sf.json.JSONObject();
