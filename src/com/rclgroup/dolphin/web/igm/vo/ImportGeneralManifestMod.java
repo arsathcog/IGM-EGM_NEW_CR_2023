@@ -710,6 +710,8 @@ public class ImportGeneralManifestMod implements Cloneable {
 	
 	private String stowageExport;
 	
+	private String stowagePosition;
+	
 	private String acceptanceName;
 	
 	private String recieptName;
@@ -782,6 +784,14 @@ public class ImportGeneralManifestMod implements Cloneable {
 
 	public void setStowageImport(String stowageImport) {
 		this.stowageImport = stowageImport;
+	}
+
+	public String getStowagePosition() {
+		return stowagePosition;
+	}
+
+	public void setStowagePosition(String stowagePosition) {
+		this.stowagePosition = stowagePosition;
 	}
 
 	public String getDn_pld() {

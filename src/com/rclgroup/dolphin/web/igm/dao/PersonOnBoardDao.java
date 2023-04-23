@@ -27,11 +27,11 @@ public interface PersonOnBoardDao {
 	public static final String SQL_RCL_IGM_GET_SAVE_SHIP_STORE = "RCL_IGM_VESEEL_VOYOAGE_INFO.RCL_IGM_GET_SAVE_SHIP_STORE";
 	
 
-	public void savePersonOnBoard(List<IGMPersonOnBoardMod> personDetailes, String blsInput) throws Exception;
+	public void savePersonOnBoard(List<IGMPersonOnBoardMod> personDetailes, ImportGeneralManifestUim objForm ) throws Exception;
 
-	public void saveCrewEfect(List<IGMCrewEfctMod> crewEfctModDetailes, String blsInput) throws Exception;
+	public void saveCrewEfect(List<IGMCrewEfctMod> crewEfctModDetailes, ImportGeneralManifestUim objForm) throws Exception;
 
-	public void saveShipStore(List<IGMShipStoresMod> storesModDetailes, String blsInput) throws Exception;
+	public void saveShipStore(List<IGMShipStoresMod> storesModDetailes, ImportGeneralManifestUim objForm) throws Exception;
 
 	public List<IGMPersonOnBoardMod> getPersonOnBoard(Map<String, String> amapParam, String procedureName)
 			throws Exception;
