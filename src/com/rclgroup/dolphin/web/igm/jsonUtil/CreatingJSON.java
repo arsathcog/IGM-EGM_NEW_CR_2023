@@ -932,7 +932,7 @@ public class CreatingJSON {
 				voyageTransportEquipmentClassObj.setContainerWeight(cntnerDtl.getContainerWeight());
 				voyageTransportEquipmentClassObj.setTotalNumberOfPackages(cntnerDtl.getTotalNumberOfPackagesInContainer());
 //				voyageTransportEquipmentClassObj.setContainerBondFlag("D");
-				voyageTransportEquipmentClassObj.setStowagePositionOfContainer(blObj.getStowageImport());
+				voyageTransportEquipmentClassObj.setStowagePositionOfContainer(blObj.getStowagePosition());
 				voyageTransportEquipmentList.add(voyageTransportEquipmentClassObj);
 			}
 			mster.setVoyageTransportEquipment(voyageTransportEquipmentList);   // Correct
@@ -1810,7 +1810,7 @@ public class CreatingJSON {
 				voyageTransportEquipmentClassObj.setContainerAgentCode(settingLength(service.getAgentCode(),17));
 				voyageTransportEquipmentClassObj.setContainerWeight(cntnerDtl.getContainerWeight());
 				voyageTransportEquipmentClassObj.setTotalNumberOfPackages(settingLength(cntnerDtl.getTotalNumberOfPackagesInContainer(),8));
-				voyageTransportEquipmentClassObj.setStowagePositionOfContainer(settingLength(service.getStowageExport(),17));
+				voyageTransportEquipmentClassObj.setStowagePositionOfContainer(settingLength(service.getStowagePosition(),17));
 //				voyageTransportEquipmentClassObj.setContainerBondFlag(settingLength("",1)); guru said to comment
 				
 				voyageTransportEquipmentList.add(voyageTransportEquipmentClassObj);
