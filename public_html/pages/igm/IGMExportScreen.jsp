@@ -2722,7 +2722,6 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	
 	$scope.getprscrwshipSearch=function(val) {
 		debugger;
-		if($scope.selectedBL.isBlSave == 'true' || $scope.selectedBL.isBlSave == true){
 			
 		var vessel = $scope.selectedServcies.vessel;
 		var voyage = $scope.selectedServcies.voyage;
@@ -2762,8 +2761,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 					$scope.personData();
 								
 					$("body").find('.loading').remove();
-			});
-		} 
+			}); 
 	}
 	$scope.personData = function(){
 		debugger;
@@ -3170,6 +3168,8 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 						$scope.BLS[$scope.blIndex].commdity_code  =  result.data.blDetails[0].commdity_code
 						$scope.BLS[$scope.blIndex].commodity_seq  =  result.data.blDetails[0].commodity_seq
 						$scope.BLS[$scope.blIndex].gstStateCode  =  result.data.blDetails[0].gstStateCode
+						$scope.BLS[$scope.blIndex].stowagePosition  =  result.data.blDetails[0].stowagePosition
+						
 						debugger;
 						$scope.BLS[$scope.blIndex].consignee = result.data.blDetails[0].consignee
 						$scope.BLS[$scope.blIndex].consigner = result.data.blDetails[0].consigner
