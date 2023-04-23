@@ -1,19 +1,23 @@
 package com.rclgroup.dolphin.web.igm.vo.sam;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.rclgroup.dolphin.web.igm.vo.FiledValidation;
 
+
+@JsonInclude(JsonInclude.Include.NON_NULL)  
 public class TrnsprtDocMsrSAM {
 	
-	private String nmbrOfPkgs;
-	private String typsOfPkgs;
-	private String marksNoOnPkgs;
-	private String grossWeight;
+	private String nmbrOfPkgs = null;
+	private String typsOfPkgs = null;
+	private String marksNoOnPkgs = null;
+
+	private String grossWeight = null;
 //	private String netWeight;
-	private String unitOfWeight;
+	private String unitOfWeight = null;
 //	private String invoiceValueOfCnsgmt;
 //	private String crncyCd;
-	private String grossVolume;
-	private String unitOfVolume;
+	private String grossVolume = null;
+	private String unitOfVolume = null;
 
 	public String getNmbrOfPkgs() {
 		return nmbrOfPkgs;

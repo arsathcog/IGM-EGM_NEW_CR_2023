@@ -3,17 +3,18 @@ package com.rclgroup.dolphin.web.igm.vo.sce;
 import com.rclgroup.dolphin.web.igm.vo.FiledValidation;
 
 public class TrnsprtDocMsrSCE {
-	private String nmbrOfPkgs;
-	private String typsOfPkgs;
-	private String marksNoOnPkgs;
-	private String grossWeight;
+	private String nmbrOfPkgs = null;
+	private String typsOfPkgs = null;
+	private String marksNoOnPkgs= null;
+	private String grossWeight= null;
 // 	private String netWeight; no need
-	private String unitOfWeight;
+	private String unitOfWeight = null;
 //	private String invoiceValueOfCnsgmt;
 //	private String crncyCd;
-	private String grossVolume;
-	private String unitOfVolume;
+	private String grossVolume = null;
+	private String unitOfVolume = null;
 //	 private String amendment;
+	
 	public String getNmbrOfPkgs() {
 		return nmbrOfPkgs;
 	}

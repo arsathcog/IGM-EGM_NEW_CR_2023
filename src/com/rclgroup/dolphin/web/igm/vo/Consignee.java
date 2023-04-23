@@ -7,13 +7,14 @@ package com.rclgroup.dolphin.web.igm.vo;
 public class Consignee {
 	private String blNO;
 	private String customerCode;
-	private String customerName = "";	
+	private String customerName;
+	private String costumerName;
 	private String addressLine1 = "";
 	private String addressLine2 = "";
 	private String addressLine3 = "";
 	private String addressLine4 = "";	
 	private String city = "";
-	private String state = "";
+	private String state;
 	private String countryCode = "";
 	private String zip = "";
 	private String consigneeName;
@@ -161,6 +162,13 @@ public class Consignee {
 	}
 	public void setStateName(String stateName) {
 		this.stateName = stateName;
+	}
+
+	public String getCostumerName() {
+		return costumerName;
+	}
+	public void setCostumerName(String costumerName) {
+		this.costumerName = costumerName;
 	}
 	@Override
 	public String toString() {
