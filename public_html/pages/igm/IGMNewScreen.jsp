@@ -1486,6 +1486,8 @@ function showDialgPort(index){
 						var a = document.createElement("a");
 						document.body.appendChild(a);
 						a.style = "display: none";
+
+						
 						
 						return function(data, name) {
 							if (navigator.msSaveBlob) {

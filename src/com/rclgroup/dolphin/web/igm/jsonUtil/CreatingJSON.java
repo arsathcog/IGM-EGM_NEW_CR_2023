@@ -627,7 +627,7 @@ public class CreatingJSON {
 			}
 			 //TODO  guru
 			itnryClassObj.setNxtPrtOfCallCdd(settingLength(blObj.getPod(),10));    //TODO  guru
-			itnryClassObj.setNxtPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));		//TODO  guru
+			itnryClassObj.setNxtPrtOfCallName(settingLength(blObj.getNext_port_of_call_name(),256));		//TODO  guru
 			itnryClassObj.setPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));			//TODO  guru
 			itnryClassObj.setPrtOfCallCdd(settingLength(blObj.getPortOfLoading(),10));				//TODO  guru
 			itnryClassObj.setModeOfTrnsprt(settingLength(blObj.getMode_of_transport(),4));
@@ -2510,7 +2510,7 @@ public class CreatingJSON {
 			itnryClassObj.setPrtOfCallSeqNmbr(settingLength(blObj.getPort_of_call_sequence_number(),5));
 		    // itnryClassObj.setModeOfTrnsprt(blObj.getCargoMovmnt());
 			itnryClassObj.setNxtPrtOfCallCdd(settingLength(blObj.getNext_port_of_call_coded(),10));
-			itnryClassObj.setNxtPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));
+			itnryClassObj.setNxtPrtOfCallName(settingLength(blObj.getNext_port_of_call_name(),256));
 			itnryClassObj.setPrtOfCallName(blObj.getPort_of_call_name());
 			itnryClassObj.setPrtOfCallCdd(settingLength(blObj.getPort_of_call_cod(),10));
 			itnryClassObj.setModeOfTrnsprt(settingLength(blObj.getMode_of_transport(),1));
