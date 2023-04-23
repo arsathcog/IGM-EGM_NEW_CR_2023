@@ -1365,6 +1365,7 @@ function showDialg(index){
 	debugger;
 	$("#dialog-form").dialog("open");
 }
+
 function showDialgPort(index){
 	debugger;
 	$("#dialog-form-port").dialog("open");
@@ -1478,7 +1479,9 @@ function showDialgPort(index){
 					}
 					downloadfilename=one+'_'+'SACHM23'+'_'+fileNme+'_'+two+'_'+three+'_'+fore+'_'+'DEC'+'.json';
 					
-					var sampleBytes = new String(JSON.stringify(StringResult.jsonFile));
+					var sampleBytes = new String(JSON.stringify(result, (key, value) => {
+											  if (value !== null) return value
+										})););
 					var saveByteArray = (function() {
 						var a = document.createElement("a");
 						document.body.appendChild(a);
