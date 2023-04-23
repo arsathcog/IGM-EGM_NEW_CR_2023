@@ -435,9 +435,11 @@ roundshap4 {
     	   var PERSONONBOARDSEARCH         =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getPersonOnBoardSearchExport", pageContext)%>';
     	   var CREWEFFECTSEARCH        =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getCrewEffectSearchExport", pageContext)%>';
     	   var SHIPSTORSEARCH          =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getShipStorSearchExport", pageContext)%>';
-    	   
+    	   var CAROGODETAILSSEARCHHBL      =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getCarogoDetailsHBL", pageContext)%>';
     	   var CAROGODETAILSSEARCH          =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getCarogoDetailsExport", pageContext)%>';
     	   var CONTAINERDETAILSSEARCH       =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getContainerDetailsExport", pageContext)%>';
+    	   var GETHBLLIST           =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getHblList", pageContext)%>';
+    	   var GETSELECTALLBL           =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getSelectAllOption", pageContext)%>';
     	   var UPLOAD_ACK       		=	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/ackFileUpload", pageContext)%>';
     	   var GETSELECTALLBL           =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getSelectAllOptionExport", pageContext)%>';    	   
     	   var GETSTOWAGEEXPORT		        =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getStowageExport", pageContext)%>';
@@ -1322,6 +1324,25 @@ $(document).ready(function() {
 	     //alert("close");
 	    }
 	  });
+
+
+	$("#ackFile").onchange = function(evt){
+		alert("ack upload");
+		
+		  var files = fileEl.files;
+		  var file = files[0];
+		  var reader = new FileReader();
+
+		  reader.onloadend = function(evt) {
+		    if (evt.target.readyState === FileReader.DONE) {
+		      $scope.$apply(function () {
+		        $scope.something = JSON.parse(evt.target.result);
+		      });
+		    }
+		  };
+
+		  reader.readAsText(file);
+		}
 	
 	$( "#dialog-form-port" ).dialog({
 	    autoOpen: false,
@@ -1385,7 +1406,7 @@ function showDialgPort(index){
 				if (jsonData.result[0]["BLS"][x].isBlSave == 'true'
 						&& jsonData.result[0]["BLS"][x].itemNumber != ""
 						&& jsonData.result[0]["BLS"][x].itemNumber != null) {
-					if (jsonData.result[0]["BLS"][x].fetch == true) {
+					if (jsonData.result[0]["BLS"][x].fetch == false) {
 						if (blNoSaved == "") {
 							blNoSaved = blNoSaved + "'"
 									+ jsonData.result[0]["BLS"][x].bl + "'";
@@ -1707,7 +1728,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	  // alert(2)
 	}
 	
-	$scope.roadCarrCodeHandle=function(selectObject)
+	$scope.roadCarrCodeHandle=function()
 	{ 
 		debugger;
 		if($scope.selectedBL.roadCarrCodeVVS==""){
@@ -1973,6 +1994,81 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 			   
 		   }
 		}
+	$scope.movingDataToConsignee=function(){
+		debugger;
+		var selectedIndex = obj.blIndex;
+		if($scope.notifyParty.consigneCheckBox == "N"){
+		if($scope.consignee.consigneeName == "BANK" || $scope.consignee.consigneeName == "TO THE ORDER OF" || 
+			$scope.consignee.consigneeName == "TO ORDER" || $scope.consignee.consigneeName == "TO ORDER OF" ||
+			$scope.notifyParty.countryCode != "IN"&& $scope.consignee.portOfDischarge.substring(0,2) == "IN"){
+			obj.BLS[selectedIndex].consignee[0].customerCode=obj.BLS[selectedIndex].notifyParty[0].costumerCode;
+			obj.BLS[selectedIndex].consignee[0].costumerName=obj.BLS[selectedIndex].notifyParty[0].costumerName;
+			obj.BLS[selectedIndex].consignee[0].addressLine1=obj.BLS[selectedIndex].notifyParty[0].addressLine1;
+			obj.BLS[selectedIndex].consignee[0].addressLine2=obj.BLS[selectedIndex].notifyParty[0].addressLine2;
+			
+			obj.BLS[selectedIndex].consignee[0].addressLine3=obj.BLS[selectedIndex].notifyParty[0].addressLine3;
+			obj.BLS[selectedIndex].consignee[0].addressLine4=obj.BLS[selectedIndex].notifyParty[0].addressLine4;
+			obj.BLS[selectedIndex].consignee[0].city=obj.BLS[selectedIndex].notifyParty[0].city;
+			obj.BLS[selectedIndex].consignee[0].state=obj.BLS[selectedIndex].notifyParty[0].state;
+			
+			obj.BLS[selectedIndex].consignee[0].countryCode=obj.BLS[selectedIndex].notifyParty[0].countryCode;
+			obj.BLS[selectedIndex].consignee[0].zip=obj.BLS[selectedIndex].notifyParty[0].zip;
+
+			$scope.notifyIec  = $scope.notifyParty.notifyIec;
+			$scope.notifyPan  =  $scope.notifyParty.notifyPan;
+
+		}
+		}else{
+			$scope.notifyIec  = $scope.notifyParty.notifyIec;
+			$scope.notifyPan  =  $scope.notifyParty.notifyPan;
+	
+			}
+		
+	}
+	$scope.movingDataToNotify=function(){
+		debugger;
+		var selectedIndex = obj.blIndex;
+		if($scope.consignee.consigneFwr=="FWR" && $scope.consignee.consigneeName == "SAME AS CONSIGNEE"){
+			obj.BLS[selectedIndex].notifyParty[0].costumerCode=obj.BLS[selectedIndex].consignee[0].customerCode;
+			obj.BLS[selectedIndex].notifyParty[0].costumerName=obj.BLS[selectedIndex].consignee[0].customerName;
+			obj.BLS[selectedIndex].notifyParty[0].addressLine1=obj.BLS[selectedIndex].consignee[0].addressLine1;
+			obj.BLS[selectedIndex].notifyParty[0].addressLine2=obj.BLS[selectedIndex].consignee[0].addressLine2;
+			
+			obj.BLS[selectedIndex].notifyParty[0].addressLine3=obj.BLS[selectedIndex].consignee[0].addressLine3;
+			obj.BLS[selectedIndex].notifyParty[0].addressLine4=obj.BLS[selectedIndex].consignee[0].addressLine4;
+			obj.BLS[selectedIndex].notifyParty[0].city=obj.BLS[selectedIndex].consignee[0].city;
+			obj.BLS[selectedIndex].notifyParty[0].state=obj.BLS[selectedIndex].consignee[0].state;
+			
+			obj.BLS[selectedIndex].notifyParty[0].countryCode=obj.BLS[selectedIndex].consignee[0].countryCode;
+			obj.BLS[selectedIndex].notifyParty[0].zip=obj.BLS[selectedIndex].consignee[0].zip;
+			
+			$scope.notifyPan  = $scope.consignee.consigneIec;
+			$scope.notifyPan  =  $scope.consignee.consignePan;
+
+		}else if ($scope.consignee.consigneeName != "BANK" || $scope.consignee.consigneeName != "TO THE ORDER OF" || 
+				$scope.consignee.consigneeName != "TO ORDER" || $scope.consignee.consigneeName != "TO ORDER OF" && $scope.notifyParty.notifyName == "SAME AS CONSIGNEE"){
+			obj.BLS[selectedIndex].notifyParty[0].costumerCode=obj.BLS[selectedIndex].consignee[0].customerCode;
+			obj.BLS[selectedIndex].notifyParty[0].costumerName=obj.BLS[selectedIndex].consignee[0].customerName;
+			obj.BLS[selectedIndex].notifyParty[0].addressLine1=obj.BLS[selectedIndex].consignee[0].addressLine1;
+			obj.BLS[selectedIndex].notifyParty[0].addressLine2=obj.BLS[selectedIndex].consignee[0].addressLine2;
+			
+			obj.BLS[selectedIndex].notifyParty[0].addressLine3=obj.BLS[selectedIndex].consignee[0].addressLine3;
+			obj.BLS[selectedIndex].notifyParty[0].addressLine4=obj.BLS[selectedIndex].consignee[0].addressLine4;
+			obj.BLS[selectedIndex].notifyParty[0].city=obj.BLS[selectedIndex].consignee[0].city;
+			obj.BLS[selectedIndex].notifyParty[0].state=obj.BLS[selectedIndex].consignee[0].state;
+			
+			obj.BLS[selectedIndex].notifyParty[0].countryCode=obj.BLS[selectedIndex].consignee[0].countryCode;
+			obj.BLS[selectedIndex].notifyParty[0].zip=obj.BLS[selectedIndex].consignee[0].zip;
+			
+			$scope.notifyIec  = $scope.consignee.consigneIec;
+			$scope.notifyPan  =  $scope.consignee.consignePan;
+			
+			}else{
+				$scope.consigneIec  = $scope.consignee.consigneIec;
+				$scope.consignePan  =  $scope.consignee.consignePan;
+				}
+		
+	}
 	
 	$scope.igmDateUpdate=function()
 	{ 
@@ -2003,8 +2099,54 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 		}
 	}
 
-/* 	$scope.getCarogoDetails();
-	$scope.getContainerDetails(); */
+	$scope.getHBLNo=function(obj,index)
+	{
+		debugger;
+		if($("#"+obj.item.bl).css('display') == 'block'){
+			$("#"+obj.item.bl).css("display", "none");
+		}else{
+			$("#"+obj.item.bl).css("display", "block");
+		}
+		if(obj.item.hblArr.length>0){
+			return false;
+		}
+		
+		$scope.blIndex=index;
+		$scope.selectedBL= $scope.BLS[$scope.blIndex];
+		$scope.getCarogoDetails();
+		//$scope.onUploadAck();
+		
+		/* $scope.getExtraDetails(); */
+		if(($scope.selectedBL.isBlSave == 'true' || $scope.selectedBL.isBlSave == true) && ($scope.selectedBL.itemNumber !=null || $scope.selectedBL.itemNumber !="")){
+			$scope.selectedBL.saveFlags="U"
+		}
+		$scope.getConsinee();
+		$scope.containerValue();
+		//$("#dialog-tabs").tabs({ active: 4 });
+		
+		sendData ="?masterBl='"+obj.item.bl+"'&itemNumber='"+obj.item.itemNumber+"'";
+		$( "body" ).append('<div class="loading"></div>');
+		$http({
+			method : "POST",
+			async : true,
+			url : $window.GETHBLLIST+sendData,
+			dataType: 'json',
+			headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+			beforeSend:function()
+			{
+				loadingfun();
+			},
+		}).then(function(data, status, headers, config) {
+			$("body").find('.loading').remove();
+			debugger;
+			
+			for(var k=0;k<$scope.BLS.length;k++){
+				if($scope.BLS[k].bl==obj.item.bl){
+					$scope.BLS[k].hblArr = data.data.hblDetails;
+				}	
+			}
+		});
+	}
 
 	$scope.blcheckTotalIteamSelectAll=function(obj)
 	{
@@ -2074,8 +2216,85 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				jsonData.result[0].BLS = data.data.blDetails;
 				$scope.BLS = data.data.blDetails;
 				$scope.selectAllFetch = true;
-				/*  document.getElementById("subCheckBox").checked = true;*/
+				document.getElementById("subCheckBox").checked = true;
+				 /* $scope.getExtraDetails(); */ 
 			});
+	}
+	
+	$scope.hblcheckTotalIteam=function(obj)
+	{
+			debugger;
+			var payloadSaved = "";
+			var payloadUnSaved = "";
+			var count = 0;
+			if($("#selectAllCheckBox")[0].checked == true){
+				for(var i=0; i<$scope.BLS.length;i++){
+					var iteam = $scope.BLS[i];
+					iteam.isBlSave=true
+				    count++;
+					if($scope.BLS[i].isBlSave == true && $scope.BLS[i].itemNumber != "" && $scope.BLS[i].itemNumber != null){
+						if(payloadSaved == "" && $scope.selectAllFetch == false){
+							payloadSaved =  $scope.BLS[i].bl;
+						}else{
+							payloadSaved = payloadSaved + "," + $scope.BLS[i].bl;
+						}
+					}else{
+						if(payloadUnSaved == "" && $scope.selectAllFetch == false){
+							payloadUnSaved =  $scope.BLS[i].bl;
+						}else{
+							payloadUnSaved = payloadUnSaved + "," + $scope.BLS[i].bl;
+						}
+					}
+				}
+			}else{
+				for(var i=0; i<$scope.BLS.length;i++){
+					var iteam = $scope.BLS[i];
+					iteam.isBlSave=false;
+					if(iteam.saveFlags= 'N' && iteam.itemNumber!=null && iteam.itemNumber!=""){
+						iteam.saveFlags='D';
+					}else{
+						iteam.saveFlags='N';
+					}
+					
+				}
+				count=0;
+				payloadSaved = "";
+				payloadUnSaved = "";
+			}
+			 
+			$scope.selectedServcies.totalItem=count;
+			totalIteamNo=count;
+			
+			if(payloadUnSaved == "" && payloadSaved == "" ){
+				return false;
+			}
+			
+			if( $scope.selectAllFetch == true){
+				return false;
+			}
+			 
+			sendData ="?savedBlList="+payloadSaved+"&unSavedBlList="+payloadUnSaved+"&vessel="+$scope.selectedServcies.vessel+"&voyage="+$scope.selectedServcies.voyage+"&pod="+$scope.selectedServcies.pod;
+			$( "body" ).append('<div class="loading"></div>');
+			$http({
+				method : "POST",
+				async : true,
+				url : $window.GETSELECTALLBL+sendData,
+				dataType: 'json',
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+				beforeSend:function()
+				{
+					loadingfun();
+				},
+			}).then(function(data, status, headers, config) {
+				$("body").find('.loading').remove();
+				debugger;
+				jsonData.result[0].BLS = data.data.blDetails;
+				$scope.BLS = data.data.blDetails;
+				$scope.selectAllFetch = true;
+				document.getElementById("subCheckBox").checked = true;
+				 /* $scope.getExtraDetails(); */ 
+			});
+			
 	}
 	
 	$scope.blcheckTotalIteam=function(obj)
@@ -2083,6 +2302,8 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 		debugger;
 		var count = 0;
 		var totalNmbrOfLinesCount = 0;
+		var containerMsBlCount = 0;
+		var countMsBl = 0 ;
 		console.log(this);
 		//$scope.selectedServcies.totalItems=
 			if($scope.BLS.length==0){
@@ -2103,7 +2324,12 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				if(iteam.isBlSave==true || iteam.isBlSave=="true"){
 					count++;
 					totalNmbrOfLinesCount = totalNmbrOfLinesCount + iteam.containerDetailes.length;
-				} 
+							if(iteam.ishbl != true){
+								containerMsBlCount = containerMsBlCount + iteam.containerDetailes.length;
+								 countMsBl++;
+								}
+							
+						} 
 			}
 				if($('[name=chk]')[obj.$index].checked==true){
 					$( "body" ).append('<div class="loading"></div>');
@@ -2117,6 +2343,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				}
 			$scope.selectedServcies.totalItem = count;
 			$scope.selectedServcies.totalNmbrOfLines = totalNmbrOfLinesCount ;
+			$scope.selectedServcies.containerMsBl = containerMsBlCount;
 			totalIteamNo=count;
 	}
 	
@@ -2287,7 +2514,6 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 			 
 		}).then(function(data, status, headers, config) {			 
 			showDialg();
-			$scope.selectAllFetch = false;
 			$("body").find('.loading').remove();
 			var blCountCheck = 0;
 			$window.jsonData=data.data;			
@@ -2343,7 +2569,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 		}
 		
 		$( "body" ).append('<div class="loading"></div>');
-		delete jsonData.result[0].service.$$hashKey;
+		//delete jsonData.result[0].service.$$hashKey;
 		
 		$http({
 			method : "POST",
@@ -2436,6 +2662,29 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 			$scope.selectedBL.saveFlags="U"
 		}
 		$scope.getConsinee();
+		$scope.containerValue();
+		$("#dialog-tabs").tabs({ active: 4 });
+    }
+	$rootScope.setIndexHBL = function (index,obj) {
+		debugger;
+		var perentRow = 0;
+		for(var s=0;s<$scope.BLS.length;s++){
+			if($scope.BLS[s].bl==obj.item1.bl){
+				perentRow = s;
+			}
+		}
+		$scope.selectedHBLRow = index;
+		$scope.blIndex=perentRow;
+		$scope.selectedBL = $scope.BLS[$scope.blIndex];
+		$scope.getCarogoDetailsHBL();
+		//$scope.onUploadAck();
+		
+		/* $scope.getExtraDetails(); */
+		if(($scope.selectedBL.isBlSave == 'true' || $scope.selectedBL.isBlSave == true) && ($scope.selectedBL.itemNumber !=null || $scope.selectedBL.itemNumber !="")){
+			$scope.selectedBL.saveFlags="U"
+		}
+		$scope.getConsinee();
+		$scope.containerValue();
 		$("#dialog-tabs").tabs({ active: 4 });
     }
 	$rootScope.setNext = function () {  
@@ -2470,7 +2719,8 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	
 	$scope.getprscrwshipSearch=function(val) {
 		debugger;
-		 
+		if($scope.selectedBL.isBlSave == 'true' || $scope.selectedBL.isBlSave == true){
+			
 		var vessel = $scope.selectedServcies.vessel;
 		var voyage = $scope.selectedServcies.voyage;
 		var pod = $scope.selectedServcies.pod;
@@ -2490,11 +2740,13 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				async : true,
 				url : url,
 			  }).then(function(result, status, headers, config) {			 
-							 
+				  $("body").find('.loading').remove();
 				  if (val === 'P'){
 						$scope.prsnOnBordTable=result.data.personOnBoardMod;
 						$scope.selectedServcies.noOfCrew = Object.keys($scope.prsnOnBordTable).length;
 						jsonData.result[0].service.personOnBoardMod = result.data.personOnBoardMod;
+						$scope.personData();
+						
 					}
 					if (val === 'S'){
 						$scope.shipStoreTable=result.data.shipStoresMod;
@@ -2504,10 +2756,18 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 						$scope.crewEffetTable=result.data.crewEfctMod;
 						jsonData.result[0].service.crewEfctMods = result.data.crewEfctMod;
 					}
+					$scope.personData();
 								
 					$("body").find('.loading').remove();
 			});
+		} 
 	}
+	$scope.personData = function(){
+		debugger;
+		$scope.prsonData = $scope.prsnOnBordTable;
+		$scope.shipStore = $scope.shipStoreTable;
+		$scope.crewEffet= $scope.crewEffetTable;
+		}
 	
 	$scope.importCVSFileAjax=function(val) {
 		var form = null;
@@ -2531,12 +2791,15 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 							if (val === 'P'){
 								$scope.prsnOnBordTable=result.data.result;
 								$scope.selectedServcies.noOfCrew = Object.keys($scope.prsnOnBordTable).length;
+								jsonData.result[0].service.personOnBoardMod = result.data.result;
 							}
 							if (val === 'S'){
 								$scope.shipStoreTable=result.data.result;
+								jsonData.result[0].service.igmShipStoresMods = result.data.result;
 							}
 							if (val === 'C'){
 								$scope.crewEffetTable=result.data.result;
+								jsonData.result[0].service.crewEfctMods = result.data.result;
 							}
 							
 			});
@@ -2549,6 +2812,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 		    delete jsonData.result[0].service.$$hashKey;
 		    delete prsnOnBordTable.$$hashKey;
 		    $scope.personData();
+		    $scope.getprscrwshipSearch();
 		    if ($("#fileType").val() == "SAA" || $("#fileType").val() == "SEI" || $("#fileType").val() == "SDN" || $("#fileType").val() == "SEI" ||
 		        $("#fileType").val() == "SCC" || $("#fileType").val() == "SCD" || $("#fileType").val() == "SCU" || $("#fileType").val() == "SCA") {
 		        swal("Message", $("#fileType").val() + " under development.", "info");
@@ -2559,7 +2823,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 		    var blNoUnSaved = "";
 		    for (var x = 0; x < jsonData.result[0]["BLS"].length; x++) {
 		        if (jsonData.result[0]["BLS"][x].isBlSave == 'true' && jsonData.result[0]["BLS"][x].itemNumber != "" && jsonData.result[0]["BLS"][x].itemNumber != null) {
-		            if (jsonData.result[0]["BLS"][x].fetch == true) {
+		            if (jsonData.result[0]["BLS"][x].fetch == false) {
 		                if (blNoSaved == "") {
 		                    blNoSaved = blNoSaved + "'" + jsonData.result[0]["BLS"][x].bl + "'";
 		                } else {
@@ -2629,10 +2893,10 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	            console.log($scope.ackFileResponse[i].mcResponse.cinType);
 	            console.log($scope.ackFileResponse[i].mcResponse.mcinPcin);
 	            if ($scope.ackFileResponse[i].MCRef.lineNo == $scope.selectedBL.itemNumber && $scope.ackFileResponse[i].mcResponse.cinType == "PCIN") {
-	                $scope.selectedBL.pcin = $scope.ackFileResponse[i].mcResponse.mcinPcin;
+	                $scope.selectedBL.pcin = $scope.ackFileResponse[i].mcResponse.mcin;
 	            } else {
 	                if ($scope.ackFileResponse[i].MCRef.lineNo == $scope.selectedBL.itemNumber && $scope.ackFileResponse[i].mcResponse.cinType == "MCIN")
-	                    $scope.selectedBL.mcin = $scope.ackFileResponse[i].mcResponse.mcinPcin;
+	                    $scope.selectedBL.mcin = $scope.ackFileResponse[i].mcResponse.mcin;
 	            }
 	
 	        }
@@ -2914,6 +3178,268 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 						$scope.getDataMoveToNextTab();
 						$("body").find('.loading').remove();
 			});
+		
+		 
+	}
+	
+	$scope.getCarogoDetailsHBL=function() {
+ 	    debugger;
+ 	    if($scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].fetch==true){
+ 	    	return false;
+ 	    }
+ 	   if(($scope.selectedBL.isBlSave == 'true' || $scope.selectedBL.isBlSave == true) && ($scope.selectedBL.itemNumber !=null && $scope.selectedBL.itemNumber !="")){
+			$scope.selectedBL.saveFlags="U"
+		}
+ 	 
+ 	    var 		bl			= $scope.BLS[$scope.blIndex].bl;
+ 	    var 		hblNo		= $scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].hblNo;
+ 	    isBlSaved 				= $scope.BLS[$scope.blIndex].isBlSave;
+ 	    itemNumber 				= $scope.selectedBL.itemNumber
+ 	    var 		vessel 		= $scope.selectedServcies.vessel;
+		var 		voyage 		= $scope.selectedServcies.voyage;
+		var 		pod 		= $scope.selectedServcies.pod;
+		var 		service     = $scope.selectedServcies.service;
+		
+		var 		url 		= CAROGODETAILSSEARCHHBL+"?vessel="+vessel+"&voyage="+voyage+"&pod="+pod+"&bl="+bl+"&isBlSave="+isBlSaved+"&itemNumber="+itemNumber+"&service="+service;
+ 	    $( "body" ).append('<div class="loading"></div>');
+		$http({
+				method : "POST",
+				async : true,
+				url : url,
+			  }).then(function(result, status, headers, config) {			 
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].agencyType  =  result.data.blDetails[0].agencyType
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].agentCode  =  result.data.blDetails[0].agentCode
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].arrivalDate  =  result.data.blDetails[0].arrivalDate
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].arrivalTime  =  result.data.blDetails[0].arrivalTime
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].arrival_departure_details  =  result.data.blDetails[0].arrival_departure_details
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].ataarrivalDate  =  result.data.blDetails[0].ataarrivalDate
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].ataarrivalTime  =  result.data.blDetails[0].ataarrivalTime
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].authRepCd  =  result.data.blDetails[0].authRepCd
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].authReprsntvCd  =  result.data.blDetails[0].authReprsntvCd
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].authoriz_rep_code  =  result.data.blDetails[0].authoriz_rep_code
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].authorized_sea_carrier_code  =  result.data.blDetails[0].authorized_sea_carrier_code
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].blStatus  =  result.data.blDetails[0].blStatus
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].blVersion  =  result.data.blDetails[0].blVersion
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].brief_cargo_des  =  result.data.blDetails[0].brief_cargo_des
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].callSing  =  result.data.blDetails[0].callSing
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].cargoDeclaration  =  result.data.blDetails[0].cargoDeclaration
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].cargoMovmntType  =  result.data.blDetails[0].cargoMovmntType
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].cargoNature  =  result.data.blDetails[0].cargoNature
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].cargo_description  =  result.data.blDetails[0].cargo_description
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].cargo_item_description  =  result.data.blDetails[0].cargo_item_description
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].cargo_item_sequence_no  =  result.data.blDetails[0].cargo_item_sequence_no
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].carrierNo  =  result.data.blDetails[0].carrierNo
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].cbm  =  result.data.blDetails[0].cbm
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].cfsName  =  result.data.blDetails[0].cfsName
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].cigmDate  =  result.data.blDetails[0].cigmDate
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].cigmNo  =  result.data.blDetails[0].cigmNo
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].cin_type  =  result.data.blDetails[0].cin_type
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].codeCode  =  result.data.blDetails[0].codeCode
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].consolidatedIndicator  =  result.data.blDetails[0].consolidatedIndicator
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].consolidated_indicator  =  result.data.blDetails[0].consolidated_indicator
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].consolidator_pan  =  result.data.blDetails[0].consolidator_pan
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].container_weight  =  result.data.blDetails[0].container_weight
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].conveyance_reference_no  =  result.data.blDetails[0].conveyance_reference_no
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].crewEffect  =  result.data.blDetails[0].crewEffect
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].crewListDeclaration  =  result.data.blDetails[0].crewListDeclaration
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].csn_date  =  result.data.blDetails[0].csn_date
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].csn_number  =  result.data.blDetails[0].csn_number
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].csn_reporting_type  =  result.data.blDetails[0].csn_reporting_type
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].csn_site_id  =  result.data.blDetails[0].csn_reporting_type
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].csn_submitted_by  =  result.data.blDetails[0].csn_submitted_by
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].csn_submitted_type  =  result.data.blDetails[0].csn_submitted_type
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].currency  =  result.data.blDetails[0].currency
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].cusAdd1  =  result.data.blDetails[0].cusAdd1
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].cusAdd2  =  result.data.blDetails[0].cusAdd2
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].cusAdd3  =  result.data.blDetails[0].cusAdd3
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].cusAdd4  =  result.data.blDetails[0].cusAdd4
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].customCode  =  result.data.blDetails[0].customCode
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].customTerminalCode  =  result.data.blDetails[0].customTerminalCode
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].del  =  result.data.blDetails[0].del
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].dep_manif_no  =  result.data.blDetails[0].dep_manif_no
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].dep_manifest_date  =  result.data.blDetails[0].dep_manifest_date
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].departureDate  =  result.data.blDetails[0].departureDate
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].departureTime  =  result.data.blDetails[0].departureTime
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].depot  =  result.data.blDetails[0].depot
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].dpdCode  =  result.data.blDetails[0].dpdCode
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].dpdMovement  =  result.data.blDetails[0].dpdMovement
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].dutyInr  =  result.data.blDetails[0].dutyInr
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].edi  =  result.data.blDetails[0].edi
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].enblockMovement  =  result.data.blDetails[0].enblockMovement
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].equimentType  =  result.data.blDetails[0].equimentType
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].equipment_load_status  =  result.data.blDetails[0].equipment_load_status
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].equipment_seal_type  =  result.data.blDetails[0].equipment_seal_type
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].exchangeRate  =  result.data.blDetails[0].exchangeRate
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].expected_date  =  result.data.blDetails[0].expected_date
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].fetch  =  result.data.blDetails[0].fetch
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].finalPlaceDelivery  =  result.data.blDetails[0].finalPlaceDelivery
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].first_port_of_entry_last_port_of_departure  =  result.data.blDetails[0].first_port_of_entry_last_port_of_departure
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].fromItemNo  =  result.data.blDetails[0].fromItemNo
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].genDesc  =  result.data.blDetails[0].genDesc
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].grosWeight  =  result.data.blDetails[0].grosWeight
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].grossCargoWeightBLlevel  =  result.data.blDetails[0].grossCargoWeightBLlevel
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].grossWeight  =  result.data.blDetails[0].grossWeight
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].gross_volume  =  result.data.blDetails[0].gross_volume
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].hblNo  =  result.data.blDetails[0].hblNo
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].hightValue  =  result.data.blDetails[0].hightValue
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].igmDate  =  result.data.blDetails[0].igmDate
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].igmDateVal  =  result.data.blDetails[0].igmDateVal
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].igmNumber  =  result.data.blDetails[0].igmNumber
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].igmYear  =  result.data.blDetails[0].igmYear
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].igmYearVal  =  result.data.blDetails[0].igmYearVal
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].imdg_code  =  result.data.blDetails[0].imdg_code
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].imoCode  =  result.data.blDetails[0].imoCode
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].invoiceItems  =  result.data.blDetails[0].invoiceItems
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].invoiceValueFc  =  result.data.blDetails[0].invoiceValueFc
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].invoiceValueInr  =  result.data.blDetails[0].invoiceValueInr
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].isValidateBL  =  result.data.blDetails[0].isValidateBL
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].itemType  =  result.data.blDetails[0].itemType
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].jobDate  =  result.data.blDetails[0].jobDate
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].jobNo  =  result.data.blDetails[0].jobNo
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].job_date  =  result.data.blDetails[0].job_date
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].job_number  =  result.data.blDetails[0].job_number
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].lastPort1  =  result.data.blDetails[0].lastPort1
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].lastPort2  =  result.data.blDetails[0].lastPort2
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].lastPort3  =  result.data.blDetails[0].lastPort3
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].lightDue  =  result.data.blDetails[0].lightDue
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].lineCode  =  result.data.blDetails[0].lineCode
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].manifest_date_csn_date  =  result.data.blDetails[0].manifest_date_csn_date
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].manifest_no_csn_no  =  result.data.blDetails[0].manifest_no_csn_no
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].mariTimeDecl  =  result.data.blDetails[0].mariTimeDecl
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].masterBl  =  result.data.blDetails[0].masterBl
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].masterBlDate  =  result.data.blDetails[0].masterBlDate
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].masterName  =  result.data.blDetails[0].masterName
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].mblNo  =  result.data.blDetails[0].mblNo
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].mc_item_details  =  result.data.blDetails[0].mc_item_details
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].mc_location_customs  =  result.data.blDetails[0].mc_location_customs
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].mcin  =  result.data.blDetails[0].mcin
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].message_type  =  result.data.blDetails[0].message_type
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].modeOfTpFee  =  result.data.blDetails[0].modeOfTpFee
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].mode_of_transport  =  result.data.blDetails[0].mode_of_transport
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].multipalPakages  =  result.data.blDetails[0].multipalPakages
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].neCargoMovmnt  =  result.data.blDetails[0].neCargoMovmnt
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].netWeight  =  result.data.blDetails[0].netWeight
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].newVessel  =  result.data.blDetails[0].newVessel
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].newVoyage  =  result.data.blDetails[0].newVoyage
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].next_port_of_call_coded  =  result.data.blDetails[0].next_port_of_call_coded
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].nextport1  =  result.data.blDetails[0].nextport1
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].nextport2  =  result.data.blDetails[0].nextport2
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].nextport3  =  result.data.blDetails[0].nextport3
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].nhavaShevaEta  =  result.data.blDetails[0].nhavaShevaEta
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].noOfCrew  =  result.data.blDetails[0].noOfCrew
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].noOfItemInFil  =  result.data.blDetails[0].noOfItemInFil
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].noOfItemInPrior  =  result.data.blDetails[0].noOfItemInPrior
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].noOfItemInSupplimentary  =  result.data.blDetails[0].noOfItemInSupplimentary
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].noOfPassenger  =  result.data.blDetails[0].noOfPassenger
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].no_of_crew_manif  =  result.data.blDetails[0].no_of_crew_manif
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].nonEdi  =  result.data.blDetails[0].nonEdi
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].notifyPartyCode  =  result.data.blDetails[0].notifyPartyCode
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].number_of_crew  =  result.data.blDetails[0].number_of_crew
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].number_of_packages  =  result.data.blDetails[0].number_of_packages
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].number_of_packages_hidden  =  result.data.blDetails[0].number_of_packages_hidden
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].packageBLLevel  =  result.data.blDetails[0].packageBLLevel
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].packages  =  result.data.blDetails[0].packages
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].pan_of_notified_party  =  result.data.blDetails[0].pan_of_notified_party
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].parentVoy  =  result.data.blDetails[0].parentVoy
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].passengerList  =  result.data.blDetails[0].passengerList
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].podTerminal  =  result.data.blDetails[0].podTerminal
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].podTerminalPort  =  result.data.blDetails[0].podTerminalPort
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].pol  =  result.data.blDetails[0].pol
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].polTerminal  =  result.data.blDetails[0].polTerminal
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].polTerminalPort  =  result.data.blDetails[0].polTerminalPort
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].portArrival  =  result.data.blDetails[0].portArrival
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].portOfDeschargedCfs  =  result.data.blDetails[0].portOfDeschargedCfs
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].portOfDestination  =  result.data.blDetails[0].portOfDestination
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].portOrigin  =  result.data.blDetails[0].portOrigin
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].port_of_acceptance  =  result.data.blDetails[0].port_of_acceptance
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].port_of_acceptance_name  =  result.data.blDetails[0].port_of_acceptance_name
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].port_of_call_cod  =  result.data.blDetails[0].port_of_call_cod
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].port_of_call_coded  =  result.data.blDetails[0].port_of_call_coded
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].port_of_call_name  =  result.data.blDetails[0].port_of_call_name
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].port_of_call_sequence_number  =  result.data.blDetails[0].port_of_call_sequence_number
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].port_of_receipt  =  result.data.blDetails[0].port_of_receipt
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].port_of_receipt_name  =  result.data.blDetails[0].port_of_receipt_name
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].port_of_registry  =  result.data.blDetails[0].port_of_registry
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].port_of_reporting  =  result.data.blDetails[0].port_of_reporting
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].position  =  result.data.blDetails[0].position
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].previous_mcin  =  result.data.blDetails[0].previous_mcin
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].previous_pcin  =  result.data.blDetails[0].previous_pcin
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].recieverId  =  result.data.blDetails[0].recieverId
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].registry_date  =  result.data.blDetails[0].registry_date
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].remark  =  result.data.blDetails[0].remark
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].remarkVessel  =  result.data.blDetails[0].remarkVessel
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].reporting_event  =  result.data.blDetails[0].reporting_event
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].roadCarrCode  =  result.data.blDetails[0].roadCarrCode
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].roadCarrCodeVVS  =  result.data.blDetails[0].roadCarrCodeVVS
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].roadTPBondNo  =  result.data.blDetails[0].roadTPBondNo
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].roadTpBondNo  =  result.data.blDetails[0].roadTpBondNo
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].rotnDate  =  result.data.blDetails[0].rotnDate
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].rotnNo  =  result.data.blDetails[0].rotnNo
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].senderId  =  result.data.blDetails[0].senderId
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].serialNumber  =  result.data.blDetails[0].serialNumber
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].service  =  result.data.blDetails[0].service
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].shipStrDect  =  result.data.blDetails[0].shipStrDect
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].ship_itinerary  =  result.data.blDetails[0].ship_itinerary
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].ship_itinerary_sequence  =  result.data.blDetails[0].ship_itinerary_sequence
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].ship_type  =  result.data.blDetails[0].ship_type
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].shipping_line_bond_no_r  =  result.data.blDetails[0].shipping_line_bond_no_r
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].shipping_line_code  =  result.data.blDetails[0].shipping_line_code
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].shpngLineCd  =  result.data.blDetails[0].shpngLineCd
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].smBtCargo  =  result.data.blDetails[0].smBtCargo
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].smtpDate  =  result.data.blDetails[0].smtpDate
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].smtpNo  =  result.data.blDetails[0].smtpNo
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].soc_flag  =  result.data.blDetails[0].soc_flag
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].split_indicator  =  result.data.blDetails[0].split_indicator
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].split_indicator_list  =  result.data.blDetails[0].split_indicator_list
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].subLineNumber  =  result.data.blDetails[0].subLineNumber
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].subTermil  =  result.data.blDetails[0].subTermil
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].submitDateTime  =  result.data.blDetails[0].submitDateTime
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].submitter_code  =  result.data.blDetails[0].submitter_code
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].submitter_type  =  result.data.blDetails[0].submitter_type
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].terminal  =  result.data.blDetails[0].terminal
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].time_of_dept  =  result.data.blDetails[0].time_of_dept
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].toItemNo  =  result.data.blDetails[0].toItemNo
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].tol_no_of_trans_equ_manif  =  result.data.blDetails[0].tol_no_of_trans_equ_manif
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].totalBls  =  result.data.blDetails[0].totalBls
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].totalItem  =  result.data.blDetails[0].totalItem
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].totalItems  =  result.data.blDetails[0].totalItems
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].totalNmbrOfLines  =  result.data.blDetails[0].totalNmbrOfLines
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].totalWeight  =  result.data.blDetails[0].totalWeight
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].total_no_of_tran_s_cont_repo_on_ari_dep  =  result.data.blDetails[0].total_no_of_tran_s_cont_repo_on_ari_dep
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].total_no_of_transport_equipment_reported_on_arrival_departure  =  result.data.blDetails[0].total_no_of_transport_equipment_reported_on_arrival_departure
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].total_number_of_packages  =  result.data.blDetails[0].total_number_of_packages
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].tpBondNo  =  result.data.blDetails[0].tpBondNo
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].tpbondnoVVS  =  result.data.blDetails[0].tpbondnoVVS
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].transportMode  =  result.data.blDetails[0].transportMode
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].typeTransportMeans  =  result.data.blDetails[0].typeTransportMeans
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].type_of_cargo  =  result.data.blDetails[0].type_of_cargo
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].type_of_package  =  result.data.blDetails[0].type_of_package
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].type_of_packages_hidden  =  result.data.blDetails[0].type_of_packages_hidden
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].ucr_code  =  result.data.blDetails[0].ucr_code
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].ucr_type  =  result.data.blDetails[0].ucr_type
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].unit  =  result.data.blDetails[0].unit
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].unit_of_volume  =  result.data.blDetails[0].unit_of_volume
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].unit_of_weight  =  result.data.blDetails[0].unit_of_weight
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].uno_code  =  result.data.blDetails[0].uno_code
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].vasselCode  =  result.data.blDetails[0].vasselCode
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].vesselName  =  result.data.blDetails[0].vesselName
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].vesselNation  =  result.data.blDetails[0].vesselNation
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].vesselType  =  result.data.blDetails[0].vesselType
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].vessel_type_movement  =  result.data.blDetails[0].vessel_type_movement
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].viaVcn  =  result.data.blDetails[0].viaVcn
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].volume  =  result.data.blDetails[0].volume
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].voyage_details_movement  =  result.data.blDetails[0].voyage_details_movement
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].weigh  =  result.data.blDetails[0].weigh
+						$scope.BLS[$scope.blIndex].hblArr[$scope.selectedHBLRow].weight  =  result.data.blDetails[0].weight
+
+					
+						
+						$scope.getDataMoveToNextTab();
+					 
+						$("body").find('.loading').remove();
+			});
+		
+		 
 	}
 	
 	$scope.getContainerDetails=function(val) {
@@ -2936,6 +3462,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 			  }).then(function(result, status, headers, config) {			 
 				$scope.BLS[$scope.blIndex].containerDetailes=result.data.containerList
 
+				$scope.containerValue();
 				$scope.stowageExport();
 				
 				$("body").find('.loading').remove();
@@ -3009,6 +3536,11 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				$scope.crewEffetTable=[];
 		});
 	}
+	
+	$scope.selectedItemChanged = function(equipmentLoadStatus) {
+	    $scope.equipmentLoadStatus = equipmentLoadStatus;
+	}
+	  	
 });
 
    
