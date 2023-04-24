@@ -12,7 +12,7 @@ public class MastrCnsgmtDecSAM {
 	private ItemDtlsSAM itemDtls;   //TODO
 	private List<TrnsprtEqmtSAM> trnsprtEqmt;   //TODO
 	private ItnrySAM itnry;				//TODO
-	private PrevRefSAM prevRef;			    //TODO now 
+	private PrevRefSAM prevRef = null;			    //TODO now 
 	private HouseCargoDecSAM houseCargoDec;	
 	
 	//on hold

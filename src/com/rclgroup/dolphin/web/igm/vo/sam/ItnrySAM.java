@@ -36,7 +36,7 @@ public class ItnrySAM {
 	}
 
 	public void setPrtOfCallName(String prtOfCallName) {
-		prtOfCallName = FiledValidation.isNullAndSetlength(prtOfCallCdd, 10);
+
 		this.prtOfCallName = prtOfCallName;
 	}
  //This value is come from BL Json object   "Next port of call coded"

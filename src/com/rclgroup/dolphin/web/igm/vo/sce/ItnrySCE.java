@@ -74,7 +74,6 @@ public class ItnrySCE {
 	}
 
 	public void setModeOfTrnsprt(String modeOfTrnsprt) {
-		modeOfTrnsprt = FiledValidation.isNullAndSetlength(modeOfTrnsprt, 1);
 		this.modeOfTrnsprt = modeOfTrnsprt;
 	}
 }
