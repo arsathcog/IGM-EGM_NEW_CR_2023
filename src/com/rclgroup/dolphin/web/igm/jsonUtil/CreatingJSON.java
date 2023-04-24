@@ -626,10 +626,10 @@ public class CreatingJSON {
 				itnryClassObj.setPrtOfCallSeqNmbr(settingLength("3",5)); 
 			}
 			 //TODO  guru
-			itnryClassObj.setNxtPrtOfCallCdd(settingLength(blObj.getPod(),10));    //TODO  guru
+			itnryClassObj.setNxtPrtOfCallCdd(settingLength(blObj.getNext_port_of_call_coded(),10));    //TODO  guru
 			itnryClassObj.setNxtPrtOfCallName(settingLength(blObj.getNext_port_of_call_name(),256));		//TODO  guru
 			itnryClassObj.setPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));			//TODO  guru
-			itnryClassObj.setPrtOfCallCdd(settingLength(blObj.getPortOfLoading(),10));				//TODO  guru
+			itnryClassObj.setPrtOfCallCdd(settingLength(blObj.getPod(),10));				//TODO  guru
 			itnryClassObj.setModeOfTrnsprt(settingLength(blObj.getMode_of_transport(),4));
 //			itnry.add(itnryClassObj);
 			mastrCnsgmtDec.setItnry(itnryClassObj);

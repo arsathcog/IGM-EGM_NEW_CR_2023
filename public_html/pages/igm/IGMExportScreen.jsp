@@ -1481,9 +1481,7 @@ function showDialgPort(index){
 					}
 					downloadfilename=one+'_'+'SACHM23'+'_'+fileNme+'_'+two+'_'+three+'_'+fore+'_'+'DEC'+'.json';
 					
-					var sampleBytes = new String(JSON.stringify(result, (key, value) => {
-						  if (value !== null) return value
-					}));
+					var sampleBytes = new String(JSON.stringify(StringResult.jsonFile));
 
 					var saveByteArray = (function() {
 						var a = document.createElement("a");
@@ -3169,8 +3167,10 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 						$scope.BLS[$scope.blIndex].commodity_seq  =  result.data.blDetails[0].commodity_seq
 						$scope.BLS[$scope.blIndex].gstStateCode  =  result.data.blDetails[0].gstStateCode
 						$scope.BLS[$scope.blIndex].stowagePosition  =  result.data.blDetails[0].stowagePosition
-						
+						$scope.BLS[$scope.blIndex].port_of_call_name  =  result.data.blDetails[0].port_of_call_name
+						$scope.BLS[$scope.blIndex].next_port_of_call_name  =  result.data.blDetails[0].next_port_of_call_name
 						debugger;
+			
 						$scope.BLS[$scope.blIndex].consignee = result.data.blDetails[0].consignee
 						$scope.BLS[$scope.blIndex].consigner = result.data.blDetails[0].consigner
 						$scope.BLS[$scope.blIndex].marksNumber = result.data.blDetails[0].marksNumber

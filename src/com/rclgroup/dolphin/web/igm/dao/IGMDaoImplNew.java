@@ -710,9 +710,9 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setType_of_packages_hidden(rs.getString("TYPE_OF_PACKAGES_HID"));
 			objMod.setPort_of_call_sequence_number(rs.getString("PORT_OF_CALL_SEQUENCE_NUMBER"));
 			objMod.setPort_of_call_coded(rs.getString("PORT_OF_CALL_CODED"));
-//			objMod.setPort_of_call_name(rs.getString("port_OF_call_name"));
+			objMod.setPort_of_call_name(rs.getString("port_OF_call_name"));
 			objMod.setNext_port_of_call_coded(rs.getString("NEXT_PORT_OF_CALL_CODED"));
-//			objMod.setNext_port_of_call_name(rs.getString("next_port_of_call_name"));
+			objMod.setNext_port_of_call_name(rs.getString("next_port_of_call_name"));
 			
 			objMod.setMc_location_customs(rs.getString("MC_LOCATION_CUSTOMS"));
 			if(rs.getString("FLAG_DG") == null || rs.getString("FLAG_DG").equals("N")) {
@@ -720,7 +720,6 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			}else {
 				objMod.setUno_code(rs.getString("UNO_CODE"));
 			}
-
 			objMod.setImdg_code(rs.getString("IMDG_CODE"));
 			objMod.setItemNumber(rs.getString("ITEM_NUMBER"));
 			
