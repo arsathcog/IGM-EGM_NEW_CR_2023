@@ -282,11 +282,11 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			
 			objMod.setPodTerminalPort(rs.getString("POD_TERMINAL_PORT"));
 			objMod.setPolTerminalPort(rs.getString("POL_TERMINAL_PORT"));
-			
+			   
 			objMod.setSenderId(rs.getString("SENDER_ID"));
 			objMod.setRecieverId(rs.getString("RECIEVER_ID"));
 			objMod.setAuthReprsntvCd(rs.getString("AUTHREPRSNTVCD"));
-		
+		   
 					
 	// ============================More  details===================
 //			objMod.setHblNo(rs.getString("FK_HOUSE_BL_NO"));

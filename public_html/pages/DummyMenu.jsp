@@ -117,7 +117,7 @@ function doBack() {
   <tr>
   <td>
   <a href="javascript:openScreen(serverUrl + '<%=lstrCtxPath%>/do/sigm001?appId=Dolphin&PAGE_URL=/do/sigm001','sigm001')"> Import General Manifest(IGM)</a>
-  <a href="javascript:openScreen(serverUrl + '<%=lstrCtxPath%>/do/sigm001New?appId=Dolphin','sigm001')"> Import General Manifest New(IGM)</a>
+  <a href="javascript:openScreen(serverUrl + '<%=lstrCtxPath%>/do/sigm001New?appId=Dolphin','sigm001')"> Import General Manifest New(IGM).</a>
   <a href="javascript:openScreen(serverUrl + '<%=lstrCtxPath%>/do/sigm001Export?appId=Dolphin','sigm001')"> Export General Manifest New(EGM)</a>
   </td>
   </tr>

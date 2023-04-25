@@ -864,7 +864,6 @@ public class CreatingJSON {
 					}else {
 						for (Consignee cnsneeDtl : consigneeDtls) {
 							trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
-							trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(cnsneeDtl.getConsignePan(),30));
 							trnsprtDocClassObj.setTypOfCd( settingLength(cnsneeDtl.getConsignePan(),30));
 						}
 					}
@@ -1581,7 +1580,7 @@ public class CreatingJSON {
 			
 
 			//===============================================
-//			if(blObj.getConsolidatedIndicator().equals("S")) {
+		if(blObj.getConsolidatedIndicator().equals("S")) {
 			ItemDtlsSDM itemDtlsClassObj = new ItemDtlsSDM();
 			itemDtlsClassObj.setHsCd(blObj.getCommdity_code());
 		//	itemDtlsClassObj.setCrgoItemSeqNmbr(blObj.getCommodity_seq()+"");
@@ -1597,25 +1596,25 @@ public class CreatingJSON {
 			itemDtls.add(itemDtlsClassObj);
 			mastrCnsgmtDec.setItemDtls(itemDtlsClassObj);
 		
-//			}else {
-//				if(blObj.isHbl()==true) {
-//					if(blObj.getConsolidatedIndicator().equals("H")) {
-//						ItemDtlsSDM itemDtlsClassObj = new ItemDtlsSDM();
-//						itemDtlsClassObj.setHsCd(blObj.getCommdity_code());
-//						//	itemDtlsClassObj.setCrgoItemSeqNmbr(blObj.getCommodity_seq()+"");
-//							itemDtlsClassObj.setCrgoItemSeqNmbr( settingLength(blObj.getCommodity_seq()+"",5));	
-//							itemDtlsClassObj.setCrgoItemDesc( settingLength(blObj.getCargo_item_description(),256));
-//							itemDtlsClassObj.setUnoCd( settingLength(blObj.getUno_code(),5));
-//							itemDtlsClassObj.setImdgCd( settingLength(blObj.getImdg_code(),4));
-//							itemDtlsClassObj.setNmbrOfPkgs(settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6)); 
-//							itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getPackage_kind(),3));
-//							itemDtls.add(itemDtlsClassObj);
-//							mastrCnsgmtDec.setItemDtls(itemDtlsClassObj);
-//						houseCargoDecSDMObj.setItemDtls(itemDtls);
-//					}
-//				}
-//				
-//			}
+			}else {
+				if(blObj.isHbl()==true) {
+					if(blObj.getConsolidatedIndicator().equals("H")) {
+						ItemDtlsSDM itemDtlsClassObj = new ItemDtlsSDM();
+						itemDtlsClassObj.setHsCd(blObj.getCommdity_code());
+						//	itemDtlsClassObj.setCrgoItemSeqNmbr(blObj.getCommodity_seq()+"");
+							itemDtlsClassObj.setCrgoItemSeqNmbr( settingLength(blObj.getCommodity_seq()+"",5));	
+							itemDtlsClassObj.setCrgoItemDesc( settingLength(blObj.getCargo_item_description(),256));
+							itemDtlsClassObj.setUnoCd( settingLength(blObj.getUno_code(),5));
+							itemDtlsClassObj.setImdgCd( settingLength(blObj.getImdg_code(),4));
+							itemDtlsClassObj.setNmbrOfPkgs(settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6)); 
+							itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getPackage_kind(),3));
+							itemDtls.add(itemDtlsClassObj);
+							mastrCnsgmtDec.setItemDtls(itemDtlsClassObj);
+						houseCargoDecSDMObj.setItemDtls(itemDtls);
+					}
+				}
+				
+			}
 
 			//===============================================
 			
@@ -1975,7 +1974,7 @@ public class CreatingJSON {
 					cewEfct.setCrewEfctQntyOnbrd(settingLengthForDouble(crewEfctMod.get(l).getCrewEfctQntyOnbrd(),16,6));
 					cewEfct.setCrewEfctQntyOnbrdCd(settingLength(crewEfctMod.get(l).getCrewEfctQntyCdOnbrd(),3));
 					cewEfct.setCrewEfctsDesc(settingLength(crewEfctMod.get(l).getCrewEfctsDesc(),256));
-					cewEfct.setCrewEfctsSeqNmbr(settingLength(crewEfctMod.get(l).getCrewEfctsVsslSeqNmbr(),5));
+					cewEfct.setCrewEfctsSeqNmbr(settingLength(l+1+"",5));
 					cewEfctList.add(cewEfct);
 	
 			}
@@ -6839,8 +6838,8 @@ ImportGeneralManifestMod objForm = blList.get(0);
 					trnsprtDocClassObj.setCnsgneStreetAddress(settingLength(add,70));
 					trnsprtDocClassObj.setCnsgnesName( settingLength(cnsneeDtl.getCustomerName(),70));
 					trnsprtDocClassObj.setCnsgneCity(  settingLength(cnsneeDtl.getCity(),70));
-					trnsprtDocClassObj.setCnsgneCntrySubDivName(settingLength(cnsneeDtl.getStateName(),35));
-					trnsprtDocClassObj.setCnsgneCntrySubDiv(cnsneeDtl.getState());
+					trnsprtDocClassObj.setCnsgneCntrySubDivName(settingLength(cnsneeDtl.getState(),35));
+					trnsprtDocClassObj.setCnsgneCntrySubDiv(blObj.getGstStateCode());
 					trnsprtDocClassObj.setCnsgneCntryCd(settingLength(cnsneeDtl.getCountryCode(),2));
 					trnsprtDocClassObj.setCnsgnePstcd( settingLength(cnsneeDtl.getZip(),9));
 					try {
