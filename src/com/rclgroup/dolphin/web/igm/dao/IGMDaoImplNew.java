@@ -505,14 +505,16 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 		return dropDownMap;
 	}
 
-	public Map getBLData(Map amapParam, String procedureName, boolean isSave,boolean isUpdateSaved,String blcount)
+	public Map getBLData(Map amapParam, String procedureName, boolean isSave,boolean isUpdateSaved,int blcount)
 			throws BusinessException, DataAccessException {
 		System.out.println("#IGMLogger getBLData() started.." + isSave);
+		
+		String blCountLoop  =  Integer.toString(blcount);
 
 		String[][] arrParam = { { KEY_REF_IGM_DATA, BLANK + ORACLE_CURSOR, PARAM_OUT, BLANK },
 				{ KEY_IGM_POD, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_POD) },
 				{ KEY_IGM_BL, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_BL) },
-				{ KEY_IGM_BL_COUNT, BLANK + ORACLE_VARCHAR, PARAM_IN,   blcount},
+				{ KEY_IGM_BL_COUNT, BLANK + ORACLE_VARCHAR, PARAM_IN,   blCountLoop},
 				{ KEY_IGM_SERVICE, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_SERVICE) },
 				{ KEY_IGM_VESSEL, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_VESSEL) },
 				{ KEY_IGM_VOYAGE, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_VOYAGE) },
@@ -1382,11 +1384,5 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 
 	}
 
-	@Override
-	public Map getBLData(Map amapParam, String procedureName, boolean isSave, boolean isUpdateSave, int blcount)
-			throws BusinessException, DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
+
 }
