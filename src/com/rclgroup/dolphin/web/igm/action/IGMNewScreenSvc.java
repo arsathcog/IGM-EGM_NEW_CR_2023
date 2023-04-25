@@ -566,9 +566,9 @@ public class IGMNewScreenSvc extends BaseAction {
 			String 						blsInput 	 =  null;
 			Map<Object, Object> 		mapSaveBL 	 = 	null;
 			String 						blNos[] 	 =  objForm.getSavedBlList().split(",");
-
+			int savedBlCount = 0;
 			for (String bl : blNos) {
-				
+				savedBlCount++;
 				if (blsInput == null)
 					blsInput = "'" + bl + "'";
 				else
@@ -582,7 +582,7 @@ public class IGMNewScreenSvc extends BaseAction {
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, objForm.getVoyage());
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
 			
-			mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_NEW, true,false);
+			mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_NEW, true,false,savedBlCount);
 			blObj.addAll((List<ImportGeneralManifestMod>) mapSaveBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
 			containerDao.setContainerDetails(blObj, IGMContainerDao.RCL_IGM_GET_SAVE_CONTAINOR);
 			objConsignerDao.setConsignerData(blObj, IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER);
@@ -599,8 +599,9 @@ public class IGMNewScreenSvc extends BaseAction {
 			String blsInput = null;
 			Map<Object, Object> mapReturnBL = null;
 			String blNos[] = objForm.getUnSavedBlList().split(",");
-
+			int unSaveBblcount = 0 ;
 			for (String bl : blNos) {
+				unSaveBblcount++;
 				if (blsInput == null)
 					blsInput = "'" + bl + "'";
 				else
@@ -613,7 +614,7 @@ public class IGMNewScreenSvc extends BaseAction {
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, objForm.getVoyage());
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
 			
-			mapReturnBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_MSTR_DATA_NEW, true,true);
+			mapReturnBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_MSTR_DATA_NEW, true,true,unSaveBblcount);
 			blObj.addAll((List<ImportGeneralManifestMod>) mapReturnBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
 			containerDao.setContainerDetails(blObj, IGMContainerDao.RCL_IGM_GET_MASTER_CONTAINOR);
 			objConsignerDao.setConsignerData(blObj, IGMConsignerDataDao.RCL_IGM_GET_MASTER_CONSIGNER);
@@ -849,6 +850,7 @@ public class IGMNewScreenSvc extends BaseAction {
 		List<ImportGeneralManifestMod>  blObj 				=   null;
 		
 		if(objForm.getIsBlSave().equals("false") || objForm.getItemNumber() == null || objForm.getItemNumber().equals("")) {
+		
 			Map<Object, Object> mapReturnBL = objDao.getBLCarogoDetails(mapParam, IGMDaoNew.SQL_GET_IGM_BL_MSTR_DATA);
 			blObj = (List<ImportGeneralManifestMod>) mapReturnBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA);
 			objConsignerDao.setConsignerData(blObj,IGMConsignerDataDao.RCL_IGM_GET_MASTER_CONSIGNER);
@@ -964,7 +966,16 @@ public class IGMNewScreenSvc extends BaseAction {
 			Map<String, String> 		mapParam	 = 	new HashMap<>();
 			String 						blsInput 	 =  objForm.getSavedBlList();
 			Map<Object, Object> 		mapSaveBL 	 = 	null;
-			 
+			String 						blNos[] 	 =  objForm.getSavedBlList().split(",");
+			int savedBlCount = 0;
+			for (String bl : blNos) {
+				savedBlCount++;
+				if (blsInput == null)
+					blsInput = "'" + bl + "'";
+				else
+					blsInput += ",'" + bl + "'";
+				
+			}
 			
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD, mod.getPod());
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_SERVICE, mod.getService());
@@ -972,7 +983,7 @@ public class IGMNewScreenSvc extends BaseAction {
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, mod.getVoyage());
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
 			
-			mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_NEW, true,false);
+			mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_NEW, true,false,savedBlCount);
 			blObj.addAll((List<ImportGeneralManifestMod>) mapSaveBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
 			containerDao.setContainerDetails(blObj, IGMContainerDao.RCL_IGM_GET_SAVE_CONTAINOR);
 			objConsignerDao.setConsignerData(blObj, IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER);

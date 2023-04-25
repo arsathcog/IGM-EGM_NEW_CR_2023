@@ -36,15 +36,19 @@ public class MCRefSAM {
 	}
 
 	public void setMstrBlDt(String mstrBlDt) {
-		if (mstrBlDt==null) {
-			this.mstrBlDt = mstrBlDt;
-		} else {
-			if (mstrBlDt.contains("/")) {
-				String dateArray[] = mstrBlDt.split("/");
-				mstrBlDt = dateArray[2] + dateArray[1] + dateArray[0];
+		try {
+			if(mstrBlDt == null || mstrBlDt.equals("")) {
 				this.mstrBlDt = mstrBlDt;
+			}else if(mstrBlDt.contains("/")) {
+				this.mstrBlDt = mstrBlDt;
+			}else if(mstrBlDt.contains("/")) {
+				this.mstrBlDt = mstrBlDt;
+			}else {
+				this.mstrBlDt = mstrBlDt.substring(6,8)+"/"+mstrBlDt.substring(4,6)+"/"+mstrBlDt.substring(0,4);
 			}
-		}
+			}catch (Exception e) {
+				return;
+			}
 	}
 
    //Same as Item Number from current screen "Consolidated Indicator"

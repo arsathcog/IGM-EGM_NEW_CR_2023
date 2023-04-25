@@ -31,7 +31,7 @@
 						</tr>
 						<tr>
 							<td><input type="text"  class="seqCssNew" value="{{BLS[blIndex].bl}}" ng-model="selectedBL.bl" maxlength="20"> 
-							<input type="text"  class="seqCssNew" value="{{BLS[blIndex].blDate}}" ng-model="selectedBL.blDate" id="blNoDate" readonly="true" onclick="dateToCommon(this)" ng-change="setTwoNumberDecimal(this,blIndex,12,3,'MasterBl');"> </td>
+							<input type="text"  class="seqCssNew" value="{{BLS[blIndex].masterBlDate}}" ng-model="selectedBL.masterBlDate" id="blNoDate" readonly="true" onclick="dateToCommon(this)" ng-change="setTwoNumberDecimal(this,blIndex,12,3,'MasterBl');"> </td>
 						</tr>
 					</tbody>
 				</table>

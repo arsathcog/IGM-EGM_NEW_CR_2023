@@ -486,7 +486,7 @@ public class CreatingJSON {
 			MCRefSAM mCRefClassObj = new MCRefSAM();
 			mCRefClassObj.setLineNo(blObj.getItemNumber()); // Line 60    
 			mCRefClassObj.setMstrBlNo(settingLength(blObj.getBl(),20)); // Line 53
-			mCRefClassObj.setMstrBlDt(blObj.getBlDate()); // Line 53
+			mCRefClassObj.setMstrBlDt(blObj.getMasterBlDate()); // Line 53
 			try {
 			if(  blObj.getHouseBl()!= null || !blObj.getHouseBl().equals("")  ) {
 				mCRefClassObj.setConsolidatedIndctr("S");// Line 76   //TODO
@@ -499,9 +499,9 @@ public class CreatingJSON {
 			
 
 			if(blObj.getMcin().equals("") && blObj.getPcin().equals("")) {
-				mCRefClassObj.setPrevDec("y");
-			}else {
 				mCRefClassObj.setPrevDec("N");
+			}else {
+				mCRefClassObj.setPrevDec("Y");
 			}
 //			mCRefClassObj.setPrevDec(settingLength(blObj.getPrevious_declaration(),4)); // Line77				//TODO  guru	
 			mCRefClassObj.setConsolidatorPan(settingLength(service.getAgentCode(),16)); // Line 78		
@@ -1450,7 +1450,7 @@ public class CreatingJSON {
 			itnryClassObj.setNxtPrtOfCallCdd(settingLength(blObj.getNext_port_of_call_coded(),10));    //TODO  guru
 			itnryClassObj.setNxtPrtOfCallName(settingLength(blObj.getNext_port_of_call_name(),256));		//TODO  guru
 			itnryClassObj.setPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));			//TODO  guru
-			itnryClassObj.setPrtOfCallCdd(settingLength(blObj.getPortOfLoading(),10));	
+			itnryClassObj.setPrtOfCallCdd(settingLength(blObj.getPod(),10));
 			itnryClassObj.setModeOfTrnsprt(settingLength(blObj.getMode_of_transport(),4));
 //			itnry.add(itnryClassObj);
 			mastrCnsgmtDec.setItnry(itnryClassObj);
@@ -1474,7 +1474,7 @@ public class CreatingJSON {
 			MCRefSDM mCRefClassObj = new MCRefSDM();
 			mCRefClassObj.setLineNo(blObj.getItemNumber()); // Line 60
 			mCRefClassObj.setMstrBlNo(settingLength(blObj.getBl(),20));// Line 53
-			mCRefClassObj.setMstrBlDt(blObj.getBlDate()); // Line 53
+			mCRefClassObj.setMstrBlDt(blObj.getMasterBlDate()); // Line 53
 			
 //			mCRefClassObj.setConsolidatedIndctr(blObj.getConsolidated_indicator());// Line 76
 //			mCRefClassObj.setPrevDec(settingLength(blObj.getPrevious_declaration(),4)); // Line77
@@ -1683,7 +1683,7 @@ public class CreatingJSON {
 					trnsprtDocClassObj.setCnsgnrStreetAddress(settingLength(add,70));
 					trnsprtDocClassObj.setCnsgnrsName(settingLength(cnsnerDtls.getCustomerName(),70));
 					trnsprtDocClassObj.setCnsgnrCity( settingLength(cnsnerDtls.getCity(),70));
-					trnsprtDocClassObj.setCnsgnrCntrySubDivName( settingLength(cnsnerDtls.getStateName(),35));  //Guru said to comment
+					trnsprtDocClassObj.setCnsgnrCntrySubDivName( settingLength(cnsnerDtls.getState(),35));  //Guru said to comment
 					trnsprtDocClassObj.setCnsgnrsCd( settingLength(cnsnerDtls.getCustomerCode(),17));
 					trnsprtDocClassObj.setCnsgnrCdTyp("");
 					 trnsprtDocClassObj.setCnsgnrCntrySubDivCd(blObj.getGstStateCode());
@@ -1819,169 +1819,9 @@ public class CreatingJSON {
 			}
 			mster.setVoyageTransportEquipment(voyageTransportEquipmentList);   // Correct
 			//===============================================
-			for(int g = 0 ;g<personOnBoardMod.size();g++) {
-				
-					PrsnOnBoardSDM prsnOnBoard = new PrsnOnBoardSDM();
-					prsnOnBoard.setPrsnOnBoardSeqNmbr(settingLength(g+1+"",5));
-					
-					PrsnDtlsSDM prsDtls = new PrsnDtlsSDM();
-					
-					if(personOnBoardMod.get(g).getPrsnTypCdd()=="" && personOnBoardMod.get(g).getPrsnTypCdd() == null) {
-						prsDtls.setPrsnTypCdd(settingLength("NA",3));
-					}else {
-						prsDtls.setPrsnTypCdd(settingLength(personOnBoardMod.get(g).getPrsnTypCdd(),3));
-					}
-					
-					if(personOnBoardMod.get(g).getPrsnFamilyName()=="" && personOnBoardMod.get(g).getPrsnFamilyName() == null) {
-						prsDtls.setPrsnFamilyName(settingLength("NA",70));
-					}else {
-						prsDtls.setPrsnFamilyName(settingLength(personOnBoardMod.get(g).getPrsnFamilyName(),70));
-					}
-					
-					if(personOnBoardMod.get(g).getPrsnGivenName()== "" && personOnBoardMod.get(g).getPrsnGivenName() == null) {
-						prsDtls.setPrsnGivenName(settingLength("NA",70));
-					}else {
-						prsDtls.setPrsnGivenName(settingLength(personOnBoardMod.get(g).getPrsnGivenName(),70));
-					}
-					
-					if(personOnBoardMod.get(g).getPrsnNatnltyCdd()=="" && personOnBoardMod.get(g).getPrsnNatnltyCdd()==null) {
-						prsDtls.setPrsnNatnltyCdd(settingLength("NA",2));
-					}else {
-						prsDtls.setPrsnNatnltyCdd(settingLength(personOnBoardMod.get(g).getPrsnNatnltyCdd(),2));
-					}
-					
-					if(personOnBoardMod.get(g).getPsngrInTransitIndctr()=="" && personOnBoardMod.get(g).getPsngrInTransitIndctr() == null) {
-						prsDtls.setPsngrInTransitIndctr(settingLength("NA",1));
-					}else {
-						prsDtls.setPsngrInTransitIndctr(settingLength(personOnBoardMod.get(g).getPsngrInTransitIndctr(),1));
-					}
-					
-					if(personOnBoardMod.get(g).getCrewmemberRankOrRatingCdd()=="" || personOnBoardMod.get(g).getCrewmemberRankOrRatingCdd()==null) {
-						prsDtls.setCrewmemberRankOrRatingCdd("NA");
-					}else {
-						prsDtls.setCrewmemberRankOrRatingCdd(personOnBoardMod.get(g).getCrewmemberRankOrRatingCdd());
-					}
-					
-					if(personOnBoardMod.get(g).getCrewmemberRankOrRating()==""||personOnBoardMod.get(g).getCrewmemberRankOrRating()== null) {
-						prsDtls.setCrewmemberRankOrRatingName(settingLength("NA",10));
-					}else {
-						prsDtls.setCrewmemberRankOrRatingName(settingLength(personOnBoardMod.get(g).getCrewmemberRankOrRating(),10));
-					}
-					
-					if(personOnBoardMod.get(g).getPsngrPrtOfEmbrktnCdd()=="" || personOnBoardMod.get(g).getPsngrPrtOfEmbrktnCdd()== null) {
-						prsDtls.setPsngrPrtOfEmbrktnCdd(settingLength("NA",5));
-					}else {
-						prsDtls.setPsngrPrtOfEmbrktnCdd(settingLength(personOnBoardMod.get(g).getPsngrPrtOfEmbrktnCdd(),5));
-					}
-					
-					if(personOnBoardMod.get(g).getPsngrPrtOfEmbrktnName()=="" || personOnBoardMod.get(g).getPsngrPrtOfEmbrktnName()== null) {
-						prsDtls.setPsngrPrtOfEmbrktnName(settingLength("NA",256));
-					}else {
-						prsDtls.setPsngrPrtOfEmbrktnName(settingLength(personOnBoardMod.get(g).getPsngrPrtOfEmbrktnName(),256));
-					}
-				
-					if(personOnBoardMod.get(g).getPsngrPrtOfDsmbrktnCdd()=="" || personOnBoardMod.get(g).getPsngrPrtOfDsmbrktnCdd()==null) {
-						prsDtls.setPsngrPrtOfDsmbrktnCdd(settingLength(personOnBoardMod.get(g).getPsngrPrtOfDsmbrktnCdd(),5));
-					}else {
-						prsDtls.setPsngrPrtOfDsmbrktnCdd(settingLength(personOnBoardMod.get(g).getPsngrPrtOfDsmbrktnCdd(),5));
-					}
-					
-					if(personOnBoardMod.get(g).getPsngrPrtOfDsmbrktnName()=="" || personOnBoardMod.get(g).getPsngrPrtOfDsmbrktnName()==null) {
-						prsDtls.setPsngrPrtOfDsmbrktnName(settingLength("NA",256));
-					}else {
-						prsDtls.setPsngrPrtOfDsmbrktnName(settingLength(personOnBoardMod.get(g).getPsngrPrtOfDsmbrktnName(),256));
-					}
-					
-					if(personOnBoardMod.get(g).getPrsnGenderCdd()== "" || personOnBoardMod.get(g).getPrsnGenderCdd()==null) {
-						prsDtls.setPrsnGenderCdd(settingLength("NA",3));
-					}else {
-						prsDtls.setPrsnGenderCdd(settingLength(personOnBoardMod.get(g).getPrsnGenderCdd(),3));
-					}
-				
-					if(personOnBoardMod.get(g).getPrsnDtOfBirth() =="" && personOnBoardMod.get(g).getPrsnDtOfBirth()==null ) {
-						prsDtls.setPrsnDtOfBirth(personOnBoardMod.get(g).getPrsnDtOfBirth());
-					}else {
-						prsDtls.setPrsnDtOfBirth(personOnBoardMod.get(g).getPrsnDtOfBirth());
-					}
-					
-					if(personOnBoardMod.get(g).getPrsnPlaceOfBirthName()=="" || personOnBoardMod.get(g).getPrsnPlaceOfBirthName() == null) {
-						prsDtls.setPrsnPlaceOfBirthName(settingLength("NA",35));
-					}else {
-						prsDtls.setPrsnPlaceOfBirthName(settingLength(personOnBoardMod.get(g).getPrsnPlaceOfBirthName(),35));
-					}
-					if(personOnBoardMod.get(g).getPrsnCntryOfBirthCdd() == "" || personOnBoardMod.get(g).getPrsnCntryOfBirthCdd()== null) {
-						prsDtls.setPrsnCntryOfBirthCdd(settingLength("NA",2));
-					}else {
-						prsDtls.setPrsnCntryOfBirthCdd(settingLength(personOnBoardMod.get(g).getPrsnCntryOfBirthCdd(),2));
-					}
-					prsnOnBoard.setPrsnDtls(prsDtls);
-					
-					//=================================================================================================
-					PrsnIdSDM prsnIdclassObj = new PrsnIdSDM();
-					
-					if(personOnBoardMod.get(g).getPrsnIdDocExpiryDt()== null || personOnBoardMod.get(g).getPrsnIdDocExpiryDt()== " ") {
-						prsnIdclassObj.setPrsnIdDocExpiryDt(personOnBoardMod.get(g).getPrsnIdDocExpiryDt());
-					}else {
-						prsnIdclassObj.setPrsnIdDocExpiryDt(personOnBoardMod.get(g).getPrsnIdDocExpiryDt());
-					}
-				
-					if(personOnBoardMod.get(g).getPrsnIdOrTravelDocIssuingNationCdd()== null ||personOnBoardMod.get(g).getPrsnIdOrTravelDocIssuingNationCdd()== " " ) {
-						prsnIdclassObj.setPrsnIdOrTravelDocIssuingNationCdd(settingLength("NA",2));
-					}else {
-						prsnIdclassObj.setPrsnIdOrTravelDocIssuingNationCdd(settingLength(personOnBoardMod.get(g).getPrsnIdOrTravelDocIssuingNationCdd(),2));
-					}
-					if(personOnBoardMod.get(g).getPrsnIdOrTravelDocNmbr()==null || personOnBoardMod.get(g).getPrsnIdOrTravelDocNmbr()==" "){
-						prsnIdclassObj.setPrsnIdOrTravelDocNmbr(settingLength("NA",70));
-					}else {
-						prsnIdclassObj.setPrsnIdOrTravelDocNmbr(settingLength(personOnBoardMod.get(g).getPrsnIdOrTravelDocNmbr(),70));
-					}
-					if(personOnBoardMod.get(g).getPrsnIdOrTravelDocTypCdd()== null || personOnBoardMod.get(g).getPrsnIdOrTravelDocTypCdd()==" ") {
-						prsnIdclassObj.setPrsnIdOrTravelDocTypCdd(settingLength("NA",3));
-					}else {
-						prsnIdclassObj.setPrsnIdOrTravelDocTypCdd(settingLength(personOnBoardMod.get(g).getPrsnIdOrTravelDocTypCdd(),3));
-					}
-					prsnOnBoard.setPrsnId(prsnIdclassObj);
-		//-------------------------------------------------------------------------------------------------------------------------------------------			
-					VisaDtlsSDM dtlsSDM = new VisaDtlsSDM();
-					if(personOnBoardMod.get(g).getPnrNumber()== null || personOnBoardMod.get(g).getPnrNumber()== " ") {
-						dtlsSDM.setPnrNmbr(settingLength(personOnBoardMod.get(g).getPnrNumber(),20));
-					}else {
-						dtlsSDM.setPnrNmbr(settingLength(personOnBoardMod.get(g).getPnrNumber(),20));
-					}
-					if(personOnBoardMod.get(g).getVisa()==null || personOnBoardMod.get(g).getVisa()==" ") {
-						dtlsSDM.setPrsnVisa(settingLength(personOnBoardMod.get(g).getVisa(),70));
-					}else {
-						dtlsSDM.setPrsnVisa(settingLength(personOnBoardMod.get(g).getVisa(),70));
-					}
-					prsnOnBoard.setVisaDtls(dtlsSDM);
-		//-------------------------------------------------------------------------------------------------------------------------------------------			
-					for(int l = 0;l<crewEfctMod.size();l++) {
-						if(crewEfctMod.get(l).getBlNo().equals(blObj.getBl()) && g==l ) {
-							cewEfctList = new ArrayList<CrewEfctSDM>();
-							CrewEfctSDM cewEfct = new CrewEfctSDM();
-							cewEfct.setCrewEfctDescCdd(settingLength(crewEfctMod.get(l).getCrewEfctDescCdd(),3));
-							cewEfct.setCrewEfctQntyOnbrd(settingLengthForDouble(crewEfctMod.get(l).getCrewEfctQntyOnbrd(),16,6));
-							cewEfct.setCrewEfctQntyOnbrdCd(settingLength(crewEfctMod.get(l).getCrewEfctQntyCdOnbrd(),3));
-							cewEfct.setCrewEfctsDesc(settingLength(crewEfctMod.get(l).getCrewEfctsDesc(),256));
-							cewEfct.setCrewEfctsSeqNmbr(settingLength(crewEfctMod.get(l).getCrewEfctsVsslSeqNmbr(),5));
-							cewEfctList.add(cewEfct);
-						}
-					}
-					prsnOnBoard.setCrewEfct(cewEfctList);
-					
-					prsnOnBoardList.add(prsnOnBoard);
-				}
+			
 
-			for(int l = 0;l<shipStoresMod.size();l++) {
-					ShipStoresSDM shipStores = new ShipStoresSDM();
-					shipStores.setSeqNmbr(settingLength(l+1+"",5));
-					shipStores.setArticleNameCdd(settingLength(shipStoresMod.get(l).getArticleNameCdd(),18));
-					shipStores.setArticleNameText(settingLength(shipStoresMod.get(l).getArticleNameText(),512));
-					shipStores.setLocOnbrdText(settingLength(shipStoresMod.get(l).getLocOnbrdText(),256));
-					shipStores.setQntyCdOnbrd( settingLength(shipStoresMod.get(l).getQntyCdOnbrd(),3));
-					shipStores.setQntyOnbrd(settingLengthForDouble(shipStoresMod.get(l).getQntyOnbrd(),16,6));
-					shipStoresList.add(shipStores);
-				}
+			
 			mastrCnsgmtDecList.add(mastrCnsgmtDec);
 			mster.setMastrCnsgmtDec(mastrCnsgmtDecList);
 			houseCargoDec.add(houseCargoDecSDMObj);
@@ -1991,6 +1831,170 @@ public class CreatingJSON {
 		
 //	==============================End of loop=======================================	
 	
+		for(int g = 0 ;g<personOnBoardMod.size();g++) {
+			
+			PrsnOnBoardSDM prsnOnBoard = new PrsnOnBoardSDM();
+			prsnOnBoard.setPrsnOnBoardSeqNmbr(settingLength(g+1+"",5));
+			
+			PrsnDtlsSDM prsDtls = new PrsnDtlsSDM();
+			
+			if(personOnBoardMod.get(g).getPrsnTypCdd()=="" && personOnBoardMod.get(g).getPrsnTypCdd() == null) {
+				prsDtls.setPrsnTypCdd(settingLength("NA",3));
+			}else {
+				prsDtls.setPrsnTypCdd(settingLength(personOnBoardMod.get(g).getPrsnTypCdd(),3));
+			}
+			
+			if(personOnBoardMod.get(g).getPrsnFamilyName()=="" && personOnBoardMod.get(g).getPrsnFamilyName() == null) {
+				prsDtls.setPrsnFamilyName(settingLength("NA",70));
+			}else {
+				prsDtls.setPrsnFamilyName(settingLength(personOnBoardMod.get(g).getPrsnFamilyName(),70));
+			}
+			
+			if(personOnBoardMod.get(g).getPrsnGivenName()== "" && personOnBoardMod.get(g).getPrsnGivenName() == null) {
+				prsDtls.setPrsnGivenName(settingLength("NA",70));
+			}else {
+				prsDtls.setPrsnGivenName(settingLength(personOnBoardMod.get(g).getPrsnGivenName(),70));
+			}
+			
+			if(personOnBoardMod.get(g).getPrsnNatnltyCdd()=="" && personOnBoardMod.get(g).getPrsnNatnltyCdd()==null) {
+				prsDtls.setPrsnNatnltyCdd(settingLength("NA",2));
+			}else {
+				prsDtls.setPrsnNatnltyCdd(settingLength(personOnBoardMod.get(g).getPrsnNatnltyCdd(),2));
+			}
+			
+			if(personOnBoardMod.get(g).getPsngrInTransitIndctr()=="" && personOnBoardMod.get(g).getPsngrInTransitIndctr() == null) {
+				prsDtls.setPsngrInTransitIndctr(settingLength("NA",1));
+			}else {
+				prsDtls.setPsngrInTransitIndctr(settingLength(personOnBoardMod.get(g).getPsngrInTransitIndctr(),1));
+			}
+			
+			if(personOnBoardMod.get(g).getCrewmemberRankOrRatingCdd()=="" || personOnBoardMod.get(g).getCrewmemberRankOrRatingCdd()==null) {
+				prsDtls.setCrewmemberRankOrRatingCdd("NA");
+			}else {
+				prsDtls.setCrewmemberRankOrRatingCdd(personOnBoardMod.get(g).getCrewmemberRankOrRatingCdd());
+			}
+			
+			if(personOnBoardMod.get(g).getCrewmemberRankOrRating()==""||personOnBoardMod.get(g).getCrewmemberRankOrRating()== null) {
+				prsDtls.setCrewmemberRankOrRatingName(settingLength("NA",10));
+			}else {
+				prsDtls.setCrewmemberRankOrRatingName(settingLength(personOnBoardMod.get(g).getCrewmemberRankOrRating(),10));
+			}
+			
+			if(personOnBoardMod.get(g).getPsngrPrtOfEmbrktnCdd()=="" || personOnBoardMod.get(g).getPsngrPrtOfEmbrktnCdd()== null) {
+				prsDtls.setPsngrPrtOfEmbrktnCdd(settingLength("NA",5));
+			}else {
+				prsDtls.setPsngrPrtOfEmbrktnCdd(settingLength(personOnBoardMod.get(g).getPsngrPrtOfEmbrktnCdd(),5));
+			}
+			
+			if(personOnBoardMod.get(g).getPsngrPrtOfEmbrktnName()=="" || personOnBoardMod.get(g).getPsngrPrtOfEmbrktnName()== null) {
+				prsDtls.setPsngrPrtOfEmbrktnName(settingLength("NA",256));
+			}else {
+				prsDtls.setPsngrPrtOfEmbrktnName(settingLength(personOnBoardMod.get(g).getPsngrPrtOfEmbrktnName(),256));
+			}
+		
+			if(personOnBoardMod.get(g).getPsngrPrtOfDsmbrktnCdd()=="" || personOnBoardMod.get(g).getPsngrPrtOfDsmbrktnCdd()==null) {
+				prsDtls.setPsngrPrtOfDsmbrktnCdd(settingLength(personOnBoardMod.get(g).getPsngrPrtOfDsmbrktnCdd(),5));
+			}else {
+				prsDtls.setPsngrPrtOfDsmbrktnCdd(settingLength(personOnBoardMod.get(g).getPsngrPrtOfDsmbrktnCdd(),5));
+			}
+			
+			if(personOnBoardMod.get(g).getPsngrPrtOfDsmbrktnName()=="" || personOnBoardMod.get(g).getPsngrPrtOfDsmbrktnName()==null) {
+				prsDtls.setPsngrPrtOfDsmbrktnName(settingLength("NA",256));
+			}else {
+				prsDtls.setPsngrPrtOfDsmbrktnName(settingLength(personOnBoardMod.get(g).getPsngrPrtOfDsmbrktnName(),256));
+			}
+			
+			if(personOnBoardMod.get(g).getPrsnGenderCdd()== "" || personOnBoardMod.get(g).getPrsnGenderCdd()==null) {
+				prsDtls.setPrsnGenderCdd(settingLength("NA",3));
+			}else {
+				prsDtls.setPrsnGenderCdd(settingLength(personOnBoardMod.get(g).getPrsnGenderCdd(),3));
+			}
+		
+			if(personOnBoardMod.get(g).getPrsnDtOfBirth() =="" && personOnBoardMod.get(g).getPrsnDtOfBirth()==null ) {
+				prsDtls.setPrsnDtOfBirth(personOnBoardMod.get(g).getPrsnDtOfBirth());
+			}else {
+				prsDtls.setPrsnDtOfBirth(personOnBoardMod.get(g).getPrsnDtOfBirth());
+			}
+			
+			if(personOnBoardMod.get(g).getPrsnPlaceOfBirthName()=="" || personOnBoardMod.get(g).getPrsnPlaceOfBirthName() == null) {
+				prsDtls.setPrsnPlaceOfBirthName(settingLength("NA",35));
+			}else {
+				prsDtls.setPrsnPlaceOfBirthName(settingLength(personOnBoardMod.get(g).getPrsnPlaceOfBirthName(),35));
+			}
+			if(personOnBoardMod.get(g).getPrsnCntryOfBirthCdd() == "" || personOnBoardMod.get(g).getPrsnCntryOfBirthCdd()== null) {
+				prsDtls.setPrsnCntryOfBirthCdd(settingLength("NA",2));
+			}else {
+				prsDtls.setPrsnCntryOfBirthCdd(settingLength(personOnBoardMod.get(g).getPrsnCntryOfBirthCdd(),2));
+			}
+			prsnOnBoard.setPrsnDtls(prsDtls);
+			
+			//=================================================================================================
+			PrsnIdSDM prsnIdclassObj = new PrsnIdSDM();
+			
+			if(personOnBoardMod.get(g).getPrsnIdDocExpiryDt()== null || personOnBoardMod.get(g).getPrsnIdDocExpiryDt()== " ") {
+				prsnIdclassObj.setPrsnIdDocExpiryDt(personOnBoardMod.get(g).getPrsnIdDocExpiryDt());
+			}else {
+				prsnIdclassObj.setPrsnIdDocExpiryDt(personOnBoardMod.get(g).getPrsnIdDocExpiryDt());
+			}
+		
+			if(personOnBoardMod.get(g).getPrsnIdOrTravelDocIssuingNationCdd()== null ||personOnBoardMod.get(g).getPrsnIdOrTravelDocIssuingNationCdd()== " " ) {
+				prsnIdclassObj.setPrsnIdOrTravelDocIssuingNationCdd(settingLength("NA",2));
+			}else {
+				prsnIdclassObj.setPrsnIdOrTravelDocIssuingNationCdd(settingLength(personOnBoardMod.get(g).getPrsnIdOrTravelDocIssuingNationCdd(),2));
+			}
+			if(personOnBoardMod.get(g).getPrsnIdOrTravelDocNmbr()==null || personOnBoardMod.get(g).getPrsnIdOrTravelDocNmbr()==" "){
+				prsnIdclassObj.setPrsnIdOrTravelDocNmbr(settingLength("NA",70));
+			}else {
+				prsnIdclassObj.setPrsnIdOrTravelDocNmbr(settingLength(personOnBoardMod.get(g).getPrsnIdOrTravelDocNmbr(),70));
+			}
+			if(personOnBoardMod.get(g).getPrsnIdOrTravelDocTypCdd()== null || personOnBoardMod.get(g).getPrsnIdOrTravelDocTypCdd()==" ") {
+				prsnIdclassObj.setPrsnIdOrTravelDocTypCdd(settingLength("NA",3));
+			}else {
+				prsnIdclassObj.setPrsnIdOrTravelDocTypCdd(settingLength(personOnBoardMod.get(g).getPrsnIdOrTravelDocTypCdd(),3));
+			}
+			prsnOnBoard.setPrsnId(prsnIdclassObj);
+//-------------------------------------------------------------------------------------------------------------------------------------------			
+			VisaDtlsSDM dtlsSDM = new VisaDtlsSDM();
+			if(personOnBoardMod.get(g).getPnrNumber()== null || personOnBoardMod.get(g).getPnrNumber()== " ") {
+				dtlsSDM.setPnrNmbr(settingLength(personOnBoardMod.get(g).getPnrNumber(),20));
+			}else {
+				dtlsSDM.setPnrNmbr(settingLength(personOnBoardMod.get(g).getPnrNumber(),20));
+			}
+			if(personOnBoardMod.get(g).getVisa()==null || personOnBoardMod.get(g).getVisa()==" ") {
+				dtlsSDM.setPrsnVisa(settingLength(personOnBoardMod.get(g).getVisa(),70));
+			}else {
+				dtlsSDM.setPrsnVisa(settingLength(personOnBoardMod.get(g).getVisa(),70));
+			}
+			prsnOnBoard.setVisaDtls(dtlsSDM);
+//-------------------------------------------------------------------------------------------------------------------------------------------			
+			for(int l = 0;l<crewEfctMod.size();l++) {
+			
+					cewEfctList = new ArrayList<CrewEfctSDM>();
+					CrewEfctSDM cewEfct = new CrewEfctSDM();
+					cewEfct.setCrewEfctDescCdd(settingLength(crewEfctMod.get(l).getCrewEfctDescCdd(),3));
+					cewEfct.setCrewEfctQntyOnbrd(settingLengthForDouble(crewEfctMod.get(l).getCrewEfctQntyOnbrd(),16,6));
+					cewEfct.setCrewEfctQntyOnbrdCd(settingLength(crewEfctMod.get(l).getCrewEfctQntyCdOnbrd(),3));
+					cewEfct.setCrewEfctsDesc(settingLength(crewEfctMod.get(l).getCrewEfctsDesc(),256));
+					cewEfct.setCrewEfctsSeqNmbr(settingLength(crewEfctMod.get(l).getCrewEfctsVsslSeqNmbr(),5));
+					cewEfctList.add(cewEfct);
+	
+			}
+			prsnOnBoard.setCrewEfct(cewEfctList);
+			
+			prsnOnBoardList.add(prsnOnBoard);
+		} 
+//		
+		for(int l = 0;l<shipStoresMod.size();l++) {
+			ShipStoresSDM shipStores = new ShipStoresSDM();
+			shipStores.setSeqNmbr(settingLength(l+1+"",5));
+			shipStores.setArticleNameCdd(settingLength(shipStoresMod.get(l).getArticleNameCdd(),18));
+			shipStores.setArticleNameText(settingLength(shipStoresMod.get(l).getArticleNameText(),512));
+			shipStores.setLocOnbrdText(settingLength(shipStoresMod.get(l).getLocOnbrdText(),256));
+			shipStores.setQntyCdOnbrd( settingLength(shipStoresMod.get(l).getQntyCdOnbrd(),3));
+			shipStores.setQntyOnbrd(settingLengthForDouble(shipStoresMod.get(l).getQntyOnbrd(),16,6));
+			shipStoresList.add(shipStores);
+		}
+		
 		ShipItnrySDM shipItny3 = new ShipItnrySDM();
 		String prtOfCallCdd = null;
 		String prtOfCallNm = null;
@@ -2668,7 +2672,7 @@ public class CreatingJSON {
 					trnsprtDocClassObj.setCnsgnrStreetAddress(settingLength(add,70));
 					trnsprtDocClassObj.setCnsgnrsName(settingLength(cnsnerDtls.getCustomerName(),70));
 					trnsprtDocClassObj.setCnsgnrCity(settingLength(cnsnerDtls.getCity(),70));
-					trnsprtDocClassObj.setCnsgnrCntrySubDivName(settingLength(cnsnerDtls.getStateName(),35));
+					trnsprtDocClassObj.setCnsgnrCntrySubDivName(settingLength(cnsnerDtls.getState(),35));
 					trnsprtDocClassObj.setCnsgnrsCd(settingLength(cnsnerDtls.getCustomerCode(),17));
 					// trnsprtDocClassObj.setCnsgnrCntrySubDivCd((String) cnsnerDtls.get(""));
 					trnsprtDocClassObj.setCnsgnrCntryCd( settingLength(cnsnerDtls.getCountryCode(),2));
@@ -3292,7 +3296,7 @@ public class CreatingJSON {
 					trnsprtDocClassObj.setCnsgnrStreetAddress(settingLength(add,70));
 					trnsprtDocClassObj.setCnsgnrsName( settingLength(cnsnerDtls.getCustomerName(),70));
 					trnsprtDocClassObj.setCnsgnrCity( settingLength(cnsnerDtls.getCity(),70));
-					trnsprtDocClassObj.setCnsgnrCntrySubDivName((String)settingLength(cnsnerDtls.getStateName(),35));
+					trnsprtDocClassObj.setCnsgnrCntrySubDivName((String)settingLength(cnsnerDtls.getState(),35));
 					trnsprtDocClassObj.setCnsgnrsCd( settingLength(cnsnerDtls.getCustomerCode(),17));
 					// trnsprtDocClassObj.set((String) cnsnerDtls.get(""));
 					trnsprtDocClassObj.setCnsgnrCntryCd( settingLength(cnsnerDtls.getCountryCode(),2));
@@ -3906,10 +3910,10 @@ public class CreatingJSON {
 					blObj.getPortOfDestination() != null && blObj.getPortOfDeschargedCfs() != null ) {
 				itnryClassObj.setPrtOfCallSeqNmbr(settingLength("3",5)); 
 			}
-			itnryClassObj.setNxtPrtOfCallCdd(settingLength(blObj.getPod(),10));    //TODO  guru
+			itnryClassObj.setNxtPrtOfCallCdd(settingLength(blObj.getNext_port_of_call_coded(),10));    //TODO  guru
 			itnryClassObj.setNxtPrtOfCallName(settingLength(blObj.getNext_port_of_call_name(),256));		//TODO  guru
 			itnryClassObj.setPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));			//TODO  guru
-			itnryClassObj.setPrtOfCallCdd(settingLength(blObj.getPortOfLoading(),10));	
+			itnryClassObj.setPrtOfCallCdd(settingLength(blObj.getPod(),10));
 			itnryClassObj.setModeOfTrnsprt(settingLength(blObj.getMode_of_transport(),4));
 			itnry.add(itnryClassObj);
 			mastrCnsgmtDec.setItnry(itnryClassObj);
@@ -3933,7 +3937,7 @@ public class CreatingJSON {
 			MCRefSCX mCRefClassObj = new MCRefSCX();
 			mCRefClassObj.setLineNo(blObj.getItemNumber());  // Line 60
 			mCRefClassObj.setMstrBlNo(settingLength(blObj.getBl(),20)); // Line 53
-			mCRefClassObj.setMstrBlDt(blObj.getBlDate());// Line 53
+			mCRefClassObj.setMstrBlDt(blObj.getMasterBlDate());// Line 53
 			
 			try {
 			if(blObj.getHblCount() != 0) {
@@ -3991,7 +3995,7 @@ public class CreatingJSON {
 			locCstmClassObj.setNxtPrtOfUnlading(settingLength(blObj.getPortOfDestination(),6));  // New added
 			locCstmClassObj.setTypOfCrgo(settingLength(blObj.getType_of_cargo(), 2)); // Line 90
 			
-			if(blObj.getPortOfDestination().substring(0, 2).equals("IN") && blObj.getPod().substring(0, 2).equals("IN")){
+			if(blObj.getPol().substring(0, 2).equals("IN") && blObj.getPod().substring(0, 2).equals("IN")){
 				locCstmClassObj.setTypOfCrgo(settingLength("EX",2)); // if both value in india base
 			}else {
 				locCstmClassObj.setTypOfCrgo(settingLength("TR",2)); // both value is not india base 
@@ -4138,7 +4142,7 @@ public class CreatingJSON {
 					trnsprtDocClassObj.setCnsgnrStreetAddress(settingLength(add, 70));
 					trnsprtDocClassObj.setCnsgnrsName(settingLength(cnsnerDtls.getCustomerName(), 70));
 					trnsprtDocClassObj.setCnsgnrCity(settingLength(cnsnerDtls.getCity(), 70));
-					trnsprtDocClassObj.setCnsgnrCntrySubDivName(settingLength(cnsnerDtls.getStateName(), 35));
+					trnsprtDocClassObj.setCnsgnrCntrySubDivName(settingLength(cnsnerDtls.getState(), 35));
 					trnsprtDocClassObj.setCnsgnrsCd(settingLength(cnsnerDtls.getCustomerCode(), 17));
 					 trnsprtDocClassObj.setCnsgnrCntrySubDivCd(blObj.getGstStateCode());
 					trnsprtDocClassObj.setCnsgnrCntryCd(settingLength(cnsnerDtls.getCountryCode(), 2));
@@ -6619,12 +6623,12 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			MCRefSCE mCRefClassObj = new MCRefSCE();
 			mCRefClassObj.setLineNo(blObj.getItemNumber()); // Line 60
 			mCRefClassObj.setMstrBlNo(settingLength(blObj.getBl(),20)); // Line 53
-			mCRefClassObj.setMstrBlDt(blObj.getBlDate()); // Line 53
+			mCRefClassObj.setMstrBlDt(blObj.getMasterBlDate()); // Line 53
 			mCRefClassObj.setConsolidatorPan(settingLength(blObj.getAgentCode(),4));// Line 76
 			if(blObj.getMcin().equals("") && blObj.getPcin().equals("")) {
-				mCRefClassObj.setPrevDec("y");
-			}else {
 				mCRefClassObj.setPrevDec("N");
+			}else {
+				mCRefClassObj.setPrevDec("Y");
 			}
 			try {
 				if(  blObj.getHouseBl()!= null || !blObj.getHouseBl().equals("")  ) {
@@ -6865,7 +6869,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 					trnsprtDocClassObj.setCnsgnrStreetAddress(settingLength(add,70));
 					trnsprtDocClassObj.setCnsgnrsName( settingLength(cnsnerDtls.getCustomerName(),70));
 					trnsprtDocClassObj.setCnsgnrCity( settingLength(cnsnerDtls.getCity(),70));
-					trnsprtDocClassObj.setCnsgnrCntrySubDivName( settingLength(cnsnerDtls.getStateName(),35));
+					trnsprtDocClassObj.setCnsgnrCntrySubDivName( settingLength(cnsnerDtls.getState(),35));
 					 trnsprtDocClassObj.setCnsgnrCntrySubDivCd(blObj.getGstStateCode());
 					
 //					trnsprtDocClassObj.setCnsgnrsCd( settingLength(cnsnerDtls.getCustomerCode(),17));

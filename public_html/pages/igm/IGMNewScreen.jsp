@@ -2338,10 +2338,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 					$( "body" ).append('<div class="loading"></div>');
 					$scope.blIndex=obj.$index;
 					$scope.selectedBL= $scope.BLS[$scope.blIndex]
-					$scope.getCarogoDetails();
-					$scope.getConsinee();
 					$scope.getContainerDetails();
-					$scope.containerValue();
 				}
 				
 			}
@@ -3283,6 +3280,9 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 						$scope.BLS[$scope.blIndex].stowagePosition  =  result.data.blDetails[0].stowagePosition
 						$scope.BLS[$scope.blIndex].port_of_call_name  =  result.data.blDetails[0].port_of_call_name
 						$scope.BLS[$scope.blIndex].next_port_of_call_name  =  result.data.blDetails[0].next_port_of_call_name
+						$scope.BLS[$scope.blIndex].masterBlDate  =  result.data.blDetails[0].masterBlDate
+						
+
 						debugger;
 						$scope.BLS[$scope.blIndex].consignee = result.data.blDetails[0].consignee
 						$scope.BLS[$scope.blIndex].consigner = result.data.blDetails[0].consigner
@@ -3295,8 +3295,6 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 					/* 	$scope.getExtraDetails(); */
 						
 						$scope.getDataMoveToNextTab();
-					 
-						$("body").find('.loading').remove();
 			});
 		
 		 
@@ -3584,7 +3582,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 
 				$scope.containerValue();
 
-			 	 $scope.getStowageImport();
+			 	/*  $scope.getStowageImport(); */
 
 				/*$scope.getExtraDetails(); */
 				$("body").find('.loading').remove();

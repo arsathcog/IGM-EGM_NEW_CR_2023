@@ -2026,6 +2026,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 			}
 		
 	}
+	
 	$scope.movingDataToNotify=function(){
 		debugger;
 		var selectedIndex = obj.blIndex;
@@ -2070,6 +2071,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				}
 		
 	}
+
 	
 	$scope.igmDateUpdate=function()
 	{ 
