@@ -747,19 +747,19 @@ System.out.println("getCarogoDetails() Called.");
 		if(objForm.getIsBlSave().equals("false") || objForm.getItemNumber() == null || objForm.getItemNumber().equals("")) {
 			Map<Object, Object> mapReturnBL = objDao.getBLCarogoDetails(mapParam, IGMDaoNew.SQL_GET_IGM_BL_MSTR_DATA_EXPORT);
 			blObj = (List<ImportGeneralManifestMod>) mapReturnBL	.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA);
-			objConsignerDao.setConsignerData(blObj,IGMConsignerDataDao.RCL_IGM_GET_MASTER_CONSIGNER);
-			objConsigneeDao.setConsigneeData(blObj, IGMConsigneeDataDao.RCL_IGM_GET_MASTER_CONSIGNEE);
-			objNotifyPartyDao.setNotifyPartyData(blObj, IGMNodifyPartyDao.RCL_IGM_MASTER_NODIFY_PARTY_DESCRIPTION);
-			objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_MASTER_MARKS_DESCRIPTION);
-			objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION);
+			objConsignerDao.setConsignerData(blObj,IGMConsignerDataDao.RCL_IGM_GET_MASTER_CONSIGNER_EXPORT);
+			objConsigneeDao.setConsigneeData(blObj, IGMConsigneeDataDao.RCL_IGM_GET_SAVE_CONSIGNEE_EXPORT);
+			objNotifyPartyDao.setNotifyPartyData(blObj, IGMNodifyPartyDao.RCL_IGM_MASTER_NODIFY_PARTY_DESCRIPTION_EXPORT);
+			objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_MASTER_MARKS_DESCRIPTION_EXPORT);
+			objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION_EXPORT);
 		}else {		
 			Map<Object, Object> mapSaveBL = objDao.getBLCarogoDetails(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_EXPORT);
 			blObj = (List<ImportGeneralManifestMod>) mapSaveBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA);
-			objConsignerDao.setConsignerData(blObj,IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER);
-			objConsigneeDao.setConsigneeData(blObj, IGMConsigneeDataDao.RCL_IGM_GET_SAVE_CONSIGNEE);
-			objNotifyPartyDao.setNotifyPartyData(blObj, IGMNodifyPartyDao.RCL_IGM_GET_SAVE_NODIFY_PARTY_DESCRIPTION);
-			objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_SAVE_MARKS_DESCRIPTION);
-			objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_MASTER_PREV_DECLARATION);
+			objConsignerDao.setConsignerData(blObj,IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER_EXPORT);
+			objConsigneeDao.setConsigneeData(blObj, IGMConsigneeDataDao.RCL_IGM_GET_SAVE_CONSIGNEE_EXPORT);
+			objNotifyPartyDao.setNotifyPartyData(blObj, IGMNodifyPartyDao.RCL_IGM_GET_SAVE_NODIFY_PARTY_DESCRIPTION_IMPORT);
+			objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_SAVE_MARKS_DESCRIPTION_EXPORT);
+			objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION_EXPORT);
 		}		
 		net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();
 	    jsonObj.put("blDetails", blObj);
