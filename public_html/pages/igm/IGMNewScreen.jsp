@@ -3050,7 +3050,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 				async : true,
 				url : url,
 			  }).then(function(result, status, headers, config) {			 
-						$scope.BLS[$scope.blIndex].agencyType  =  result.data.blDetails.agencyType
+						$scope.BLS[$scope.blIndex].agencyType  =  result.data.blDetails[0].agencyType
 						$scope.BLS[$scope.blIndex].agentCode  =  result.data.blDetails[0].agentCode
 						$scope.BLS[$scope.blIndex].arrivalDate  =  result.data.blDetails[0].arrivalDate
 						$scope.BLS[$scope.blIndex].arrivalTime  =  result.data.blDetails[0].arrivalTime
@@ -3280,8 +3280,6 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 						$scope.BLS[$scope.blIndex].stowagePosition  =  result.data.blDetails[0].stowagePosition
 						$scope.BLS[$scope.blIndex].port_of_call_name  =  result.data.blDetails[0].port_of_call_name
 						$scope.BLS[$scope.blIndex].next_port_of_call_name  =  result.data.blDetails[0].next_port_of_call_name
-						$scope.BLS[$scope.blIndex].masterBlDate  =  result.data.blDetails[0].masterBlDate
-						
 
 						debugger;
 						$scope.BLS[$scope.blIndex].consignee = result.data.blDetails[0].consignee
@@ -3291,10 +3289,10 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 						$scope.BLS[$scope.blIndex].notifyPartyTwo = result.data.blDetails[0].notifyPartyTwo
 						$scope.BLS[$scope.blIndex].previousDeclaration = result.data.blDetails[0].previousDeclaration
 						
-						$scope.getConsinee();
-					/* 	$scope.getExtraDetails(); */
-						
-						$scope.getDataMoveToNextTab();
+						if($scope.BLS[$scope.blIndex].consignee.length > 0){
+							$scope.getConsinee();
+							$scope.getDataMoveToNextTab();
+							}
 			});
 		
 		 

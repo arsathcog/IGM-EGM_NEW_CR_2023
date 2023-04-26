@@ -536,10 +536,10 @@ public class CreatingJSON {
 //			trnsprtDocMsrClassObj.setCrncyCd(settingLength(blObj.getCurrency(),3));      Guru said to comment	 
 			trnsprtDocMsrClassObj.setMarksNoOnPkgs(settingLength("",512)); 
 
-			if(!"".equals(blObj.getCargo_msmt()) || blObj.getCargo_msmt()!= 0) {
+			if(blObj.getCargo_msmt()!= 0) {
 				trnsprtDocMsrClassObj.setGrossVolume (settingLengthForDouble(blObj.getVolume(),12,3));
 	     		}
-				if(! "".equals(blObj.getGross_volume())&&  blObj.getGross_volume() != null ) {
+				if(! "".equals(trnsprtDocMsrClassObj.getGrossVolume())&& trnsprtDocMsrClassObj.getGrossVolume() != null ) {
 					trnsprtDocMsrClassObj.setUnitOfVolume(settingLength("CBM",3));
 				}
 				
@@ -1473,7 +1473,7 @@ public class CreatingJSON {
 			MCRefSDM mCRefClassObj = new MCRefSDM();
 			mCRefClassObj.setLineNo(blObj.getItemNumber()); // Line 60
 			mCRefClassObj.setMstrBlNo(settingLength(blObj.getBl(),20));// Line 53
-			mCRefClassObj.setMstrBlDt(blObj.getMasterBlDate()); // Line 53
+			mCRefClassObj.setMstrBlDt(service.getMasterBlDate()); // Line 53
 			
 //			mCRefClassObj.setConsolidatedIndctr(blObj.getConsolidated_indicator());// Line 76
 //			mCRefClassObj.setPrevDec(settingLength(blObj.getPrevious_declaration(),4)); // Line77
@@ -1571,10 +1571,10 @@ public class CreatingJSON {
 //			trnsprtDocMsrClassObj.setInvoiceValueOfCnsgmt(settingLengthForDouble(blObj.getInvoiceValueFc(),16,2)); Guru said to comment //not cleared by Guru
 //			trnsprtDocMsrClassObj.setCrncyCd(settingLength(blObj.getCurrency(),3));  Guru said to comment // not cleared by Guru
 //			trnsprtDocMsrClassObj.setMarksNoOnPkgs(settingLength("",512));
-			if(!"".equals(blObj.getCargo_msmt()) || blObj.getCargo_msmt()!= 0) {
+			if(blObj.getCargo_msmt()!= 0) {
 			trnsprtDocMsrClassObj.setGrossVolume (settingLengthForDouble(blObj.getVolume(),12,3));
      		}
-			if(! "".equals(blObj.getGross_volume())&&  blObj.getGross_volume() != null ) {
+			if(! "".equals(trnsprtDocMsrClassObj.getGrossVolume())&&  trnsprtDocMsrClassObj.getGrossVolume() != null ) {
 				trnsprtDocMsrClassObj.setUnitOfVolume(settingLength("CBM",3));
 			}
 			
@@ -1597,7 +1597,7 @@ public class CreatingJSON {
 			mastrCnsgmtDec.setItemDtls(itemDtlsClassObj);
 		
 			}else {
-				if(blObj.isHbl()==true) {
+				if(blObj.getHblCount()!= 0) {
 					if(blObj.getConsolidatedIndicator().equals("H")) {
 						ItemDtlsSDM itemDtlsClassObj = new ItemDtlsSDM();
 						itemDtlsClassObj.setHsCd(blObj.getCommdity_code());
@@ -4025,10 +4025,10 @@ public class CreatingJSON {
 //			trnsprtDocMsrClassObj.setCrncyCd(settingLength(blObj.getCurrency(), 3)); // not cleared by Guru
 //			trnsprtDocMsrClassObj.setMarksNoOnPkgs(settingLength("", 512));
 //			if("".equals(blObj.getVolume()) || blObj.getVolume().isEmpty()) {
-			if(!"".equals(blObj.getCargo_msmt()) || blObj.getCargo_msmt()!= 0) {
+			if(blObj.getCargo_msmt()!= 0) {
 				trnsprtDocMsrClassObj.setGrossVolume (settingLengthForDouble(blObj.getVolume(),12,3));
 	     		}
-				if(! "".equals(blObj.getGross_volume())&&  blObj.getGross_volume() != null ) {
+				if(! "".equals(trnsprtDocMsrClassObj.getGrossVolume())&& trnsprtDocMsrClassObj.getGrossVolume() != null ) {
 					trnsprtDocMsrClassObj.setUnitOfVolume(settingLength("CBM",3));
 				}
 				
@@ -6735,10 +6735,10 @@ ImportGeneralManifestMod objForm = blList.get(0);
 //			trnsprtDocMsrClassObj.setInvoiceValueOfCnsgmt(settingLengthForDouble(blObj.getInvoiceValueFc(),16,2)); // not cleared by Guru
 //			trnsprtDocMsrClassObj.setCrncyCd(settingLength(blObj.getCurrency(),3));  // not cleared by Guru
 			trnsprtDocMsrClassObj.setMarksNoOnPkgs(settingLength("",512));
-			if(!"".equals(blObj.getCargo_msmt()) || blObj.getCargo_msmt()!= 0) {
-				trnsprtDocMsrClassObj.setGrossVolume (settingLengthForDouble(blObj.getVolume(),12,3));
+			if(blObj.getCargo_msmt()!= 0) {
+				trnsprtDocMsrClassObj.setGrossVolume (settingLengthForDouble(blObj.getGross_volume(),12,3));
 	     		}
-				if(! "".equals(blObj.getGross_volume())&&  blObj.getGross_volume() != null ) {
+				if(! "".equals(trnsprtDocMsrClassObj.getGrossVolume())&&  trnsprtDocMsrClassObj.getGrossVolume() != null ) {
 					trnsprtDocMsrClassObj.setUnitOfVolume(settingLength("CBM",3));
 				}
 			trnsprtDocMsr.add(trnsprtDocMsrClassObj); // below in mark nad no loop
