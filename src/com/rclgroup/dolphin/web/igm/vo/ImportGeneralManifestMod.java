@@ -939,7 +939,19 @@ public class ImportGeneralManifestMod implements Cloneable {
 	}
 
 	public void setMasterBlDate(String masterBlDate) {
-		this.masterBlDate = masterBlDate;
+		try {
+		if(masterBlDate == null || masterBlDate.equals("")) {
+			this.masterBlDate = masterBlDate;
+		}else if(masterBlDate.contains("/")) {
+			this.masterBlDate = blDate;
+		}else if(masterBlDate.contains("/")) {
+			this.masterBlDate = masterBlDate;
+		}else {
+			this.masterBlDate = masterBlDate.substring(6,8)+"/"+masterBlDate.substring(4,6)+"/"+masterBlDate.substring(0,4);
+		}
+		}catch (Exception e) {
+			return;
+		}
 	}
 
 	public String getMasterBl() {

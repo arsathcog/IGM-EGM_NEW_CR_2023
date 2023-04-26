@@ -2026,6 +2026,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 			}
 		
 	}
+	
 	$scope.movingDataToNotify=function(){
 		debugger;
 		var selectedIndex = obj.blIndex;
@@ -2070,6 +2071,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				}
 		
 	}
+
 	
 	$scope.igmDateUpdate=function()
 	{ 
@@ -2745,8 +2747,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 						$scope.prsnOnBordTable=result.data.personOnBoardMod;
 						$scope.selectedServcies.noOfCrew = Object.keys($scope.prsnOnBordTable).length;
 						jsonData.result[0].service.personOnBoardMod = result.data.personOnBoardMod;
-						$scope.personData();
-						
+						$scope.personData();	
 					}
 					if (val === 'S'){
 						$scope.shipStoreTable=result.data.shipStoresMod;

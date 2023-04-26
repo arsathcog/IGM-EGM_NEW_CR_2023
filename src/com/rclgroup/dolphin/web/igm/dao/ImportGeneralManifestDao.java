@@ -526,6 +526,9 @@ public interface ImportGeneralManifestDao {
 	/** The Constant KEY_IGM_TYPE_OF_CARGO. */
 	public static final String KEY_IGM_IMDG_CODE = "P_I_V_IMDG_CODE";
 	
+	//The constatnt for count of the saved and unsaved bl 
+	public static final String KEY_IGM_BL_COUNT = "P_I_V_BL_COUNT";
+	
 	//BL SECTION END
 	
 	

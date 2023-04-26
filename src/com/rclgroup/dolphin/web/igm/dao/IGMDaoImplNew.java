@@ -282,11 +282,11 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			
 			objMod.setPodTerminalPort(rs.getString("POD_TERMINAL_PORT"));
 			objMod.setPolTerminalPort(rs.getString("POL_TERMINAL_PORT"));
-			
+			   
 			objMod.setSenderId(rs.getString("SENDER_ID"));
 			objMod.setRecieverId(rs.getString("RECIEVER_ID"));
 			objMod.setAuthReprsntvCd(rs.getString("AUTHREPRSNTVCD"));
-		
+		   
 					
 	// ============================More  details===================
 //			objMod.setHblNo(rs.getString("FK_HOUSE_BL_NO"));
@@ -505,13 +505,16 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 		return dropDownMap;
 	}
 
-	public Map getBLData(Map amapParam, String procedureName, boolean isSave,boolean isUpdateSaved)
+	public Map getBLData(Map amapParam, String procedureName, boolean isSave,boolean isUpdateSaved,int blcount)
 			throws BusinessException, DataAccessException {
 		System.out.println("#IGMLogger getBLData() started.." + isSave);
+		
+		String blCountLoop  =  Integer.toString(blcount);
 
 		String[][] arrParam = { { KEY_REF_IGM_DATA, BLANK + ORACLE_CURSOR, PARAM_OUT, BLANK },
 				{ KEY_IGM_POD, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_POD) },
 				{ KEY_IGM_BL, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_BL) },
+				{ KEY_IGM_BL_COUNT, BLANK + ORACLE_VARCHAR, PARAM_IN,   blCountLoop},
 				{ KEY_IGM_SERVICE, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_SERVICE) },
 				{ KEY_IGM_VESSEL, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_VESSEL) },
 				{ KEY_IGM_VOYAGE, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_VOYAGE) },
@@ -794,6 +797,7 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setRecieptName(rs.getString("RECIEPT_NAME"));
 			objMod.setStowagePosition(rs.getString("STOWAGE_POSITION"));
 			objMod.setGstStateCode(rs.getString("GST_STATE_CODE"));
+			objMod.setMasterBlDate(rs.getString("MASTER_BL_DATE"));
 	
 			return objMod;
 		}
@@ -1379,5 +1383,6 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 		return mapResult;
 
 	}
-	
+
+
 }

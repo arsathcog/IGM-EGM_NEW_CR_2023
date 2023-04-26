@@ -1935,7 +1935,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 		      $scope.consignee.consigneeName == "TO ORDER" || $scope.consignee.consigneeName == "TO ORDER OF" )&&
 		      ($scope.notifyParty.notifyName != "SAME AS CONSIGNEE" || $scope.notifyParty.forwader != "FWR")) {
 		      $scope.BLS[$scope.blIndex].consignee[0].customerCode = $scope.BLS[$scope.blIndex].notifyParty[0].costumerCode;
-		      $scope.BLS[$scope.blIndex].consignee[0].costumerName = $scope.BLS[$scope.blIndex].notifyParty[0].costumerName;
+		      $scope.BLS[$scope.blIndex].consignee[0].customerName = $scope.BLS[$scope.blIndex].notifyParty[0].costumerName;
 		      $scope.BLS[$scope.blIndex].consignee[0].addressLine1 = $scope.BLS[$scope.blIndex].notifyParty[0].addressLine1;
 		      $scope.BLS[$scope.blIndex].consignee[0].addressLine2 = $scope.BLS[$scope.blIndex].notifyParty[0].addressLine2;
 
@@ -1957,7 +1957,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 		      $scope.consignee.consigneeName != "TO ORDER" || $scope.consignee.consigneeName != "TO ORDER OF" )&&
 		      $scope.notifyParty.countryCode != "IN" && $scope.consignee.portOfDischarge.substring(0, 2) == "IN") {
 		      $scope.BLS[$scope.blIndex].consignee[0].customerCode = $scope.BLS[$scope.blIndex].notifyParty[0].costumerCode;
-		      $scope.BLS[$scope.blIndex].consignee[0].costumerName = $scope.BLS[$scope.blIndex].notifyParty[0].costumerName;
+		      $scope.BLS[$scope.blIndex].consignee[0].customerName = $scope.BLS[$scope.blIndex].notifyParty[0].costumerName;
 		      $scope.BLS[$scope.blIndex].consignee[0].addressLine1 = $scope.BLS[$scope.blIndex].notifyParty[0].addressLine1;
 		      $scope.BLS[$scope.blIndex].consignee[0].addressLine2 = $scope.BLS[$scope.blIndex].notifyParty[0].addressLine2;
 
@@ -1998,7 +1998,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 			$scope.consignee.consigneeName == "TO ORDER" || $scope.consignee.consigneeName == "TO ORDER OF" ||
 			$scope.notifyParty.countryCode != "IN"&& $scope.consignee.portOfDischarge.substring(0,2) == "IN"){
 			obj.BLS[selectedIndex].consignee[0].customerCode=obj.BLS[selectedIndex].notifyParty[0].costumerCode;
-			obj.BLS[selectedIndex].consignee[0].costumerName=obj.BLS[selectedIndex].notifyParty[0].costumerName;
+			obj.BLS[selectedIndex].consignee[0].customerName=obj.BLS[selectedIndex].notifyParty[0].costumerName;
 			obj.BLS[selectedIndex].consignee[0].addressLine1=obj.BLS[selectedIndex].notifyParty[0].addressLine1;
 			obj.BLS[selectedIndex].consignee[0].addressLine2=obj.BLS[selectedIndex].notifyParty[0].addressLine2;
 			
@@ -2338,10 +2338,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 					$( "body" ).append('<div class="loading"></div>');
 					$scope.blIndex=obj.$index;
 					$scope.selectedBL= $scope.BLS[$scope.blIndex]
-					$scope.getCarogoDetails();
-					$scope.getConsinee();
 					$scope.getContainerDetails();
-					$scope.containerValue();
 				}
 				
 			}
@@ -3283,6 +3280,9 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 						$scope.BLS[$scope.blIndex].stowagePosition  =  result.data.blDetails[0].stowagePosition
 						$scope.BLS[$scope.blIndex].port_of_call_name  =  result.data.blDetails[0].port_of_call_name
 						$scope.BLS[$scope.blIndex].next_port_of_call_name  =  result.data.blDetails[0].next_port_of_call_name
+						$scope.BLS[$scope.blIndex].masterBlDate  =  result.data.blDetails[0].masterBlDate
+						
+
 						debugger;
 						$scope.BLS[$scope.blIndex].consignee = result.data.blDetails[0].consignee
 						$scope.BLS[$scope.blIndex].consigner = result.data.blDetails[0].consigner
@@ -3295,8 +3295,6 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 					/* 	$scope.getExtraDetails(); */
 						
 						$scope.getDataMoveToNextTab();
-					 
-						$("body").find('.loading').remove();
 			});
 		
 		 
@@ -3584,7 +3582,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 
 				$scope.containerValue();
 
-			 	 $scope.getStowageImport();
+			 	/*  $scope.getStowageImport(); */
 
 				/*$scope.getExtraDetails(); */
 				$("body").find('.loading').remove();

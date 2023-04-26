@@ -352,6 +352,7 @@ function downloadCVSFileAjax(val){
 
 	downloadCSVFromJson = (filename, arrayOfJson) => {
 		  // convert JSON to CSV
+		  debugger;
 		  const replacer = (key, value) => value === null ? '' : value // specify how you want to handle null values here
 		  const header = Object.keys(arrayOfJson[0])
 		  let csv = arrayOfJson.map(row => header.map(fieldName => 

@@ -471,9 +471,10 @@ System.out.println("getCarogoDetails() Called.");
 			String 						blsInput 	 =  null;
 			Map<Object, Object> 		mapSaveBL 	 = 	null;
 			String 						blNos[] 	 =  objForm.getSavedBlList().split(",");
-
+			
+			int savedBlCount = 0;
 			for (String bl : blNos) {
-				
+				savedBlCount++;
 				if (blsInput == null)
 					blsInput = "'" + bl + "'";
 				else
@@ -491,7 +492,7 @@ System.out.println("getCarogoDetails() Called.");
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, objForm.getVoyage());
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
 			
-			mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_EXPORT_NEW, true,false);
+			mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_EXPORT_NEW, true,false,savedBlCount);
 			blObj.addAll((List<ImportGeneralManifestMod>) mapSaveBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
 			containerDao.setContainerDetails(blObj, IGMContainerDao.RCL_IGM_GET_SAVE_CONTAINOR_EXPORT);
 			objConsignerDao.setConsignerData(blObj, IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER_EXPORT);
@@ -506,8 +507,9 @@ System.out.println("getCarogoDetails() Called.");
 			String blsInput = null;
 			Map<Object, Object> mapReturnBL = null;
 			String blNos[] = objForm.getUnSavedBlList().split(",");
-
+			 int blUnsavedCount = 0;
 			for (String bl : blNos) {
+				blUnsavedCount++;
 				if (blsInput == null)
 					blsInput = "'" + bl + "'";
 				else
@@ -520,7 +522,7 @@ System.out.println("getCarogoDetails() Called.");
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, objForm.getVoyage());
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
 			
-			mapReturnBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_MSTR_DATA_EXPORT_NEW, true,true);
+			mapReturnBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_MSTR_DATA_EXPORT_NEW, true,true,blUnsavedCount);
 			blObj.addAll((List<ImportGeneralManifestMod>) mapReturnBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
 			containerDao.setContainerDetails(blObj, IGMContainerDao.RCL_IGM_GET_MASTER_CONTAINOR_EXPORT);
 			objConsignerDao.setConsignerData(blObj, IGMConsignerDataDao.RCL_IGM_GET_MASTER_CONSIGNER_EXPORT);
@@ -998,6 +1000,8 @@ System.out.println("getCarogoDetails() Called.");
 			    crewEfctMod.setVessel(vessel);
 			    crewEfctMod.setVoyage(voyage);
 			    crewEfctMod.setPod(pod);
+			    crewEfctMod.setPersonOnBoardSequenceNo(words[0]);
+			    crewEfctMod.setSequenceNo(words[1]);
 				crewEfctMod.setCrewEfctDescCdd(words[2]);
 				crewEfctMod.setCrewEfctsDesc(words[3]);
 				crewEfctMod.setCrewEfctQntyOnbrd(words[4]);
@@ -1042,7 +1046,16 @@ System.out.println("getCarogoDetails() Called.");
 			Map<String, String> 		mapParam	 = 	new HashMap<>();
 			String 						blsInput 	 =  objForm.getSavedBlList();
 			Map<Object, Object> 		mapSaveBL 	 = 	null;
-			 
+			String 						blNos[] 	 =  objForm.getSavedBlList().split(",");
+			int savedBlCount = 0;
+			for (String bl : blNos) {
+				savedBlCount++;
+				if (blsInput == null)
+					blsInput = "'" + bl + "'";
+				else
+					blsInput += ",'" + bl + "'";
+				
+			}
 			
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD, mod.getPod());
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_SERVICE, mod.getService());
@@ -1050,7 +1063,7 @@ System.out.println("getCarogoDetails() Called.");
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, mod.getVoyage());
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
 			
-			mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_NEW, true,false);
+			mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_NEW, true,false,savedBlCount);
 			blObj.addAll((List<ImportGeneralManifestMod>) mapSaveBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
 			containerDao.setContainerDetails(blObj, IGMContainerDao.RCL_IGM_GET_SAVE_CONTAINOR);
 			objConsignerDao.setConsignerData(blObj, IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER);
