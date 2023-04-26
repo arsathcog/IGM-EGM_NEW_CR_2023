@@ -26,7 +26,7 @@ public class ImportGeneralManifestUim extends PaginationForm {
 	
 	private String masterBl = "";
 	
-	private String masterBlDate = "";
+	private String masterBlDate;
 	
 	private String savedBlList;
 	

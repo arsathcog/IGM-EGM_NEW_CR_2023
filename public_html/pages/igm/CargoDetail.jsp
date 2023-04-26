@@ -627,10 +627,10 @@
 
 				<td id="ConsignerCity"><input type="text" class="seqCss"
 					value="{{consigner.city}}" ng-model="consigner.city" maxlength="70" ></td>
-				<td class="veseelRemoveBorder">State
-
 				
-				<td id="ConsignerCity"><input type="text" class="seqCss" maxlength="2">
+				<td class="veseelRemoveBorder">State</td>
+				<td id="ConsignerState"><input type="text" ng-model="consigner.state" 
+				class="seqCss" maxlength="2">
 				</td>
 			</tr>
 			<tr>
