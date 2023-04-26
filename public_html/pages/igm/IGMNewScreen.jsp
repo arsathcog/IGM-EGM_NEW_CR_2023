@@ -3289,10 +3289,9 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 						$scope.BLS[$scope.blIndex].notifyPartyTwo = result.data.blDetails[0].notifyPartyTwo
 						$scope.BLS[$scope.blIndex].previousDeclaration = result.data.blDetails[0].previousDeclaration
 						
-						if($scope.BLS[$scope.blIndex].consignee.length > 0){
 							$scope.getConsinee();
 							$scope.getDataMoveToNextTab();
-							}
+							
 			});
 		
 		 
