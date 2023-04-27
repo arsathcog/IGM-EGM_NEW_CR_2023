@@ -661,7 +661,7 @@ public class ImportGeneralManifestMod implements Cloneable {
 	
 	private String saveFlags;
 	
-	private boolean isHbl = true;
+	private boolean isHbl = false;
 	
 	private String dgFlag ; 
 	

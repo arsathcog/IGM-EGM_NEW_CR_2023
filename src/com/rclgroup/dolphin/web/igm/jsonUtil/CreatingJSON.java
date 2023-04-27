@@ -942,7 +942,10 @@ public class CreatingJSON {
 			mastrCnsgmtDecList.add(mastrCnsgmtDec);
 			mster.setMastrCnsgmtDec(mastrCnsgmtDecList);
 			houseCargoDec.add(houseCargoDecSAMObj);
-			mastrCnsgmtDec.setHouseCargoDec(houseCargoDecSAMObj);
+			if (blObj.isHbl()== true) {
+				mastrCnsgmtDec.setHouseCargoDec(houseCargoDecSAMObj);
+			}
+			
 			
 
 		}
@@ -1824,7 +1827,9 @@ public class CreatingJSON {
 			mastrCnsgmtDecList.add(mastrCnsgmtDec);
 			mster.setMastrCnsgmtDec(mastrCnsgmtDecList);
 			houseCargoDec.add(houseCargoDecSDMObj);
-			mastrCnsgmtDec.setHouseCargoDec(houseCargoDecSDMObj);
+			if (blObj.isHbl()== true) {
+				mastrCnsgmtDec.setHouseCargoDec(houseCargoDecSDMObj);
+			}
 			
 		}
 		
@@ -4434,7 +4439,9 @@ public class CreatingJSON {
 		mastrCnsgmtDecList.add(mastrCnsgmtDec);
 		mster.setMastrCnsgmtDec(mastrCnsgmtDecList);
 		houseCargoDec.add(houseCargoDecSCXObj);
-		mastrCnsgmtDec.setHouseCargoDec(houseCargoDec);
+		if (blObj.isHbl()== true) {
+			mastrCnsgmtDec.setHouseCargoDec(houseCargoDec);
+		}
 	}
 //		---------------------end of loop---------------------
 		HeaderFieldSCX headerFieldClassObj = new HeaderFieldSCX();
@@ -7057,7 +7064,9 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			mastrCnsgmtDecList.add(mastrCnsgmtDec);
 			mster.setMastrCnsgmtDec(mastrCnsgmtDecList);
 			houseCargoDec.add(houseCargoDecSCEObj);
-			mastrCnsgmtDec.setHouseCargoDec(houseCargoDecSCEObj);
+			if (blObj.isHbl()== true) {
+				mastrCnsgmtDec.setHouseCargoDec(houseCargoDecSCEObj);
+			}
 	}
 		
 		// now add all List to relevant class
