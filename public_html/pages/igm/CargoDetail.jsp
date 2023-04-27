@@ -23,7 +23,7 @@
 						</tr>
 						<tr>
 							<td><input type="text" class="seqCssNew" value="{{BLS[blIndex].masterBl}}" ng-model="selectedBL.masterBl"> 
-							    <input type="text"  class="seqCssNew" value="{{BLS[blIndex].masterBlDate}}" ng-model="selectedBL.masterBlDate"> </td>
+							    <input type="text"  class="seqCssNew" value="{{BLS[blIndex].BlDate}}" ng-model="selectedBL.BlDate"> </td>
 						</tr>
 						<tr>
 							<td>B/L NO & Date</td>

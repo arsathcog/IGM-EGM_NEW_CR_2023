@@ -259,7 +259,6 @@ public class TrnsprtDocSCD {
 	}
 
 	public void setNameOfAnyOtherNotfdParty(String nameOfAnyOtherNotfdParty) {
-		nameOfAnyOtherNotfdParty = FiledValidation.isNullAndSetlength(nameOfAnyOtherNotfdParty, 9);
 		this.nameOfAnyOtherNotfdParty = nameOfAnyOtherNotfdParty;
 	}
 

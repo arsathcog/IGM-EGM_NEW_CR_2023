@@ -1044,7 +1044,7 @@ System.out.println("getCarogoDetails() Called.");
 		
 		if (objForm.getSavedBlList() != null && !objForm.getSavedBlList().equals("")) {
 			Map<String, String> 		mapParam	 = 	new HashMap<>();
-			String 						blsInput 	 =  objForm.getSavedBlList();
+			String 						blsInput 	 =  null;
 			Map<Object, Object> 		mapSaveBL 	 = 	null;
 			String 						blNos[] 	 =  objForm.getSavedBlList().split(",");
 			int savedBlCount = 0;

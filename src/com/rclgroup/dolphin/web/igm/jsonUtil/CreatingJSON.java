@@ -1487,7 +1487,7 @@ public class CreatingJSON {
 					mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
 				}
 				}catch (Exception e) {
-					mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
+					mCRefClassObj.setConsolidatedIndctr("S");// Line 76 
 					
 				}
 			if(blObj.getHblCount() != 0) {
@@ -1541,8 +1541,6 @@ public class CreatingJSON {
 			
 			if(blObj.getPortOfDestination().substring(0, 2).equals("IN") && blObj.getPod().substring(0, 2).equals("IN")){
 				locCstmClassObj.setTypOfCrgo(settingLength("EX",2)); // if both value in india base
-			}else {
-				locCstmClassObj.setTypOfCrgo(settingLength("TR",2)); // both value is not india base 
 			}
 
 			locCstmClassObj.setItemTyp(settingLength("OT",2)); // Line 61
@@ -1982,8 +1980,8 @@ public class CreatingJSON {
 					cewEfct.setCrewEfctsSeqNmbr(settingLength(l+1+"",5));
 					cewEfctList.add(cewEfct);
 	
+					prsnOnBoard.setCrewEfct(cewEfct);
 			}
-			prsnOnBoard.setCrewEfct(cewEfctList);
 			
 			prsnOnBoardList.add(prsnOnBoard);
 		} 
@@ -3945,12 +3943,12 @@ public class CreatingJSON {
 			
 			try {
 			if(blObj.getHblCount() != 0) {
-				mCRefClassObj.setConsolidatedIndctr("S");// Line 76   //TODO
+				mCRefClassObj.setConsolidatedIndctr("C");// Line 76   //TODO
 			}else {
-				mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
+				mCRefClassObj.setConsolidatedIndctr("S");// Line 76 
 			}
 			}catch (Exception e) {
-				mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
+				mCRefClassObj.setConsolidatedIndctr("S");// Line 76 
 				
 			}
 			if(blObj.getPod().substring(0, 2).equals("IN")) {
@@ -3959,7 +3957,7 @@ public class CreatingJSON {
 				mCRefClassObj.setPrevDec(settingLength("Y",4));
 			} // Line77
 			
-			mCRefClassObj.setConsolidatorPan(settingLength(blObj.getAgentCode(),16)); // Line 78
+			mCRefClassObj.setConsolidatorPan(settingLength(service.getAgentCode(),16)); // Line 78
 
 			mCRef.add(mCRefClassObj);
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);
@@ -3997,12 +3995,8 @@ public class CreatingJSON {
 //			locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(), 6));// New added
 			locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),6));// New added
 			locCstmClassObj.setNxtPrtOfUnlading(settingLength(blObj.getPortOfDestination(),6));  // New added
-			locCstmClassObj.setTypOfCrgo(settingLength(blObj.getType_of_cargo(), 2)); // Line 90
-			
-			if(blObj.getPortOfDestination().substring(0, 2).equals("IN") && blObj.getPod().substring(0, 2).equals("IN")){
+			if(blObj.getPortOfLoading().substring(0, 2).equals("IN") && blObj.getPod().substring(0, 2).equals("IN")){
 				locCstmClassObj.setTypOfCrgo(settingLength("EX",2)); // if both value in india base
-			}else {
-				locCstmClassObj.setTypOfCrgo(settingLength("TR",2)); // both value is not india base 
 			}
 			
 			locCstmClassObj.setItemTyp(settingLength("OT", 2)); // Line 61
@@ -4132,7 +4126,7 @@ public class CreatingJSON {
 					trnsprtDocClassObj.setCnsgneCntryCd(settingLength(cnsneeDtl.getCountryCode(), 2));
 //					trnsprtDocClassObj.setCnsgnePstcd(settingLength(cnsneeDtl.getZip(), 9));
 					trnsprtDocClassObj.setCnsgnrsCd(settingLength(cnsneeDtl.getCustomerCode(), 17));
-					trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(settingLength(cnsneeDtl.getCustomerName(), 70));
+//					trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(settingLength(cnsneeDtl.getCustomerName(), 70));
 				}
 			}
 
@@ -4151,7 +4145,7 @@ public class CreatingJSON {
 					 trnsprtDocClassObj.setCnsgnrCntrySubDivCd(blObj.getGstStateCode());
 					trnsprtDocClassObj.setCnsgnrCntryCd(settingLength(cnsnerDtls.getCountryCode(), 2));
 					trnsprtDocClassObj.setCnsgnrPstcd(settingLength(cnsnerDtls.getZip(), 9));
-					trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(settingLength(cnsnerDtls.getCustomerName(), 70));
+//					trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(settingLength(cnsnerDtls.getCustomerName(), 70));
 				}		
 			}
 			trnsprtDoc.add(trnsprtDocClassObj);
@@ -4435,8 +4429,6 @@ public class CreatingJSON {
 //		List<DigSignSCX> digSignList = new ArrayList<DigSignSCX>();
 //		digSignList.add(digSignClassObj);
 		// ----------------
-
-		mastrCnsgmtDecList.add(mastrCnsgmtDec);
 		mster.setMastrCnsgmtDec(mastrCnsgmtDecList);
 		houseCargoDec.add(houseCargoDecSCXObj);
 		if (blObj.isHbl()== true) {
@@ -4482,6 +4474,7 @@ public class CreatingJSON {
 //				vesselDtls.setPurposeOfCall("1"); // always hard coded
 				List<VesselDtlsSCX> vesselDtlsList = new ArrayList<VesselDtlsSCX>();
 				vesselDtlsList.add(vesselDtls);
+				
 				// ----------------------------
 				AuthPrsnSCX authPrsClassObj = new AuthPrsnSCX();
 				authPrsClassObj.setSbmtrTyp(settingLength(service.getSubmitter_type(),4)); //
@@ -6723,11 +6716,11 @@ ImportGeneralManifestMod objForm = blList.get(0);
 		
 			// ------------------------------------------
 			TrnshprSCE TrnshprObj = new TrnshprSCE(); // New added
-			TrnshprObj.setTrnsprtCod("AAACC1205A");
-			TrnshprObj.setTrnshprBond(settingLength("2001859346",10));
-			if(blObj.getRoadCarrCodeVVS()== null && blObj.getTpbondnoVVS()==null) {
-				
-			}
+			TrnshprObj.setTrnshprCod(blObj.getCarrierNo()); 
+			TrnshprObj.setTrnshprBond(settingLength(blObj.getTpBondNo(),10));	
+//			if(blObj.getRoadCarrCodeVVS()== null && blObj.getTpbondnoVVS()==null) {
+//				
+//			}
 			trnshpr.add(TrnshprObj);
 			mastrCnsgmtDec.setTrnshpr(TrnshprObj);
 			houseCargoDecSCEObj.setTrnshpr(trnshpr);
@@ -6875,8 +6868,8 @@ ImportGeneralManifestMod objForm = blList.get(0);
 					trnsprtDocClassObj.setCnsgnrStreetAddress(settingLength(add,70));
 					trnsprtDocClassObj.setCnsgnrsName( settingLength(cnsnerDtls.getCustomerName(),70));
 					trnsprtDocClassObj.setCnsgnrCity( settingLength(cnsnerDtls.getCity(),70));
-					trnsprtDocClassObj.setCnsgnrCntrySubDivName( settingLength(cnsnerDtls.getState(),35));
-					 trnsprtDocClassObj.setCnsgnrCntrySubDivCd(blObj.getGstStateCode());
+//					trnsprtDocClassObj.setCnsgnrCntrySubDivName( settingLength(cnsnerDtls.getState(),35));
+//					 trnsprtDocClassObj.setCnsgnrCntrySubDivCd(blObj.getGstStateCode());
 					
 //					trnsprtDocClassObj.setCnsgnrsCd( settingLength(cnsnerDtls.getCustomerCode(),17));
 					// trnsprtDocClassObj.setCnsgnrCntrySubDivCd((String) cnsnerDtls.get(""));
