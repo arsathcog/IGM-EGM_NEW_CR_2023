@@ -340,6 +340,9 @@ public class ImportGeneralManifestUim extends PaginationForm {
 	
 	private FormFile ackJson;
 	
+	private FormFile shippingFile;
+	
+	
 	private String container;
 	
     private boolean isHbl = true;
@@ -456,6 +459,15 @@ public class ImportGeneralManifestUim extends PaginationForm {
 
 	public void setAckJson(FormFile ackJson) {
 		this.ackJson = ackJson;
+	}
+	
+/** shipping bill file  **/
+	public FormFile getShippingFile() {
+		return shippingFile;
+	}
+
+	public void setShippingFile(FormFile shippingFile) {
+		this.shippingFile = shippingFile;
 	}
 
 	public String getItemNumber() {

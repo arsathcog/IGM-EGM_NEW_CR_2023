@@ -441,6 +441,7 @@ roundshap4 {
     	   var GETHBLLIST           =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getHblList", pageContext)%>';
     	   var GETSELECTALLBL           =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getSelectAllOption", pageContext)%>';
     	   var UPLOAD_ACK       		=	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/ackFileUpload", pageContext)%>';
+    	   var UPLOAD_SHIPPING      		=	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/shippingFileUpload", pageContext)%>';	
     	   var GETSELECTALLBL           =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getSelectAllOptionExport", pageContext)%>';    	   
     	   var GETSTOWAGEEXPORT		        =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getStowageExport", pageContext)%>';
 
@@ -2912,7 +2913,35 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	
 	
 	}
+		/* uploading Shipping Bill Excel File  */
+		
+	$scope.onUploadShippingBill = function() {
+	    debugger;
 	
+	    var form = null;
+	
+	    form = document.getElementById('shippingFileForm');
+	    console.log(form);
+	    var fileData = new FormData(form);
+	    console.log(fileData, "shipping Bill")
+	
+	    $http({
+	        method: "POST",
+	        async: true,
+	        url: $window.UPLOAD_SHIPPING,
+	        headers: {
+	            'Content-Type': undefined
+	        },
+	        processData: false,
+	        data: fileData,
+	    }).then(function(result, status, headers, config) {
+	
+	        console.log(result);
+
+	    });
+	
+	
+	}
 
 	$scope.getCarogoDetails=function() {
  	    debugger;

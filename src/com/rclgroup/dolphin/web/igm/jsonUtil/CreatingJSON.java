@@ -510,8 +510,13 @@ public class CreatingJSON {
 			
 //		-------------------------------------------------------------------------------
 			TrnshprSAM trnshprObj = new TrnshprSAM();
-			trnshprObj.setTrnshprCode(blObj.getCarrierNo()); 
-			trnshprObj.setTrnshprBond(settingLength(blObj.getTpBondNo(),10));			 //TODO  guru		
+			if(blObj.getMode_of_transport()== "Rail" ) {
+				TrnshprObj.setTrnsprtCod(blObj.getCarrierNo()); 
+				TrnshprObj.setTrnshprBond(settingLength(blObj.getTpBondNo(),10));	
+			}else {
+			TrnshprObj.setTrnsprtCod(blObj.getCarrierNo()); 
+			TrnshprObj.setTrnshprBond(settingLength(blObj.getTpBondNo(),10));	
+			}		 //TODO  guru		
 			trnshpr.add(trnshprObj);
 			mastrCnsgmtDec.setTrnshpr(trnshprObj);	
 //		----------------------------------------------------------------------------------------	
@@ -534,10 +539,11 @@ public class CreatingJSON {
 			trnsprtDocMsrClassObj.setUnitOfWeight(settingLength("KGS",3));			 
 //			trnsprtDocMsrClassObj.setInvoiceValueOfCnsgmt(settingLengthForDouble(blObj.getInvoiceValueFc(),16,2)); Guru said to comment // not cleared by Guru    //TODO  guru	
 //			trnsprtDocMsrClassObj.setCrncyCd(settingLength(blObj.getCurrency(),3));      Guru said to comment	 
-			trnsprtDocMsrClassObj.setMarksNoOnPkgs(settingLength("",512)); 
+//			trnsprtDocMsrClassObj.setMarksNoOnPkgs(settingLength("",512)); 
 
-			if(blObj.getCargo_msmt()!= 0) {
-				trnsprtDocMsrClassObj.setGrossVolume (settingLengthForDouble(blObj.getVolume(),12,3));
+			
+			if(blObj.getCargo_msmt() > 0) {
+				trnsprtDocMsrClassObj.setGrossVolume (settingLengthForDouble(blObj.getGross_volume(),12,3));
 	     		}
 				if(! "".equals(trnsprtDocMsrClassObj.getGrossVolume())&& trnsprtDocMsrClassObj.getGrossVolume() != null ) {
 					trnsprtDocMsrClassObj.setUnitOfVolume(settingLength("CBM",3));
@@ -1245,7 +1251,11 @@ public class CreatingJSON {
 		
 		VesselDtlsSAM vesselDtls = new VesselDtlsSAM();
 		vesselDtls.setModeOfTrnsprt(settingLength(service.getMode_of_transport(),1)); // Line 191
-		vesselDtls.setTypOfTrnsprtMeans(settingLength(service.getTypeTransportMeans(),25)); // not found
+		if(service.getTypeTransportMeans().equals("imovsl")) {
+			vesselDtls.setTypOfTrnsprtMeans(" "); // not found
+		}else {
+			vesselDtls.setTypOfTrnsprtMeans(settingLength(service.getTypeTransportMeans(),25));
+		}
 		vesselDtls.setTrnsprtMeansId(settingLength(service.getImoCode(),25));
 		vesselDtls.setPurposeOfCall(settingLength( "1",3 )); // always hard coded
 		vesselDtls.setShipTyp(settingLength("50",3)); // Line 192
@@ -1572,14 +1582,13 @@ public class CreatingJSON {
 //			trnsprtDocMsrClassObj.setInvoiceValueOfCnsgmt(settingLengthForDouble(blObj.getInvoiceValueFc(),16,2)); Guru said to comment //not cleared by Guru
 //			trnsprtDocMsrClassObj.setCrncyCd(settingLength(blObj.getCurrency(),3));  Guru said to comment // not cleared by Guru
 //			trnsprtDocMsrClassObj.setMarksNoOnPkgs(settingLength("",512));
-			if(blObj.getCargo_msmt()!= 0) {
-			trnsprtDocMsrClassObj.setGrossVolume (settingLengthForDouble(blObj.getVolume(),12,3));
+			if(blObj.getCargo_msmt()> 0) {
+			trnsprtDocMsrClassObj.setGrossVolume (settingLengthForDouble(blObj.getGross_volume(),12,3));
      		}
 			if(! "".equals(trnsprtDocMsrClassObj.getGrossVolume())&&  trnsprtDocMsrClassObj.getGrossVolume() != null ) {
 				trnsprtDocMsrClassObj.setUnitOfVolume(settingLength("CBM",3));
 			}
 			
-
 			//===============================================
 		if(blObj.getConsolidatedIndicator().equals("S")) {
 			ItemDtlsSDM itemDtlsClassObj = new ItemDtlsSDM();
@@ -1982,7 +1991,7 @@ public class CreatingJSON {
 	
 					prsnOnBoard.setCrewEfct(cewEfct);
 			}
-			
+
 			prsnOnBoardList.add(prsnOnBoard);
 		} 
 //		
@@ -2106,6 +2115,7 @@ public class CreatingJSON {
 		
 		mster.setPrsnOnBoard(prsnOnBoardList);
 		mster.setShipStore(shipStoresList);
+		
 		
 		// now add all List to relevant class
 		DecRefSDM decRefClaObj = new DecRefSDM();
@@ -3929,7 +3939,7 @@ public class CreatingJSON {
 			hCRefObj.setBlNo(settingLength(blObj.getBl(), 20));
 			hCRefObj.setConsolidatedIndctr(settingLength(blObj.getConsolidated_indicator(), 4));
 			hCRefObj.setConsolidatorPan(settingLength(blObj.getConsolidator_pan(), 16));
-			hCRefObj.setPrevDec(blObj.getPrevious_declaration());
+			hCRefObj.setPrevDec("S");
 			hCRefObj.setSubLineNo(settingLength(blObj.getSubLineNumber(), 4));
 			hCRef.add(hCRefObj);
 			houseCargoDecSCXObj.sethCRef(hCRef);
@@ -3951,10 +3961,10 @@ public class CreatingJSON {
 				mCRefClassObj.setConsolidatedIndctr("S");// Line 76 
 				
 			}
-			if(blObj.getPod().substring(0, 2).equals("IN")) {
+			if(blObj.getHblCount() != 0) {
 				mCRefClassObj.setPrevDec(("N"));
 			}else  {
-				mCRefClassObj.setPrevDec(settingLength("Y",4));
+				mCRefClassObj.setPrevDec(settingLength("S",4));
 			} // Line77
 			
 			mCRefClassObj.setConsolidatorPan(settingLength(service.getAgentCode(),16)); // Line 78
@@ -4024,8 +4034,8 @@ public class CreatingJSON {
 //			trnsprtDocMsrClassObj.setCrncyCd(settingLength(blObj.getCurrency(), 3)); // not cleared by Guru
 //			trnsprtDocMsrClassObj.setMarksNoOnPkgs(settingLength("", 512));
 //			if("".equals(blObj.getVolume()) || blObj.getVolume().isEmpty()) {
-			if(blObj.getCargo_msmt()!= 0) {
-				trnsprtDocMsrClassObj.setGrossVolume (settingLengthForDouble(blObj.getVolume(),12,3));
+			if(blObj.getCargo_msmt() > 0) {
+				trnsprtDocMsrClassObj.setGrossVolume (settingLengthForDouble(blObj.getGross_volume(),12,3));
 	     		}
 				if(! "".equals(trnsprtDocMsrClassObj.getGrossVolume())&& trnsprtDocMsrClassObj.getGrossVolume() != null ) {
 					trnsprtDocMsrClassObj.setUnitOfVolume(settingLength("CBM",3));
@@ -4468,7 +4478,11 @@ public class CreatingJSON {
 				VesselDtlsSCX vesselDtls = new VesselDtlsSCX();
 
 				vesselDtls.setModeOfTrnsprt(settingLength(service.getMode_of_transport(),1));// Line 191
-				vesselDtls.setTypOfTrnsprtMeans(settingLength(service.getTypeTransportMeans(),25)); // not found
+				if(service.getTypeTransportMeans().equals("imovsl")) {
+					vesselDtls.setTypOfTrnsprtMeans(" "); // not found
+				}else {
+					vesselDtls.setTypOfTrnsprtMeans(settingLength(service.getTypeTransportMeans(),25));
+				}
 				vesselDtls.setTrnsprtMeansId(settingLength(service.getImoCode(),25));
 //				vesselDtls.setShipTyp(objForm.getShip_type()); // Line 192
 //				vesselDtls.setPurposeOfCall("1"); // always hard coded
@@ -6716,10 +6730,15 @@ ImportGeneralManifestMod objForm = blList.get(0);
 		
 			// ------------------------------------------
 			TrnshprSCE TrnshprObj = new TrnshprSCE(); // New added
-			TrnshprObj.setTrnshprCod(blObj.getCarrierNo()); 
+			if(blObj.getMode_of_transport()== "Rail" ) {
+				TrnshprObj.setTrnsprtCod(blObj.getCarrierNo()); 
+				TrnshprObj.setTrnshprBond(settingLength(blObj.getTpBondNo(),10));	
+			}else {
+			TrnshprObj.setTrnsprtCod(blObj.getCarrierNo()); 
 			TrnshprObj.setTrnshprBond(settingLength(blObj.getTpBondNo(),10));	
+			}
 //			if(blObj.getRoadCarrCodeVVS()== null && blObj.getTpbondnoVVS()==null) {
-//				
+			
 //			}
 			trnshpr.add(TrnshprObj);
 			mastrCnsgmtDec.setTrnshpr(TrnshprObj);
@@ -6735,7 +6754,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 //			trnsprtDocMsrClassObj.setInvoiceValueOfCnsgmt(settingLengthForDouble(blObj.getInvoiceValueFc(),16,2)); // not cleared by Guru
 //			trnsprtDocMsrClassObj.setCrncyCd(settingLength(blObj.getCurrency(),3));  // not cleared by Guru
 			trnsprtDocMsrClassObj.setMarksNoOnPkgs(settingLength("",512));
-			if(blObj.getCargo_msmt()!= 0) {
+			if(blObj.getCargo_msmt() > 0) {
 				trnsprtDocMsrClassObj.setGrossVolume (settingLengthForDouble(blObj.getGross_volume(),12,3));
 	     		}
 				if(! "".equals(trnsprtDocMsrClassObj.getGrossVolume())&&  trnsprtDocMsrClassObj.getGrossVolume() != null ) {
