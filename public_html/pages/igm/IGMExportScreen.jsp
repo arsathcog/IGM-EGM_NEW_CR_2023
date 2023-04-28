@@ -2919,7 +2919,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	    debugger;
 	
 	    var form = null;
-	
+	    var pcinVal = null ;
 	    form = document.getElementById('shippingFileForm');
 	    console.log(form);
 	    var fileData = new FormData(form);
@@ -2935,9 +2935,23 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	        processData: false,
 	        data: fileData,
 	    }).then(function(result, status, headers, config) {
-	
-	        console.log(result);
 
+	    	$scope.shipipngResponse = result.data.result
+	        for (var i = 1; i < $scope.shipipngResponse.length; i++) {
+	        	console.log( $scope.selectedBL.bl);
+	        	 console.log($scope.shipipngResponse[i]);
+	        	if($scope.shipipngResponse[i][0] ==  $scope.selectedBL.bl  ){
+		        	
+		        	
+		        	if(pcinVal == null){
+		        		$scope.selectedBL.pcin = $scope.shipipngResponse[i][2];
+		        		pcinVal = $scope.shipipngResponse[i][2];
+			        	}else {
+			        		$scope.selectedBL.pcin = pcinVal ,"+",$scope.selectedBL.pcin; 
+			        	}
+	        		
+	        }
+	        }  
 	    });
 	
 	

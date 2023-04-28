@@ -947,7 +947,7 @@ public class ImportGeneralManifestMod implements Cloneable {
 			}else if(masterBlDate.contains("/")) {
 				this.masterBlDate = masterBlDate;
 			}else {
-				this.masterBlDate = masterBlDate.substring(6,8)+"/"+masterBlDate.substring(4,6)+"/"+masterBlDate.substring(0,4);
+				this.masterBlDate =masterBlDate.substring(0,4)+"/"+ masterBlDate.substring(6,8)+"/"+masterBlDate.substring(4,6);
 			}
 			}catch (Exception e) {
 				return;
