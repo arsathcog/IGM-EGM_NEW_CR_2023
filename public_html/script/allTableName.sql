@@ -1,0 +1,25 @@
+      select *   FROM IGM_BL_DETAILS ;
+      select *   FROM IGM_CONSIGNEE_TABLE;
+      select *   FROM IGM_CONSIGNER_TABLE;
+      select *   FROM IGM_CONTAINER_DETAILS;
+      select *   FROM IGM_MARKS_NUMBER_DESCRIPTION;
+      select *   FROM IGM_NODIFY_PARTY;
+      select *   FROM IGM_BL_DETAILS_PREVIOUS_DECLARATION;
+      select *   FROM IGM_NODIFY_PARTY_TWO;
+      select * 	 FROM JSON_FILE_GENERATE_DETAILS;
+      select * 	 FROM IGM_PERSON_ON_BOARD;
+      select * 	 FROM IGM_CREW_EFFECT_FORMATE;
+      select * 	 FROM IGM_SHIP_STORE_FORMAT;
+      
+      select *   FROM IGM_BL_DETAILS_TWO ;
+      select *   FROM IGM_CONSIGNEE_TABLE_TWO;
+      select *   FROM IGM_CONSIGNER_TABLE_TWO;
+      select *   FROM IGM_CONTAINER_DETAILS_TWO;
+      select *   FROM IGM_MARKS_NUMBER_DESCRIPTION_TWO;
+      select *   FROM IGM_NODIFY_PARTY_IGM_TWO;
+      select *   FROM IGM_BL_DETAILS_PREVIOUS_DECLARATION_TWO;
+      select *   FROM IGM_NODIFY_PARTY_TWO;
+      select * 	 FROM JSON_FILE_GENERATE_DETAILS;
+      select * 	 FROM IGM_PERSON_ON_BOARD;
+      select * 	 FROM IGM_CREW_EFFECT_FORMATE;
+      select * 	 FROM IGM_SHIP_STORE_FORMAT;
