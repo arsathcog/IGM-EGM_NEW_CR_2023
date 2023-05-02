@@ -1,8 +1,8 @@
 package com.rclgroup.dolphin.web.igm.action;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.Closeable;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -15,13 +15,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -63,7 +65,9 @@ import com.rclgroup.dolphin.web.igm.vo.NotifyParty;
 import com.rclgroup.dolphin.web.igm.vo.NotifyPartyTwo;
 import com.rclgroup.dolphin.web.igm.vo.PortMod;
 import com.rclgroup.dolphin.web.igm.vo.PreviousDeclaration;
-import com.rclgroup.dolphin.web.igm.vo.ResponceObjVo;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 public class IGMExportScreenSvc extends BaseAction {
 	/** The Constant DAO_BEAN_ID. */
@@ -122,6 +126,8 @@ public class IGMExportScreenSvc extends BaseAction {
 	
 	private static final String GET_STOWAGE_EXPORT = "getStowageExport";
 	
+	private static final String UPLOAD_SHIPPING = "shippingFileUpload";
+	
 
 	/** Define Parameter End. */
 	 
@@ -166,11 +172,15 @@ public class IGMExportScreenSvc extends BaseAction {
 			return getSelectAllOption(mapping,form, request, response);
 		}else if(GET_STOWAGE_EXPORT.equals(strAction)) {
             return getStowageExport(mapping,form, request, response);
+		}else if(UPLOAD_SHIPPING.equals(strAction)) {
+            return uploadShipping(mapping,form, request, response);
 		}
 		return null;
 	}
 	
 	
+
+
 	private ActionForward getStowageExport(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws DataAccessException, BusinessException, IOException {
 System.out.println("getCarogoDetails() Called.");
@@ -747,19 +757,19 @@ System.out.println("getCarogoDetails() Called.");
 		if(objForm.getIsBlSave().equals("false") || objForm.getItemNumber() == null || objForm.getItemNumber().equals("")) {
 			Map<Object, Object> mapReturnBL = objDao.getBLCarogoDetails(mapParam, IGMDaoNew.SQL_GET_IGM_BL_MSTR_DATA_EXPORT);
 			blObj = (List<ImportGeneralManifestMod>) mapReturnBL	.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA);
-			objConsignerDao.setConsignerData(blObj,IGMConsignerDataDao.RCL_IGM_GET_MASTER_CONSIGNER);
-			objConsigneeDao.setConsigneeData(blObj, IGMConsigneeDataDao.RCL_IGM_GET_MASTER_CONSIGNEE);
-			objNotifyPartyDao.setNotifyPartyData(blObj, IGMNodifyPartyDao.RCL_IGM_MASTER_NODIFY_PARTY_DESCRIPTION);
-			objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_MASTER_MARKS_DESCRIPTION);
-			objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION);
+			objConsignerDao.setConsignerData(blObj,IGMConsignerDataDao.RCL_IGM_GET_MASTER_CONSIGNER_EXPORT);
+			objConsigneeDao.setConsigneeData(blObj, IGMConsigneeDataDao.RCL_IGM_GET_MASTER_CONSIGNEE_EXPORT);
+			objNotifyPartyDao.setNotifyPartyData(blObj, IGMNodifyPartyDao.RCL_IGM_MASTER_NODIFY_PARTY_DESCRIPTION_EXPORT);
+			objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_MASTER_MARKS_DESCRIPTION_EXPORT);
+			objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_MASTER_PREV_DECLARATION_EXPORT);
 		}else {		
 			Map<Object, Object> mapSaveBL = objDao.getBLCarogoDetails(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_EXPORT);
 			blObj = (List<ImportGeneralManifestMod>) mapSaveBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA);
-			objConsignerDao.setConsignerData(blObj,IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER);
-			objConsigneeDao.setConsigneeData(blObj, IGMConsigneeDataDao.RCL_IGM_GET_SAVE_CONSIGNEE);
-			objNotifyPartyDao.setNotifyPartyData(blObj, IGMNodifyPartyDao.RCL_IGM_GET_SAVE_NODIFY_PARTY_DESCRIPTION);
-			objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_SAVE_MARKS_DESCRIPTION);
-			objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_MASTER_PREV_DECLARATION);
+			objConsignerDao.setConsignerData(blObj,IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER_EXPORT);
+			objConsigneeDao.setConsigneeData(blObj, IGMConsigneeDataDao.RCL_IGM_GET_SAVE_CONSIGNEE_EXPORT);
+			objNotifyPartyDao.setNotifyPartyData(blObj, IGMNodifyPartyDao.RCL_IGM_GET_SAVE_NODIFY_PARTY_DESCRIPTION_EXPORT);
+			objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_SAVE_MARKS_DESCRIPTION_EXPORT);
+			objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION_EXPORT);
 		}		
 		net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();
 	    jsonObj.put("blDetails", blObj);
@@ -805,6 +815,7 @@ System.out.println("getCarogoDetails() Called.");
 
 		 List<ImportGeneralManifestMod> blList = saveParam.getBls();
 		 List<ImportGeneralManifestMod> blListNew = new ArrayList<ImportGeneralManifestMod>();
+		 
 		 	for(int l=0;l<blList.size();l++) {
 			ImportGeneralManifestMod obj = blList.get(l);
 			if(obj.isFetch() == true) {
@@ -812,6 +823,7 @@ System.out.println("getCarogoDetails() Called.");
 			} 
 		 }
 		 blListNew.addAll(getBlDetails(service,objForm));
+		 
 		 System.out.println("Object Done..... 0");
 		 int getSeqNo = objDao.getSeqNoJdbc(service,"EGM",objForm.getFileType());
 
@@ -896,6 +908,58 @@ System.out.println("getCarogoDetails() Called.");
 		return null;
 	}
 	
+	
+	/**
+	 * On upload shipping file excel.
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
+	 *
+	 */
+	
+	private ActionForward uploadShipping(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws FileNotFoundException, IOException {
+
+		System.out.println("Shipping Bill upload() calling....");
+		List list = new ArrayList();
+		ImportGeneralManifestUim objForm = (ImportGeneralManifestUim) form;
+		InputStream inputStream = objForm.getShippingFile().getInputStream();
+		
+		  XSSFWorkbook workbook = new XSSFWorkbook(inputStream 	);
+
+	        Sheet sheet = workbook.getSheetAt(0);
+	        JSONArray rows = new JSONArray();
+	        
+	        for (Row row : sheet) {
+	            JSONObject obj = new JSONObject();
+	            for (Cell cell : row) {
+	                obj.put(cell.getColumnIndex(), cell.getStringCellValue());
+	            }
+	            list.add(obj);
+	    		
+	}  
+	        net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();
+    		jsonObj = new net.sf.json.JSONObject();
+    		jsonObj.put("result", list);
+    		jsonObj.write(response.getWriter());
+    	//	System.out.println("#IGMLogger EXCEL JSON obj: " + jsonObj.write(new StringWriter()));
+    		return null;
+	      
+	        
+	}
+
+	private void createShippingList(String str, String bl, String vessel, String voyage, String pod, List<ImportGeneralManifestMod> list) {
+		
+		String[] words = str.split(",");
+		ImportGeneralManifestMod 		manifestMod 		= 	new ImportGeneralManifestMod();
+		manifestMod.setBl(words[1]);
+		manifestMod.setCin_type(words[2]);
+		manifestMod.setPcin(words[3]);
+		list.add(manifestMod);
+	}
+
+
+
+
 	/**
 	 * On Delete csv file.
 	 *
@@ -1044,7 +1108,7 @@ System.out.println("getCarogoDetails() Called.");
 		
 		if (objForm.getSavedBlList() != null && !objForm.getSavedBlList().equals("")) {
 			Map<String, String> 		mapParam	 = 	new HashMap<>();
-			String 						blsInput 	 =  objForm.getSavedBlList();
+			String 						blsInput 	 =  null;
 			Map<Object, Object> 		mapSaveBL 	 = 	null;
 			String 						blNos[] 	 =  objForm.getSavedBlList().split(",");
 			int savedBlCount = 0;
@@ -1063,14 +1127,14 @@ System.out.println("getCarogoDetails() Called.");
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, mod.getVoyage());
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
 			
-			mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_NEW, true,false,savedBlCount);
+			mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_EXPORT_NEW, true,false,savedBlCount);
 			blObj.addAll((List<ImportGeneralManifestMod>) mapSaveBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
-			containerDao.setContainerDetails(blObj, IGMContainerDao.RCL_IGM_GET_SAVE_CONTAINOR);
-			objConsignerDao.setConsignerData(blObj, IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER);
-			objConsigneeDao.setConsigneeData(blObj, IGMConsigneeDataDao.RCL_IGM_GET_SAVE_CONSIGNEE);
-			objNotifyPartyDao.setNotifyPartyData(blObj, IGMNodifyPartyDao.RCL_IGM_GET_SAVE_NODIFY_PARTY_DESCRIPTION);
-			objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_SAVE_MARKS_DESCRIPTION);
-			objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION);
+			containerDao.setContainerDetails(blObj, IGMContainerDao.RCL_IGM_SAVE_CONTAINOR_EXPORT);
+			objConsignerDao.setConsignerData(blObj, IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER_EXPORT);
+			objConsigneeDao.setConsigneeData(blObj, IGMConsigneeDataDao.RCL_IGM_GET_SAVE_CONSIGNEE_EXPORT);
+			objNotifyPartyDao.setNotifyPartyData(blObj, IGMNodifyPartyDao.RCL_IGM_GET_SAVE_NODIFY_PARTY_DESCRIPTION_IMPORT);
+			objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_SAVE_MARKS_DESCRIPTION_EXPORT);
+			objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION_EXPORT);
 		}
 
 		/*

@@ -53,9 +53,9 @@ public class ImportGeneralManifestMod implements Cloneable {
 
 	private String isBlSave;
 	
-	private String masterBl = "";
+	private String masterBl;
 	
-	private String masterBlDate = "";
+	private String masterBlDate;
 	
 	/** The bl. */
 	private String bl;
@@ -661,7 +661,7 @@ public class ImportGeneralManifestMod implements Cloneable {
 	
 	private String saveFlags;
 	
-	private boolean isHbl = true;
+	private boolean isHbl = false;
 	
 	private String dgFlag ; 
 	
@@ -940,18 +940,18 @@ public class ImportGeneralManifestMod implements Cloneable {
 
 	public void setMasterBlDate(String masterBlDate) {
 		try {
-		if(masterBlDate == null || masterBlDate.equals("")) {
-			this.masterBlDate = masterBlDate;
-		}else if(masterBlDate.contains("/")) {
-			this.masterBlDate = blDate;
-		}else if(masterBlDate.contains("/")) {
-			this.masterBlDate = masterBlDate;
-		}else {
-			this.masterBlDate = masterBlDate.substring(6,8)+"/"+masterBlDate.substring(4,6)+"/"+masterBlDate.substring(0,4);
-		}
-		}catch (Exception e) {
-			return;
-		}
+			if(blDate == null || blDate.equals("")) {
+				this.masterBlDate = masterBlDate;
+			}else if(masterBlDate.contains("/")) {
+				this.masterBlDate = masterBlDate;
+			}else if(masterBlDate.contains("/")) {
+				this.masterBlDate = masterBlDate;
+			}else {
+				this.masterBlDate =masterBlDate.substring(0,4)+"/"+ masterBlDate.substring(6,8)+"/"+masterBlDate.substring(4,6);
+			}
+			}catch (Exception e) {
+				return;
+			}
 	}
 
 	public String getMasterBl() {

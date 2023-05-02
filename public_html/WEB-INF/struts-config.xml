@@ -59,6 +59,13 @@
                 <forward name="failure" path="rcl.ezl.sigm001New.page"></forward>
         </action> 
         
+          <action path="/shippingFileUpload" type="com.rclgroup.dolphin.web.igm.action.IGMExportScreenSvc" parameter="shippingFileUpload"
+                 name="figm001" validate="false" scope="request">
+                <forward name="success" path="rcl.ezl.sigm001New.page"></forward>
+                <forward name="failure" path="rcl.ezl.sigm001New.page"></forward>
+        </action> 
+        
+        
         <action path="/csvFilePrsnOnBordExport" type="com.rclgroup.dolphin.web.igm.action.IGMExportScreenSvc" parameter="csvFilePrsnOnBord"
                  name="figm001" validate="false" scope="request">
                 <forward name="success" path="rcl.ezl.sigm001New.page"></forward>

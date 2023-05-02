@@ -441,6 +441,7 @@ roundshap4 {
     	   var GETHBLLIST           =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getHblList", pageContext)%>';
     	   var GETSELECTALLBL           =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getSelectAllOption", pageContext)%>';
     	   var UPLOAD_ACK       		=	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/ackFileUpload", pageContext)%>';
+    	   var UPLOAD_SHIPPING      		=	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/shippingFileUpload", pageContext)%>';	
     	   var GETSELECTALLBL           =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getSelectAllOptionExport", pageContext)%>';    	   
     	   var GETSTOWAGEEXPORT		        =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getStowageExport", pageContext)%>';
 
@@ -2338,10 +2339,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 					$( "body" ).append('<div class="loading"></div>');
 					$scope.blIndex=obj.$index;
 					$scope.selectedBL= $scope.BLS[$scope.blIndex]
-					$scope.getCarogoDetails();
-					$scope.getConsinee();
 					$scope.getContainerDetails();
-					$scope.containerValue();
 				}
 				}
 			$scope.selectedServcies.totalItem = count;
@@ -2915,7 +2913,49 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	
 	
 	}
+		/* uploading Shipping Bill Excel File  */
+		
+	$scope.onUploadShippingBill = function() {
+	    debugger;
 	
+	    var form = null;
+	    var pcinVal = null ;
+	    form = document.getElementById('shippingFileForm');
+	    console.log(form);
+	    var fileData = new FormData(form);
+	    console.log(fileData, "shipping Bill")
+	
+	    $http({
+	        method: "POST",
+	        async: true,
+	        url: $window.UPLOAD_SHIPPING,
+	        headers: {
+	            'Content-Type': undefined
+	        },
+	        processData: false,
+	        data: fileData,
+	    }).then(function(result, status, headers, config) {
+
+	    	$scope.shipipngResponse = result.data.result
+	        for (var i = 1; i < $scope.shipipngResponse.length; i++) {
+	        	console.log( $scope.selectedBL.bl);
+	        	 console.log($scope.shipipngResponse[i]);
+	        	if($scope.shipipngResponse[i][0] ==  $scope.selectedBL.bl  ){
+		        	
+		        	
+		        	if(pcinVal == null){
+		        		$scope.selectedBL.pcin = $scope.shipipngResponse[i][2];
+		        		pcinVal = $scope.shipipngResponse[i][2];
+			        	}else {
+			        		$scope.selectedBL.pcin = pcinVal ,"+",$scope.selectedBL.pcin; 
+			        	}
+	        		
+	        }
+	        }  
+	    });
+	
+	
+	}
 
 	$scope.getCarogoDetails=function() {
  	    debugger;
@@ -2939,7 +2979,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				async : true,
 				url : url,
 			  }).then(function(result, status, headers, config) {			 
-						$scope.BLS[$scope.blIndex].agencyType  = result.data.blDetails.agencyType
+						$scope.BLS[$scope.blIndex].agencyType  = result.data.blDetails[0].agencyType
 						$scope.BLS[$scope.blIndex].agentCode  =  result.data.blDetails[0].agentCode
 						$scope.BLS[$scope.blIndex].arrivalDate  =  result.data.blDetails[0].arrivalDate
 						$scope.BLS[$scope.blIndex].arrivalTime  =  result.data.blDetails[0].arrivalTime
@@ -3087,7 +3127,6 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 						$scope.BLS[$scope.blIndex].acceptanceName  =  result.data.blDetails[0].acceptanceName
 						$scope.BLS[$scope.blIndex].port_of_call_cod  =  result.data.blDetails[0].port_of_call_cod
 						$scope.BLS[$scope.blIndex].port_of_call_coded  =  result.data.blDetails[0].port_of_call_coded
-						$scope.BLS[$scope.blIndex].port_of_call_name  =  result.data.blDetails[0].port_of_call_name
 						$scope.BLS[$scope.blIndex].port_of_call_sequence_number  =  result.data.blDetails[0].port_of_call_sequence_number
 						$scope.BLS[$scope.blIndex].port_of_receipt  =  result.data.blDetails[0].port_of_receipt
 						$scope.BLS[$scope.blIndex].recieptName  =  result.data.blDetails[0].recieptName
@@ -3178,8 +3217,11 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 						$scope.BLS[$scope.blIndex].notifyParty = result.data.blDetails[0].notifyParty
 						$scope.BLS[$scope.blIndex].notifyPartyTwo = result.data.blDetails[0].notifyPartyTwo
 						$scope.BLS[$scope.blIndex].previousDeclaration = result.data.blDetails[0].previousDeclaration
-						$scope.getConsinee();
-						$scope.getDataMoveToNextTab();
+
+						    $scope.getConsinee();
+							$scope.getDataMoveToNextTab();
+							
+						
 						$("body").find('.loading').remove();
 			});
 		
@@ -3467,7 +3509,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				$scope.BLS[$scope.blIndex].containerDetailes=result.data.containerList
 
 				$scope.containerValue();
-				$scope.stowageExport();
+			/* 	$scope.stowageExport(); */
 				
 				$("body").find('.loading').remove();
 			});

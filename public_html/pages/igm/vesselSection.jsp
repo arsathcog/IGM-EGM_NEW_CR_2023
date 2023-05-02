@@ -599,10 +599,17 @@
          </tr>
          <tr  ng-if="pageType=='EGM'" >
          <th>shipping Bill</th>
-         <td>
-         	<input class="browse" id="ackFile" type="file" name="fileJson" accept="application/json">
-         </td>
-         </tr>
+				<td>
+					<form enctype="multipart/form-data" id="shippingFileForm">
+						<input class="event_btnbutton" type="file"
+							name="shippingFile" id="shippingFile" size="50px" />
+						<button type="button" class="btn btn-info event_btnbutton"
+							ng-click="onUploadShippingBill()">Upload</button>
+					</form>
+
+
+				</td>
+			</tr>
          </table>
         
       </div> 

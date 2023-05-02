@@ -11,7 +11,7 @@ public class PrsnOnBoardSDM {
 	private String prsnOnBoardSeqNmbr;
 	private PrsnDtlsSDM prsnDtls;
 	private PrsnIdSDM prsnId;
-	private List<CrewEfctSDM> crewEfct;
+	private CrewEfctSDM crewEfct;
 	private VisaDtlsSDM visaDtls;
 	
 	public VisaDtlsSDM getVisaDtls() {
@@ -40,18 +40,17 @@ public class PrsnOnBoardSDM {
 	public void setPrsnId(PrsnIdSDM prsnId) {
 		this.prsnId = prsnId;
 	}
-	
-	public List<CrewEfctSDM> getCrewEfct() {
+
+	public CrewEfctSDM getCrewEfct() {
 		return crewEfct;
 	}
-	public void setCrewEfct(List<CrewEfctSDM> crewEfct) {
+	public void setCrewEfct(CrewEfctSDM crewEfct) {
 		this.crewEfct = crewEfct;
 	}
-	
 	@Override
 	public String toString() {
 		return "PrsnOnBoardSDM [prsnOnBoardSeqNmbr=" + prsnOnBoardSeqNmbr + ", prsnDtls=" + prsnDtls + ", prsnId="
 				+ prsnId + ", crewEfct=" + crewEfct + ", visaDtls=" + visaDtls + "]";
 	}
-	 
+		 
 }
