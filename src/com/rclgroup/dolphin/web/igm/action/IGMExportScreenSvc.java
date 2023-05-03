@@ -930,7 +930,7 @@ System.out.println("getCarogoDetails() Called.");
 			    int i = 0;
 				while ((str = reader.readLine()) != null) {
 					if(i != 0) {
-						createList(str ,objForm.getBl(),objForm.getVessel(),objForm.getVoyage(),objForm.getPod(),flage,list);
+						createList(str ,objForm.getBl(),objForm.getVessel(),objForm.getVoyage(),objForm.getPol(),flage,list);
 					}
 					i++;
 				}
