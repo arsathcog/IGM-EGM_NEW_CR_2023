@@ -513,10 +513,10 @@ public class CreatingJSON {
 //		-------------------------------------------------------------------------------
 			TrnshprSAM trnshprObj = new TrnshprSAM();
 			if(blObj.getMode_of_transport()== "Rail" ) {
-				trnshprObj.setTrnshprCode(generatedFileNameOfJson); 
+				trnshprObj.setTrnshprCode(blObj.getCarrierNo()); 
 				trnshprObj.setTrnshprBond(settingLength(blObj.getTpBondNo(),10));	
 			}else {
-				trnshprObj.setTrnshprCode(generatedFileNameOfJson); 
+				trnshprObj.setTrnshprCode(blObj.getCarrierNo()); 
 				trnshprObj.setTrnshprBond(settingLength(blObj.getTpBondNo(),10));	
 			}		 //TODO  guru		
 			trnshpr.add(trnshprObj);
