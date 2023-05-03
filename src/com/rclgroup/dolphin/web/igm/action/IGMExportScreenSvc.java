@@ -830,12 +830,13 @@ System.out.println("getCarogoDetails() Called.");
 		 ImportGeneralManifestMod service = saveParam.getService();
 
 		 List<ImportGeneralManifestMod> blList = saveParam.getBls();
-		 
+		 Map<String, String> mapParam = createHeaderParamsJson(service);
+		 mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD,service.getPol());
 		 List<IGMPersonOnBoardMod> personOnBoardMod = mapper.readValue(dataPersonOnBord,
 					new TypeReference<List<IGMPersonOnBoardMod>>() {
 					});
 			if(personOnBoardMod.isEmpty()) {
-				Map<String, String> mapParam = createHeaderParamsJson(service);
+				
 				PersonOnBoardDao objPersonDao = (PersonOnBoardDao) getDao(DAO_BEAN_PERSON);
 		        personOnBoardMod=objPersonDao.getPersonOnBoard(mapParam ,PersonOnBoardDao.SQL_RCL_IGM_GET_SAVE_PERSON_ON_BOARD);
 			}
@@ -844,7 +845,6 @@ System.out.println("getCarogoDetails() Called.");
 			});
 			
 			if(crewEfctMod.isEmpty()) {
-				Map<String, String> mapParam = createHeaderParamsJson(service);
 				PersonOnBoardDao objPersonDao = (PersonOnBoardDao) getDao(DAO_BEAN_PERSON); 
 		        crewEfctMod=objPersonDao.getCrewEffect(mapParam ,PersonOnBoardDao.SQL_RCL_IGM_GET_SAVE_CREW_EFFECT);
 			}
@@ -853,7 +853,6 @@ System.out.println("getCarogoDetails() Called.");
 					new TypeReference<List<IGMShipStoresMod>>() {
 					});
 			if(shipStoresMod.isEmpty()) {
-				Map<String, String> mapParam = createHeaderParamsJson(service);
 				PersonOnBoardDao objPersonDao = (PersonOnBoardDao) getDao(DAO_BEAN_PERSON);
 		        shipStoresMod=objPersonDao.getShipStore(mapParam ,PersonOnBoardDao.SQL_RCL_IGM_GET_SAVE_SHIP_STORE);
 			}

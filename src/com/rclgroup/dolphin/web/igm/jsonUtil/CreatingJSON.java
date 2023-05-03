@@ -1558,10 +1558,10 @@ public class CreatingJSON {
 			locCstmClassObj.setCrgoMvmt(settingLength("TC",4)); // Line 57
 			locCstmClassObj.setNatrOfCrgo(settingLength("C",4)); // Line 59
 			
-			if(blObj.isHbl()==true) {
-				locCstmClassObj.setNmbrOfPkgs(blObj.getTotal_number_of_packages());
+	//		if(blObj.isHbl()==true) {
+	//		locCstmClassObj.setNmbrOfPkgs(blObj.getTotal_number_of_packages());
 	//		locCstmClassObj.setTypOfPackage(pol);
-			}
+	//		}
 			locCstm.add(locCstmClassObj);
 			mastrCnsgmtDec.setLocCstm(locCstmClassObj);
 			houseCargoDecSDMObj.setLocCstm(locCstm); 
