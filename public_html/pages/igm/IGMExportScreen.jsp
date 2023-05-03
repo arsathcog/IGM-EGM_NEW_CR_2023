@@ -2529,7 +2529,9 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 			$scope.cfsCustomCode=data.data.DropDown.cfsCustomCodeDropdown;
 			 
 			$window.prsnOnBordTable=data.data.personOnBoardMod;
-			$scope.selectedServcies.noOfCrew = Object.keys($window.prsnOnBordTable).length;
+			if(selectedServcies.noOfCrew==0){
+				$scope.selectedServcies.noOfCrew = Object.keys($window.prsnOnBordTable).length;
+			}
 			$window.shipStoreTable=data.data.shipStoresMod;
 			$window.crewEffetTable=data.data.crewEfctMod;
 			
@@ -2723,7 +2725,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 			
 		var vessel = $scope.selectedServcies.vessel;
 		var voyage = $scope.selectedServcies.voyage;
-		var pod = $scope.selectedServcies.pod;
+		var pod = $scope.selectedServcies.pol;
 		
 		var url  = "";
 		if (val === 'P'){

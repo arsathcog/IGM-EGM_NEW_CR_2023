@@ -286,7 +286,7 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setSenderId(rs.getString("SENDER_ID"));
 			objMod.setRecieverId(rs.getString("RECIEVER_ID"));
 			objMod.setAuthReprsntvCd(rs.getString("AUTHREPRSNTVCD"));
-		   
+		    objMod.setNoOfCrew(rs.getString("noOfCrew"));
 					
 	// ============================More  details===================
 //			objMod.setHblNo(rs.getString("FK_HOUSE_BL_NO"));
@@ -675,8 +675,8 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setFromItemNo(rs.getString("FROM_ITEM_NO"));
 			objMod.setToItemNo(rs.getString("TO_ITEM_NO"));
 			// BL SECTION
-				objMod.setConsolidatedIndicator(rs.getString("CONSOLIDATED_INDICATOR"));
-				objMod.setBlType(rs.getString("BL_TYPE"));
+			objMod.setConsolidatedIndicator(rs.getString("CONSOLIDATED_INDICATOR"));
+			objMod.setBlType(rs.getString("BL_TYPE"));
 			objMod.setPrevious_declaration(rs.getString("PREVIOUS_DECLARATION"));
 			objMod.setConsolidator_pan(rs.getString("CONSOLIDATOR_PAN"));
 			objMod.setCin_type(rs.getString("CIN_TYPE"));
@@ -790,6 +790,11 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 				objMod.setSaveFlags("N");
 			}
 			objMod.setHblCount(rs.getInt("HBLCOUNT"));
+			if(rs.getInt("HBLCOUNT")>0) {
+				objMod.setHbl(true);
+			}else {
+				objMod.setHbl(false);
+			}
 			objMod.setBlCriteria("MBL"); 
 			objMod.setPort_of_receipt(rs.getString("DN_PLR")); 
 			objMod.setPort_of_acceptance(rs.getString("DN_PLD"));

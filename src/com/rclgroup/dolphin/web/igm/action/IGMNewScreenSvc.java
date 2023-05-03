@@ -164,7 +164,7 @@ public class IGMNewScreenSvc extends BaseAction {
 			return getContainerDetails(mapping,form, request, response);
 		}else if(GET_SELECT_ALL_OPTION.equals(strAction)) {
 			return getSelectAllOption(mapping,form, request, response);
-		  }else if(UPLOAD_GET_ACK.equals(strAction)) {
+		}else if(UPLOAD_GET_ACK.equals(strAction)) {
               return getUploadAckFile(mapping,form, request, response);
 		}else if(GET_MORE.equals(strAction)) {
             return getCarogoDetailsAndMore(mapping,form, request, response);
@@ -380,6 +380,32 @@ public class IGMNewScreenSvc extends BaseAction {
 		mapParam.put(ImportGeneralManifestDao.KEY_IGM_CONSIGNEE_COUNTRYCODE, aobjForm.getConsigneeCountryCode());
 		mapParam.put(ImportGeneralManifestDao.KEY_IGM_CONSIGNEE_STATE, aobjForm.getConsigneeState());
 		mapParam.put(ImportGeneralManifestDao.KEY_IGM_CONTAINER_NUM, aobjForm.getContainer());
+		return mapParam;
+	}
+	
+	private Map<String, String> createHeaderParamsJson(ImportGeneralManifestMod aobjForm) {
+		Map<String, String> mapParam = new HashMap<>();
+		mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, aobjForm.getBl());
+		mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD, aobjForm.getPod());
+		if(aobjForm.getService()!=null && !aobjForm.getService().equals("")) {
+			mapParam.put(ImportGeneralManifestDao.KEY_IGM_SERVICE, aobjForm.getService());
+		}else {
+			mapParam.put(ImportGeneralManifestDao.KEY_IGM_SERVICE, aobjForm.getService());
+		}
+		mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, aobjForm.getVessel());
+		mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, aobjForm.getVoyage());
+		mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD_TERMINAL, aobjForm.getPodTerminal());
+		mapParam.put(ImportGeneralManifestDao.KEY_IGM_FROM_DATE, "");
+		mapParam.put(ImportGeneralManifestDao.KEY_IGM_TO_DATE, "");
+		mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL_STATUS, "");
+		mapParam.put(ImportGeneralManifestDao.KEY_IGM_POL, aobjForm.getPol());
+		mapParam.put(ImportGeneralManifestDao.KEY_IGM_POL_TERMINAL, aobjForm.getPolTerminal());
+		mapParam.put(ImportGeneralManifestDao.KEY_IGM_DIRECTION, "");
+		mapParam.put(ImportGeneralManifestDao.KEY_IGM_DEPOT, aobjForm.getDepot());
+		mapParam.put(ImportGeneralManifestDao.KEY_IGM_DEL, aobjForm.getDel());
+		mapParam.put(ImportGeneralManifestDao.KEY_IGM_CONSIGNEE_COUNTRYCODE, "");
+		mapParam.put(ImportGeneralManifestDao.KEY_IGM_CONSIGNEE_STATE, "");
+		mapParam.put(ImportGeneralManifestDao.KEY_IGM_CONTAINER_NUM, "");
 		return mapParam;
 	}
 
@@ -902,19 +928,39 @@ public class IGMNewScreenSvc extends BaseAction {
 
 		ObjectMapper mapper = new ObjectMapper();
 
-		List<IGMPersonOnBoardMod> personOnBoardMod = mapper.readValue(dataPersonOnBord,
-				new TypeReference<List<IGMPersonOnBoardMod>>() {
-				});
-		List<IGMCrewEfctMod> crewEfctMod = mapper.readValue(dataCrewEfctMod, new TypeReference<List<IGMCrewEfctMod>>() {
-		});
-		List<IGMShipStoresMod> shipStoresMod = mapper.readValue(dataShipStoresMod,
-				new TypeReference<List<IGMShipStoresMod>>() {
-				});
-
 		ImportGeneralManifestInput saveParam = mapper.readValue(data, ImportGeneralManifestInput.class);
 		ImportGeneralManifestMod service = saveParam.getService();
 
 		List<ImportGeneralManifestMod> blList = saveParam.getBls();
+		
+		List<IGMPersonOnBoardMod> personOnBoardMod = mapper.readValue(dataPersonOnBord,
+				new TypeReference<List<IGMPersonOnBoardMod>>() {
+				});
+		if(personOnBoardMod.isEmpty()) {
+			Map<String, String> mapParam = createHeaderParamsJson(service);
+			PersonOnBoardDao objPersonDao = (PersonOnBoardDao) getDao(DAO_BEAN_PERSON);
+	        personOnBoardMod=objPersonDao.getPersonOnBoard(mapParam ,PersonOnBoardDao.SQL_RCL_IGM_GET_SAVE_PERSON_ON_BOARD);
+		}
+		
+		List<IGMCrewEfctMod> crewEfctMod = mapper.readValue(dataCrewEfctMod, new TypeReference<List<IGMCrewEfctMod>>() {
+		});
+		
+		if(crewEfctMod.isEmpty()) {
+			Map<String, String> mapParam = createHeaderParamsJson(service);
+			PersonOnBoardDao objPersonDao = (PersonOnBoardDao) getDao(DAO_BEAN_PERSON); 
+	        crewEfctMod=objPersonDao.getCrewEffect(mapParam ,PersonOnBoardDao.SQL_RCL_IGM_GET_SAVE_CREW_EFFECT);
+		}
+		
+		List<IGMShipStoresMod> shipStoresMod = mapper.readValue(dataShipStoresMod,
+				new TypeReference<List<IGMShipStoresMod>>() {
+				});
+		if(shipStoresMod.isEmpty()) {
+			Map<String, String> mapParam = createHeaderParamsJson(service);
+			PersonOnBoardDao objPersonDao = (PersonOnBoardDao) getDao(DAO_BEAN_PERSON);
+	        shipStoresMod=objPersonDao.getShipStore(mapParam ,PersonOnBoardDao.SQL_RCL_IGM_GET_SAVE_SHIP_STORE);
+		}
+
+		
 		List<ImportGeneralManifestMod> blListNew = new ArrayList<ImportGeneralManifestMod>();
 		for (int l = 0; l < blList.size(); l++) {
 			ImportGeneralManifestMod obj = blList.get(l);
@@ -965,17 +1011,25 @@ public class IGMNewScreenSvc extends BaseAction {
 		
 		if (objForm.getSavedBlList() != null && !objForm.getSavedBlList().equals("")) {
 			Map<String, String> 		mapParam	 = 	new HashMap<>();
-			String 						blsInput 	 =  objForm.getSavedBlList();
+			String 						blsInput 	 =  null;
 			Map<Object, Object> 		mapSaveBL 	 = 	null;
 			String 						blNos[] 	 =  objForm.getSavedBlList().split(",");
 			int savedBlCount = 0;
 			for (String bl : blNos) {
 				savedBlCount++;
-				if (blsInput == null)
-					blsInput = "'" + bl + "'";
-				else
-					blsInput += ",'" + bl + "'";
-				
+				if(bl.contains("'")) {
+					if (blsInput == null ) {
+						blsInput =   bl ;
+					}else {
+						blsInput += "," + bl + "";
+					} 
+				}else {
+					if (blsInput == null ) {
+						blsInput = "'" + bl + "'";
+					}else {
+						blsInput += ",'" + bl + "'";
+					}
+				}
 			}
 			
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD, mod.getPod());

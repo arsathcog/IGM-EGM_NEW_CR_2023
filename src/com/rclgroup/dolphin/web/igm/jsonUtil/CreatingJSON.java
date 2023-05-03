@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TimeZone;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.rclgroup.dolphin.web.igm.vo.Consignee;
 import com.rclgroup.dolphin.web.igm.vo.Consigner;
 import com.rclgroup.dolphin.web.igm.vo.ContainerDetails;
@@ -488,17 +490,17 @@ public class CreatingJSON {
 			mCRefClassObj.setMstrBlNo(settingLength(blObj.getBl(),20)); // Line 53
 			mCRefClassObj.setMstrBlDt(blObj.getMasterBlDate()); // Line 53
 			try {
-			if(  blObj.getHouseBl()!= null || !blObj.getHouseBl().equals("")  ) {
-				mCRefClassObj.setConsolidatedIndctr("S");// Line 76   //TODO
-			}else {
-				mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
-			}
+				if( blObj.getHblArr().isEmpty() || blObj.isHbl()==false  ) {
+					 mCRefClassObj.setConsolidatedIndctr("S");// Line 76   //TODO
+				}else {
+					 mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
+				}
 			}catch (Exception e) {
 				mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
 			}
 			
 
-			if(blObj.getMcin().equals("") && blObj.getPcin().equals("")) {
+			if((null == blObj.getMcin() || blObj.getMcin().equals("")) && (null == blObj.getPcin() || blObj.getPcin().equals(""))) {
 				mCRefClassObj.setPrevDec("N");
 			}else {
 				mCRefClassObj.setPrevDec("Y");
@@ -515,7 +517,7 @@ public class CreatingJSON {
 				trnshprObj.setTrnshprBond(settingLength(blObj.getTpBondNo(),10));	
 			}else {
 				trnshprObj.setTrnshprCode(generatedFileNameOfJson); 
-			trnshprObj.setTrnshprBond(settingLength(blObj.getTpBondNo(),10));	
+				trnshprObj.setTrnshprBond(settingLength(blObj.getTpBondNo(),10));	
 			}		 //TODO  guru		
 			trnshpr.add(trnshprObj);
 			mastrCnsgmtDec.setTrnshpr(trnshprObj);	
@@ -543,13 +545,11 @@ public class CreatingJSON {
 
 			
 			if(blObj.getCargo_msmt() > 0) {
-				trnsprtDocMsrClassObj.setGrossVolume (settingLengthForDouble(blObj.getGross_volume(),12,3));
-	     		}
-				if(! "".equals(trnsprtDocMsrClassObj.getGrossVolume())&& trnsprtDocMsrClassObj.getGrossVolume() != null ) {
-					trnsprtDocMsrClassObj.setUnitOfVolume(settingLength("CBM",3));
-				}
-				
-			
+				trnsprtDocMsrClassObj.setGrossVolume(settingLengthForDouble(blObj.getGross_volume(),12,3));
+	     	}
+			if(! "".equals(trnsprtDocMsrClassObj.getGrossVolume())&& trnsprtDocMsrClassObj.getGrossVolume() != null ) {
+				trnsprtDocMsrClassObj.setUnitOfVolume(settingLength("CBM",3));
+			}
 			
 //		----------------------------------------------------------------------------------------	
 	
@@ -558,12 +558,14 @@ public class CreatingJSON {
 				// trnsprtEqmtClassObj.setHsCd((String)blObj.get(" ")); not cleared by guru
 				itemDtlsClassObj.setCrgoItemSeqNmbr( settingLength(blObj.getCommodity_seq()+"",5));				//TODO  guru
 				itemDtlsClassObj.setCrgoItemDesc( settingLength(blObj.getCargo_item_description(),256));					//TODO  guru
-				if(blObj.getDgFlag() != null && blObj.getDgFlag().equals(" ") ) {
+				if(blObj.getDgFlag() != null && StringUtils.isNotBlank(blObj.getDgFlag()) ) {
 					itemDtlsClassObj.setUnoCd( settingLength(blObj.getUno_code(),5));
-					}else {
+					itemDtlsClassObj.setImdgCd( settingLength(blObj.getImdg_code(),3));	
+				}else {
 						itemDtlsClassObj.setUnoCd( settingLength("ZZZZZ",5));
-					}									
-				itemDtlsClassObj.setImdgCd( settingLength(blObj.getImdg_code(),3));										//TODO  guru
+						itemDtlsClassObj.setImdgCd( settingLength("ZZZ",3));	
+				}									
+													//TODO  guru
 				itemDtlsClassObj.setNmbrOfPkgs( settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6)); 
 				
 				itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getPackage_kind(),3));
@@ -1491,15 +1493,14 @@ public class CreatingJSON {
 //			mCRefClassObj.setConsolidatedIndctr(blObj.getConsolidated_indicator());// Line 76
 //			mCRefClassObj.setPrevDec(settingLength(blObj.getPrevious_declaration(),4)); // Line77
 			try {
-				if(blObj.getHblCount() != 0) {
-					mCRefClassObj.setConsolidatedIndctr("C");// Line 76   //TODO
+				if( blObj.getHblArr().isEmpty() || blObj.isHbl()==false  ) {
+					 mCRefClassObj.setConsolidatedIndctr("S");// Line 76   //TODO
 				}else {
-					mCRefClassObj.setConsolidatedIndctr("S");// Line 76 
+					 mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
 				}
-				}catch (Exception e) {
-					mCRefClassObj.setConsolidatedIndctr("S");// Line 76 
-					
-				}
+			}catch (Exception e) {
+				mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
+			}
 			if(blObj.getHblCount() != 0) {
 				mCRefClassObj.setPrevDec(("N"));
 			}else {
@@ -1590,7 +1591,7 @@ public class CreatingJSON {
 			}
 			
 			//===============================================
-		if(blObj.getConsolidatedIndicator().equals("S")) {
+		if(mCRefClassObj.getConsolidatedIndctr().equals("S")) {
 			ItemDtlsSDM itemDtlsClassObj = new ItemDtlsSDM();
 			itemDtlsClassObj.setHsCd(blObj.getCommdity_code());
 		//	itemDtlsClassObj.setCrgoItemSeqNmbr(blObj.getCommodity_seq()+"");
@@ -1599,8 +1600,13 @@ public class CreatingJSON {
 //			if(blObj.getUno_code()) {
 //				
 //			}
-			itemDtlsClassObj.setUnoCd( settingLength(blObj.getUno_code(),5));
-			itemDtlsClassObj.setImdgCd( settingLength(blObj.getImdg_code(),4));
+			if(blObj.getDgFlag() != null && StringUtils.isNotBlank(blObj.getDgFlag()) ) {
+				itemDtlsClassObj.setUnoCd( settingLength(blObj.getUno_code(),5));
+				itemDtlsClassObj.setImdgCd( settingLength(blObj.getImdg_code(),3));	
+			}else {
+					itemDtlsClassObj.setUnoCd( settingLength("ZZZZZ",5));
+					itemDtlsClassObj.setImdgCd( settingLength("ZZZ",3));	
+			}
 			itemDtlsClassObj.setNmbrOfPkgs(settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6)); 
 			itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getPackage_kind(),3));
 			itemDtls.add(itemDtlsClassObj);
@@ -1988,10 +1994,12 @@ public class CreatingJSON {
 					cewEfct.setCrewEfctsDesc(settingLength(crewEfctMod.get(l).getCrewEfctsDesc(),256));
 					cewEfct.setCrewEfctsSeqNmbr(settingLength(l+1+"",5));
 					cewEfctList.add(cewEfct);
-	
+					if(g==l) {
 					prsnOnBoard.setCrewEfct(cewEfct);
-			}
-
+					break;
+					}
+			}		
+			
 			prsnOnBoardList.add(prsnOnBoard);
 		} 
 //		
@@ -2185,7 +2193,7 @@ public class CreatingJSON {
 		authPrsClassObj.setAuthSeaCarrierCd(settingLength(service.getAgentCode(),10)); // LinNo:-211
 		authPrsClassObj.setMasterName(settingLength(service.getMasterName(),30));// 21
 		authPrsClassObj.setShpngLineBondNmbr(settingLength(service.getShipping_line_bond_no_r(),10)); // LinNo:-190
-		authPrsClassObj.setTrmnlOprtrCd(settingLength(service.getPodTerminalPort(),10)); // LinNo:-132
+		authPrsClassObj.setTrmnlOprtrCd(settingLength(service.getPolTerminalPort(),10)); // LinNo:-132	- polTerminalPort
         mster.setAuthPrsn(authPrsClassObj);		
 	 
         
@@ -3952,14 +3960,13 @@ public class CreatingJSON {
 			mCRefClassObj.setMstrBlDt(blObj.getMasterBlDate());// Line 53
 			
 			try {
-			if(blObj.getHblCount() != 0) {
-				mCRefClassObj.setConsolidatedIndctr("C");// Line 76   //TODO
-			}else {
-				mCRefClassObj.setConsolidatedIndctr("S");// Line 76 
-			}
+				if( blObj.getHblArr().isEmpty() || blObj.isHbl()==false  ) {
+					 mCRefClassObj.setConsolidatedIndctr("S");// Line 76   //TODO
+				}else {
+					 mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
+				}
 			}catch (Exception e) {
-				mCRefClassObj.setConsolidatedIndctr("S");// Line 76 
-				
+				mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
 			}
 			if(blObj.getHblCount() != 0) {
 				mCRefClassObj.setPrevDec(("N"));
@@ -4054,8 +4061,13 @@ public class CreatingJSON {
 			itemDtlsClassObj.setHsCd(blObj.getCommdity_code());
 			itemDtlsClassObj.setCrgoItemSeqNmbr(settingLength(blObj.getCommodity_seq()+"", 5));
 			itemDtlsClassObj.setCrgoItemDesc(settingLength(blObj.getCargo_item_description(), 256));
-			itemDtlsClassObj.setUnoCd(settingLength(blObj.getUno_code(), 5));
-			itemDtlsClassObj.setImdgCd(settingLength(blObj.getImdg_code(), 3));
+			if(blObj.getDgFlag() != null && StringUtils.isNotBlank(blObj.getDgFlag()) ) {
+				itemDtlsClassObj.setUnoCd( settingLength(blObj.getUno_code(),5));
+				itemDtlsClassObj.setImdgCd( settingLength(blObj.getImdg_code(),3));	
+			}else {
+					itemDtlsClassObj.setUnoCd( settingLength("ZZZZZ",5));
+					itemDtlsClassObj.setImdgCd( settingLength("ZZZ",3));	
+			}
 			itemDtlsClassObj.setNmbrOfPkgs(settingLength(blObj.getTotal_number_of_packages(), 8));
 			itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getPackage_kind(), 3));	
 			itemDtls.add(itemDtlsClassObj);
@@ -6644,14 +6656,14 @@ ImportGeneralManifestMod objForm = blList.get(0);
 				mCRefClassObj.setPrevDec("Y");
 			}
 			try {
-				if(  blObj.getHouseBl()!= null || !blObj.getHouseBl().equals("")  ) {
-					mCRefClassObj.setConsolidatedIndctr("S");// Line 76   //TODO
+				if( blObj.getHblArr().isEmpty() || blObj.isHbl()==false  ) {
+					 mCRefClassObj.setConsolidatedIndctr("S");// Line 76   //TODO
 				}else {
-					mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
+					 mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
 				}
-				}catch (Exception e) {
-					mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
-				}
+			}catch (Exception e) {
+				mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
+			}
 		    mCRefClassObj.setConsolidatorPan(settingLength(service.getAgentCode(),16));
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);
 			mCRef.add(mCRefClassObj);
@@ -6768,12 +6780,13 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			// trnsprtEqmtClassObj.setHSCE((String)blObj.get(" ")); not cleared by guru
 			itemDtlsClassObj.setCrgoItemSeqNmbr(blObj.getCommodity_seq()+"");
 			itemDtlsClassObj.setCrgoItemDesc(settingLength(blObj.getCargo_item_description(),256));
-			if(blObj.getDgFlag() != null && blObj.getDgFlag().equals(" ") ) {
-			itemDtlsClassObj.setUnoCd( settingLength(blObj.getUno_code(),5));
+			if(blObj.getDgFlag() != null && StringUtils.isNotBlank(blObj.getDgFlag()) ) {
+				itemDtlsClassObj.setUnoCd( settingLength(blObj.getUno_code(),5));
+				itemDtlsClassObj.setImdgCd( settingLength(blObj.getImdg_code(),3));	
 			}else {
-				itemDtlsClassObj.setUnoCd( settingLength("ZZZZZ",5));
+					itemDtlsClassObj.setUnoCd( settingLength("ZZZZZ",5));
+					itemDtlsClassObj.setImdgCd( settingLength("ZZZ",3));	
 			}
-			itemDtlsClassObj.setImdgCd( settingLength(blObj.getImdg_code(),3));
 			itemDtlsClassObj.setNmbrOfPkgs(settingLength(blObj.getTotal_number_of_packages(),8)); 
 			itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getPackage_kind(),3));
 			itemDtlsClassObj.setHsCd(blObj.getCommdity_code());

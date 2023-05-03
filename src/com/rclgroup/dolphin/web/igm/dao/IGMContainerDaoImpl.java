@@ -57,10 +57,18 @@ public class IGMContainerDaoImpl extends AncestorJdbcDao implements IGMContainer
 		Map<String, ImportGeneralManifestMod> mapBlWithContainerDetails = new HashMap<String, ImportGeneralManifestMod>();
 		String blsInput = null;
 		for (ImportGeneralManifestMod bl : listOfBL) {
-			if (blsInput == null)
-				blsInput = "'" + bl.getBl() + "'";
-			else
-				blsInput += ",'" + bl.getBl() + "'";
+			if(bl.getBl().contains("'")) {
+				if (blsInput == null ) {
+					blsInput =   bl.getBl() ;
+				}else {
+					blsInput += "," + bl.getBl() + "";
+				} 
+			}else {
+				if (blsInput == null)
+					blsInput = "'" + bl.getBl() + "'";
+				else
+					blsInput += ",'" + bl.getBl() + "'";
+			}
 			mapBlWithContainerDetails.put(bl.getBl(), bl);
 		}
 		// TODO Auto-generated method stub
