@@ -94,7 +94,8 @@
                   </select>
               	</td>
               	<td ng-if="pageType=='EGM'">
-  						<input type="text" class="cargoCss" ng-model="selectedBL.consolidatedIndicator" value="{{BLS[blIndex].consolidatedIndicator}}" > 
+  					 <select class="selectCss" ng-model="selectedBL.consolidatedIndicator" ng-options="x for x in consolIdatedIndicatorArray">
+                  </select>
                </td>
              </tr>
                 <tr style="line-height: .7rem">

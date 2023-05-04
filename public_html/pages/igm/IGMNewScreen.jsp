@@ -2535,7 +2535,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 			$scope.cfsCustomCode=data.data.DropDown.cfsCustomCodeDropdown;
 			 
 			$window.prsnOnBordTable=data.data.personOnBoardMod;
-			if(selectedServcies.noOfCrew==0){
+			if($scope.selectedServcies.noOfCrew==0){
 				$scope.selectedServcies.noOfCrew = Object.keys($window.prsnOnBordTable).length;
 			}
 			$window.shipStoreTable=data.data.shipStoresMod;

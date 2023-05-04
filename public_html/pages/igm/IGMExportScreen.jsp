@@ -1717,6 +1717,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	$scope.currencyArray=["INR","USD"];
 	$scope.modeOfTpFeeArray=["P","C","R"];
 	$scope.previousDeclarationArray=["S","Y","N","C"];
+	$scope.consolIdatedIndicatorArray = ["S", "C" , "H" , "R"];
 	$scope.tpBondNoArr=[];
 	$scope.msg = "";
 	$scope.selectAllFetch = false;
