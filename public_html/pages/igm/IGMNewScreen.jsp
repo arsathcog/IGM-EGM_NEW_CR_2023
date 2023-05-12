@@ -2146,6 +2146,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 		});
 	}
 
+
 	$scope.blcheckTotalIteamSelectAll=function(obj)
 	{
 			debugger;
@@ -2198,9 +2199,16 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				return false;
 			}
 			 
-			sendData ="?savedBlList="+payloadSaved+"&unSavedBlList="+payloadUnSaved+"&vessel="+$scope.selectedServcies.vessel+"&voyage="+$scope.selectedServcies.voyage+"&pod="+$scope.selectedServcies.pod;
+/* 			sendData ="?savedBlList="+payloadSaved+"&unSavedBlList="+payloadUnSaved+"&vessel="+$scope.selectedServcies.vessel+"&voyage="+$scope.selectedServcies.voyage+"&pod="+$scope.selectedServcies.pod;
+ */
 			$( "body" ).append('<div class="loading"></div>');
-			$http({
+			setTimeout(function() {
+				  $(".loading").remove();
+				}, 1000);
+
+			
+	/*Commenting this code because going to do new implementation for loading more than 1000 BL*/
+			/* $http({
 				method : "POST",
 				async : true,
 				url : $window.GETSELECTALLBL+sendData,
@@ -2218,7 +2226,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				$scope.selectAllFetch = true;
 				document.getElementById("subCheckBox").checked = true;
 				 /* $scope.getExtraDetails(); */ 
-			});
+			/* }); */
 			
 	}
 	

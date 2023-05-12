@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -498,12 +499,15 @@ public class IGMNewScreenSvc extends BaseAction {
 		getSaveDataList(blsForSavingCont,deleteBL,insertBL);
 
 		String blsConInput = null;
+		String unFetchedinsertBLList =  null;
+		String fetchedinsertBLList 	 =  null;
 		consignee.clear();
 		consigner.clear(); 
 		notifyParty.clear(); 
 		marksNumber.clear(); 
 		containerDetailes.clear();  
 		previousDeclarations.clear();
+		
 		for (ImportGeneralManifestMod mod : blsForSavingCont) {
 
 			if (blsConInput == null)
@@ -511,8 +515,37 @@ public class IGMNewScreenSvc extends BaseAction {
 			else
 				blsConInput += ",'" + mod.getBl() + "'";
 
+			if (mod.isFetch() == true) 
+				fetchedinsertBLList = "'" + mod.getBl() + "'";
+			else
+				fetchedinsertBLList += ",'" + mod.getBl() + "'";
+			
+			if (mod.isFetch() == false) 
+				unFetchedinsertBLList = "'" + mod.getBl() + "'";
+				else
+					unFetchedinsertBLList += ",'" + mod.getBl() + "'";
+			
 		}
 		 
+		if( !fetchedinsertBLList.isEmpty() && fetchedinsertBLList.length() > 0 ) {
+			objBlDao.saveBLData(insertBL,IGMBLDataDao.RCL_IGM_SAVE_BL);
+			containerDao.saveContainer(containerDetailes, fetchedinsertBLList,IGMContainerDao.RCL_IGM_SAVE_CONTAINOR);
+			objConsigneeDao.saveConsigneeData(consignee, fetchedinsertBLList,IGMConsigneeDataDao.RCL_IGM_SAVE_CONSIGNEE);
+			objConsignerDao.saveConsignerData(consigner, fetchedinsertBLList,IGMConsignerDataDao.RCL_IGM_SAVE_CONSIGNER);
+			objNodifyDao.saveNodifyData(notifyParty, fetchedinsertBLList,IGMNodifyPartyDao.RCL_IGM_SAVE_NODIFY_PARTY_DESCRIPTION);
+			objMarksDescDao.saveMarkDescData(marksNumber, fetchedinsertBLList,IGMMarksAndDescDao.RCL_IGM_SAVE_MARKS_NUMBER_DESCRIPTION);
+			objPreviousDao.savePreviousDeclData(previousDeclarations,IGMPPreviousDeclarationDao.RCL_IGM_SAVE_PREV_DECLARATION, fetchedinsertBLList);	
+		}
+		if(!unFetchedinsertBLList.isEmpty() && unFetchedinsertBLList.length() > 0) {
+			objBlDao.saveBLData(insertBL,IGMBLDataDao.RCL_IGM_SAVE_BL);
+			containerDao.saveContainer(containerDetailes, unFetchedinsertBLList,IGMContainerDao.RCL_IGM_SAVE_CONTAINOR);
+			objConsigneeDao.saveConsigneeData(consignee, unFetchedinsertBLList,IGMConsigneeDataDao.RCL_IGM_SAVE_CONSIGNEE);
+			objConsignerDao.saveConsignerData(consigner, unFetchedinsertBLList,IGMConsignerDataDao.RCL_IGM_SAVE_CONSIGNER);
+			objNodifyDao.saveNodifyData(notifyParty, unFetchedinsertBLList,IGMNodifyPartyDao.RCL_IGM_SAVE_NODIFY_PARTY_DESCRIPTION);
+			objMarksDescDao.saveMarkDescData(marksNumber, unFetchedinsertBLList,IGMMarksAndDescDao.RCL_IGM_SAVE_MARKS_NUMBER_DESCRIPTION);
+			objPreviousDao.savePreviousDeclData(previousDeclarations,IGMPPreviousDeclarationDao.RCL_IGM_SAVE_PREV_DECLARATION, unFetchedinsertBLList);
+		}
+		
 		objBlDao.deleteBLData(deleteBL,IGMBLDataDao.RCL_IGM_DELETE_BL);
 		containerDao.deleteContainer(containerDetailes, blsConInput,IGMContainerDao.RCL_IGM_DELETE_CONTAINOR);
 		objConsigneeDao.deleteConsigneeData(consignee, blsConInput,IGMConsigneeDataDao.RCL_IGM_DELETE_CONSIGNEE);
@@ -522,6 +555,7 @@ public class IGMNewScreenSvc extends BaseAction {
 		objPreviousDao.deletePreviousDeclData(previousDeclarations,IGMPPreviousDeclarationDao.RCL_IGM_DELETE_PREV_DECLARATION, blsConInput);
 		
 		String blsInput = null;
+		
 		for (ImportGeneralManifestMod mod : insertBL) {
 
 			if (blsInput == null)
@@ -529,6 +563,7 @@ public class IGMNewScreenSvc extends BaseAction {
 			else
 				blsInput += ",'" + mod.getBl() + "'";
 
+			
 			if (!CollectionUtils.isEmpty(mod.getConsignee())) {
 				consignee.addAll(mod.getConsignee());
 			}
@@ -602,7 +637,20 @@ public class IGMNewScreenSvc extends BaseAction {
 					blsInput += ",'" + bl + "'";
 				
 			}
+			if(savedBlCount>999) {
+				int modularOfBlCount1 = savedBlCount/999;
+				System.out.println(modularOfBlCount1);
+				String[] blsInputArray = blsInput.split(",");
+				for(int i = 0;i<=modularOfBlCount1;i++ ) {	
+					blsInput = "";
+					for(int j = i*900;j<(i*i+1)*900;j++ ) {
+						if (StringUtils.isEmpty(blsInput))
+							blsInput =   blsInputArray[j] ;
+						else
+							blsInput += "," + blsInputArray[j];
+					}
 			
+			List<ImportGeneralManifestMod>  blObjTmp 	=   new LinkedList<ImportGeneralManifestMod>();
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD, objForm.getPod());
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_SERVICE, objForm.getIgmservice());
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, objForm.getVessel());
@@ -611,20 +659,36 @@ public class IGMNewScreenSvc extends BaseAction {
 			
 			mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_NEW, true,false,savedBlCount);
 			blObj.addAll((List<ImportGeneralManifestMod>) mapSaveBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
-			containerDao.setContainerDetails(blObj, IGMContainerDao.RCL_IGM_GET_SAVE_CONTAINOR);
-			objConsignerDao.setConsignerData(blObj, IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER);
-			objConsigneeDao.setConsigneeData(blObj, IGMConsigneeDataDao.RCL_IGM_GET_SAVE_CONSIGNEE);
-			objNotifyPartyDao.setNotifyPartyData(blObj, IGMNodifyPartyDao.RCL_IGM_GET_SAVE_NODIFY_PARTY_DESCRIPTION_IMPORT);
+			containerDao.setContainerDetails(blObjTmp, IGMContainerDao.RCL_IGM_GET_SAVE_CONTAINOR);
+			objConsignerDao.setConsignerData(blObjTmp, IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER);
+			objConsigneeDao.setConsigneeData(blObjTmp, IGMConsigneeDataDao.RCL_IGM_GET_SAVE_CONSIGNEE);
+			objNotifyPartyDao.setNotifyPartyData(blObjTmp, IGMNodifyPartyDao.RCL_IGM_GET_SAVE_NODIFY_PARTY_DESCRIPTION_IMPORT);
 			objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_SAVE_MARKS_DESCRIPTION);
-			objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION);
-			objDao.getBLDataNewForSome(paramVal,IGMDaoNew.SQL_EXTRA, blObj);
-			objDao.getStowageImport(paramVal,IGMDaoNew.SQL_STOWAGE_IMPORT);
+			objPreviousDao.setPreviousDeclData(blObjTmp, IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION);
+			blObj.addAll(blObjTmp);
+				}
+			}else {
+				mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD, objForm.getPod());
+				mapParam.put(ImportGeneralManifestDao.KEY_IGM_SERVICE, objForm.getIgmservice());
+				mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, objForm.getVessel());
+				mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, objForm.getVoyage());
+				mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
+				
+				mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_NEW, true,false,savedBlCount);
+				blObj.addAll((List<ImportGeneralManifestMod>) mapSaveBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
+				containerDao.setContainerDetails(blObj, IGMContainerDao.RCL_IGM_GET_SAVE_CONTAINOR);
+				objConsignerDao.setConsignerData(blObj, IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER);
+				objConsigneeDao.setConsigneeData(blObj, IGMConsigneeDataDao.RCL_IGM_GET_SAVE_CONSIGNEE);
+				objNotifyPartyDao.setNotifyPartyData(blObj, IGMNodifyPartyDao.RCL_IGM_GET_SAVE_NODIFY_PARTY_DESCRIPTION_IMPORT);
+				objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_SAVE_MARKS_DESCRIPTION);
+				objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION);
+			}
 		}
 
 		if (objForm.getUnSavedBlList() != null && !objForm.getUnSavedBlList().equals("")) {
 			Map<String, String> mapParam = new HashMap<>();
-			String blsInput = null;
 			Map<Object, Object> mapReturnBL = null;
+			String 						blsInput 	 =  null;
 			String blNos[] = objForm.getUnSavedBlList().split(",");
 			int unSaveBblcount = 0 ;
 			for (String bl : blNos) {
@@ -635,20 +699,59 @@ public class IGMNewScreenSvc extends BaseAction {
 					blsInput += ",'" + bl + "'";
 			}
 			
-			mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD, objForm.getPod());
-			mapParam.put(ImportGeneralManifestDao.KEY_IGM_SERVICE, objForm.getIgmservice());
-			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, objForm.getVessel());
-			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, objForm.getVoyage());
-			mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
 			
-			mapReturnBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_MSTR_DATA_NEW, true,true,unSaveBblcount);
-			blObj.addAll((List<ImportGeneralManifestMod>) mapReturnBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
-			containerDao.setContainerDetails(blObj, IGMContainerDao.RCL_IGM_GET_MASTER_CONTAINOR);
-			objConsignerDao.setConsignerData(blObj, IGMConsignerDataDao.RCL_IGM_GET_MASTER_CONSIGNER);
-			objConsigneeDao.setConsigneeData(blObj, IGMConsigneeDataDao.RCL_IGM_GET_MASTER_CONSIGNEE);
-			objNotifyPartyDao.setNotifyPartyData(blObj, IGMNodifyPartyDao.RCL_IGM_MASTER_NODIFY_PARTY_DESCRIPTION);
-			objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_MASTER_MARKS_DESCRIPTION);
-			objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_MASTER_PREV_DECLARATION);
+			if(unSaveBblcount>999) {
+				int modularOfBlCount = unSaveBblcount/999;
+				System.out.println(modularOfBlCount);
+				String[] blsInputArr = blsInput.split(",");
+				for(int i = 0;i<=modularOfBlCount;i++ ) {	
+					blsInput = "";
+					for(int j = i*900;j<(i*i+1)*900;j++ ) {
+						if (StringUtils.isEmpty(blsInput))
+							blsInput =   blsInputArr[j] ;
+						else
+							blsInput += "," + blsInputArr[j];
+					}
+					List<ImportGeneralManifestMod>  blObjTmp 	=   new LinkedList<ImportGeneralManifestMod>();
+					mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD, objForm.getPod());
+					mapParam.put(ImportGeneralManifestDao.KEY_IGM_SERVICE, objForm.getIgmservice());
+					mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, objForm.getVessel());
+					mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, objForm.getVoyage());
+					mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);		
+						
+					mapReturnBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_MSTR_DATA_NEW, true,true,unSaveBblcount);
+					blObjTmp.addAll((List<ImportGeneralManifestMod>) mapReturnBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
+
+					containerDao.setContainerDetails(blObjTmp, IGMContainerDao.RCL_IGM_GET_MASTER_CONTAINOR);
+					objConsignerDao.setConsignerData(blObjTmp, IGMConsignerDataDao.RCL_IGM_GET_MASTER_CONSIGNER);
+					objConsigneeDao.setConsigneeData(blObjTmp, IGMConsigneeDataDao.RCL_IGM_GET_MASTER_CONSIGNEE);
+					objNotifyPartyDao.setNotifyPartyData(blObjTmp,
+							IGMNodifyPartyDao.RCL_IGM_MASTER_NODIFY_PARTY_DESCRIPTION);
+					objMarksDescDao.setMarksDescriptionData(blObjTmp,
+							IGMMarksAndDescDao.RCL_IGM_GET_MASTER_MARKS_DESCRIPTION);
+					objPreviousDao.setPreviousDeclData(blObjTmp,
+							IGMPPreviousDeclarationDao.RCL_IGM_GET_MASTER_PREV_DECLARATION);
+					blObj.addAll(blObjTmp);
+				}
+			}else {
+				
+				mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD, objForm.getPod());
+				mapParam.put(ImportGeneralManifestDao.KEY_IGM_SERVICE, objForm.getIgmservice());
+				mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, objForm.getVessel());
+				mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, objForm.getVoyage());
+				mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
+				
+				mapReturnBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_MSTR_DATA_NEW, true,true,unSaveBblcount);
+				blObj.addAll((List<ImportGeneralManifestMod>) mapReturnBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
+
+				containerDao.setContainerDetails(blObj, IGMContainerDao.RCL_IGM_GET_MASTER_CONTAINOR);
+				objConsignerDao.setConsignerData(blObj, IGMConsignerDataDao.RCL_IGM_GET_MASTER_CONSIGNER);
+				objConsigneeDao.setConsigneeData(blObj, IGMConsigneeDataDao.RCL_IGM_GET_MASTER_CONSIGNEE);
+				objNotifyPartyDao.setNotifyPartyData(blObj, IGMNodifyPartyDao.RCL_IGM_MASTER_NODIFY_PARTY_DESCRIPTION);
+				objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_MASTER_MARKS_DESCRIPTION);
+				objPreviousDao.setPreviousDeclData(blObj,IGMPPreviousDeclarationDao.RCL_IGM_GET_MASTER_PREV_DECLARATION);
+				 
+			}
 			objDao.getBLDataNewForSome(paramVal, IGMDaoNew.SQL_EXTRA,blObj);
 			objDao.getStowageImport(paramVal,IGMDaoNew.SQL_STOWAGE_IMPORT);
 		}	
@@ -1032,6 +1135,39 @@ public class IGMNewScreenSvc extends BaseAction {
 				}
 			}
 			
+			if(savedBlCount>999) {
+				int modularOfBlCount = savedBlCount/999;
+				System.out.println(modularOfBlCount);
+				String[] blsInputArr = blsInput.split(",");
+				for(int i = 0;i<=modularOfBlCount;i++ ) {	
+					blsInput = "";
+					for(int j = i*900;j<(i*i+1)*900;j++ ) {
+						if (StringUtils.isEmpty(blsInput))
+							blsInput =   blsInputArr[j] ;
+						else
+							blsInput += "," + blsInputArr[j];
+					}
+			
+			
+			mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD, mod.getPod());
+			mapParam.put(ImportGeneralManifestDao.KEY_IGM_SERVICE, mod.getService());
+			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, mod.getVessel());
+			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, mod.getVoyage());
+			mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
+			
+			List<ImportGeneralManifestMod>  blObjTmp 	=   new LinkedList<ImportGeneralManifestMod>();
+			
+			mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_NEW, true,false,savedBlCount);
+			blObj.addAll((List<ImportGeneralManifestMod>) mapSaveBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
+			containerDao.setContainerDetails(blObjTmp, IGMContainerDao.RCL_IGM_GET_SAVE_CONTAINOR);
+			objConsignerDao.setConsignerData(blObjTmp, IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER);
+			objConsigneeDao.setConsigneeData(blObjTmp, IGMConsigneeDataDao.RCL_IGM_GET_SAVE_CONSIGNEE);
+			objNotifyPartyDao.setNotifyPartyData(blObjTmp, IGMNodifyPartyDao.RCL_IGM_GET_SAVE_NODIFY_PARTY_DESCRIPTION_IMPORT);
+			objMarksDescDao.setMarksDescriptionData(blObjTmp, IGMMarksAndDescDao.RCL_IGM_GET_SAVE_MARKS_DESCRIPTION);
+			objPreviousDao.setPreviousDeclData(blObjTmp, IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION);
+			blObj.addAll(blObjTmp);
+			}
+		}else {
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD, mod.getPod());
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_SERVICE, mod.getService());
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, mod.getVessel());
@@ -1078,7 +1214,7 @@ public class IGMNewScreenSvc extends BaseAction {
 		 * objPreviousDao.setPreviousDeclData(blObj,
 		 * IGMPPreviousDeclarationDao.RCL_IGM_GET_MASTER_PREV_DECLARATION); }
 		 */		
-		
+		}
 		return blObj; 
 	}
 

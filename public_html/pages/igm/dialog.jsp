@@ -237,28 +237,29 @@ $(document).ready(function(){
 
 								<td class="" ng-if="pageType=='EGM'">
                         <select class="smallDPCss" name="fileType"  id="fileType" >
-					                           <option value="SCC">SCC</option>
-				 							   <option value="SDM">SDM</option>
 					                           <option value="SCX">SCX</option>
-					                           <option value="SCD">SCD</option>
+					                           <option value="SDM" selected>SDM</option>
+					                           <option value="SDN">SDN</option>
+					                         <!--   <option value="SCC">SCC</option>
+				 							   <option value="SDM">SCD</option>
 					                           <option value="SCU">SCU</option>
-					                           <option value="SCA">SCA</option>
+					                           <option value="SCA">SCA</option> -->
 					                         
                         </select>
                         </td>
                   
                      <td class="" ng-if="pageType=='IGM'">
                         <select class="smallDPCss" name="fileType"  id="fileType" >
-					                           <option value="SAA" selected>SAA</option>
-					                           <option value="SAM">SAM</option>
+                        					   <option value="SAM" selected>SAM</option>
                           	                   <option value="SCE">SCE</option>
 					                           <option value="SEI">SEI</option>
-					                           <option value="SDN">SDN</option>
+					                       <!--<option value="SDN">SDN</option>
 					                           <option value="SEI">SEI</option>
+					                           <option value="SAA" >SAA</option>
 					                           <option value="SCC">SCC</option>
 					                           <option value="SCD">SCD</option>
 					                           <option value="SCU">SCU</option>
-					                           <option value="SCA">SCA</option>
+					                           <option value="SCA">SCA</option> -->
                         </select>
                      </td>
                          <td class=""><input type="button" value="Genrate Data"
