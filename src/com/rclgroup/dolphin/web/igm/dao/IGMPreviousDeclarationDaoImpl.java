@@ -19,18 +19,9 @@ import com.rclgroup.dolphin.web.igm.vo.PreviousDeclaration;
 
 public class IGMPreviousDeclarationDaoImpl extends AncestorJdbcDao implements IGMPPreviousDeclarationDao {
 	@Override
-	public void savePreviousDeclData(List<PreviousDeclaration> listOfPrevDeclaration,String procedureName , List<ImportGeneralManifestMod> listOfBL) throws Exception {
+	public void savePreviousDeclData(List<PreviousDeclaration> listOfPrevDeclaration,String procedureName , String blsInput) throws Exception {
 		if(!CollectionUtils.isEmpty(listOfPrevDeclaration)) {
 			
-			Map<String, ImportGeneralManifestMod> mapBlWithContainerDetails = new HashMap<>();
-			String blsInput = null;
-			for (ImportGeneralManifestMod bl : listOfBL) {
-				if (blsInput == null)
-					blsInput = "'" + bl.getBl() + "'";
-				else
-					blsInput += ",'" + bl.getBl() + "'";
-				mapBlWithContainerDetails.put(bl.getBl(), bl);
-			}
 		ObjectMapper mapper = new ObjectMapper();
 		String containeer = mapper.writeValueAsString(listOfPrevDeclaration);
 		System.out.println("savePreviousDeclData() started");

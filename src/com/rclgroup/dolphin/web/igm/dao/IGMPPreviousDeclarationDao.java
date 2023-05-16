@@ -34,7 +34,7 @@ public interface IGMPPreviousDeclarationDao {
 	public static final String KEY_IGM_ERROR = "P_O_V_ERROR";
 
 
-	public void savePreviousDeclData(List<PreviousDeclaration> blsForSavingCont,String procedureName,List<ImportGeneralManifestMod> blsInput) throws Exception;
+	public void savePreviousDeclData(List<PreviousDeclaration> blsForSavingCont,String procedureName,String blsInput) throws Exception;
 	public void setPreviousDeclData(List<ImportGeneralManifestMod> listOfBL, String procedureName) throws Exception;
 	public void deletePreviousDeclData(List<PreviousDeclaration> previousDeclarations, String procedureName,
 			String blsInput) throws JsonProcessingException;
