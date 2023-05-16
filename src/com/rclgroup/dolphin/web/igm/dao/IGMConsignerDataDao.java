@@ -32,7 +32,7 @@ public interface IGMConsignerDataDao {
 	/** The Constant KEY_IGM_ERROR. */
 	public static final String KEY_IGM_ERROR = "P_O_V_ERROR";
 	
-	public void saveConsignerData(List<Consigner> blsForSavingCont, String input,String procedureName) throws Exception;
+	public void saveConsignerData(List<Consigner> blsForSavingCont,String blsInput,String procedureName) throws Exception;
 	
 	public void setConsignerData(List<ImportGeneralManifestMod> listOfBL,
 			String procedureName) throws Exception ;

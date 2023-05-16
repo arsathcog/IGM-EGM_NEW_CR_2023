@@ -41,7 +41,7 @@ public interface IGMNodifyPartyDao {
 	/** The Constant KEY_IGM_ERROR. */
 	public static final String KEY_IGM_ERROR = "P_O_V_ERROR";
 	
-	public void saveNodifyData(List<NotifyParty> blsForSavingCont, String input,String procedureName) throws Exception;
+	public void saveNodifyData(List<NotifyParty> blsForSavingCont, String blsInput,String procedureName) throws Exception;
 	
 	public void saveNodifyTwoData(List<NotifyPartyTwo> blsForSavingCont, String input,String procedureName) throws Exception;
 	

@@ -32,7 +32,7 @@ public interface IGMConsigneeDataDao {
 
 	/** The Constant KEY_IGM_ERROR. */
 	public static final String KEY_IGM_ERROR = "P_O_V_ERROR";
-	public void saveConsigneeData(List<Consignee> blsForSavingCont, String input,String procedureName) throws Exception;
+	public void saveConsigneeData(List<Consignee> blsForSavingCont,String blsInput,String procedureName) throws Exception;
 	
 	public void setConsigneeData(List<ImportGeneralManifestMod> listOfBL,
 			String procedureName) throws Exception ;

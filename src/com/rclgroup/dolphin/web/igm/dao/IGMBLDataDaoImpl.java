@@ -2,6 +2,7 @@ package com.rclgroup.dolphin.web.igm.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.util.CollectionUtils;
 
@@ -13,7 +14,7 @@ import com.rclgroup.dolphin.web.igm.vo.ImportGeneralManifestMod;
 
 public class IGMBLDataDaoImpl extends AncestorJdbcDao implements IGMBLDataDao {
 
-	public void saveBLData(List<ImportGeneralManifestMod> listOfBL,String procedureName) throws Exception{
+	public void saveBLData(List<ImportGeneralManifestMod> listOfBL,String procedureName,String fetchedinsertBL) throws Exception{
 		 
 		System.out.println("saveBLData() Called .. [Started.] procedure Name " +procedureName);
 		
@@ -40,7 +41,7 @@ public class IGMBLDataDaoImpl extends AncestorJdbcDao implements IGMBLDataDao {
 		ObjectMapper mapper = new ObjectMapper();
 		String containeer = mapper.writeValueAsString(onlyBL);
 		System.out.println("saveBLData() started json  : "+containeer);
-		String[][] arrParam = { { "P_I_V_BL", BLANK + ORACLE_VARCHAR, PARAM_IN, blsInput },
+		String[][] arrParam = { { "P_I_V_BL", BLANK + ORACLE_VARCHAR, PARAM_IN, fetchedinsertBL },
 				{ KEY_IGM_BL_DTLS, BLANK + ORACLE_VARCHAR, PARAM_IN, containeer }, };
 
 		JdbcStoredProcedure objSP = new JdbcStoredProcedure(getDataSource(), procedureName, arrParam);
@@ -85,4 +86,32 @@ public class IGMBLDataDaoImpl extends AncestorJdbcDao implements IGMBLDataDao {
 		
 			}
 	}
+
+	@Override
+	public void saveUnfetchedBlData(String unFetchedinsertBLList, String procedureName,
+			Map amapParam,int blcount) throws Exception {
+	
+		String blCountLoop  =  Integer.toString(blcount);
+		List<ImportGeneralManifestMod> onlyBL= new ArrayList<ImportGeneralManifestMod>();
+		String blsInput = null;
+		
+		String[][] arrParam = { { KEY_REF_IGM_DATA, BLANK + ORACLE_CURSOR, PARAM_OUT, BLANK },
+				{ KEY_IGM_POD, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_POD) },
+				{ KEY_IGM_BL, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) unFetchedinsertBLList },
+				{ KEY_IGM_BL_COUNT, BLANK + ORACLE_VARCHAR, PARAM_IN, (String)  blCountLoop},
+				{ KEY_IGM_VESSEL, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_VESSEL) },
+				{ KEY_IGM_VOYAGE, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_VOYAGE) },
+				{ KEY_IGM_POD_TERMINAL, BLANK + ORACLE_VARCHAR, PARAM_IN,
+						(String) amapParam.get(KEY_IGM_POD_TERMINAL) },
+				{ KEY_IGM_POL, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_POL) },
+				{ KEY_IGM_POL_TERMINAL, BLANK + ORACLE_VARCHAR, PARAM_IN,
+						(String) amapParam.get(KEY_IGM_POL_TERMINAL) },
+				{ KEY_IGM_ERROR, BLANK + ORACLE_VARCHAR, PARAM_OUT, BLANK } };
+
+		JdbcStoredProcedure objSP = new JdbcStoredProcedure(getDataSource(), procedureName, arrParam);
+
+		objSP.execute();
+		
+	}
+		
 }

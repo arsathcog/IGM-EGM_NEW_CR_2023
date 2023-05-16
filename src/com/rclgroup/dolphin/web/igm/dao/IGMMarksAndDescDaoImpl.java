@@ -21,18 +21,19 @@ import com.rclgroup.dolphin.web.igm.vo.MarksNumber;
 
 public class IGMMarksAndDescDaoImpl extends AncestorJdbcDao implements IGMMarksAndDescDao {
 
-	public void saveMarkDescData(List<MarksNumber> listOfMarks, String blsInput,String procedureName) throws Exception {
-		if(!CollectionUtils.isEmpty(listOfMarks)) {
-		ObjectMapper mapper = new ObjectMapper();
-		String containeer = mapper.writeValueAsString(listOfMarks);
-		System.out.println("saveMarkDescData() started");
-		String[][] arrParam = { { "P_I_V_BL", BLANK + ORACLE_VARCHAR, PARAM_IN, blsInput },
-				{ KEY_IGM_MARKS_AND_DESC_DTLS, BLANK + ORACLE_VARCHAR, PARAM_IN, containeer }, };
+	public void saveMarkDescData(List<MarksNumber> listOfMarks, String blsInput, String procedureName)
+			throws Exception {
+		if (!CollectionUtils.isEmpty(listOfMarks)) {
 
-		JdbcStoredProcedure objSP = new JdbcStoredProcedure(getDataSource(), procedureName,
-				arrParam);
+			ObjectMapper mapper = new ObjectMapper();
+			String containeer = mapper.writeValueAsString(listOfMarks);
+			System.out.println("saveMarkDescData() started");
+			String[][] arrParam = { { "P_I_V_BL", BLANK + ORACLE_VARCHAR, PARAM_IN, blsInput },
+					{ KEY_IGM_MARKS_AND_DESC_DTLS, BLANK + ORACLE_VARCHAR, PARAM_IN, containeer }, };
 
-		objSP.execute();
+			JdbcStoredProcedure objSP = new JdbcStoredProcedure(getDataSource(), procedureName, arrParam);
+
+			objSP.execute();
 		}
 	}
 
