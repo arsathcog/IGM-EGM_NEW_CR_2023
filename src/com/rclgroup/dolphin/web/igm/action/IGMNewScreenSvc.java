@@ -61,7 +61,7 @@ import com.rclgroup.dolphin.web.igm.vo.NotifyParty;
 import com.rclgroup.dolphin.web.igm.vo.PortMod;
 import com.rclgroup.dolphin.web.igm.vo.PreviousDeclaration;
 
-public class IGMNewScreenSvc extends BaseAction {
+public class IGMNewScreenSvc extends BaseAction implements Runnable {
 	/** The Constant DAO_BEAN_ID Start. */
 	private static final String DAO_BEAN_ID = "iGMDaoNew";
 
@@ -631,7 +631,8 @@ public class IGMNewScreenSvc extends BaseAction {
 //		
 		net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();
 		jsonObj = new net.sf.json.JSONObject();
-		jsonObj.put("resultSave", insertBL);  
+		jsonObj.put("fetchedSave", fetchedinsertBLList);
+		jsonObj.put("unFetchedSave", unFetchedinsertBLList);
 		jsonObj.put("resultDelete", deleteBL);
 		jsonObj.write(response.getWriter());
 		
@@ -639,9 +640,16 @@ public class IGMNewScreenSvc extends BaseAction {
 	}
 
 	private ActionForward getSelectAllOption(ActionMapping mapping, ActionForm form, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+			HttpServletResponse response)   throws Exception {
 	 
 		System.out.println("IGMNewScreenSvc getSelectAllOption()... [STARTED..]");	
+		int blNo = 5000;
+		int threadCount = blNo/100;
+		SelectAllThread th[]  = new SelectAllThread[threadCount-1];
+		for(int i = 0; i<threadCount ; i++) {
+			th[i].start();
+		}
+	
 		
 		ImportGeneralManifestUim 	    objForm 		    = (ImportGeneralManifestUim) form;
 		IGMDaoNew 				 		objDao 				=   (IGMDaoNew) getDao(DAO_BEAN_ID);
@@ -656,9 +664,7 @@ public class IGMNewScreenSvc extends BaseAction {
 		List<ContainerDetails>  		containerList 		=	null;
 		List<ImportGeneralManifestMod>  blObj 				=   new LinkedList<ImportGeneralManifestMod>();
 		Map<String, String> 			paramVal			=   createHeaderParams(objForm);
-		
-		
-		
+
 		
 		if (objForm.getSavedBlList() != null && !objForm.getSavedBlList().equals("")) {
 			Map<String, String> 		mapParam	 = 	new HashMap<>();
@@ -736,8 +742,7 @@ public class IGMNewScreenSvc extends BaseAction {
 					blsInput += ",'" + bl + "'";
 			}
 			
-			
-			if(unSaveBblcount>999) {
+		if(unSaveBblcount>999) {
 				int modularOfBlCount = unSaveBblcount/999;
 				System.out.println(modularOfBlCount);
 				String[] blsInputArr = blsInput.split(",");
@@ -1461,6 +1466,13 @@ public class IGMNewScreenSvc extends BaseAction {
 			jsonObj.put("result",list);
 			jsonObj.write(response.getWriter());
 		return null;
+	}
+
+
+	@Override
+	public void run() {
+		
+		
 	}
 	
 }
