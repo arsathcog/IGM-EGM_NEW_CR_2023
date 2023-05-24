@@ -641,15 +641,6 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 
 	private ActionForward getSelectAllOption(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response)   throws Exception {
-	 
-		System.out.println("IGMNewScreenSvc getSelectAllOption()... [STARTED..]");	
-		int blNo = 5000;
-		int threadCount = blNo/100;
-		SelectAllThread th[]  = new SelectAllThread[threadCount-1];
-		for(int i = 0; i<threadCount ; i++) {
-			th[i].start();
-		}
-	
 		
 		ImportGeneralManifestUim 	    objForm 		    = (ImportGeneralManifestUim) form;
 		IGMDaoNew 				 		objDao 				=   (IGMDaoNew) getDao(DAO_BEAN_ID);
@@ -665,6 +656,14 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		List<ImportGeneralManifestMod>  blObj 				=   new LinkedList<ImportGeneralManifestMod>();
 		Map<String, String> 			paramVal			=   createHeaderParams(objForm);
 
+		System.out.println("IGMNewScreenSvc getSelectAllOption()... [STARTED..]");
+		
+		int blNo = 5000;
+		int threadCount = blNo/100;
+		SelectAllThread th[]  = new SelectAllThread[threadCount-1];
+		for(int i = 0; i<threadCount ; i++) {
+			th[i].start();
+		}
 		
 		if (objForm.getSavedBlList() != null && !objForm.getSavedBlList().equals("")) {
 			Map<String, String> 		mapParam	 = 	new HashMap<>();
