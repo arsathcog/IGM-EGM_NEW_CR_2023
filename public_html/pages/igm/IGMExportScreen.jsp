@@ -426,6 +426,8 @@ roundshap4 {
     	   var GETBLDATA       =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getBlDataExport", pageContext)%>';
     	   var GETPORTDATA          =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getPortData", pageContext)%>';
     	   var SAVE_DATA       =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/VesselVoyagSaveExport", pageContext)%>';
+    	   var SAVE_DATA_VESSEL_VOYAGE   =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/VesselVoyageSaveExport", pageContext)%>';
+    	   var SAVE_DATA_BL_DATA        =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/blDataSaveExport", pageContext)%>';
     	   var DOWNLOAD_DATA       =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/downloadEgm", pageContext)%>';
     	   var UPLOAD_CSV       =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/csvFilePrsnOnBordExport", pageContext)%>';
     	   var DELETE_CSV       =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/deleteCsvFile", pageContext)%>';
@@ -2203,27 +2205,12 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 			if( $scope.selectAllFetch == true){
 				return false;
 			}
-			sendData ="?savedBlList="+payloadSaved+"&unSavedBlList="+payloadUnSaved+"&vessel="+$scope.selectedServcies.vessel+"&voyage="+$scope.selectedServcies.voyage+"&pod="+$scope.selectedServcies.pod;
 			$( "body" ).append('<div class="loading"></div>');
-			$http({
-				method : "POST",
-				async : true,
-				url : $window.GETSELECTALLBL+sendData,
-				dataType: 'json',
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-				beforeSend:function()
-				{
-					loadingfun();
-				},
-			}).then(function(data, status, headers, config) {
-				$("body").find('.loading').remove();
-				debugger;
-				jsonData.result[0].BLS = data.data.blDetails;
-				$scope.BLS = data.data.blDetails;
-				$scope.selectAllFetch = true;
-				document.getElementById("subCheckBox").checked = true;
-				 /* $scope.getExtraDetails(); */ 
-			});
+			setTimeout(function() {
+				  $(".loading").remove();
+				}, 1000);
+
+
 	}
 	
 	$scope.hblcheckTotalIteam=function(obj)
@@ -2556,7 +2543,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	}
 	
 	
-	$scope.save = function (){
+	/* $scope.save = function (){
 		 
 		var totalNoValidation=$scope.selectedServcies.totalItem;
 		if(totalNoValidation ==null || totalNoValidation == 0){
@@ -2630,6 +2617,120 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 			//$scope.msg="Saved Successfully..!";
 			// $("#dialog-form").dialog("close");
 		});
+	}
+	 */
+	 
+	 
+
+	$scope.save = function (){
+		debugger;
+		var totalNoValidation=$scope.selectedServcies.totalItem;
+		if(totalNoValidation ==null || totalNoValidation == 0){
+			swal("Message","!Need to select BL.","info");
+			 return false;
+		}
+		for(var d=0;d<$scope.BLS.length;d++){
+			if(($scope.BLS[d].isBlSave=="true" || $scope.BLS[d].isBlSave==true) && ($scope.BLS[d].saveFlags == "U" || $scope.BLS[d].saveFlags == "I" )){
+					if(($scope.BLS[d].fetch == "false" || $scope.BLS[d].fetch == false) && (document.getElementById("selectAllCheckBox").checked = false && ($scope.BLS[d].containerDetailes == undefined  || $scope.BLS[d].containerDetailes.length==0))){
+						swal("Message","Please Check Carogo Data : "+$scope.BLS[d].bl,"info");
+						return false;
+					}
+			}
+		}
+		
+		$( "body" ).append('<div class="loading"></div>');
+		
+			$http({
+				method : "POST",
+				async : true,
+				url : $window.SAVE_DATA_VESSEL_VOYAGE,
+				dataType: 'json',
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+				beforeSend:function()
+				{
+					loadingfun();
+				},
+				data : "requestParam="+encodeURIComponent(JSON.stringify(jsonData.result[0].service)),
+			}).then(function(data, status, headers, config) { 
+				blModule =  ($scope.BLS.length/200|0);
+				blExtraModule = $scope.BLS.length%200;
+				if(blExtraModule>0){
+					blModule++;
+				}
+				maxIteamNo = parseInt(jsonData.result[0].service.fromItemNo);
+				fstBL = 0;
+				for(var d=0;d<blModule;d++){
+						debugger;
+						startingIndex = (d * d) * 200;
+						lastIndex = (d * d + 1) * 200;
+						for(var p=startingIndex;p<lastIndex;p++){
+							if ($scope.BLS[p] != null && (true==$scope.BLS[p].isBlSave || "true"==$scope.BLS[p].isBlSave)) {
+								if ($scope.BLS[p].itemNumber == null || $scope.BLS[p].itemNumber == "") {
+									$scope.BLS[p].itemNumber=(maxIteamNo+ "");
+									if($scope.BLS[p].saveFlags=='N'){
+										$scope.BLS[p].saveFlags='I';
+									}
+									maxIteamNo++;
+								}else {
+									if (parseInt($scope.BLS[p].itemNumber) > maxIteamNo || maxIteamNo == parseInt(jsonData.result[0].service.fromItemNo)) {
+										if(fstBL==0) {
+											$scope.BLS[p].itemNumber = maxIteamNo;
+										}else {
+											maxIteamNo = parseInt($scope.BLS[p].itemNumber);
+										}
+										if($scope.BLS[p].saveFlags=='N' && ($scope.BLS[p].fetch=='false' || $scope.BLS[p].fetch==false)){
+											$scope.BLS[p].saveFlags='N';
+										}else if(($scope.BLS[p].saveFlags=='N' || $scope.BLS[p].saveFlags=='U') && ($scope.BLS[p].fetch=='true' || $scope.BLS[p].fetch==true)){
+											$scope.BLS[p].saveFlags='U';
+										}
+										maxIteamNo++;
+									}else {
+										$scope.BLS[p].itemNumber = maxIteamNo;
+										maxIteamNo++;
+										$scope.BLS[p].saveFlags='U';
+									}
+								}
+								fstBL++;
+							} else if ($scope.BLS[p] != null && (true==$scope.BLS[p].isBlSave  || "true"==$scope.BLS[p].isBlSave)
+													&&  $scope.BLS[p].itemNumber != "" && $scope.BLS[p].itemNumber != null) {
+								if (parseInt($scope.BLS[p].itemNumber) >= maxIteamNo) {
+									maxIteamNo = parseInt($scope.BLS[p].itemNumber);
+									$scope.BLS[p].saveFlags='U';
+								}
+							}else if ($scope.BLS[p] != null && (false==$scope.BLS[p].isBlSave || "false"==$scope.BLS[p].isBlSave) && $scope.BLS[p] != null 
+													&&  $scope.BLS[p].itemNumber != "" && $scope.BLS[p].itemNumber != null) {
+								if (parseInt($scope.BLS[p].itemNumber) >= maxIteamNo) {
+									maxIteamNo = parseInt($scope.BLS[p].itemNumber);
+									$scope.BLS[p].saveFlags='D';
+								}
+							}
+						} 
+						blSaveJson = {};	
+						blSaveJson['bls'] = $scope.BLS.slice(startingIndex,lastIndex);	
+						blSaveJson['service'] = (jsonData.result[0].service);
+						blSaveJson['sequence'] = (jsonData.result[0].sequence);
+						
+						$http({
+						method : "POST",
+						async : true,
+						url : $window.SAVE_DATA_BL_DATA,
+						dataType: 'json',
+						headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+						beforeSend:function()
+						{
+							loadingfun();
+						},
+						data : "requestParam="+encodeURIComponent(JSON.stringify(blSaveJson)),
+					}).then(function(data, status, headers, config) {
+						debugger;
+						$("body").find('.loading').remove();
+						swal("Message","Saved Successfully..!","info");
+						 
+					}); 
+						 
+				 }
+				$("body").find('.loading').remove();
+			});
 	}
 	
 	 var resultLength ;

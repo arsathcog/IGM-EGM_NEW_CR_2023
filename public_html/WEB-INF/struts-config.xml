@@ -202,11 +202,17 @@
                 <forward name="failure" path="rcl.ezl.sigm001New.page"></forward>
         </action>
         
-        <action path="/VesselVoyagSaveExport" type="com.rclgroup.dolphin.web.igm.action.IGMExportScreenSvc" parameter="VesselVoyagSave"
+        <action path="/VesselVoyageSaveExport" type="com.rclgroup.dolphin.web.igm.action.IGMExportScreenSvc" parameter="VesselVoyagSave"
                  name="figm001" validate="false" scope="request">
                 <forward name="success" path="rcl.ezl.sigm001New.page"></forward>
                 <forward name="failure" path="rcl.ezl.sigm001New.page"></forward>
         </action>
+        
+         <action path="/blDataSaveExport" type="com.rclgroup.dolphin.web.igm.action.IGMExportScreenSvc" parameter="blDataSaveExport"
+                 name="figm001" validate="false" scope="request">
+                <forward name="success" path="rcl.ezl.sigm001New.page"></forward>
+                <forward name="failure" path="rcl.ezl.sigm001New.page"></forward>
+        </action> 
         
          <action path="/download" type="com.rclgroup.dolphin.web.igm.action.IGMNewScreenSvc" parameter="download"
                  name="figm001" validate="false" scope="request">
