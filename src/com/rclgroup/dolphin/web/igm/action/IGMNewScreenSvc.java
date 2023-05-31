@@ -551,7 +551,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 				previousDeclarations.addAll(mod.getPreviousDeclaration());
 			}
 		}
-		
+		System.out.println(blsInput);
 		objBlDao.saveBLData(insertBLFetch,IGMBLDataDao.RCL_IGM_SAVE_BL);
 		containerDao.saveContainer(containerDetailes, blsInput,IGMContainerDao.RCL_IGM_SAVE_CONTAINOR);
 		objConsigneeDao.saveConsigneeData(consignee, blsInput,IGMConsigneeDataDao.RCL_IGM_SAVE_CONSIGNEE);
@@ -588,14 +588,14 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 				previousDeclarations.addAll(mod.getPreviousDeclaration());
 			}
 		}
-		
-		objBlDao.saveBLData(insertBL,IGMBLDataDao.RCL_IGM_UNFETCHED_SAVE_BL);
-		containerDao.saveContainer(containerDetailes, blsInput,IGMContainerDao.RCL_IGM_SAVE_UNFETCHED_CONTAINOR);
-		objConsigneeDao.saveConsigneeData(consignee, blsInput,IGMConsigneeDataDao.RCL_IGM_SAVE_UNFETCHED_CONSIGNEE);
-		objConsignerDao.saveConsignerData(consigner, blsInput,IGMConsignerDataDao.RCL_IGM_SAVE_UNFETCHED_CONSIGNER);
-		objNodifyDao.saveNodifyData(notifyParty, blsInput,IGMNodifyPartyDao.RCL_IGM_SAVE_UNFETCHED_NODIFY_PARTY_DESCRIPTION);
-		objMarksDescDao.saveMarkDescData(marksNumber, blsInput,IGMMarksAndDescDao.RCL_IGM_SAVE_UNFETCHED_MARKS_NUMBER_DESCRIPTION);
-		objPreviousDao.savePreviousDeclData(previousDeclarations,IGMPPreviousDeclarationDao.RCL_IGM_SAVE_UNFETCHED_PREV_DECLARATION, blsInput);
+		System.out.println(blsInput);
+		objBlDao.saveUnfetchedBlData(blsInput,IGMBLDataDao.RCL_IGM_UNFETCHED_SAVE_BL);
+		containerDao.saveUnfetchedContainer(blsInput,IGMContainerDao.RCL_IGM_SAVE_UNFETCHED_CONTAINOR);
+		objConsigneeDao.saveUnfetchedConsigneeData(blsInput,IGMConsigneeDataDao.RCL_IGM_SAVE_UNFETCHED_CONSIGNEE);
+		objConsignerDao.saveUnfetchedConsignerData(blsInput,IGMConsignerDataDao.RCL_IGM_SAVE_UNFETCHED_CONSIGNER);
+		objNodifyDao.saveUnfetchedNodifyData(blsInput,IGMNodifyPartyDao.RCL_IGM_SAVE_UNFETCHED_NODIFY_PARTY_DESCRIPTION);
+		objMarksDescDao.saveUnfetchedMarkDescData(blsInput,IGMMarksAndDescDao.RCL_IGM_SAVE_UNFETCHED_MARKS_NUMBER_DESCRIPTION);
+		objPreviousDao.saveUnfetchedPreviousDeclData(IGMPPreviousDeclarationDao.RCL_IGM_SAVE_UNFETCHED_PREV_DECLARATION, blsInput);
 		
 		
 		/*

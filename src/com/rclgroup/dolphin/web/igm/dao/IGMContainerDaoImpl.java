@@ -266,4 +266,20 @@ public class IGMContainerDaoImpl extends AncestorJdbcDao implements IGMContainer
 		}
 	}
 
+	
+	@Override
+	public Map saveUnfetchedContainer(String blsInput, String procedure) throws Exception {
+		if(blsInput!=null) {
+			System.out.println("saveUnfetchedContainerData() started");
+			String[][] arrParam = { { KEY_REF_IGM_DATA, BLANK + ORACLE_CURSOR, PARAM_OUT, BLANK },
+									{ "P_I_V_BL", BLANK + ORACLE_VARCHAR, PARAM_IN, blsInput },
+									{ KEY_IGM_ERROR, BLANK + ORACLE_VARCHAR, PARAM_OUT, BLANK }};
+
+			JdbcStoredProcedure objSP = new JdbcStoredProcedure(getDataSource(), procedure, arrParam);
+
+			objSP.execute();
+			}
+		return null;
+	}
+
 }

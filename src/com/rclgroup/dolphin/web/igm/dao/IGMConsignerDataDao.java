@@ -40,4 +40,8 @@ public interface IGMConsignerDataDao {
 			String procedureName) throws Exception ;
 
 	public void deleteConsignerData(List<Consigner> consigner, String blsInput, String procedureName) throws JsonProcessingException;
+// Method for unfetched Bl 
+	public void saveUnfetchedConsignerData(String blsInput,String procedureName) throws Exception;
+	
+
 }
