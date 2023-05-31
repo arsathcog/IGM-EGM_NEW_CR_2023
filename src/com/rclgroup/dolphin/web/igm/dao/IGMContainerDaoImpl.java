@@ -36,12 +36,11 @@ public class IGMContainerDaoImpl extends AncestorJdbcDao implements IGMContainer
 		// TODO Auto-generated method stub
 	System.out.println("saveContainer "+procedureName);
 		if(!CollectionUtils.isEmpty(containerDetailes)) {
-			String blsInput = null;
 			
 		ObjectMapper mapper = new ObjectMapper();
 		String containeer = mapper.writeValueAsString(containerDetailes);
 		System.out.println("saveContainerData() started");
-		String[][] arrParam = { { "P_I_V_BL", BLANK + ORACLE_VARCHAR, PARAM_IN, blsInput },
+		String[][] arrParam = { { "P_I_V_BL", BLANK + ORACLE_VARCHAR, PARAM_IN, listOfBL },
 				{ KEY_IGM_CONTAINER_DTLS, BLANK + ORACLE_VARCHAR, PARAM_IN, containeer }, };
 
 		JdbcStoredProcedure objSP = new JdbcStoredProcedure(getDataSource(), procedureName, arrParam);
