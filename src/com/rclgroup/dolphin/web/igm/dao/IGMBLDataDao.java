@@ -54,8 +54,7 @@ public interface IGMBLDataDao {
 	
 	public void saveBLData(List<ImportGeneralManifestMod> blsForSavingCont,String procedureName) throws Exception;
 
-	public void saveUnfetchedBlData (String unFetchedinsertBLList,String procedureName,
-			Map amapParam,int blcount) throws Exception;
+	public void saveUnfetchedBlData (String unFetchedinsertBLList,String procedureName) throws Exception;
 	
 	public void deleteBLData(List<ImportGeneralManifestMod> deleteBL, String procedureName) throws CloneNotSupportedException, JsonProcessingException;
 

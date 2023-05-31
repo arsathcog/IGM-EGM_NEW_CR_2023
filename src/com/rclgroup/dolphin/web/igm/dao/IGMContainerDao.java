@@ -37,5 +37,6 @@ public interface  IGMContainerDao {
 	public List<ContainerDetails> setContainerDetailsNew(List<ImportGeneralManifestMod> listOfBL,String procedureName) throws Exception ;
 
 	public void deleteContainer(List<ContainerDetails> containerDetailes, String blsInput, String rclIgmSaveContainor) throws JsonProcessingException;
-	
+//	Methods for unfetched bl 
+	public Map saveUnfetchedContainer(String blsInput,String procedure) throws Exception;
 }

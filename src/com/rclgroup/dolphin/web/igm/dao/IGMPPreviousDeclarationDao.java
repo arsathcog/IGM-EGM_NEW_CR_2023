@@ -41,4 +41,7 @@ public interface IGMPPreviousDeclarationDao {
 	public void deletePreviousDeclData(List<PreviousDeclaration> previousDeclarations, String procedureName,
 			String blsInput) throws JsonProcessingException;
 
+//	method for unfetched BL 
+	public void saveUnfetchedPreviousDeclData(String procedureName,String blsInput) throws Exception;
+
 }

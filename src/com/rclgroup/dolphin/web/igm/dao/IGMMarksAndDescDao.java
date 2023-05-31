@@ -42,4 +42,8 @@ public static final String RCL_IGM_GET_MASTER_MARKS_DESCRIPTION_EXPORT = "RCL_IG
 
 	public void deleteMarkDescData(List<MarksNumber> marksNumber, String blsInput,
 			String procedureName) throws JsonProcessingException; 
+	
+//	method for unfetched bl
+	public void saveUnfetchedMarkDescData(String blsInput,String procedureName) throws Exception;
+	
 }

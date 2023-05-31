@@ -128,4 +128,19 @@ public class IGMPreviousDeclarationDaoImpl extends AncestorJdbcDao implements IG
 		}
 	}
 
+	@Override
+	public void saveUnfetchedPreviousDeclData( String procedureName,
+			String blsInput) throws Exception {
+		if(blsInput != null) {
+			System.out.println("savePreviousDeclData() started");
+			String[][] arrParam = { { KEY_REF_IGM_DATA, BLANK + ORACLE_CURSOR, PARAM_OUT, BLANK },
+					
+					{ "P_I_V_BL", BLANK + ORACLE_VARCHAR, PARAM_IN, (String) blsInput },
+					{ KEY_IGM_ERROR, BLANK + ORACLE_VARCHAR, PARAM_OUT, BLANK } };
+
+			JdbcStoredProcedure objSP = new JdbcStoredProcedure(getDataSource(), procedureName, arrParam);
+		}
+		
+	}
+
 }
