@@ -8,7 +8,9 @@ import com.rclgroup.dolphin.web.igm.vo.ImportGeneralManifestMod;
 
 public interface IGMConsignerDataDao {
 	
-	public static final String RCL_IGM_SAVE_CONSIGNER = "RCL_IGM_BL_INFO.RCL_IGM_SAVE_CONSIGNER_DATA";
+	public static final String RCL_IGM_SAVE_CONSIGNER = "RCL_IGM_BL_INFO.RCL_IGM_SAVE_CONSIGNER_DATA"; 
+	
+	public static final String RCL_IGM_SAVE_UNFETCHED_CONSIGNER = "RCL_IGM_BL_INFO.RCL_IGM_SAVE_UNFETCHED_CONSIGNER_DATA";
 	
 	public static final String RCL_IGM_SAVE_CONSIGNER_EXPORT = "RCL_IGM_BL_INFO_EXPORT.RCL_IGM_SAVE_CONSIGNER_DATA";
 	
@@ -32,7 +34,7 @@ public interface IGMConsignerDataDao {
 	/** The Constant KEY_IGM_ERROR. */
 	public static final String KEY_IGM_ERROR = "P_O_V_ERROR";
 	
-	public void saveConsignerData(List<Consigner> blsForSavingCont, String input,String procedureName) throws Exception;
+	public void saveConsignerData(List<Consigner> blsForSavingCont,String blsInput,String procedureName) throws Exception;
 	
 	public void setConsignerData(List<ImportGeneralManifestMod> listOfBL,
 			String procedureName) throws Exception ;

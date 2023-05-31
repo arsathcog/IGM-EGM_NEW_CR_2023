@@ -1,14 +1,14 @@
 
 <%@taglib uri="/WEB-INF/struts-html.tld" prefix="html"%>
 <%@taglib uri="/WEB-INF/struts-logic.tld" prefix="logic"%>
-<%@ taglib uri="/WEB-INF/struts-tiles.tld" prefix="tiles"%>
-<%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean"%>
+<%@taglib uri="/WEB-INF/struts-tiles.tld" prefix="tiles"%>
+<%@taglib uri="/WEB-INF/struts-bean.tld" prefix="bean"%>
 <%@page import="com.niit.control.common.GlobalConstants"%>
 <%@page import="com.niit.control.web.action.BaseAction"%>
-<%@ page import="com.niit.control.web.UserAccountBean"%>
+<%@page import="com.niit.control.web.UserAccountBean"%>
 <%@page import="com.niit.control.common.StringUtil"%>
-<%@ page import="java.io.*,java.util.*"%>
-<%@ page import="javax.servlet.*,java.text.*"%>
+<%@page import="java.io.*,java.util.*"%>
+<%@page import="javax.servlet.*,java.text.*"%>
 <%@page import="com.niit.control.web.*"%>
 <%@page import="com.niit.control.common.*"%>
 <%@page import="java.util.Date" %>
@@ -425,7 +425,8 @@ roundshap4 {
     	   var USERID             		= '<%=BaseAction.getUserID(request)%>';
     	   var GETBLDATA          		=	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getBlData", pageContext)%>';
     	   var GETPORTDATA          	=	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getPortData", pageContext)%>';
-    	   var SAVE_DATA         	 	=	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/VesselVoyagSave", pageContext)%>';
+    	   var SAVE_DATA_VESSEL_VOYAGE   =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/VesselVoyageSave", pageContext)%>';
+    	   var SAVE_DATA_BL_DATA        =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/blDataSave", pageContext)%>';
     	   var DOWNLOAD_DATA      		=	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/download", pageContext)%>';
     	   var UPLOAD_CSV         		=	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/csvFilePrsnOnBord", pageContext)%>';
     	   var DELETE_CSV         		=	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/deleteCsvFile", pageContext)%>';
@@ -2146,6 +2147,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 		});
 	}
 
+
 	$scope.blcheckTotalIteamSelectAll=function(obj)
 	{
 			debugger;
@@ -2198,9 +2200,16 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				return false;
 			}
 			 
-			sendData ="?savedBlList="+payloadSaved+"&unSavedBlList="+payloadUnSaved+"&vessel="+$scope.selectedServcies.vessel+"&voyage="+$scope.selectedServcies.voyage+"&pod="+$scope.selectedServcies.pod;
+/* 			sendData ="?savedBlList="+payloadSaved+"&unSavedBlList="+payloadUnSaved+"&vessel="+$scope.selectedServcies.vessel+"&voyage="+$scope.selectedServcies.voyage+"&pod="+$scope.selectedServcies.pod;
+ */
 			$( "body" ).append('<div class="loading"></div>');
-			$http({
+			setTimeout(function() {
+				  $(".loading").remove();
+				}, 1000);
+
+			
+	/*Commenting this code because going to do new implementation for loading more than 1000 BL*/
+			/* $http({
 				method : "POST",
 				async : true,
 				url : $window.GETSELECTALLBL+sendData,
@@ -2218,7 +2227,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				$scope.selectAllFetch = true;
 				document.getElementById("subCheckBox").checked = true;
 				 /* $scope.getExtraDetails(); */ 
-			});
+			/* }); */
 			
 	}
 	
@@ -2339,6 +2348,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 					$scope.blIndex=obj.$index;
 					$scope.selectedBL= $scope.BLS[$scope.blIndex]
 					$scope.getContainerDetails();
+					$scope.getCarogoDetails();
 				}
 				
 			}
@@ -2565,8 +2575,6 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 	
 	$scope.save = function (){
 		debugger;
-
-	
 		var totalNoValidation=$scope.selectedServcies.totalItem;
 		if(totalNoValidation ==null || totalNoValidation == 0){
 			swal("Message","!Need to select BL.","info");
@@ -2582,61 +2590,98 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 		}
 		
 		$( "body" ).append('<div class="loading"></div>');
-		//delete jsonData.result[0].selectedBL.$$hashKey;
 		
-		$http({
-			method : "POST",
-			async : true,
-			url : $window.SAVE_DATA,
-			dataType: 'json',
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-			beforeSend:function()
-			{
-				loadingfun();
-			},
-			data : "requestParam="+encodeURIComponent(JSON.stringify(jsonData.result[0])),
-		}).then(function(data, status, headers, config) {
-			debugger;
-			for(var o=0;o<data['data']['resultSave'].length;o++){
-				if(data['data']['resultSave'][o]['saveFlags']=="I" || data['data']['resultSave'][o]['saveFlags']=="U"){
-					for(var x=0;x<$scope.BLS.length;x++){
-						if($scope.BLS[x].bl==data['data']['resultSave'][o]['bl']){
-							$scope.BLS[x]['itemNumber']=data['data']['resultSave'][o]['itemNumber'];
-						}
-					}
+			$http({
+				method : "POST",
+				async : true,
+				url : $window.SAVE_DATA_VESSEL_VOYAGE,
+				dataType: 'json',
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+				beforeSend:function()
+				{
+					loadingfun();
+				},
+				data : "requestParam="+encodeURIComponent(JSON.stringify(jsonData.result[0].service)),
+			}).then(function(data, status, headers, config) { 
+				blModule =  ($scope.BLS.length/200|0);
+				blExtraModule = $scope.BLS.length%200;
+				if(blExtraModule>0){
+					blModule++;
 				}
-			}
-			for(var o=0;o<data['data']['resultDelete'].length;o++){
-				if(data['data']['resultDelete'][o]['saveFlags']=="D"){
-					for(var x=0;x<$scope.BLS.length;x++){
-						if($scope.BLS[x].bl==data['data']['resultDelete'][o]['bl']){
-							$scope.BLS[x]['itemNumber']="";
-						}
-					}
-				}
-			}
-
-			var blCountCheck = 0;
-
-			for(var i=0; i<$scope.BLS.length;i++){
-				var iteam = $scope.BLS[i];
-				if(iteam.isBlSave=="true"){
-					blCountCheck++;
-				}
-			}
-			debugger;
-			if($scope.BLS.length == blCountCheck){
-				$scope.isBlSelecteSave = 'true';
-			}
-			if($scope.isBlSelecteSave == 'true' && $scope.BLS.length > blCountCheck){
-				document.getElementById("selectAllCheckBox").checked = false;
-				$scope.selectAllFetch = false;
-			}
-			$("body").find('.loading').remove();
-			swal("Message","Saved Successfully..!","info");
-			//$scope.msg="Saved Successfully..!";
-			// $("#dialog-form").dialog("close");
-		});
+				maxIteamNo = parseInt(jsonData.result[0].service.fromItemNo);
+				fstBL = 0;
+				for(var d=0;d<blModule;d++){
+						debugger;
+						startingIndex = (d * d) * 200;
+						lastIndex = (d * d + 1) * 200;
+						for(var p=startingIndex;p<lastIndex;p++){
+							if ($scope.BLS[p] != null && (true==$scope.BLS[p].isBlSave || "true"==$scope.BLS[p].isBlSave)) {
+								if ($scope.BLS[p].itemNumber == null || $scope.BLS[p].itemNumber == "") {
+									$scope.BLS[p].itemNumber=(maxIteamNo+ "");
+									if($scope.BLS[p].saveFlags=='N'){
+										$scope.BLS[p].saveFlags='I';
+									}
+									maxIteamNo++;
+								}else {
+									if (parseInt($scope.BLS[p].itemNumber) > maxIteamNo || maxIteamNo == parseInt(jsonData.result[0].service.fromItemNo)) {
+										if(fstBL==0) {
+											$scope.BLS[p].itemNumber = maxIteamNo;
+										}else {
+											maxIteamNo = parseInt($scope.BLS[p].itemNumber);
+										}
+										if($scope.BLS[p].saveFlags=='N' && ($scope.BLS[p].fetch=='false' || $scope.BLS[p].fetch==false)){
+											$scope.BLS[p].saveFlags='N';
+										}else if(($scope.BLS[p].saveFlags=='N' || $scope.BLS[p].saveFlags=='U') && ($scope.BLS[p].fetch=='true' || $scope.BLS[p].fetch==true)){
+											$scope.BLS[p].saveFlags='U';
+										}
+										maxIteamNo++;
+									}else {
+										$scope.BLS[p].itemNumber = maxIteamNo;
+										maxIteamNo++;
+										$scope.BLS[p].saveFlags='U';
+									}
+								}
+								fstBL++;
+							} else if ($scope.BLS[p] != null && (true==$scope.BLS[p].isBlSave  || "true"==$scope.BLS[p].isBlSave)
+													&&  $scope.BLS[p].itemNumber != "" && $scope.BLS[p].itemNumber != null) {
+								if (parseInt($scope.BLS[p].itemNumber) >= maxIteamNo) {
+									maxIteamNo = parseInt($scope.BLS[p].itemNumber);
+									$scope.BLS[p].saveFlags='U';
+								}
+							}else if ($scope.BLS[p] != null && (false==$scope.BLS[p].isBlSave || "false"==$scope.BLS[p].isBlSave) && $scope.BLS[p] != null 
+													&&  $scope.BLS[p].itemNumber != "" && $scope.BLS[p].itemNumber != null) {
+								if (parseInt($scope.BLS[p].itemNumber) >= maxIteamNo) {
+									maxIteamNo = parseInt($scope.BLS[p].itemNumber);
+									$scope.BLS[p].saveFlags='D';
+								}
+							}
+						} 
+						blSaveJson = {};	
+						blSaveJson['bls'] = $scope.BLS.slice(startingIndex,lastIndex);	
+						blSaveJson['service'] = (jsonData.result[0].service);
+						blSaveJson['sequence'] = (jsonData.result[0].sequence);
+						
+						$http({
+						method : "POST",
+						async : true,
+						url : $window.SAVE_DATA_BL_DATA,
+						dataType: 'json',
+						headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+						beforeSend:function()
+						{
+							loadingfun();
+						},
+						data : "requestParam="+encodeURIComponent(JSON.stringify(blSaveJson)),
+					}).then(function(data, status, headers, config) {
+						debugger;
+						$("body").find('.loading').remove();
+						swal("Message","Saved Successfully..!","info");
+						 
+					}); 
+						 
+				 }
+				$("body").find('.loading').remove();
+			});
 	}
 	
 	 var resultLength ;

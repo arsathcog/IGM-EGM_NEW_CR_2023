@@ -24,8 +24,10 @@ public class IGMConsigneeDataDaoImpl extends AncestorJdbcDao implements IGMConsi
 
 	
 
-	public void saveConsigneeData(List<Consignee> listOfConsignee,  String blsInput,String procedureName) throws Exception {
+	public void saveConsigneeData(List<Consignee> listOfConsignee,String  blsInput,String procedureName) throws Exception {
 		if(!CollectionUtils.isEmpty(listOfConsignee)) {
+			Map<String, ImportGeneralManifestMod> mapBlWithContainerDetails = new HashMap<String, ImportGeneralManifestMod>();
+
 		ObjectMapper mapper = new ObjectMapper();
 		String containeer = mapper.writeValueAsString(listOfConsignee);
 		System.out.println("saveConsigneeData() started");

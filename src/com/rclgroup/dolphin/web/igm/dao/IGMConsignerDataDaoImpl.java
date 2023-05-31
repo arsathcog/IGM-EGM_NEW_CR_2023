@@ -20,18 +20,20 @@ import com.rclgroup.dolphin.web.igm.vo.ImportGeneralManifestMod;
 
 public class IGMConsignerDataDaoImpl extends AncestorJdbcDao implements IGMConsignerDataDao {
 
-	 public void saveConsignerData(List<Consigner> listOfConsigner, String blsInput,String procedureName) throws Exception {
-		 if(!CollectionUtils.isEmpty(listOfConsigner)) {
-		ObjectMapper mapper = new ObjectMapper();
-		String containeer = mapper.writeValueAsString(listOfConsigner);
-		System.out.println("saveConsigneeData() started");
-		String[][] arrParam = { { "P_I_V_BL", BLANK + ORACLE_VARCHAR, PARAM_IN, blsInput },
-				{ KEY_IGM_CONSIGNER_DTLS, BLANK + ORACLE_VARCHAR, PARAM_IN, containeer }, };
+	public void saveConsignerData(List<Consigner> listOfConsigner, String blsInput, String procedureName)
+			throws Exception {
+		if (!CollectionUtils.isEmpty(listOfConsigner)) {
 
-		JdbcStoredProcedure objSP = new JdbcStoredProcedure(getDataSource(), procedureName, arrParam);
+			ObjectMapper mapper = new ObjectMapper();
+			String containeer = mapper.writeValueAsString(listOfConsigner);
+			System.out.println("saveConsigneeData() started");
+			String[][] arrParam = { { "P_I_V_BL", BLANK + ORACLE_VARCHAR, PARAM_IN, blsInput },
+					{ KEY_IGM_CONSIGNER_DTLS, BLANK + ORACLE_VARCHAR, PARAM_IN, containeer }, };
 
-		objSP.execute();
-		 }
+			JdbcStoredProcedure objSP = new JdbcStoredProcedure(getDataSource(), procedureName, arrParam);
+
+			objSP.execute();
+		}
 	}
 	 
 		public void setConsignerData(List<ImportGeneralManifestMod> listOfBL,

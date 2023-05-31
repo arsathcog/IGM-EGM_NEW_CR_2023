@@ -9,7 +9,9 @@ import com.rclgroup.dolphin.web.igm.vo.ImportGeneralManifestMod;
 
 public interface IGMConsigneeDataDao {
 	
-	public static final String RCL_IGM_SAVE_CONSIGNEE = "RCL_IGM_BL_INFO.RCL_IGM_SAVE_CONSIGNEE_DATA";
+	public static final String RCL_IGM_SAVE_CONSIGNEE = "RCL_IGM_BL_INFO.RCL_IGM_SAVE_CONSIGNEE_DATA"; 
+	
+	public static final String RCL_IGM_SAVE_UNFETCHED_CONSIGNEE = "RCL_IGM_BL_INFO.RCL_IGM_SAVE_UNFETCHED_CONSIGNEE_DATA"; 
 	
 	public static final String RCL_IGM_SAVE_CONSIGNEE_EXPORT = "RCL_IGM_BL_INFO_EXPORT.RCL_IGM_SAVE_CONSIGNEE_DATA";
 	
@@ -32,7 +34,7 @@ public interface IGMConsigneeDataDao {
 
 	/** The Constant KEY_IGM_ERROR. */
 	public static final String KEY_IGM_ERROR = "P_O_V_ERROR";
-	public void saveConsigneeData(List<Consignee> blsForSavingCont, String input,String procedureName) throws Exception;
+	public void saveConsigneeData(List<Consignee> blsForSavingCont,String blsInput,String procedureName) throws Exception;
 	
 	public void setConsigneeData(List<ImportGeneralManifestMod> listOfBL,
 			String procedureName) throws Exception ;

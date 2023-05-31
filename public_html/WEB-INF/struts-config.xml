@@ -190,7 +190,13 @@
                 <forward name="failure" path="rcl.ezl.sigm001New.page"></forward>
         </action>
         
-         <action path="/VesselVoyagSave" type="com.rclgroup.dolphin.web.igm.action.IGMNewScreenSvc" parameter="VesselVoyagSave"
+         <action path="/VesselVoyageSave" type="com.rclgroup.dolphin.web.igm.action.IGMNewScreenSvc" parameter="vesselVoyageSave"
+                 name="figm001" validate="false" scope="request">
+                <forward name="success" path="rcl.ezl.sigm001New.page"></forward>
+                <forward name="failure" path="rcl.ezl.sigm001New.page"></forward>
+        </action>
+        
+        <action path="/blDataSave" type="com.rclgroup.dolphin.web.igm.action.IGMNewScreenSvc" parameter="blDataSave"
                  name="figm001" validate="false" scope="request">
                 <forward name="success" path="rcl.ezl.sigm001New.page"></forward>
                 <forward name="failure" path="rcl.ezl.sigm001New.page"></forward>

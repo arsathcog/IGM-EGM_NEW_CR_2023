@@ -9,7 +9,9 @@ import com.rclgroup.dolphin.web.igm.vo.NotifyPartyTwo;
 
 public interface IGMNodifyPartyDao {
 	
-	public static final String RCL_IGM_SAVE_NODIFY_PARTY_DESCRIPTION = "RCL_IGM_BL_INFO.RCL_IGM_SAVE_NODIFY_PARTY_DATA";
+	public static final String RCL_IGM_SAVE_NODIFY_PARTY_DESCRIPTION = "RCL_IGM_BL_INFO.RCL_IGM_SAVE_NODIFY_PARTY_DATA"; 
+	
+	public static final String RCL_IGM_SAVE_UNFETCHED_NODIFY_PARTY_DESCRIPTION = "RCL_IGM_BL_INFO.RCL_IGM_SAVE_UNFETCHED_NODIFY_PARTY_DATA";
 	
 	public static final String RCL_IGM_SAVE_NODIFY_PARTY_DESCRIPTION_EXPORT = "RCL_IGM_BL_INFO_EXPORT.RCL_IGM_SAVE_NODIFY_PARTY_DATA";
 	
@@ -41,7 +43,7 @@ public interface IGMNodifyPartyDao {
 	/** The Constant KEY_IGM_ERROR. */
 	public static final String KEY_IGM_ERROR = "P_O_V_ERROR";
 	
-	public void saveNodifyData(List<NotifyParty> blsForSavingCont, String input,String procedureName) throws Exception;
+	public void saveNodifyData(List<NotifyParty> blsForSavingCont, String blsInput,String procedureName) throws Exception;
 	
 	public void saveNodifyTwoData(List<NotifyPartyTwo> blsForSavingCont, String input,String procedureName) throws Exception;
 	

@@ -835,7 +835,6 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			}else {
 				objMod.setIsBlSave(String.valueOf(false));
 			}
-			System.out.println(rs.getString("CARGO_MOVMNT"));
 			if(rs.getString("CARGO_MOVMNT") != null ) {
 				objMod.setCargoMovmnt(rs.getString("CARGO_MOVMNT"));
 			}else {

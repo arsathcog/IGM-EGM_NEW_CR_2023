@@ -19,12 +19,13 @@ import com.rclgroup.dolphin.web.igm.vo.PreviousDeclaration;
 
 public class IGMPreviousDeclarationDaoImpl extends AncestorJdbcDao implements IGMPPreviousDeclarationDao {
 	@Override
-	public void savePreviousDeclData(List<PreviousDeclaration> listOfPrevDeclaration,String procedureName ,String input) throws Exception {
+	public void savePreviousDeclData(List<PreviousDeclaration> listOfPrevDeclaration,String procedureName , String blsInput) throws Exception {
 		if(!CollectionUtils.isEmpty(listOfPrevDeclaration)) {
+			
 		ObjectMapper mapper = new ObjectMapper();
 		String containeer = mapper.writeValueAsString(listOfPrevDeclaration);
 		System.out.println("savePreviousDeclData() started");
-		String[][] arrParam = { { "P_I_V_BL", BLANK + ORACLE_VARCHAR, PARAM_IN, input },
+		String[][] arrParam = { { "P_I_V_BL", BLANK + ORACLE_VARCHAR, PARAM_IN, blsInput },
 				{ KEY_IGM_PREV_DECLARATION_DTLS, BLANK + ORACLE_VARCHAR, PARAM_IN, containeer }, };
 
 		JdbcStoredProcedure objSP = new JdbcStoredProcedure(getDataSource(), procedureName, arrParam);

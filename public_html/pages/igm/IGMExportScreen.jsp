@@ -2619,6 +2619,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 			debugger;
 			if($scope.BLS.length == blCountCheck){
 				$scope.isBlSelecteSave = 'true';
+				document.getElementById("selectAllCheckBox").checked = true;
 			}
 			if($scope.isBlSelecteSave == 'true' && $scope.BLS.length > blCountCheck){
 				document.getElementById("selectAllCheckBox").checked = false;

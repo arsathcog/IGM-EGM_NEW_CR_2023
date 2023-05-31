@@ -32,11 +32,12 @@ public class IGMContainerDaoImpl extends AncestorJdbcDao implements IGMContainer
 	public static final String KEY_IGM_ERROR = "P_O_V_ERROR";
 
 	@Override
-	public Map saveContainer( List<ContainerDetails> containerDetailes, String blsInput,String procedureName) throws Exception {
+	public Map saveContainer( List<ContainerDetails> containerDetailes, String listOfBL,String procedureName) throws Exception {
 		// TODO Auto-generated method stub
-	
+	System.out.println("saveContainer "+procedureName);
 		if(!CollectionUtils.isEmpty(containerDetailes)) {
-		
+			String blsInput = null;
+			
 		ObjectMapper mapper = new ObjectMapper();
 		String containeer = mapper.writeValueAsString(containerDetailes);
 		System.out.println("saveContainerData() started");

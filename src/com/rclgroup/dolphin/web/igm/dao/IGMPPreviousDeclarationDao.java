@@ -19,6 +19,8 @@ public interface IGMPPreviousDeclarationDao {
 	
 	public static final String RCL_IGM_SAVE_PREV_DECLARATION = "RCL_IGM_BL_INFO.RCL_IGM_SAVE_PREV_DECLARATION_DATA";
 	
+	public static final String RCL_IGM_SAVE_UNFETCHED_PREV_DECLARATION = "RCL_IGM_BL_INFO.RCL_IGM_SAVE_UNFETCHED_PREV_DECLARATION_DATA";
+	
 	public static final String RCL_IGM_SAVE_PREV_DECLARATION_EXPORT = "RCL_IGM_BL_INFO_EXPORT.RCL_IGM_SAVE_PREV_DECLARATION_DATA";
 	
 	public static final String RCL_IGM_DELETE_PREV_DECLARATION = "RCL_IGM_BL_INFO.RCL_IGM_DELETE_PREV_DECLARATION_DATA";
@@ -34,7 +36,7 @@ public interface IGMPPreviousDeclarationDao {
 	public static final String KEY_IGM_ERROR = "P_O_V_ERROR";
 
 
-	public void savePreviousDeclData(List<PreviousDeclaration> blsForSavingCont,String procedureName, String input) throws Exception;
+	public void savePreviousDeclData(List<PreviousDeclaration> blsForSavingCont,String procedureName,String blsInput) throws Exception;
 	public void setPreviousDeclData(List<ImportGeneralManifestMod> listOfBL, String procedureName) throws Exception;
 	public void deletePreviousDeclData(List<PreviousDeclaration> previousDeclarations, String procedureName,
 			String blsInput) throws JsonProcessingException;

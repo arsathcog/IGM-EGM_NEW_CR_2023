@@ -20,8 +20,9 @@ import com.rclgroup.dolphin.web.igm.vo.NotifyPartyTwo;
 
 public class IGMNodifyPartyDaoImpl extends AncestorJdbcDao implements IGMNodifyPartyDao {
 
-	public void saveNodifyData(List<NotifyParty> listOfMarks, String blsInput,String procedureName) throws Exception {
+	public void saveNodifyData(List<NotifyParty> listOfMarks,  String  blsInput,String procedureName) throws Exception {
 		if(!CollectionUtils.isEmpty(listOfMarks)) {
+			
 		ObjectMapper mapper = new ObjectMapper();
 		String containeer = mapper.writeValueAsString(listOfMarks);
 		System.out.println("saveNodifyTwoData() started");
