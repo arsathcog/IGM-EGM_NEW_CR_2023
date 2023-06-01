@@ -436,14 +436,14 @@ roundshap4 {
     	   var PERSONONBOARDSEARCH      =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getPersonOnBoardSearch", pageContext)%>';
     	   var CREWEFFECTSEARCH         =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getCrewEffectSearch", pageContext)%>';
     	   var SHIPSTORSEARCH           =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getShipStorSearch", pageContext)%>';
-    	   var CAROGODETAILSSEARCHHBL      =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getCarogoDetailsHBL", pageContext)%>';
+    	   var CAROGODETAILSSEARCHHBL   =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getCarogoDetailsHBL", pageContext)%>';
     	   var CAROGODETAILSSEARCH      =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getCarogoDetails", pageContext)%>';
     	   var CONTAINERDETAILSSEARCH   =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getContainerDetails", pageContext)%>';
-    	   var GETHBLLIST           =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getHblList", pageContext)%>';
+    	   var GETHBLLIST           	=	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getHblList", pageContext)%>';
     	   var GETSELECTALLBL           =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getSelectAllOption", pageContext)%>';
     	   var UPLOAD_ACK       		=	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/ackFileUpload", pageContext)%>';
     	   var EXTRADETAILSSEARCH       =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getCarogoDetailsAndMore", pageContext)%>';
-    	   var 	GETSTOWAGEIMPORT	        =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getStowageImport", pageContext)%>';	
+    	   var GETSTOWAGEIMPORT	        =	'<%=com.niit.control.web.JSPUtils.getActionMappingURL("/getStowageImport", pageContext)%>';	
     	   	
     	   
             <%String strUserFsc = null;

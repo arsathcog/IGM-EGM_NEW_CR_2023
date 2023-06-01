@@ -2164,16 +2164,17 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 			if($("#selectAllCheckBox")[0].checked == true){
 				for(var i=0; i<$scope.BLS.length;i++){
 				var iteam = $scope.BLS[i];
+				
 				iteam.isBlSave=true
 				    count++;
 					if($scope.BLS[i].isBlSave == true && $scope.BLS[i].itemNumber != "" && $scope.BLS[i].itemNumber != null){
-						if(payloadSaved == "" && $scope.selectAllFetch == false){
+						if(payloadSaved == "" && $scope.selectAllFetch == false ||  $scope.selectAllFetch == "false"){
 							payloadSaved =  $scope.BLS[i].bl;
 						}else{
 							payloadSaved = payloadSaved + "," + $scope.BLS[i].bl;
 						}
 					}else{
-						if(payloadUnSaved == "" && $scope.selectAllFetch == false){
+						if(payloadUnSaved == "" && $scope.selectAllFetch == false || $scope.selectAllFetch == "false"){
 							payloadUnSaved =  $scope.BLS[i].bl;
 						}else{
 							payloadUnSaved = payloadUnSaved + "," + $scope.BLS[i].bl;
@@ -2661,8 +2662,8 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				fstBL = 0;
 				for(var d=0;d<blModule;d++){
 						debugger;
-						startingIndex = (d * d) * 200;
-						lastIndex = (d * d + 1) * 200;
+						startingIndex = (d * 1) * 200;
+						lastIndex = (d * 1 + 1) * 200;
 						for(var p=startingIndex;p<lastIndex;p++){
 							if ($scope.BLS[p] != null && (true==$scope.BLS[p].isBlSave || "true"==$scope.BLS[p].isBlSave)) {
 								if ($scope.BLS[p].itemNumber == null || $scope.BLS[p].itemNumber == "") {
@@ -2687,7 +2688,11 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 									}else {
 										$scope.BLS[p].itemNumber = maxIteamNo;
 										maxIteamNo++;
-										$scope.BLS[p].saveFlags='U';
+										if($scope.BLS[p].saveFlags=='N' && ($scope.BLS[p].fetch=='false' || $scope.BLS[p].fetch==false)){
+											$scope.BLS[p].saveFlags='N';
+										}else if(($scope.BLS[p].saveFlags=='N' || $scope.BLS[p].saveFlags=='U') && ($scope.BLS[p].fetch=='true' || $scope.BLS[p].fetch==true)){
+											$scope.BLS[p].saveFlags='U';
+										}
 									}
 								}
 								fstBL++;

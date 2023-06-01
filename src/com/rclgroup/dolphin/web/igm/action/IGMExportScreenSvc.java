@@ -512,7 +512,7 @@ System.out.println("getCarogoDetails() Called.");
 		mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, objForm.getVessel());
 		mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, objForm.getVoyage());
 		System.out.println(blsInput);
-		objBlDao.saveUnfetchedBlData(blsInput,IGMBLDataDao.RCL_IGM_UNFETCHED_SAVE_BL,mapParam);
+		objBlDao.saveUnfetchedBlData(blsInput,IGMBLDataDao.RCL_IGM_UNFETCHED_SAVE_BL,mapParam,insertBL);
 		containerDao.saveUnfetchedContainer(blsInput,IGMContainerDao.RCL_IGM_SAVE_UNFETCHED_CONTAINOR);
 		objConsigneeDao.saveUnfetchedConsigneeData(blsInput,IGMConsigneeDataDao.RCL_IGM_SAVE_UNFETCHED_CONSIGNEE);
 		objConsignerDao.saveUnfetchedConsignerData(blsInput,IGMConsignerDataDao.RCL_IGM_SAVE_UNFETCHED_CONSIGNER);
