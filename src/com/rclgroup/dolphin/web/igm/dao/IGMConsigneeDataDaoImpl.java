@@ -157,7 +157,7 @@ public class IGMConsigneeDataDaoImpl extends AncestorJdbcDao implements IGMConsi
 		if(blsInput!=null) {
 		System.out.println("saveUnfetchedConsigneeData() started");
 		
-		String[][] arrParam = { { KEY_REF_IGM_DATA, BLANK + ORACLE_CURSOR, PARAM_OUT, BLANK }};
+		String[][] arrParam = { { "P_I_V_BL", BLANK + ORACLE_VARCHAR, PARAM_IN, blsInput }};
 
 		JdbcStoredProcedure objSP = new JdbcStoredProcedure(getDataSource(), procedureName, arrParam);
 

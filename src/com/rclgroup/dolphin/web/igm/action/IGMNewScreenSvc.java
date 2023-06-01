@@ -497,7 +497,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		 * (Integer.parseInt(blObj.getItemNumber()) >= maxIteamNo) { maxIteamNo =
 		 * Integer.parseInt(blObj.getItemNumber()); blsForSavingCont.add(blObj); } } }
 		 */
-		System.out.println(">>>"+blsForSavingCont.toString());
+		
 		getSaveDataList(blList,deleteBL,insertBL,insertBLFetch);
 
 		String blsConInput = null;
@@ -515,7 +515,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 				blsConInput += ",'" + mod.getBl() + "'";
 
 		}
-		 
+		System.out.println("deleteBL : "+blsConInput);
 		objBlDao.deleteBLData(deleteBL,IGMBLDataDao.RCL_IGM_DELETE_BL);
 		containerDao.deleteContainer(containerDetailes, blsConInput,IGMContainerDao.RCL_IGM_DELETE_CONTAINOR);
 		objConsigneeDao.deleteConsigneeData(consignee, blsConInput,IGMConsigneeDataDao.RCL_IGM_DELETE_CONSIGNEE);
@@ -551,7 +551,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 				previousDeclarations.addAll(mod.getPreviousDeclaration());
 			}
 		}
-		System.out.println(blsInput);
+		System.out.println("insertBLFetch : "+blsInput);
 		objBlDao.saveBLData(insertBLFetch,IGMBLDataDao.RCL_IGM_SAVE_BL);
 		containerDao.saveContainer(containerDetailes, blsInput,IGMContainerDao.RCL_IGM_SAVE_CONTAINOR);
 		objConsigneeDao.saveConsigneeData(consignee, blsInput,IGMConsigneeDataDao.RCL_IGM_SAVE_CONSIGNEE);
@@ -589,10 +589,10 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 				previousDeclarations.addAll(mod.getPreviousDeclaration());
 			}
 		}
-		mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, objForm.getVessel());
-		mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, objForm.getVoyage());
-		System.out.println(blsInput);
-		objBlDao.saveUnfetchedBlData(blsInput,IGMBLDataDao.RCL_IGM_UNFETCHED_SAVE_BL,mapParam);
+		mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, service.getVessel());
+		mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, service.getVoyage());
+		System.out.println("insertBL : "+blsInput);
+		objBlDao.saveUnfetchedBlData(blsInput,IGMBLDataDao.RCL_IGM_UNFETCHED_SAVE_BL,mapParam,insertBL);
 		containerDao.saveUnfetchedContainer(blsInput,IGMContainerDao.RCL_IGM_SAVE_UNFETCHED_CONTAINOR);
 		objConsigneeDao.saveUnfetchedConsigneeData(blsInput,IGMConsigneeDataDao.RCL_IGM_SAVE_UNFETCHED_CONSIGNEE);
 		objConsignerDao.saveUnfetchedConsignerData(blsInput,IGMConsignerDataDao.RCL_IGM_SAVE_UNFETCHED_CONSIGNER);

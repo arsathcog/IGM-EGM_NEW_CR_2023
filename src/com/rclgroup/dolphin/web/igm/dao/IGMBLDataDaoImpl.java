@@ -88,21 +88,24 @@ public class IGMBLDataDaoImpl extends AncestorJdbcDao implements IGMBLDataDao {
 	}
 
 	@Override
-	public void saveUnfetchedBlData(String unFetchedinsertBLList, String procedureName,Map amapParam) throws Exception {
+	public void saveUnfetchedBlData(String unFetchedinsertBLList, String procedureName,Map amapParam,List<ImportGeneralManifestMod> insertBL) throws Exception {
 	
 //		String blCountLoop  =  Integer.toString(blcount);
 		List<ImportGeneralManifestMod> onlyBL= new ArrayList<ImportGeneralManifestMod>();
-		String blsInput = null;
-		
-		String[][] arrParam = { { KEY_REF_IGM_DATA, BLANK + ORACLE_CURSOR, PARAM_OUT, BLANK },
-				{ KEY_IGM_BL, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) unFetchedinsertBLList },
-				{ KEY_IGM_VESSEL, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_VESSEL) },
-				{ KEY_IGM_VOYAGE, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_VOYAGE) }};
-
-		JdbcStoredProcedure objSP = new JdbcStoredProcedure(getDataSource(), procedureName, arrParam);
-
-		objSP.execute();
-		
+		 
+		if(unFetchedinsertBLList != null) {
+			
+			ObjectMapper mapper = new ObjectMapper();
+			String blJson = mapper.writeValueAsString(insertBL);
+			
+			String blInput = unFetchedinsertBLList.substring(1, unFetchedinsertBLList.length()-1);
+			String[][] arrParam = { { KEY_IGM_BL, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) unFetchedinsertBLList },
+					{ KEY_IGM_VESSEL, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_VESSEL) },
+					{ KEY_IGM_VOYAGE, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_VOYAGE) },
+					{ KEY_IGM_BL_JSON, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) blJson }};
+			JdbcStoredProcedure objSP = new JdbcStoredProcedure(getDataSource(), procedureName, arrParam);
+			objSP.execute();
+		}
 	}
 		
 }

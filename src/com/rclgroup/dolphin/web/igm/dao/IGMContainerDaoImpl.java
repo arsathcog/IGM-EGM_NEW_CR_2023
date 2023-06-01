@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.util.CollectionUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -230,7 +231,7 @@ public class IGMContainerDaoImpl extends AncestorJdbcDao implements IGMContainer
 			contDetails.setRemarks(rs.getString("REMARKS"));
 			contDetails.setContainerSize(rs.getString("CONTAINERSIZE"));
 			//contDetails.setEquipmentLoadStatus(rs.getString("EQUIPMENT_LOAD_STATUS"));
-			if(rs.getString("EQUIPMENT_LOAD_STATUS").equals(" ") || rs.getString("EQUIPMENT_LOAD_STATUS").isEmpty()){
+			if( StringUtils.isEmpty(rs.getString("EQUIPMENT_LOAD_STATUS")) || rs.getString("EQUIPMENT_LOAD_STATUS").equals("") || rs.getString("EQUIPMENT_LOAD_STATUS").isEmpty()){
 				contDetails.setEquipmentLoadStatus("FCL");
             }else{
             	contDetails.setEquipmentLoadStatus(rs.getString("EQUIPMENT_LOAD_STATUS"));

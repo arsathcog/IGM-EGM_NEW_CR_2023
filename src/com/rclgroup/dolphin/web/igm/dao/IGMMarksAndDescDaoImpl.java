@@ -169,12 +169,11 @@ public class IGMMarksAndDescDaoImpl extends AncestorJdbcDao implements IGMMarksA
 	public void saveUnfetchedMarkDescData(String blsInput, String procedureName)
 			throws Exception {
 		System.out.println("saveUnfetchedMarkDescData() started");
-		
-		String[][] arrParam = {{ "P_I_V_BL", BLANK + ORACLE_VARCHAR, PARAM_IN, blsInput }};
-
-		JdbcStoredProcedure objSP = new JdbcStoredProcedure(getDataSource(), procedureName, arrParam);
-
-		objSP.execute();
+		if(blsInput!=null) {
+			String[][] arrParam = {{ "P_I_V_BL", BLANK + ORACLE_VARCHAR, PARAM_IN, blsInput }};
+			JdbcStoredProcedure objSP = new JdbcStoredProcedure(getDataSource(), procedureName, arrParam);
+			objSP.execute();
+		}
 	}
 		
 

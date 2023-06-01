@@ -52,9 +52,11 @@ public interface IGMBLDataDao {
 	/** The Constant KEY_IGM_POL_TERMINAL. */
 	public static final String KEY_IGM_POL_TERMINAL = "P_I_V_POL_TERMINAL";
 	
+	public static final String KEY_IGM_BL_JSON = "P_I_V_BL_JSON";
+	
 	public void saveBLData(List<ImportGeneralManifestMod> blsForSavingCont,String procedureName) throws Exception;
 
-	public void saveUnfetchedBlData (String unFetchedinsertBLList,String procedureName,Map amapParam) throws Exception;
+	public void saveUnfetchedBlData (String unFetchedinsertBLList,String procedureName,Map amapParam,List<ImportGeneralManifestMod> insertBL) throws Exception;
 	
 	public void deleteBLData(List<ImportGeneralManifestMod> deleteBL, String procedureName) throws CloneNotSupportedException, JsonProcessingException;
 

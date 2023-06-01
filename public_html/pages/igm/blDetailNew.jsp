@@ -3,10 +3,10 @@
          <tr>{{selectedServcies.totalItems}}
             <th class="TableLeftSub tableVessel-width">Sr.No</th>
             <th class="TableLeftSub tableVessel-width" ng-if="selectedServcies.fromItemNo == null || selectedServcies.fromItemNo == '' " >Select All
-            	<input type="checkbox"  value="Y" name="selectall" title="Specify From Item No"  disabled onclick="selectsAll()"  >
+            	<input type="checkbox"  value="Y" name="selectall" title="Specify From Item No"  disabled   >
             </th>
             <th class="TableLeftSub tableVessel-width" ng-if="selectedServcies.fromItemNo != null && selectedServcies.fromItemNo !='' " >Select All
-            	<input type="checkbox"  value="Y" name="selectall" id = "selectAllCheckBox" onclick="selectsAll()" ng-model="isBlSelecteSav" ng-checked = "isBlSelecteSave == 'true'" ng-click="blcheckTotalIteamSelectAll(this)" >
+            	<input type="checkbox"  value="Y" name="selectall" id = "selectAllCheckBox" onclick="selectAll()" ng-model="isBlSelecteSav" ng-checked = "isBlSelecteSave == 'true'" ng-click="blcheckTotalIteamSelectAll(this)" >
             </th>
 	    <th class="TableLeftSub tableVessel-width">HBL NO<i class="fa fa-angle-double-down"></i></th>
             <th class="TableLeftSub tableVessel-width">BL NO</th>
@@ -27,11 +27,11 @@
             
             <td class="bl_detail_Newl">{{$index + 1}}</td>
             <td class="bl_detail_Newl" ng-if="selectedServcies.fromItemNo == null || selectedServcies.fromItemNo=='' " >  
-            	<input type="checkbox" name="chk"  onclick="unSelects(this)"  ng-model="item.isBlSave" title="Specify From Item No"  
+            	<input type="checkbox" name="chk"    ng-model="item.isBlSave" title="Specify From Item No"  
              		   ng-checked="item.isBlSave == 'true'" value="item.isBlSave'" disabled>
             </td>
             <td class="bl_detail_Newl" ng-if="selectedServcies.fromItemNo != null && selectedServcies.fromItemNo!='' " >  
-            	<input type="checkbox" name="chk" id = "subCheckBox" onclick="unSelects(this)" ng-model="item.isBlSave" ng-checked="item.isBlSave == 'true'"  
+            	<input type="checkbox" name="chk" id = "subCheckBox" onclick="unSelect(this)" ng-model="item.isBlSave" ng-checked="item.isBlSave == 'true'"  
             		   ng-click="blcheckTotalIteam(this)" value="item.isBlSave'">
             </td>
 	    <td class="bl_detail_Newl" ng-if=" item.blCriteria=='HBL'" ></td>
@@ -108,14 +108,14 @@
         }
 </style>
  <script type="text/javascript">  
- function selectsAll(){  
-	 return false;
+ function selectAll(){  
+	 debugger;
      var eleAll=document.getElementsByName('selectall');
      var ele=document.getElementsByName('chk');
      debugger;
 		if (eleAll[0].checked == true) {
 				for (var i = 0; i < ele.length; i++) {
-					if (ele[i].type == 'checkbox') {
+					if (ele[i].type == 'checkbox'  && ele[i].checked == false) {
 						ele[i].checked = true;
 					}
 				}
@@ -127,11 +127,11 @@
 			}
   }
 
-		function unSelects(id) {
-			debugger;
-			var eleAll = document.getElementsByName('selectall');
-			if (id.checked == false)
-				eleAll[0].checked = false;
-
-		}
+	function unSelect(id) {
+		debugger;
+		var eleAll = document.getElementsByName('selectall');
+		if (id.checked == false)
+			eleAll[0].checked = false;
+	
+	}
 	</script>
