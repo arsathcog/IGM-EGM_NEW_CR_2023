@@ -353,7 +353,7 @@ System.out.println("getCarogoDetails() Called.");
 //		ImportGeneralManifestInput     saveParam 			= mapper.readValue(data, ImportGeneralManifestInput.class);
 		ImportGeneralManifestMod       service 				= mapper.readValue(data, ImportGeneralManifestMod.class);
 		
-		vesselVoyageDao.saveVesselVoyageData(service,IGMVesselVoyageSaveDao.RCL_IGM_SAVE_VESSEL_VOYOAGE);
+		vesselVoyageDao.saveVesselVoyageData(service,IGMVesselVoyageSaveDao.RCL_IGM_SAVE_VESSEL_VOYOAGE_EXPORT);
 	
 		return null;
 	}
