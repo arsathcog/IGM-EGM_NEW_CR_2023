@@ -3660,6 +3660,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 			beforeSend:function()
 			{
 				loadingfun();
+				$('#saveDataModal').show();
 			},
 			data : "requestParam="+encodeURIComponent(JSON.stringify(sendData)),
 			 
