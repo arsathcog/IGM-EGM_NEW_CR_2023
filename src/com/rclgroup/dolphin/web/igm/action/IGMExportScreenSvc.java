@@ -512,13 +512,13 @@ System.out.println("getCarogoDetails() Called.");
 		mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, objForm.getVessel());
 		mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, objForm.getVoyage());
 		System.out.println(blsInput);
-		objBlDao.saveUnfetchedBlData(blsInput,IGMBLDataDao.RCL_IGM_UNFETCHED_SAVE_BL,mapParam,insertBL);
-		containerDao.saveUnfetchedContainer(blsInput,IGMContainerDao.RCL_IGM_SAVE_UNFETCHED_CONTAINOR);
-		objConsigneeDao.saveUnfetchedConsigneeData(blsInput,IGMConsigneeDataDao.RCL_IGM_SAVE_UNFETCHED_CONSIGNEE);
-		objConsignerDao.saveUnfetchedConsignerData(blsInput,IGMConsignerDataDao.RCL_IGM_SAVE_UNFETCHED_CONSIGNER);
-		objNodifyDao.saveUnfetchedNodifyData(blsInput,IGMNodifyPartyDao.RCL_IGM_SAVE_UNFETCHED_NODIFY_PARTY_DESCRIPTION);
-		objMarksDescDao.saveUnfetchedMarkDescData(blsInput,IGMMarksAndDescDao.RCL_IGM_SAVE_UNFETCHED_MARKS_NUMBER_DESCRIPTION);
-		objPreviousDao.saveUnfetchedPreviousDeclData(IGMPPreviousDeclarationDao.RCL_IGM_SAVE_UNFETCHED_PREV_DECLARATION, blsInput);
+		objBlDao.saveUnfetchedBlData(blsInput,IGMBLDataDao.RCL_IGM_UNFETCHED_SAVE_BL_EXPORT,mapParam,insertBL);
+		containerDao.saveUnfetchedContainer(blsInput,IGMContainerDao.RCL_IGM_SAVE_UNFETCHED_CONTAINOR_EXPORT);
+		objConsigneeDao.saveUnfetchedConsigneeData(blsInput,IGMConsigneeDataDao.RCL_IGM_SAVE_UNFETCHED_CONSIGNEE_EXPORT);
+		objConsignerDao.saveUnfetchedConsignerData(blsInput,IGMConsignerDataDao.RCL_IGM_SAVE_UNFETCHED_CONSIGNER_EXPORT);
+		objNodifyDao.saveUnfetchedNodifyData(blsInput,IGMNodifyPartyDao.RCL_IGM_SAVE_UNFETCHED_NODIFY_PARTY_DESCRIPTION_EXPORT);
+		objMarksDescDao.saveUnfetchedMarkDescData(blsInput,IGMMarksAndDescDao.RCL_IGM_SAVE_UNFETCHED_MARKS_NUMBER_DESCRIPTION_EXPORT);
+		objPreviousDao.saveUnfetchedPreviousDeclData(IGMPPreviousDeclarationDao.RCL_IGM_SAVE_UNFETCHED_PREV_DECLARATION_EXPORT, blsInput);
 		
 		
 		/*
