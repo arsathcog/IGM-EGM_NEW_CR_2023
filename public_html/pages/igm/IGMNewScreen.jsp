@@ -2687,7 +2687,6 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 					}); 
 						 
 				 }
-				$("body").find('.loading').remove();
 			});
 	}
 	
