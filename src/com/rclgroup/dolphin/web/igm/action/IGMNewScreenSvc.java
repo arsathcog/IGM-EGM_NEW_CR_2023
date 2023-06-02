@@ -525,6 +525,9 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		objPreviousDao.deletePreviousDeclData(previousDeclarations,IGMPPreviousDeclarationDao.RCL_IGM_DELETE_PREV_DECLARATION, blsConInput);
 		
 		String blsInput = null;
+		if(insertBLFetch.size() > 0) {
+			
+		
 		for (ImportGeneralManifestMod mod : insertBLFetch) {
 
 			if (blsInput == null)
@@ -560,7 +563,9 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		objMarksDescDao.saveMarkDescData(marksNumber, blsInput,IGMMarksAndDescDao.RCL_IGM_SAVE_MARKS_NUMBER_DESCRIPTION);
 		objPreviousDao.savePreviousDeclData(previousDeclarations,IGMPPreviousDeclarationDao.RCL_IGM_SAVE_PREV_DECLARATION, blsInput);
 		
+		}
 		
+		if(insertBL.size() > 0) {
 		String blsInputFetch = null;
 		Map<String, String> mapParam = new HashMap<>();
 		for (ImportGeneralManifestMod mod : insertBL) {
@@ -600,7 +605,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		objMarksDescDao.saveUnfetchedMarkDescData(blsInput,IGMMarksAndDescDao.RCL_IGM_SAVE_UNFETCHED_MARKS_NUMBER_DESCRIPTION);
 		objPreviousDao.saveUnfetchedPreviousDeclData(IGMPPreviousDeclarationDao.RCL_IGM_SAVE_UNFETCHED_PREV_DECLARATION, blsInput);
 		
-		
+		}
 		/*
 		 * net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject(); jsonObj = new
 		 * net.sf.json.JSONObject(); jsonObj.put("resultSave", insertBL);
@@ -1101,7 +1106,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		List<ImportGeneralManifestMod> blListNew = new ArrayList<ImportGeneralManifestMod>();
 		for (int l = 0; l < blList.size(); l++) {
 			ImportGeneralManifestMod obj = blList.get(l);
-			if (obj.isFetch() == true) {
+			if (obj.getIsBlSave().equals("true")) {
 				blListNew.add(obj);
 			}
 		}
@@ -1220,6 +1225,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 						IGMNodifyPartyDao.RCL_IGM_GET_SAVE_NODIFY_PARTY_DESCRIPTION_IMPORT);
 				objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_SAVE_MARKS_DESCRIPTION);
 				objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION);
+				blObj.addAll(blObj);
 			}
 
 			/*

@@ -1479,7 +1479,7 @@ function showDialgPort(index){
 					}
 					downloadfilename=one+'_'+'SACHM23'+'_'+fileNme+'_'+two+'_'+three+'_'+fore+'_'+'DEC'+'.json';
 					
-					var sampleBytes = new String(JSON.stringify(StringResult.jsonFile));
+					var sampleBytes = new String(JSON.stringify(StringResult.jsonFile,null,"\t"));
 					var saveByteArray = (function() {
 						var a = document.createElement("a");
 						document.body.appendChild(a);
