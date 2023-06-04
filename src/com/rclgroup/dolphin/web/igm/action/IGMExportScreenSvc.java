@@ -508,7 +508,7 @@ System.out.println("getCarogoDetails() Called.");
 			objMarksDescDao.saveUnfetchedMarkDescData(blsNotFetch,IGMMarksAndDescDao.RCL_IGM_SAVE_UNFETCHED_MARKS_NUMBER_DESCRIPTION_EXPORT);
 			objPreviousDao.saveUnfetchedPreviousDeclData(blsNotFetch,IGMPPreviousDeclarationDao.RCL_IGM_SAVE_UNFETCHED_PREV_DECLARATION_EXPORT);
 		}
-		
+ 
 		net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();
 		jsonObj = new net.sf.json.JSONObject();
 		jsonObj.put("result", saveParam.getSaveBlPhase());

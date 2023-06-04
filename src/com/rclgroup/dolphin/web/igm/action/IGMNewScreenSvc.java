@@ -510,7 +510,6 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 			objPreviousDao.deletePreviousDeclData(previousDeclarations, blsDeleteInput,IGMPPreviousDeclarationDao.RCL_IGM_DELETE_PREV_DECLARATION);
 		}
 		
-		
 		String blsFetch = null;
 		for (ImportGeneralManifestMod mod : insertBLFetch) {
 		
@@ -538,6 +537,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 				previousDeclarations.addAll(mod.getPreviousDeclaration());
 			}
 		}
+		
 		if(insertBLFetch.size()>0) {
 			objBlDao.saveBLData(insertBLFetch,blsFetch,IGMBLDataDao.RCL_IGM_SAVE_BL);
 			containerDao.saveContainer(containerDetailes, blsFetch,IGMContainerDao.RCL_IGM_SAVE_CONTAINOR);
@@ -549,6 +549,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		}
 		
 		String blsNotFetch = null;
+ 
 		Map<String, String> mapParam = new HashMap<>();
 		for (ImportGeneralManifestMod mod : insertBL) {
 			
@@ -1087,7 +1088,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		List<ImportGeneralManifestMod> blListNew = new ArrayList<ImportGeneralManifestMod>();
 		for (int l = 0; l < blList.size(); l++) {
 			ImportGeneralManifestMod obj = blList.get(l);
-			if (obj.isFetch() == true) {
+			if (obj.getIsBlSave().equals("true")) {
 				blListNew.add(obj);
 			}
 		}
@@ -1206,6 +1207,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 						IGMNodifyPartyDao.RCL_IGM_GET_SAVE_NODIFY_PARTY_DESCRIPTION_IMPORT);
 				objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_SAVE_MARKS_DESCRIPTION);
 				objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION);
+				blObj.addAll(blObj);
 			}
 
 			/*

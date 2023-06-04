@@ -2734,7 +2734,6 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 					}); 
 						 
 				 }
-				$("body").find('.loading').remove();
 			});
 	}
 	
