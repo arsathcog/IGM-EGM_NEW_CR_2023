@@ -1424,7 +1424,7 @@ function showDialgSaveLoadingDtls(index){
 			var blNoSaved = "";
 			var blNoUnSaved = "";
 			for (var x = 0; x < jsonData.result[0]["BLS"].length; x++) {
-				if (jsonData.result[0]["BLS"][x].isBlSave == 'true'
+				if (jsonData.result[0]["BLS"][x].isBlSave == true
 						&& jsonData.result[0]["BLS"][x].itemNumber != ""
 						&& jsonData.result[0]["BLS"][x].itemNumber != null) {
 					if (jsonData.result[0]["BLS"][x].fetch == false) {

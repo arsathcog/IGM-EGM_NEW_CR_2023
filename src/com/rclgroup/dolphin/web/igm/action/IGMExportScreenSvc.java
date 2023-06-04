@@ -955,20 +955,21 @@ System.out.println("getCarogoDetails() Called.");
 			}
 
 		 
+		 List<ImportGeneralManifestMod> blListNewSavedVal = new ArrayList<ImportGeneralManifestMod>();
 		 List<ImportGeneralManifestMod> blListNew = new ArrayList<ImportGeneralManifestMod>();
 		 
 		 	for(int l=0;l<blList.size();l++) {
 			ImportGeneralManifestMod obj = blList.get(l);
-			if(obj.isFetch() == true) {
+			if (obj.getIsBlSave().equals("true")) {
 				blListNew.add(obj);
 			} 
 		 }
-		 blListNew.addAll(getBlDetails(service,objForm));
+		 	blListNewSavedVal.addAll(getBlDetails(service,objForm));
 		 
 		 System.out.println("Object Done..... 0");
 		 int getSeqNo = objDao.getSeqNoJdbc(service,"EGM",objForm.getFileType());
 
-			 Object manifestFile = CreatingJSON.getJsonFile(blListNew, objForm.getFileType(), service, personOnBoardMod,
+			 Object manifestFile = CreatingJSON.getJsonFile(blListNewSavedVal, objForm.getFileType(), service, personOnBoardMod,
 					crewEfctMod, shipStoresMod, getSeqNo);
 			 
 				objDao.updateSqnNoForJsonFile(service, getSeqNo, "EGM",objForm.getFileType());
@@ -1247,7 +1248,7 @@ System.out.println("getCarogoDetails() Called.");
 		
 		
 		
-		if (objForm.getSavedBlList() != null && !objForm.getSavedBlList().equals("")) {
+		if (objForm.getSavedBlList() != null || !objForm.getSavedBlList().equals("")) {
 			Map<String, String> 		mapParam	 = 	new HashMap<>();
 			String 						blsInput 	 =  null;
 			Map<Object, Object> 		mapSaveBL 	 = 	null;

@@ -1085,19 +1085,21 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 			shipStoresMod = objPersonDao.getShipStore(mapParam, PersonOnBoardDao.SQL_RCL_IGM_GET_SAVE_SHIP_STORE);
 		}
 
+		List<ImportGeneralManifestMod> blListNewSavedVal = new ArrayList<ImportGeneralManifestMod>();
 		List<ImportGeneralManifestMod> blListNew = new ArrayList<ImportGeneralManifestMod>();
+
 		for (int l = 0; l < blList.size(); l++) {
 			ImportGeneralManifestMod obj = blList.get(l);
 			if (obj.getIsBlSave().equals("true")) {
 				blListNew.add(obj);
 			}
 		}
-		blListNew.addAll(getBlDetails(service, objForm));
+		blListNewSavedVal.addAll(getBlDetails(service, objForm));
 		System.out.println("Object Done..... 0");
 
 		int getSeqNo = objDao.getSeqNoJdbc(service, "IGM", objForm.getFileType());
 
-		Object manifestFile = CreatingJSON.getJsonFile(blListNew, objForm.getFileType(), service, personOnBoardMod,
+		Object manifestFile = CreatingJSON.getJsonFile(blListNewSavedVal, objForm.getFileType(), service, personOnBoardMod,
 				crewEfctMod, shipStoresMod, getSeqNo);
 		objDao.updateSqnNoForJsonFile(service, getSeqNo, "IGM", objForm.getFileType());
 		System.out.println("Object Done..... 1");
@@ -1131,7 +1133,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		List<ContainerDetails> containerList = null;
 		List<ImportGeneralManifestMod> blObj = new LinkedList<ImportGeneralManifestMod>();
 
-		if (objForm.getSavedBlList() != null && !objForm.getSavedBlList().equals("")) {
+		if (objForm.getSavedBlList() != null || !objForm.getSavedBlList().equals("")) {
 			Map<String, String> mapParam = new HashMap<>();
 			String blsInput = null;
 			Map<Object, Object> mapSaveBL = null;
@@ -1207,7 +1209,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 						IGMNodifyPartyDao.RCL_IGM_GET_SAVE_NODIFY_PARTY_DESCRIPTION_IMPORT);
 				objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_SAVE_MARKS_DESCRIPTION);
 				objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION);
-				blObj.addAll(blObj);
+//				blObj.addAll(blObj);
 			}
 
 			/*
