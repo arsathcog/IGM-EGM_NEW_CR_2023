@@ -38,12 +38,12 @@ public interface IGMPPreviousDeclarationDao {
 	public static final String KEY_IGM_ERROR = "P_O_V_ERROR";
 
 
-	public void savePreviousDeclData(List<PreviousDeclaration> blsForSavingCont,String procedureName,String blsInput) throws Exception;
+	public void savePreviousDeclData(List<PreviousDeclaration> blsForSavingCont,String blsInput,String procedureName) throws Exception;
+	
 	public void setPreviousDeclData(List<ImportGeneralManifestMod> listOfBL, String procedureName) throws Exception;
-	public void deletePreviousDeclData(List<PreviousDeclaration> previousDeclarations, String procedureName,
-			String blsInput) throws JsonProcessingException;
+	
+	public void deletePreviousDeclData(List<PreviousDeclaration> previousDeclarations,String blsInput, String procedureName) throws JsonProcessingException;
 
-//	method for unfetched BL 
-	public void saveUnfetchedPreviousDeclData(String procedureName,String blsInput) throws Exception;
+	public void saveUnfetchedPreviousDeclData(String blsInput,String procedureName) throws Exception;
 
 }

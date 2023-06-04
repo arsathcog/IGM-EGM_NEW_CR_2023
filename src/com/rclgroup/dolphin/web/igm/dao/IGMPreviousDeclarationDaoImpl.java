@@ -19,7 +19,7 @@ import com.rclgroup.dolphin.web.igm.vo.PreviousDeclaration;
 
 public class IGMPreviousDeclarationDaoImpl extends AncestorJdbcDao implements IGMPPreviousDeclarationDao {
 	@Override
-	public void savePreviousDeclData(List<PreviousDeclaration> listOfPrevDeclaration,String procedureName , String blsInput) throws Exception {
+	public void savePreviousDeclData(List<PreviousDeclaration> listOfPrevDeclaration, String blsInput,String procedureName ) throws Exception {
 		if(!CollectionUtils.isEmpty(listOfPrevDeclaration)) {
 			
 		ObjectMapper mapper = new ObjectMapper();
@@ -113,8 +113,8 @@ public class IGMPreviousDeclarationDaoImpl extends AncestorJdbcDao implements IG
 	}
 
 	@Override
-	public void deletePreviousDeclData(List<PreviousDeclaration> previousDeclarations, String procedureName,
-			String blsInput) throws JsonProcessingException {
+	public void deletePreviousDeclData(List<PreviousDeclaration> previousDeclarations,String blsInput, String procedureName
+			) throws JsonProcessingException {
 		if(blsInput!=null) {
 		ObjectMapper mapper = new ObjectMapper();
 		String containeer = mapper.writeValueAsString(previousDeclarations);
@@ -129,8 +129,7 @@ public class IGMPreviousDeclarationDaoImpl extends AncestorJdbcDao implements IG
 	}
 
 	@Override
-	public void saveUnfetchedPreviousDeclData( String procedureName,
-			String blsInput) throws Exception {
+	public void saveUnfetchedPreviousDeclData( String blsInput,String procedureName) throws Exception {
 		if(blsInput != null) {
 			System.out.println("saveUnfetchedPreviousDeclData() started");
 			String[][] arrParam = { { "P_I_V_BL", BLANK + ORACLE_VARCHAR, PARAM_IN, (String) blsInput }};

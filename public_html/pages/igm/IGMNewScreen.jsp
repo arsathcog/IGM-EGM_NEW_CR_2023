@@ -1356,8 +1356,28 @@ $(document).ready(function() {
 	     //alert("close");
 	    }
 	  });
+	
+	$( "#saveDataModal" ).dialog({
+	    autoOpen: false,
+	    modal: true,
+	    resizable: true,
+	    maxWidth:500,
+        maxHeight: 400,
+        width: 500,
+        height: 400,
+	    buttons: {
+	      Cancel: function() {
+	    	  $("#saveDataModal").dialog("close");
+	      } 
+	    },
+	    close: function() {
+	     //alert("close");
+	    }
+	  });
    
 	});
+	
+	
 
 
 
@@ -1370,7 +1390,10 @@ function showDialgPort(index){
 	debugger;
 	$("#dialog-form-port").dialog("open");
 }
- 
+function showDialgSaveLoadingDtls(index){
+	debugger;
+	$("#saveDataModal").dialog("open");
+} 
   
 		$(function () {
 			debugger;
@@ -1712,6 +1735,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	$scope.cfsCustomCode=[];
 	$scope.BLS=[];
 	$rootScope.portLookUpJson=[];
+	$rootScope.blSavePhases=[];
 	$scope.pageType='IGM';
 	$scope.SealTypeObj = ["BTSL", "ESEAL","OTHER"];
 	$scope.ISOCodeObj=["2000","4200","4000"]
@@ -2592,27 +2616,31 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 			}
 		}
 		
-		$( "body" ).append('<div class="loading"></div>');
-		
+		blModule =  ($scope.BLS.length/200|0);
+		blExtraModule = $scope.BLS.length%200;
+		if(blExtraModule>0){
+			blModule=blModule+1;
+		}
+		savePhaseCountObj = [];
+		for(var i=0;i<blModule;i++){
+			savePhaseCountObj.push(i);
+		}
+		$rootScope.blSavePhases = savePhaseCountObj;
+		showDialgSaveLoadingDtls(blModule);
 			$http({
 				method : "POST",
 				async : true,
 				url : $window.SAVE_DATA_VESSEL_VOYAGE,
 				dataType: 'json',
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-				beforeSend:function()
-				{
-					loadingfun();
-				},
 				data : "requestParam="+encodeURIComponent(JSON.stringify(jsonData.result[0].service)),
 			}).then(function(data, status, headers, config) { 
-				blModule =  ($scope.BLS.length/200|0);
-				blExtraModule = $scope.BLS.length%200;
-				if(blExtraModule>0){
-					blModule++;
-				}
+				debugger;
+				$('#phaseVsslVoyg').removeClass('active');
+				$('#phaseVsslVoyg').html('Completed');
 				maxIteamNo = parseInt(jsonData.result[0].service.fromItemNo);
 				fstBL = 0;
+				blModuleTemp = blModule;
 				for(var d=0;d<blModule;d++){
 						debugger;
 						startingIndex = (d * 1) * 200;
@@ -2667,6 +2695,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 						blSaveJson['bls'] = $scope.BLS.slice(startingIndex,lastIndex);	
 						blSaveJson['service'] = (jsonData.result[0].service);
 						blSaveJson['sequence'] = (jsonData.result[0].sequence);
+						blSaveJson['saveBlPhase'] = d;
 						
 						$http({
 						method : "POST",
@@ -2674,16 +2703,11 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 						url : $window.SAVE_DATA_BL_DATA,
 						dataType: 'json',
 						headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-						beforeSend:function()
-						{
-							loadingfun();
-						},
 						data : "requestParam="+encodeURIComponent(JSON.stringify(blSaveJson)),
 					}).then(function(data, status, headers, config) {
 						debugger;
-						$("body").find('.loading').remove();
-						swal("Message","Saved Successfully..!","info");
-						 
+						$('#phase'+data.data.result).removeClass('active'); 
+						$('#phase'+data.data.result).html('Completed'); 
 					}); 
 						 
 				 }
@@ -3660,7 +3684,6 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 			beforeSend:function()
 			{
 				loadingfun();
-				$('#saveDataModal').show();
 			},
 			data : "requestParam="+encodeURIComponent(JSON.stringify(sendData)),
 			 

@@ -273,7 +273,7 @@ $(document).ready(function(){
    <div  id="vesselHeader"> <jsp:include page="vesselHeader.jsp"></jsp:include> </div>
    <div id="blHeader" style="display:none" > <jsp:include page="blHeader.jsp"></jsp:include> </div>
    <div id="portLookupId" style="display:none" > <jsp:include page="ports.jsp"></jsp:include> </div>     
-   <div id="portLookupId" style="display:none" > <jsp:include page="savePageDialog.jsp"></jsp:include> </div> 
+   <div id="saveDataModalId" style="display:none" > <jsp:include page="savePageDialog.jsp"></jsp:include> </div> 
    <ul>
        <li><a href="#vesselSection"> <span>Vessel/Voyage Search Details</span></a> </li>
        <li><a href="#prsnOnBord" ng-click = "getprscrwshipSearch('P')" ><span>Person On Board</span></a>   </li>

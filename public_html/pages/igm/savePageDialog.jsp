@@ -1,7 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
     <style>
-#saveDataModal{
+#saveDataModals{
  border : 1px solid #8b8b8b;
   width:30%;
   margin-left: 38%;
@@ -97,32 +95,23 @@
 }
 
 </style>
-<div id="saveDataModal">
-  <div class="head">
-      <div class="heading">Save IGM Details</div>
-    <div class="nav"><div class="closeBtn" onClick="closeBtn()">X</div></div>
-  </div>
-  <div id="list">
-    <p class="textHeading">Due to huge no of BL details Save process may take time.</p>
-    <div id="modalBody">
-      <div>Vessel Voyage Save: <div class="loadingMenu active" id="phase0"></div></div>
-      <div>BAL Save: 
-        <div style="padding-left:20px; font-weight:100;">
-          <div >Phase 1: <div class="loadingMenu active" id="phase1"></div></div>
-          <div >Phase 1: <div class="loadingMenu active" id="phase2"></div></div>
-          <div >Phase 1: <div class="loadingMenu active" id="phase3"></div></div>
-          <div >Phase 1: <div class="loadingMenu active" id="phase4"></div></div>
-          <div >Phase 1: <div class="loadingMenu active" id="phase5"></div></div>
+<div id="saveDataModal" title="IGM Save Details">
+  <div>
+    <p class="textHeading"> Due to huge No of BL It may take Some time.</p>
+    <div >
+      <div>Vessel Voyage Save: <div class="loadingMenu active" id="phaseVsslVoyg"></div></div>
+      <br>
+      <div>BL Save:  
+        <div class="paginationclass"
+							ng-repeat="row in blSavePhases" >  
+		   <div style="padding-left:20px; font-weight:100;">
+           		<div>BL Save Phase {{row+1}} : <div class="loadingMenu active" id="phase{{row}}"></div></div>
+           </div>
         </div>
       </div>
-      
     </div>
   </div>
-  
-  <div class="footerModal"><div class="cancelbtn" onClick="closeBtn()">Cancel</div></div>
 </div>
 <script>
-	function closeBtn(){
-		$('#saveDataModal').hide();
-	}
+ 
 </script>

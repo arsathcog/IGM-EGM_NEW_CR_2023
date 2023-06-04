@@ -56,7 +56,6 @@ public interface IGMNodifyPartyDao {
 	public void deleteNodifyData(List<NotifyParty> notifyParty, String blsInput,
 			String procedureName) throws JsonProcessingException;
 	
-//	Method for unfetched bl 
 	public void saveUnfetchedNodifyData(String blsInput,String procedureName) throws Exception;
 	
 	

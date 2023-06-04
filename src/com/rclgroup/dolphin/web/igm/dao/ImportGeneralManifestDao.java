@@ -46,6 +46,8 @@ public interface ImportGeneralManifestDao {
 
 	/** The Constant KEY_IGM_VOYAGE. */
 	public static final String KEY_IGM_VOYAGE = "P_I_V_VOYAGE";
+	
+	public static final String KEY_IGM_BL_LIST = "P_I_V_ONLY_NEW_BL";
 
 	/** The Constant KEY_IGM_POD_TERMINAL. */
 	public static final String KEY_IGM_POD_TERMINAL = "P_I_V_POD_TERMINAL";

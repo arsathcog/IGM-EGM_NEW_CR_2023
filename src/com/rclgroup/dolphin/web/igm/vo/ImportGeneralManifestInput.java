@@ -17,7 +17,7 @@ public class ImportGeneralManifestInput {
 	/** The bls. */
 	private List<ImportGeneralManifestMod> bls;
 
-	
+	private String saveBlPhase;
 	
 	
 	public ImportGeneralManifestMod getService() {
@@ -31,7 +31,7 @@ public class ImportGeneralManifestInput {
 	public String getSequence() {
 		return sequence;
 	}
-
+	
 	public void setSequence(String sequence) {
 		this.sequence = sequence;
 	}
@@ -43,7 +43,14 @@ public class ImportGeneralManifestInput {
 	public void setBls(List<ImportGeneralManifestMod> bls) {
 		this.bls = bls;
 	}
-	
+
+	public String getSaveBlPhase() {
+		return saveBlPhase;
+	}
+
+	public void setSaveBlPhase(String saveBlPhase) {
+		this.saveBlPhase = saveBlPhase;
+	}
 	
 
 }

@@ -10,7 +10,7 @@ public interface IGMBLDataDao {
 	
 	public static final String RCL_IGM_SAVE_BL = "RCL_IGM_BL_INFO.RCL_IGM_SAVE_BL_DATA_SUSHIL";
 	
-	public static final String RCL_IGM_UNFETCHED_SAVE_BL = "RCL_IGM_BL_INFO_EXPORT.RCL_IGM_SAVE_UNFETCHED_BL_DATA_SUSHIL";
+	public static final String RCL_IGM_UNFETCHED_SAVE_BL = "RCL_IGM_BL_INFO.RCL_IGM_SAVE_UNFETCHED_BL_DATA_SUSHIL";
 	
 	public static final String RCL_IGM_UNFETCHED_SAVE_BL_EXPORT = "RCL_IGM_BL_INFO_EXPORT.RCL_IGM_SAVE_UNFETCHED_BL_DATA_SUSHIL";
 	
@@ -56,10 +56,10 @@ public interface IGMBLDataDao {
 	
 	public static final String KEY_IGM_BL_JSON = "P_I_V_BL_JSON";
 	
-	public void saveBLData(List<ImportGeneralManifestMod> blsForSavingCont,String procedureName) throws Exception;
+	public void saveBLData(List<ImportGeneralManifestMod> blsForSavingCont,String blsInput,String procedureName) throws Exception;
 
 	public void saveUnfetchedBlData (String unFetchedinsertBLList,String procedureName,Map amapParam,List<ImportGeneralManifestMod> insertBL) throws Exception;
 	
-	public void deleteBLData(List<ImportGeneralManifestMod> deleteBL, String procedureName) throws CloneNotSupportedException, JsonProcessingException;
+	public void deleteBLData(List<ImportGeneralManifestMod> deleteBL,String blsDeleteInput,String procedureName) throws CloneNotSupportedException, JsonProcessingException;
 
 }

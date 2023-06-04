@@ -50,8 +50,6 @@ public interface IGMConsigneeDataDao {
 
 	public void deleteConsigneeData(List<Consignee> consignee, String blsInput, String procedureName) throws JsonProcessingException;
 
-//	method for unfetched bl 
-	
 	public void saveUnfetchedConsigneeData(String blsInput,String procedureName) throws Exception;
 	
 	
