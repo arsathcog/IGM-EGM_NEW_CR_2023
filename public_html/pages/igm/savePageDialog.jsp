@@ -1,4 +1,25 @@
-    <style>
+<%@taglib uri="/WEB-INF/struts-html.tld" prefix="html"%>
+<%@taglib uri="/WEB-INF/struts-logic.tld" prefix="logic"%>
+<%@ taglib uri="/WEB-INF/struts-tiles.tld" prefix="tiles"%>
+<%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean"%>
+<%@page import="com.niit.control.common.GlobalConstants"%>
+<%@page import="com.niit.control.web.action.BaseAction"%>
+<%@ page import="com.niit.control.web.UserAccountBean"%>
+<%@page import="com.niit.control.common.StringUtil"%>
+<%@ page import="java.io.*,java.util.*"%>
+<%@ page import="javax.servlet.*,java.text.*"%>
+<%@page import="com.niit.control.web.*"%>
+<%@page import="com.niit.control.common.*"%>
+<%@page import="java.util.Date"%>
+<%
+   boolean[] arrAuthFlags = BaseAction.getAuthFlags(request, "SIGM001");
+   boolean blnReadFlag = arrAuthFlags[GlobalConstants.IDX_READ_FLAG];
+   boolean blnDelFlag = arrAuthFlags[GlobalConstants.IDX_DEL_FLAG];
+   String lstrSysDate = BaseAction.getSysDate();
+   String lstrCtxPath1 = request.getContextPath();
+   %>
+ 
+<style>
 #saveDataModals{
  border : 1px solid #8b8b8b;
   width:30%;
@@ -95,7 +116,7 @@
 }
 
 </style>
-<div id="saveDataModal" title="IGM Save Details">
+<div id="saveDataModal" title="IGM Save Details" ng-init="init1();">
   <div>
     <p class="textHeading"> Due to huge No of BL It may take Some time.</p>
     <div >

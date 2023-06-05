@@ -54,7 +54,7 @@ public class IGMBLDataDaoImpl extends AncestorJdbcDao implements IGMBLDataDao {
 			
 			ObjectMapper mapper = new ObjectMapper();
 			String blJson = mapper.writeValueAsString(insertBL);
-			
+			System.out.println(blJson);
 			String blInput = unFetchedinsertBLList.substring(1, unFetchedinsertBLList.length()-1);
 			String[][] arrParam = { { KEY_IGM_BL, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) unFetchedinsertBLList },
 					{ KEY_IGM_VESSEL, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_VESSEL) },

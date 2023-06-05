@@ -1311,7 +1311,7 @@ $(document).ready(function() {
 	      Cancel: function() {
 	    	  $("#dialog-form").dialog("close");
 	      },
-	     Save: function() {	    	  
+	     Save: function() {	
 	    	 angular.element(document.getElementById('dialog-tabs')).scope().save();
 	      }
 	    },
@@ -1368,10 +1368,12 @@ $(document).ready(function() {
 	    buttons: {
 	      Cancel: function() {
 	    	  $("#saveDataModal").dialog("close");
+	    	  angular.element(document.getElementById('dialog-tabs')).scope().clearSaveDialog();
 	      } 
 	    },
 	    close: function() {
-	     //alert("close");
+	    		$("#saveDataModal").dialog("close");
+	    	    angular.element(document.getElementById('dialog-tabs')).scope().clearSaveDialog();
 	    }
 	  });
    
@@ -1395,12 +1397,12 @@ function showDialgSaveLoadingDtls(index){
 	$("#saveDataModal").dialog("open");
 } 
   
-		$(function () {
-			debugger;
-		    $("#dialog-tabs").tabs();
-		    $("#dialog-tabs").tabs({ active: 0 });
-		    $("#blDetailsTabs").tabs();
-		});
+$(function () {
+	debugger;
+    $("#dialog-tabs").tabs();
+    $("#dialog-tabs").tabs({ active: 0 });
+    $("#blDetailsTabs").tabs();
+});
 		
 			/* JSON File Generation  */	
 				
@@ -1778,7 +1780,13 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	$rootScope.curPage = 0;
 	$rootScope.pageSize = 10;
 	$scope.init = function () {
-	  // alert(2)
+		$("selectAllCheckBox").checked == false ;
+	}
+	
+	$scope.clearSaveDialog=function(){
+		/* alert("test popup"); */
+		$rootScope.blSavePhases = [];
+		$("#phaseVsslVoyg").html("");
 	}
 	
 	$scope.roadCarrCodeHandle=function()
@@ -2371,7 +2379,6 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				
 				}
 				if($('[name=chk]')[obj.$index].checked==true){
-					$( "body" ).append('<div class="loading"></div>');
 					$scope.blIndex=obj.$index;
 					$scope.selectedBL= $scope.BLS[$scope.blIndex]
 					$scope.getContainerDetails();
@@ -2609,15 +2616,37 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 		}
 		for(var d=0;d<$scope.BLS.length;d++){
 			if(($scope.BLS[d].isBlSave=="true" || $scope.BLS[d].isBlSave==true) && ($scope.BLS[d].saveFlags == "U" || $scope.BLS[d].saveFlags == "I" )){
-					if(($scope.BLS[d].fetch == "false" || $scope.BLS[d].fetch == false) ||(document.getElementById("selectAllCheckBox").checked = false && ($scope.BLS[d].containerDetailes == undefined  || $scope.BLS[d].containerDetailes.length==0))){
+					if(($scope.BLS[d].fetch == "false" || $scope.BLS[d].fetch == false) ||(document.getElementById("selectAllCheckBox").checked == false && ($scope.BLS[d].containerDetailes == undefined  || $scope.BLS[d].containerDetailes.length==0))){
 						swal("Message","Please Check Carogo Data : "+$scope.BLS[d].bl,"info");
 						return false;
 					}
 			}
 		}
+		splitBlLength = 0
+		if($scope.BLS.length < 200){
+			splitBlLength = 40;
+		}else if($scope.BLS.length > 200 && $scope.BLS.length < 400){
+			splitBlLength = 60;
+		}else if($scope.BLS.length > 400 && $scope.BLS.length < 600){
+			splitBlLength = 80;
+		}else if($scope.BLS.length > 600 && $scope.BLS.length < 800){
+			splitBlLength = 100;
+		}else if($scope.BLS.length > 800 && $scope.BLS.length < 1000){
+			splitBlLength = 120;
+		}else if($scope.BLS.length > 1000 && $scope.BLS.length < 1200){
+			splitBlLength = 120;
+		}else if($scope.BLS.length > 1200 && $scope.BLS.length < 1400){
+			splitBlLength = 120;
+		}else if($scope.BLS.length > 1400 && $scope.BLS.length < 1600){
+			splitBlLength = 120;
+		}else if($scope.BLS.length > 1600 && $scope.BLS.length < 1800){
+			splitBlLength = 120;
+		}else if($scope.BLS.length > 1800 && $scope.BLS.length < 2000){
+			splitBlLength = 120;
+		}
 		
-		blModule =  ($scope.BLS.length/200|0);
-		blExtraModule = $scope.BLS.length%200;
+		blModule =  ($scope.BLS.length/splitBlLength|0);
+		blExtraModule = $scope.BLS.length%splitBlLength;
 		if(blExtraModule>0){
 			blModule=blModule+1;
 		}
@@ -2643,8 +2672,8 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 				blModuleTemp = blModule;
 				for(var d=0;d<blModule;d++){
 						debugger;
-						startingIndex = (d * 1) * 200;
-						lastIndex = (d * 1 + 1) * 200;
+						startingIndex = (d * 1) * splitBlLength;
+						lastIndex = (d * 1 + 1) * splitBlLength;
 						for(var p=startingIndex;p<lastIndex;p++){
 							if ($scope.BLS[p] != null && (true==$scope.BLS[p].isBlSave || "true"==$scope.BLS[p].isBlSave)) {
 								if ($scope.BLS[p].itemNumber == null || $scope.BLS[p].itemNumber == "") {
@@ -3126,7 +3155,9 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 				method : "POST",
 				async : true,
 				url : url,
-			  }).then(function(result, status, headers, config) {			 
+			  }).then(function(result, status, headers, config) {
+				  		$("body").find('.loading').remove();
+				  		$( "body" ).append('<div class="loading"></div>');
 						$scope.BLS[$scope.blIndex].agencyType  =  result.data.blDetails[0].agencyType
 						$scope.BLS[$scope.blIndex].agentCode  =  result.data.blDetails[0].agentCode
 						$scope.BLS[$scope.blIndex].arrivalDate  =  result.data.blDetails[0].arrivalDate
@@ -3368,7 +3399,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 						
 							$scope.getConsinee();
 							$scope.getDataMoveToNextTab();
-							
+							$("body").find('.loading').remove();	
 			});
 		
 		 

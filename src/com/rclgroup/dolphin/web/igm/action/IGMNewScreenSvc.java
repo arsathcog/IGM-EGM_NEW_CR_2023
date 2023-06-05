@@ -815,7 +815,13 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		List<ImportGeneralManifestMod> resultBL = (List<ImportGeneralManifestMod>) mapReturnBL
 				.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA);
 		String blsInput = null;
-		
+		for (ImportGeneralManifestMod bl : resultBL) {
+			if (blsInput == null)
+				blsInput = "'" + bl.getBl() + "'";
+			else
+				blsInput += ",'" + bl.getBl() + "'";
+		}
+		System.out.println(blsInput);
 		net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();
 
 		List<ImportGeneralManifestResultSet> finalResult = getFinalData(resultVesel.get(0), 1, resultBL);
