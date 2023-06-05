@@ -1195,6 +1195,8 @@ System.out.println("getCarogoDetails() Called.");
 				personOnBoardMod.setPrsnIdOrTravelDocIssuingNationCdd(words[17]);
 				personOnBoardMod.setPrsnIdOrTravelDocNmbr(words[18]);
 				personOnBoardMod.setPrsnIdOrTravelDocTypCdd(words[19]);
+				personOnBoardMod.setVisa(words[20]);
+				personOnBoardMod.setPnrNumber(words[21]);
 				list.add(personOnBoardMod);
 		}
 		if(flage.equals("C") && words.length == 7) {
