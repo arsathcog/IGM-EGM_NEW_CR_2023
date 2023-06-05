@@ -1298,13 +1298,13 @@ System.out.println("getCarogoDetails() Called.");
 			blObj.addAll(blObjTmp);	
 				}
 			}else {
-				mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD, mod.getPod());
+				mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD, mod.getPol());
 				mapParam.put(ImportGeneralManifestDao.KEY_IGM_SERVICE, mod.getService());
 				mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, mod.getVessel());
 				mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, mod.getVoyage());
 				mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
 				
-				mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_EXPORT_NEW, true,false);
+				mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_NEW, true,false);
 				blObj.addAll((List<ImportGeneralManifestMod>) mapSaveBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
 				containerDao.setContainerDetails(blObj, IGMContainerDao.RCL_IGM_GET_SAVE_CONTAINOR_EXPORT);
 				objConsignerDao.setConsignerData(blObj, IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER_EXPORT);
