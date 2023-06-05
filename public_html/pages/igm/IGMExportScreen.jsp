@@ -2186,9 +2186,13 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				for(var i=0; i<$scope.BLS.length;i++){
 				var iteam = $scope.BLS[i];
 				
+				if(iteam.isBlSave==false || iteam.isBlSave=="false"){
+					iteam.isBlSave=true;
+				}
+				
 				iteam.isBlSave=true
 				    count++;
-					if($scope.BLS[i].isBlSave == true && $scope.BLS[i].itemNumber != "" && $scope.BLS[i].itemNumber != null){
+					if($scope.BLS[i].isBlSave == true && $scope.BLS[i].itemNumber != "true" && $scope.BLS[i].itemNumber != null){
 						if(payloadSaved == "" && $scope.selectAllFetch == false ||  $scope.selectAllFetch == "false"){
 							payloadSaved =  $scope.BLS[i].bl;
 						}else{
@@ -2227,11 +2231,11 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 			if( $scope.selectAllFetch == true){
 				return false;
 			}
-			$( "body" ).append('<div class="loading"></div>');
+		/* 	$( "body" ).append('<div class="loading"></div>');
 			setTimeout(function() {
 				  $(".loading").remove();
 				}, 1000);
-
+ */
 
 	}
 	
