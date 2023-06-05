@@ -505,11 +505,11 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 		return dropDownMap;
 	}
 
-	public Map getBLData(Map amapParam, String procedureName, boolean isSave,boolean isUpdateSaved,int blcount)
+	public Map getBLData(Map amapParam, String procedureName, boolean isSave,boolean isUpdateSaved)
 			throws BusinessException, DataAccessException {
 		System.out.println("#IGMLogger getBLData() started.." + isSave);
 		
-		String blCountLoop  =  Integer.toString(blcount);
+		String blCountLoop  =  "0";
 
 		String[][] arrParam = { { KEY_REF_IGM_DATA, BLANK + ORACLE_CURSOR, PARAM_OUT, BLANK },
 				{ KEY_IGM_POD, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_POD) },

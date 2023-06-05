@@ -1,7 +1,6 @@
 package com.rclgroup.dolphin.web.igm.action;
 
 import java.io.BufferedReader;
-import java.io.Closeable;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,6 +27,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.dao.DataAccessException;
 import org.springframework.util.CollectionUtils;
 
@@ -63,12 +64,8 @@ import com.rclgroup.dolphin.web.igm.vo.ImportGeneralManifestMod;
 import com.rclgroup.dolphin.web.igm.vo.ImportGeneralManifestResultSet;
 import com.rclgroup.dolphin.web.igm.vo.MarksNumber;
 import com.rclgroup.dolphin.web.igm.vo.NotifyParty;
-import com.rclgroup.dolphin.web.igm.vo.NotifyPartyTwo;
 import com.rclgroup.dolphin.web.igm.vo.PortMod;
 import com.rclgroup.dolphin.web.igm.vo.PreviousDeclaration;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 public class IGMExportScreenSvc extends BaseAction {
 	/** The Constant DAO_BEAN_ID. */

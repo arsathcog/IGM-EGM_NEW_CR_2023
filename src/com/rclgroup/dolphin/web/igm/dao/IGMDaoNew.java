@@ -631,7 +631,7 @@ public interface IGMDaoNew {
 	 * @throws BusinessException   the business exception
 	 * @throws DataAccessException the data access exception
 	 */
-	public Map getBLData(Map amapParam, String procedureName, boolean isSave, boolean isUpdateSave,int blcount)
+	public Map getBLData(Map amapParam, String procedureName, boolean isSave, boolean isUpdateSave)
 			throws BusinessException, DataAccessException;
 
 	/**
