@@ -707,6 +707,14 @@ System.out.println("getCarogoDetails() Called.");
 		 Map<Object, Object> mapReturnBL = objDao.getBLDataNew(mapParam, IGMExportDao.SQL_GET_IGM_BL_MASTER_SAVE_DATA_EXPORT, false);
 		List<ImportGeneralManifestMod> resultBL = (List<ImportGeneralManifestMod>) mapReturnBL	.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA);
 		 /* BL End.. */
+		String blsInput = null;
+		for (ImportGeneralManifestMod bl : resultBL) {
+			if (blsInput == null)
+				blsInput = "'" + bl.getBl() + "'";
+			else
+				blsInput += ",'" + bl.getBl() + "'";
+		}
+		System.out.println(blsInput);
 		
 		net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();
 		 
