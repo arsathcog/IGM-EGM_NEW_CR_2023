@@ -1375,13 +1375,15 @@ $(document).ready(function() {
         width: 500,
         height: 400,
 	    buttons: {
-	      Cancel: function() {
-	    	  $("#saveDataModal").dialog("close");
-	      } 
+	        Cancel: function() {
+		    	  $("#saveDataModal").dialog("close");
+		    	  angular.element(document.getElementById('dialog-tabs')).scope().clearSaveDialog();
+		      } 
 	    },
 	    close: function() {
-	     //alert("close");
-	    }
+    		$("#saveDataModal").dialog("close");
+    	    angular.element(document.getElementById('dialog-tabs')).scope().clearSaveDialog();
+    }
 	  });
    
 	});
@@ -2674,7 +2676,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				}
 			}
 			
-			splitBlLength = 0
+		splitBlLength = 0
 			if($scope.BLS.length < 200){
 				splitBlLength = 40;
 			}else if($scope.BLS.length > 200 && $scope.BLS.length < 400){
@@ -2695,8 +2697,8 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				splitBlLength = 120;
 			}else if($scope.BLS.length > 1800 && $scope.BLS.length < 2000){
 				splitBlLength = 120;
-			}
-			
+			} 
+		
 			blModule =  ($scope.BLS.length/splitBlLength|0);
 			blExtraModule = $scope.BLS.length%splitBlLength;
 			if(blExtraModule>0){
