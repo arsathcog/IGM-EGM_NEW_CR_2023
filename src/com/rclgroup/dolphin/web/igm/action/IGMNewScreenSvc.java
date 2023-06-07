@@ -1155,16 +1155,16 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 					 
 					blObj.addAll(
 							(List<ImportGeneralManifestMod>) mapSaveBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
-					containerDao.setContainerDetails(blObjTmp, IGMContainerDao.RCL_IGM_GET_SAVE_CONTAINOR);
-					objConsignerDao.setConsignerData(blObjTmp, IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER);
-					objConsigneeDao.setConsigneeData(blObjTmp, IGMConsigneeDataDao.RCL_IGM_GET_SAVE_CONSIGNEE);
-					objNotifyPartyDao.setNotifyPartyData(blObjTmp,
+					containerDao.setContainerDetails(blObj, IGMContainerDao.RCL_IGM_GET_SAVE_CONTAINOR);
+					objConsignerDao.setConsignerData(blObj, IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER);
+					objConsigneeDao.setConsigneeData(blObj, IGMConsigneeDataDao.RCL_IGM_GET_SAVE_CONSIGNEE);
+					objNotifyPartyDao.setNotifyPartyData(blObj,
 							IGMNodifyPartyDao.RCL_IGM_GET_SAVE_NODIFY_PARTY_DESCRIPTION_IMPORT);
-					objMarksDescDao.setMarksDescriptionData(blObjTmp,
+					objMarksDescDao.setMarksDescriptionData(blObj,
 							IGMMarksAndDescDao.RCL_IGM_GET_SAVE_MARKS_DESCRIPTION);
-					objPreviousDao.setPreviousDeclData(blObjTmp,
+					objPreviousDao.setPreviousDeclData(blObj,
 							IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION);
-					blObj.addAll(blObjTmp);
+					 
 				}
 
 		return blObj;
