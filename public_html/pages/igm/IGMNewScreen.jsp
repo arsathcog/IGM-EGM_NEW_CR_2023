@@ -1504,7 +1504,7 @@ $(function () {
 					}
 					downloadfilename=one+'_'+'SACHM23'+'_'+fileNme+'_'+two+'_'+three+'_'+fore+'_'+'DEC'+'.json';
 					
-					var sampleBytes = new String(JSON.stringify(StringResult.jsonFile,null,"\t"));
+					var sampleBytes = new String(JSON.stringify(StringResult.jsonFile,null,4));
 					var saveByteArray = (function() {
 						var a = document.createElement("a");
 						document.body.appendChild(a);
@@ -2382,7 +2382,6 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 					$scope.blIndex=obj.$index;
 					$scope.selectedBL= $scope.BLS[$scope.blIndex]
 					$scope.getContainerDetails();
-					$scope.getCarogoDetails();
 				}
 				
 			}
