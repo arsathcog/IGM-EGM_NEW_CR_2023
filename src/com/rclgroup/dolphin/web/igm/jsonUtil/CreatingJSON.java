@@ -6650,7 +6650,8 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			mCRefClassObj.setMstrBlNo(settingLength(blObj.getBl(),20)); // Line 53
 			mCRefClassObj.setMstrBlDt(blObj.getMasterBlDate()); // Line 53
 			mCRefClassObj.setConsolidatorPan(settingLength(blObj.getAgentCode(),4));// Line 76
-			if(blObj.getMcin().equals("") && blObj.getPcin().equals("")) {
+			
+			if( null== blObj.getMcin() ||blObj.getMcin().equals("") && null== blObj.getPcin() || blObj.getPcin().equals("")) {
 				mCRefClassObj.setPrevDec("N");
 			}else {
 				mCRefClassObj.setPrevDec("Y");
