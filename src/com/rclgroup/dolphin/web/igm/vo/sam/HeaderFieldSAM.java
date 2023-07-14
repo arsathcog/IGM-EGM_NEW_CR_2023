@@ -1,6 +1,18 @@
 package com.rclgroup.dolphin.web.igm.vo.sam;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import javax.xml.bind.annotation.XmlType;
+
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.google.gson.GsonBuilder;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.rclgroup.dolphin.web.igm.vo.FiledValidation;
+
+@JsonPropertyOrder({"senderID","receiverID","versionNo","indicator","messageID","sequenceOrControlNumber"
+	,"date","time","reportingEvent"})
 
 public class HeaderFieldSAM {
 
@@ -13,6 +25,22 @@ public class HeaderFieldSAM {
 	private String date;
 	private String time;
 	private String reportingEvent;
+	
+    private Map<String, Object> data;
+    
+    public HeaderFieldSAM() {
+        data = new LinkedHashMap<>();
+    }
+    
+    public void addField(String key, Object value) {
+        data.put(key, value);
+    }
+
+    public String toJson() {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        return gson.toJson(data);
+    }
+
 	
 
 	public String getSenderID() {
@@ -111,6 +139,7 @@ public class HeaderFieldSAM {
 				+ sequenceOrControlNumber + ", date=" + date + ", time=" + time + ", reportingEvent=" + reportingEvent
 				+ "]";
 	}
+
 	
 	
 }

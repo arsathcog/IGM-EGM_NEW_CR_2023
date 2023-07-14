@@ -178,13 +178,13 @@
                      ng-model="selectedServcies.igmDateVal" id="igmDate" onclick="dateToCommon(this)" ></td>   
                </tr>
                <tr>
-                  <th class="veseelRemoveBorder">Rotn No</th>
+                  <th class="veseelRemoveBorder">Rotation No</th>
                   <td><input type="text" class="roundshap2"
                      value="{{selectedServcies.rotnNo}}"
                      ng-model="selectedServcies.rotnNo"></td>
                </tr>
                <tr>
-                  <th class="veseelRemoveBorder">Rotn Date</th>
+                  <th class="veseelRemoveBorder">Rotation Date</th>
                   <td><input type="text" class="roundshap2" id="rotnDate" onclick="dateToCommon(this)"
                      value="{{selectedServcies.rotnDate}}"
                      ng-model="selectedServcies.rotnDate" ></td>

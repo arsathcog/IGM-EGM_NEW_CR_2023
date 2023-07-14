@@ -1,7 +1,10 @@
 package com.rclgroup.dolphin.web.igm.vo.sam;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.rclgroup.dolphin.web.igm.vo.FiledValidation;
 
+
+@JsonPropertyOrder({"lineNo","mstrBlNo","mstrBlDt","consolidatedIndctr","prevDec","consolidatorPan"})
 public class MCRefSAM {
 	
 	private String lineNo;

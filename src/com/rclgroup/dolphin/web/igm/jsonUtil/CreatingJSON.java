@@ -1,19 +1,22 @@
 package com.rclgroup.dolphin.web.igm.jsonUtil;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.TimeZone;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.rclgroup.dolphin.web.igm.vo.Consignee;
 import com.rclgroup.dolphin.web.igm.vo.Consigner;
 import com.rclgroup.dolphin.web.igm.vo.ContainerDetails;
@@ -369,11 +372,11 @@ public class CreatingJSON {
 		}
 		// Creating Object of ObjectMapper define in Jakson Api
 				System.gc();
-				/*ObjectMapper objectMapper = new ObjectMapper();
-				//objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+				ObjectMapper objectMapper = new ObjectMapper();
+				objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 				
-				//String jsonStr = null;
-				try {
+				String jsonStr = null;
+				try {	
 					jsonStr = objectMapper.writeValueAsString(resultObj);
 				}
 				catch (IOException e) {
@@ -381,7 +384,7 @@ public class CreatingJSON {
 				}finally {
 					System.gc();
 				}
-				return jsonStr;*/
+//				return jsonStr;
 				return resultObj;
 			}
 
@@ -424,7 +427,7 @@ public class CreatingJSON {
 				+ "_" + decHeader + ".json";
 
 		HeaderFieldSAM headerFieldClassObj = new HeaderFieldSAM();
-		headerFieldClassObj.setSenderID(settingLength(service.getSenderId(),20));
+		headerFieldClassObj.setSenderID(settingLength(service.getSenderId().toString(),20));
 		headerFieldClassObj.setReceiverID(service.getRecieverId());
 		headerFieldClassObj.setVersionNo("SAM1102");
 		headerFieldClassObj.setIndicator("T");
@@ -436,17 +439,24 @@ public class CreatingJSON {
 		org.setHeaderField(headerFieldClassObj);
 		headerFieldClassObj = null;
 		
-		//List<MCRefSAM> mCRef = new ArrayList<MCRefSAM>();
+		
+//		headerFieldClassObj.addField("SenderID", "ARSATH");
+////		headerFieldClassObj.addField("ReceiverID", service.getRecieverId());
+//		headerFieldClassObj.addField("Indicator", "New York");
+//
+//	        String json = headerFieldClassObj.toJson();
+//	        System.out.println(json);
+		//List<MCRefSAM> mCRef = new LinkedList<MCRefSAM>();
 
 //		---------------------------------------------------------------
 		// Creating object of all class
-		List<ShipItnrySAM> shipItnry = new ArrayList<ShipItnrySAM>();
-		List<MCSuprtDocsSAM> mcSuprtDoc = new ArrayList<MCSuprtDocsSAM>();
-		List<MCAdtnlDecSAM> mcAdtnlDec= new ArrayList<MCAdtnlDecSAM>();
-		List<PrsnOnBoardSAM> prsnOnBoardList = new ArrayList<PrsnOnBoardSAM>(); 	
+		List<ShipItnrySAM> shipItnry = new LinkedList<ShipItnrySAM>();
+		List<MCSuprtDocsSAM> mcSuprtDoc = new LinkedList<MCSuprtDocsSAM>();
+		List<MCAdtnlDecSAM> mcAdtnlDec= new LinkedList<MCAdtnlDecSAM>();
+		List<PrsnOnBoardSAM> prsnOnBoardList = new LinkedList<PrsnOnBoardSAM>(); 	
 		List<MastrCnsgmtDecSAM> mastrCnsgmtDecList = null;
-		mastrCnsgmtDecList	= new ArrayList<MastrCnsgmtDecSAM>();
-		List<VoyageTransportEquipmentSAM> voyageTransportEquipmentList = new ArrayList<VoyageTransportEquipmentSAM>();
+		mastrCnsgmtDecList	= new LinkedList<MastrCnsgmtDecSAM>();
+		List<VoyageTransportEquipmentSAM> voyageTransportEquipmentList = new LinkedList<VoyageTransportEquipmentSAM>();
 		//fromItemNoTemp=Integer.valueOf(blList.);
 		// ===================
 
@@ -460,21 +470,21 @@ public class CreatingJSON {
 			MastrCnsgmtDecSAM mastrCnsgmtDec = new MastrCnsgmtDecSAM();
 			HouseCargoDecSAM houseCargoDecSAMObj = new HouseCargoDecSAM();
 			
-			List<ItemDtlsSAM> itemDtls = new ArrayList<ItemDtlsSAM>();
-			List<TrnsprtEqmtSAM> trnsprtEqmt = new ArrayList<TrnsprtEqmtSAM>();
-			List<LocCstmSAM> locCstm = new ArrayList<LocCstmSAM>();
-			List<ItnrySAM> itnry = new ArrayList<ItnrySAM>();
-			List<TrnsprtDocSAM> trnsprtDoc = new ArrayList<TrnsprtDocSAM>();
-			List<TrnsprtDocMsrSAM> trnsprtDocMsr = new ArrayList<TrnsprtDocMsrSAM>();
-			List<PrevRefSAM> prevRef = new ArrayList<PrevRefSAM>();
-			List<TrnshprSAM> trnshpr = new ArrayList<TrnshprSAM>();
-			List<ArvlDtlsSAM> arvlDtlsList = new ArrayList<ArvlDtlsSAM>(); 
+			List<ItemDtlsSAM> itemDtls = new LinkedList<ItemDtlsSAM>();
+			List<TrnsprtEqmtSAM> trnsprtEqmt = new LinkedList<TrnsprtEqmtSAM>();
+			List<LocCstmSAM> locCstm = new LinkedList<LocCstmSAM>();
+			List<ItnrySAM> itnry = new LinkedList<ItnrySAM>();
+			List<TrnsprtDocSAM> trnsprtDoc = new LinkedList<TrnsprtDocSAM>();
+			List<TrnsprtDocMsrSAM> trnsprtDocMsr = new LinkedList<TrnsprtDocMsrSAM>();
+			List<PrevRefSAM> prevRef = new LinkedList<PrevRefSAM>();
+			List<TrnshprSAM> trnshpr = new LinkedList<TrnshprSAM>();
+			List<ArvlDtlsSAM> arvlDtlsList = new LinkedList<ArvlDtlsSAM>(); 
 //			============================house Cargo =======================
 			
-			List<HouseCargoDecSAM> houseCargoDec = new ArrayList<HouseCargoDecSAM>();
-//			List<HCAdtnlDecSAM> hcAdtnlDec= new ArrayList<HCAdtnlDecSAM>();
-//			List<HCPrevRefSAM> hcPrevRef= new ArrayList<HCPrevRefSAM>();
-//			List<HCCrgoSuprtDocsSAM> crgoSuprtDoc = new ArrayList<HCCrgoSuprtDocsSAM>();
+			List<HouseCargoDecSAM> houseCargoDec = new LinkedList<HouseCargoDecSAM>();
+//			List<HCAdtnlDecSAM> hcAdtnlDec= new LinkedList<HCAdtnlDecSAM>();
+//			List<HCPrevRefSAM> hcPrevRef= new LinkedList<HCPrevRefSAM>();
+//			List<HCCrgoSuprtDocsSAM> crgoSuprtDoc = new LinkedList<HCCrgoSuprtDocsSAM>();
 //			System.out.println("gstcode........." +blObj.getGstStateCode() + "... "+blObj.getPointName()+"..."+blObj.getPointName()
 //			+".."+blObj.getPortName()+"..."+blObj.getDn_pld()+".."+blObj.getDn_plr());
 //		--------------------------------------------------------------------------------------	
@@ -511,6 +521,69 @@ public class CreatingJSON {
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);	
 			
 //		-------------------------------------------------------------------------------
+			LocCstmSAM locCstmClassObj = new LocCstmSAM();
+			locCstmClassObj.setFirstPrtOfEntry( service.getPortArrival());
+//			locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),6)); // New added
+			
+			if(blObj.getPortOfDestination() != null || service.getPortOfDestination() != "") {
+//			System.out.println("port of destination" +service.getPortOfDestination());
+//			System.out.println("port of destination" +blObj.getPod());
+//			System.out.println("port of destination" +service.getPortOfDeschargedCfs());
+				if(blObj.getPortOfDestination().equalsIgnoreCase(blObj.getPod()) ) {
+					locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDeschargedCfs(),6));
+				}else {
+					locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),8));
+				}
+			}
+			
+			
+			if(!blObj.getPortOfDestination().equals(blObj.getPod())) {
+				locCstmClassObj.setNxtPrtOfUnlading (settingLength(blObj.getPortOfDestination(),6)); // New added		
+			}else if(blObj.getPod().equals(blObj.getPortOfDestination())) {
+				locCstmClassObj.setNxtPrtOfUnlading (settingLength(blObj.getPod(),6)); // New added	
+			}
+			locCstmClassObj.setTypOfCrgo(settingLength(blObj.getType_of_cargo(),2)); // Line 90		
+//				System.out.println(service.getPortOfDestination().substring(0, 2));
+//				System.out.println( service.ge	tPortOfDeschargedCfs().substring(0, 2));
+			
+			if(blObj.getPortOfDestination().substring(0, 2).equals("IN") && blObj.getPod().substring(0, 2).equals("IN")){
+				locCstmClassObj.setTypOfCrgo(settingLength("IM",2)); // if both value in india base
+			}else if(! blObj.getPortOfDestination().substring(0, 2).equals("IN") && ! blObj.getPod().substring(0, 2).equals("IN")){
+				locCstmClassObj.setTypOfCrgo(settingLength("TR",2)); // both value is not india base 
+			}else if( !blObj.getPortOfDestination().substring(0, 2).equals("IN") &&  blObj.getPod().substring(0, 2).equals("IN")) {
+				locCstmClassObj.setTypOfCrgo(settingLength("TR",2)); //if portOfdest in india base and portOfDis in foreign base then
+			}
+
+			locCstmClassObj.setItemTyp(settingLength("OT",2)); // Line 61
+//			locCstmClassObj.setCrgoMvmt(settingLength(blObj.getCargoMovmnt(),4));// Line 57
+			if(blObj.getPod() != null || !blObj.getPod().equals(" ") &&   blObj.getPortOfDestination() != null || 
+					!blObj.getPortOfDestination().equals(" ")) {
+				if((blObj.getPod().substring(0,2).equals("IN") && blObj.getPortOfDestination().substring(0, 2).equals("IN")) && (blObj.getPod().equals(blObj.getPortOfDestination()))) {
+					locCstmClassObj.setCrgoMvmt(settingLength("LC",4));	
+				}else if(blObj.getPod().substring(0,2).equals("IN") && blObj.getPortOfDestination().substring(0, 2).equals("IN") && ! blObj.getPod().equals(service.getPortOfDestination())&& blObj.getMode_of_transport()== "3"){
+					locCstmClassObj.setCrgoMvmt(settingLength("TI",4));	
+				}else if(! blObj.getPod().substring(0,2).equals("IN") && blObj.getPortOfDestination().substring(0, 2).equals("IN")) {
+					locCstmClassObj.setCrgoMvmt(settingLength("DT",4));	
+				}else if(!blObj.getPod().substring(0,2).equals("IN" ) && ! blObj.getPortOfDestination().substring(0, 2).equals("IN")) {
+					locCstmClassObj.setCrgoMvmt(settingLength("FT",4));	
+				}
+			}
+			
+			locCstmClassObj.setNatrOfCrgo(settingLength("C",4));  // Line 59
+//			locCstmClassObj.setTypOfPackage(settingLength(blObj.getType_of_package(),4));
+//			locCstmClassObj.setNmbrOfPkgs(settingLengthForDouble(blObj.getNumber_of_packages(),16,6)); 
+//			if(blObj.isHbl()==false) {
+//				locCstmClassObj.setSplitIndctr(generatedFileNameOfJson);
+//			}
+//			locCstmClassObj.setTypOfCrgo(pol);
+//			locCstmClassObj.setTypOfPackage(pol);
+//			locCstmSAMList.add(locCstmClassObj);	
+			mastrCnsgmtDec.setLocCstm(locCstmClassObj);
+			houseCargoDecSAMObj.setLocCstm(locCstmClassObj);
+			
+//		------------------------------------------------------------------------	
+			
+
 			TrnshprSAM trnshprObj = new TrnshprSAM();
 			if(blObj.getMode_of_transport()== "Rail" ) {
 				trnshprObj.setTrnshprCode(blObj.getCarrierNo()); 
@@ -522,26 +595,106 @@ public class CreatingJSON {
 			trnshpr.add(trnshprObj);
 			mastrCnsgmtDec.setTrnshpr(trnshprObj);	
 //		----------------------------------------------------------------------------------------	
+
 			TrnsprtDocSAM trnsprtDocClassObj = new TrnsprtDocSAM();
-			trnsprtDocClassObj.setPrtOfAcptName( settingLength(blObj.getAcceptanceName(),256));			//TODO  guru
-			trnsprtDocClassObj.setPrtOfReceiptName( settingLength(blObj.getRecieptName(),256));	
-			trnsprtDocClassObj.setPrtOfReceiptCdd(settingLength(blObj.getPort_of_receipt(),10));
 			trnsprtDocClassObj.setPrtOfAcptCdd( settingLength(blObj.getPort_of_acceptance(),6));							//TODO  guru
+			trnsprtDocClassObj.setPrtOfAcptName( settingLength(blObj.getAcceptanceName(),256));			//TODO  guru
+			trnsprtDocClassObj.setPrtOfReceiptCdd(settingLength(blObj.getPort_of_receipt(),10));
+			trnsprtDocClassObj.setPrtOfReceiptName( settingLength(blObj.getRecieptName(),256));	
 //			trnsprtDocClassObj.setPrtOfReceiptCdd(settingLength(blObj.getPort_of_receipt(),10));
 //			trnsprtDocClassObj.setTypOfCd(pol);
 //			trnsprtDocClassObj.setUcrTyp(settingLength(blObj.getUcr_type(),3));	  Guru said to comment 		 								//TODO  guru
 //			trnsprtDocClassObj.setUcrCd(settingLength(blObj.getUcr_code(),35));	 Guru said to comment
+			for (Consigner cnsnerDtls : consignerDtls) {
+				if ((blObj.getBl()).equals(cnsnerDtls.getBlNO())) {
+					
+					String add = cnsnerDtls.getAddressLine1() + cnsnerDtls.getAddressLine2()
+							+ cnsnerDtls.getAddressLine3() +  cnsnerDtls.getAddressLine4();
+					trnsprtDocClassObj.setCnsgnrsName( settingLength(cnsnerDtls.getCustomerName(),70));
+					trnsprtDocClassObj.setCnsgnrStreetAddress(settingLength(add,70));
+					trnsprtDocClassObj.setCnsgnrCity(settingLength(cnsnerDtls.getCity(),70));
+//					trnsprtDocClassObj.setCnsgnrCntrySubDivName(settingLength(cnsnerDtls.getState(),35));  Guru said to comment
+//					trnsprtDocClassObj.setCnsgnrsCd( settingLength(cnsnerDtls.getCustomerCode(),17)); Guru said to comment
+					trnsprtDocClassObj.setCnsgnrCntryCd( settingLength(cnsnerDtls.getCountryCode(),2));
+//					trnsprtDocClassObj.setCnsgnrPstcd(settingLength(cnsnerDtls.getZip(),9)); guru said to comment
+					
+				}
+			}
+			for (Consignee cnsneeDtl : consigneeDtls) {
+				if ((blObj.getBl()).equals(cnsneeDtl.getBlNO()))
+				{
+					String add =  cnsneeDtl.getAddressLine1() + cnsneeDtl.getAddressLine2()
+							+  cnsneeDtl.getAddressLine3() +  cnsneeDtl.getAddressLine4();
+					trnsprtDocClassObj.setCnsgnesName(  settingLength(cnsneeDtl.getCustomerName(),70));
+					trnsprtDocClassObj.setCnsgneStreetAddress(settingLength(add,255));
+					trnsprtDocClassObj.setCnsgneCity( settingLength(cnsneeDtl.getCity(),70));
+					trnsprtDocClassObj.setCnsgneCntryCd( settingLength(cnsneeDtl.getCountryCode(),2));
+					trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(settingLength(cnsneeDtl.getCustomerName(),70));
+					trnsprtDocClassObj.setCnsgneCntrySubDivName(settingLength(cnsneeDtl.getState(),35));
+					trnsprtDocClassObj.setCnsgneCntrySubDiv(blObj.getGstStateCode());
+					trnsprtDocClassObj.setCnsgnePstcd( settingLength(cnsneeDtl.getZip(),9));
+					try {
+					if(  cnsneeDtl.getConsigneIec()!= null || !cnsneeDtl.getConsigneIec().equals("") ) {
+						trnsprtDocClassObj.setCnsgnesCd(settingLength(cnsneeDtl.getConsigneIec(),17));
+					}else {
+						for (NotifyParty notyObj : notifyPartyDetailes) {
+						trnsprtDocClassObj.setCnsgnesCd(settingLength(notyObj.getNotifyIec(),17));
+						}
+					}
+					}catch (Exception e) {
+						for (NotifyParty notyObj : notifyPartyDetailes) {
+							trnsprtDocClassObj.setCnsgnesCd(settingLength(notyObj.getNotifyIec(),17));
+							}
+					}
+				
+					
+				}
+			}
+			
+			for (NotifyParty notyObj : notifyPartyDetailes) {
+
+				if ((blObj.getBl()).equals(notyObj.getBlNo())) {
+					String add =  notyObj.getAddressLine1() + notyObj.getAddressLine2()
+							+  notyObj.getAddressLine3() +  notyObj.getAddressLine4();
+					trnsprtDocClassObj.setNotfdPartyStreetAddress(settingLength(add,256));
+					trnsprtDocClassObj.setNotfdPartyCity( settingLength(notyObj.getCity(),70));
+					trnsprtDocClassObj.setNotfdPartyCntryCd( settingLength(notyObj.getCountryCode(),2));
+					trnsprtDocClassObj.setNotfdPartyCntrySubDivName(settingLength(notyObj.getState(),35)); // will be provided by customer
+					trnsprtDocClassObj.setNotfdPartyCntrySubDiv(settingLength(blObj.getGstStateCode(),35));
+					trnsprtDocClassObj.setNotfdPartyPstcd( settingLength(notyObj.getZip(),9));
+					try {
+					if(!notyObj.getNotifyPan().equals("")) {
+						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(notyObj.getNotifyPan(),17));
+						trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(notyObj.getNotifyPan(),30));
+						trnsprtDocClassObj.setTypOfCd( settingLength(notyObj.getNotifyPan(),30));
+					}else {
+						for (Consignee cnsneeDtl : consigneeDtls) {
+							trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
+							trnsprtDocClassObj.setTypOfCd( settingLength(cnsneeDtl.getConsignePan(),30));
+						}
+					}
+				}catch (Exception e) {
+					for (Consignee cnsneeDtl : consigneeDtls) {
+						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
+						trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(cnsneeDtl.getConsignePan(),30));
+						trnsprtDocClassObj.setTypOfCd( settingLength(cnsneeDtl.getConsignePan(),30));
+					}
+				}
+				}
+			}
+//			trnsprtDoc.add(trnsprtDocClassObj);
+			mastrCnsgmtDec.setTrnsprtDoc(trnsprtDocClassObj);
 //		--------------------------------------------------------------------------------------------------	
 			
 			TrnsprtDocMsrSAM trnsprtDocMsrClassObj = new TrnsprtDocMsrSAM();
 			trnsprtDocMsrClassObj.setNmbrOfPkgs(settingLength(blObj.getTotal_number_of_packages(),9));  	
 			trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getPackage_kind());
+//			trnsprtDocMsrClassObj.setMarksNoOnPkgs(settingLength("",512)); 
 			trnsprtDocMsrClassObj.setGrossWeight(settingLengthForDouble(blObj.getGrosWeight(),12,3));    //TODO  	
-//			trnsprtDocMsrClassObj.setNetWeight(settingLengthForDouble(blObj.getNetWeight(),12,3));				 //TODO  guru	
 			trnsprtDocMsrClassObj.setUnitOfWeight(settingLength("KGS",3));			 
+//			trnsprtDocMsrClassObj.setNetWeight(settingLengthForDouble(blObj.getNetWeight(),12,3));				 //TODO  guru	
 //			trnsprtDocMsrClassObj.setInvoiceValueOfCnsgmt(settingLengthForDouble(blObj.getInvoiceValueFc(),16,2)); Guru said to comment // not cleared by Guru    //TODO  guru	
 //			trnsprtDocMsrClassObj.setCrncyCd(settingLength(blObj.getCurrency(),3));      Guru said to comment	 
-//			trnsprtDocMsrClassObj.setMarksNoOnPkgs(settingLength("",512)); 
 
 			
 			if(blObj.getCargo_msmt() > 0) {
@@ -551,12 +704,13 @@ public class CreatingJSON {
 				trnsprtDocMsrClassObj.setUnitOfVolume(settingLength("CBM",3));
 			}
 			
-//		----------------------------------------------------------------------------------------	
-	
+//		----------------------------------------------------------------------------------------
+
+
 			if(mCRefClassObj.getConsolidatedIndctr().equals("S")) {
 				ItemDtlsSAM itemDtlsClassObj = new ItemDtlsSAM();
-				// trnsprtEqmtClassObj.setHsCd((String)blObj.get(" ")); not cleared by guru
 				itemDtlsClassObj.setCrgoItemSeqNmbr( settingLength(blObj.getCommodity_seq()+"",5));				//TODO  guru
+				itemDtlsClassObj.setHsCd(blObj.getCommdity_code());
 				itemDtlsClassObj.setCrgoItemDesc( settingLength(blObj.getCargo_item_description(),256));					//TODO  guru
 				if(blObj.getDgFlag() != null && StringUtils.isNotBlank(blObj.getDgFlag()) ) {
 					itemDtlsClassObj.setUnoCd( settingLength(blObj.getUno_code(),5));
@@ -569,7 +723,7 @@ public class CreatingJSON {
 				itemDtlsClassObj.setNmbrOfPkgs( settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6)); 
 				
 				itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getPackage_kind(),3));
-				itemDtlsClassObj.setHsCd(blObj.getCommdity_code());
+				
 
 				itemDtls.add(itemDtlsClassObj);
 				mastrCnsgmtDec.setItemDtls(itemDtlsClassObj);
@@ -623,6 +777,8 @@ public class CreatingJSON {
 			
 			//Dep ends on Rob
 //			--------------------------------------------------------------
+
+
 			ItnrySAM itnryClassObj = new ItnrySAM();
 			
 			if(blObj.getPortOfLoading()!= null && blObj.getPod()!= null) {
@@ -670,74 +826,12 @@ public class CreatingJSON {
 //			prevRefObj.setSplitIndctr(settingLength(blObj.getSplit_indicator_list(),2)); 
 //			prevRefObj.setNmbrOfPkgs(settingLengthForDouble(blObj.getNumber_of_packages(),16,6));							//TODO  	
 //			prevRefObj.setTypOfPackage(settingLength(blObj.getType_of_package(),4));
-//			prevRefObj.setPrevMcin("");
+
 //			prevRef.add(prevRefObj);
 			
 //		--------------------------------------------------------------------------------------------------			
 
-			LocCstmSAM locCstmClassObj = new LocCstmSAM();
-			locCstmClassObj.setFirstPrtOfEntry( service.getPortArrival());
-//			locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),6)); // New added
-			
-			if(blObj.getPortOfDestination() != null || service.getPortOfDestination() != "") {
-//			System.out.println("port of destination" +service.getPortOfDestination());
-//			System.out.println("port of destination" +blObj.getPod());
-//			System.out.println("port of destination" +service.getPortOfDeschargedCfs());
-			
-			if(blObj.getPortOfDestination().equalsIgnoreCase(blObj.getPod()) ) {
-				locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDeschargedCfs(),6));
-			}else {
-				locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),8));
-			}
-			}
-			
-			locCstmClassObj.setTypOfCrgo(settingLength(blObj.getType_of_cargo(),2)); // Line 90		
-//				System.out.println(service.getPortOfDestination().substring(0, 2));
-//				System.out.println( service.ge	tPortOfDeschargedCfs().substring(0, 2));
-				
-			if(blObj.getPortOfDestination().substring(0, 2).equals("IN") && blObj.getPod().substring(0, 2).equals("IN")){
-				locCstmClassObj.setTypOfCrgo(settingLength("IM",2)); // if both value in india base
-			}else if(! blObj.getPortOfDestination().substring(0, 2).equals("IN") && ! blObj.getPod().substring(0, 2).equals("IN")){
-				locCstmClassObj.setTypOfCrgo(settingLength("TR",2)); // both value is not india base 
-			}else if( !blObj.getPortOfDestination().substring(0, 2).equals("IN") &&  blObj.getPod().substring(0, 2).equals("IN")) {
-				locCstmClassObj.setTypOfCrgo(settingLength("TR",2)); //if portOfdest in india base and portOfDis in foreign base then
-			}
-			
-			
-			if(!blObj.getPortOfDestination().equals(blObj.getPod())) {
-			  locCstmClassObj.setNxtPrtOfUnlading (settingLength(blObj.getPortOfDestination(),6)); // New added		
-			}else if(blObj.getPod().equals(blObj.getPortOfDestination())) {
-				locCstmClassObj.setNxtPrtOfUnlading (settingLength(blObj.getPod(),6)); // New added	
-			}
-			locCstmClassObj.setItemTyp(settingLength("OT",2)); // Line 61
-//			locCstmClassObj.setCrgoMvmt(settingLength(blObj.getCargoMovmnt(),4));// Line 57
-			if(blObj.getPod() != null || !blObj.getPod().equals(" ") &&   blObj.getPortOfDestination() != null || 
-					!blObj.getPortOfDestination().equals(" ")) {
-			if((blObj.getPod().substring(0,2).equals("IN") && blObj.getPortOfDestination().substring(0, 2).equals("IN")) && (blObj.getPod().equals(blObj.getPortOfDestination()))) {
-				locCstmClassObj.setCrgoMvmt(settingLength("LC",4));	
-			}else if(blObj.getPod().substring(0,2).equals("IN") && blObj.getPortOfDestination().substring(0, 2).equals("IN") && ! blObj.getPod().equals(service.getPortOfDestination())&& blObj.getMode_of_transport()== "3"){
-				locCstmClassObj.setCrgoMvmt(settingLength("TI",4));	
-			}else if(! blObj.getPod().substring(0,2).equals("IN") && blObj.getPortOfDestination().substring(0, 2).equals("IN")) {
-				locCstmClassObj.setCrgoMvmt(settingLength("DT",4));	
-			}else if(!blObj.getPod().substring(0,2).equals("IN" ) && ! blObj.getPortOfDestination().substring(0, 2).equals("IN")) {
-				locCstmClassObj.setCrgoMvmt(settingLength("FT",4));	
-			}
-			}
-			
-			locCstmClassObj.setNatrOfCrgo(settingLength("C",4));  // Line 59
-//			locCstmClassObj.setTypOfPackage(settingLength(blObj.getType_of_package(),4));
-//			locCstmClassObj.setNmbrOfPkgs(settingLengthForDouble(blObj.getNumber_of_packages(),16,6)); 
-//			if(blObj.isHbl()==false) {
-//				locCstmClassObj.setSplitIndctr(generatedFileNameOfJson);
-//			}
-//			locCstmClassObj.setTypOfCrgo(pol);
-//			locCstmClassObj.setTypOfPackage(pol);
-//			locCstmSAMList.add(locCstmClassObj);	
-			mastrCnsgmtDec.setLocCstm(locCstmClassObj);
-			houseCargoDecSAMObj.setLocCstm(locCstmClassObj);
-			
-//		------------------------------------------------------------------------	
-			List<HCRefSAM> hCRef = new ArrayList<HCRefSAM>();
+			List<HCRefSAM> hCRef = new LinkedList<HCRefSAM>();
 			HCRefSAM hCRefObj = new HCRefSAM();
 			hCRefObj.setBlDt(blObj.getBlDate());
 			hCRefObj.setBlNo(settingLength(blObj.getBl(),20));
@@ -770,20 +864,7 @@ public class CreatingJSON {
 			mastrCnsgmtDec.setTrnsprtDocMsr(trnsprtDocMsrClassObj);
 			houseCargoDecSAMObj.setTrnsprtDocMsr(trnsprtDocMsr );
 			
-			for (Consigner cnsnerDtls : consignerDtls) {
-				if ((blObj.getBl()).equals(cnsnerDtls.getBlNO())) {
-					String add = cnsnerDtls.getAddressLine1() + cnsnerDtls.getAddressLine2()
-							+ cnsnerDtls.getAddressLine3() +  cnsnerDtls.getAddressLine4();
-					trnsprtDocClassObj.setCnsgnrStreetAddress(settingLength(add,70));
-					trnsprtDocClassObj.setCnsgnrsName( settingLength(cnsnerDtls.getCustomerName(),70));
-					trnsprtDocClassObj.setCnsgnrCity(settingLength(cnsnerDtls.getCity(),70));
-//					trnsprtDocClassObj.setCnsgnrCntrySubDivName(settingLength(cnsnerDtls.getState(),35));  Guru said to comment
-//					trnsprtDocClassObj.setCnsgnrsCd( settingLength(cnsnerDtls.getCustomerCode(),17)); Guru said to comment
-					trnsprtDocClassObj.setCnsgnrCntryCd( settingLength(cnsnerDtls.getCountryCode(),2));
-//					trnsprtDocClassObj.setCnsgnrPstcd(settingLength(cnsnerDtls.getZip(),9)); guru said to comment
-					
-				}
-			}
+	
 			
 			trnsprtDocMsr.add(trnsprtDocMsrClassObj); // below in mark nad no loop
 			houseCargoDecSAMObj.setTrnsprtDoc(trnsprtDoc);
@@ -853,71 +934,9 @@ public class CreatingJSON {
 //			mcAdtnlDecs.setInfoTyp(settingLength("",10)); 	Guru said to comment
 //			mcAdtnlDec.add(mcAdtnlDecs);//TODO  guru				
 
-			for (NotifyParty notyObj : notifyPartyDetailes) {
 
-				if ((blObj.getBl()).equals(notyObj.getBlNo())) {
-					String add =  notyObj.getAddressLine1() + notyObj.getAddressLine2()
-							+  notyObj.getAddressLine3() +  notyObj.getAddressLine4();
-					trnsprtDocClassObj.setNotfdPartyStreetAddress(settingLength(add,256));
-					trnsprtDocClassObj.setNotfdPartyCity( settingLength(notyObj.getCity(),70));
-					trnsprtDocClassObj.setNotfdPartyCntrySubDivName(settingLength(notyObj.getState(),35)); // will be provided by customer
-					trnsprtDocClassObj.setNotfdPartyCntrySubDiv(settingLength(blObj.getGstStateCode(),35));
-					trnsprtDocClassObj.setNotfdPartyCntryCd( settingLength(notyObj.getCountryCode(),2));
-					trnsprtDocClassObj.setNotfdPartyPstcd( settingLength(notyObj.getZip(),9));
-					try {
-					if(!notyObj.getNotifyPan().equals("")) {
-						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(notyObj.getNotifyPan(),17));
-						trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(notyObj.getNotifyPan(),30));
-						trnsprtDocClassObj.setTypOfCd( settingLength(notyObj.getNotifyPan(),30));
-					}else {
-						for (Consignee cnsneeDtl : consigneeDtls) {
-							trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
-							trnsprtDocClassObj.setTypOfCd( settingLength(cnsneeDtl.getConsignePan(),30));
-						}
-					}
-				}catch (Exception e) {
-					for (Consignee cnsneeDtl : consigneeDtls) {
-						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
-						trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(cnsneeDtl.getConsignePan(),30));
-						trnsprtDocClassObj.setTypOfCd( settingLength(cnsneeDtl.getConsignePan(),30));
-					}
-				}
-				}
-			}
-			
-			
-			
-			for (Consignee cnsneeDtl : consigneeDtls) {
-				if ((blObj.getBl()).equals(cnsneeDtl.getBlNO()))
-				{
-					String add =  cnsneeDtl.getAddressLine1() + cnsneeDtl.getAddressLine2()
-							+  cnsneeDtl.getAddressLine3() +  cnsneeDtl.getAddressLine4();
-					trnsprtDocClassObj.setCnsgneStreetAddress(settingLength(add,255));
-					trnsprtDocClassObj.setCnsgnesName(  settingLength(cnsneeDtl.getCustomerName(),70));
-					trnsprtDocClassObj.setCnsgneCity( settingLength(cnsneeDtl.getCity(),70));
-					trnsprtDocClassObj.setCnsgneCntrySubDivName(settingLength(cnsneeDtl.getState(),35));
-					trnsprtDocClassObj.setCnsgneCntrySubDiv(blObj.getGstStateCode());
-					trnsprtDocClassObj.setCnsgneCntryCd( settingLength(cnsneeDtl.getCountryCode(),2));
-					trnsprtDocClassObj.setCnsgnePstcd( settingLength(cnsneeDtl.getZip(),9));
-					try {
-					if(  cnsneeDtl.getConsigneIec()!= null || !cnsneeDtl.getConsigneIec().equals("") ) {
-						trnsprtDocClassObj.setCnsgnesCd(settingLength(cnsneeDtl.getConsigneIec(),17));
-					}else {
-						for (NotifyParty notyObj : notifyPartyDetailes) {
-						trnsprtDocClassObj.setCnsgnesCd(settingLength(notyObj.getNotifyIec(),17));
-						}
-					}
-					}catch (Exception e) {
-						for (NotifyParty notyObj : notifyPartyDetailes) {
-							trnsprtDocClassObj.setCnsgnesCd(settingLength(notyObj.getNotifyIec(),17));
-							}
-					}
-				
-					trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(settingLength(cnsneeDtl.getCustomerName(),70));
-				}
-			}
-//			trnsprtDoc.add(trnsprtDocClassObj);
-			mastrCnsgmtDec.setTrnsprtDoc(trnsprtDocClassObj);
+		
+
 // -----------------------------------------------------------------------------------
 			
 			for (ContainerDetails cntnerDtl : containerDtls) {
@@ -930,11 +949,11 @@ public class CreatingJSON {
 				voyageTransportEquipmentClassObj.setQuipmentType("CN");
 				voyageTransportEquipmentClassObj.setEquipmentSize(cntnerDtl.getIsoCode());
 				voyageTransportEquipmentClassObj.setQuipmentLoadStatus(settingLength(cntnerDtl.getEquipmentLoadStatus(),3));
-				voyageTransportEquipmentClassObj.setSocFlag(settingLength(cntnerDtl.getSoc_flag(),1));
-				voyageTransportEquipmentClassObj.setEquipmentSealType(cntnerDtl.getEquipment_seal_type());
-				
 				voyageTransportEquipmentClassObj.setEquipmentSealNumber(cntnerDtl.getContainerSealNumber());
+				voyageTransportEquipmentClassObj.setEquipmentSealType(cntnerDtl.getEquipment_seal_type());
+				voyageTransportEquipmentClassObj.setSocFlag(settingLength(cntnerDtl.getSoc_flag(),1));
 				voyageTransportEquipmentClassObj.setContainerAgentCode(service.getAgentCode()); 
+				
 				voyageTransportEquipmentClassObj.setContainerWeight(cntnerDtl.getContainerWeight());
 				voyageTransportEquipmentClassObj.setTotalNumberOfPackages(cntnerDtl.getTotalNumberOfPackagesInContainer());
 //				voyageTransportEquipmentClassObj.setContainerBondFlag("D");
@@ -1301,7 +1320,7 @@ public class CreatingJSON {
 //		mastrCnsgmtDec.setHouseCargoDec(houseCargoDec); 
 //		mastrCnsgmtDec.setmCSuprtDocs(mcSuprtDoc);
 //		mastrCnsgmtDec.setmCAdtnlDec(mcAdtnlDec);
-//		List<MastrCnsgmtDecSAM> mastrCnsgmtDecList = new ArrayList<MastrCnsgmtDecSAM>();
+//		List<MastrCnsgmtDecSAM> mastrCnsgmtDecList = new LinkedList<MastrCnsgmtDecSAM>();
 //		mastrCnsgmtDecList.add(mastrCnsgmtDec);
 //		mster.setMastrCnsgmtDec(mastrCnsgmtDecList);  // Correct
 		
@@ -1317,7 +1336,7 @@ public class CreatingJSON {
 //		tmSuprtDocs.setRefSerialNo(settingLength("",5)); Guru said to comment
 //		tmSuprtDocs.setSubSerialNoRef(""); Guru said to comment
 //		tmSuprtDocs.setTagRef(settingLength("",5)); Guru said to comment
-//		List<TmSuprtDocsSAM> tmSuprtDocsList = new ArrayList<TmSuprtDocsSAM>();
+//		List<TmSuprtDocsSAM> tmSuprtDocsList = new LinkedList<TmSuprtDocsSAM>();
 //		tmSuprtDocsList.add(tmSuprtDocs);
 //		mster.setTmSuprtDocs(tmSuprtDocsList);
 		
@@ -1330,7 +1349,7 @@ public class CreatingJSON {
 //		tmAdtnlDec.setInfoQualifier(settingLength("",10)); Guru said to comment
 //		tmAdtnlDec.setInfoText(settingLength("",100)); guru said to comment
 //		tmAdtnlDec.setInfoTyp(settingLength("",10)); 	Guru said to comment
-//		List<TmAdtnlDecSAM> tmAdtnlDecList= new ArrayList<TmAdtnlDecSAM>();
+//		List<TmAdtnlDecSAM> tmAdtnlDecList= new LinkedList<TmAdtnlDecSAM>();
 //		tmAdtnlDecList.add(tmAdtnlDec);
 //		mster.setTmAdtnlDec(tmAdtnlDecList);
 //		
@@ -1404,19 +1423,19 @@ public class CreatingJSON {
 
 		// Creating object of all class
 		
-		List<MCRefSDM> mCRef = new ArrayList<MCRefSDM>();
+		List<MCRefSDM> mCRef = new LinkedList<MCRefSDM>();
 
 	
 		
-		List<ShipItnrySDM> shipItnry = new ArrayList<ShipItnrySDM>();
+		List<ShipItnrySDM> shipItnry = new LinkedList<ShipItnrySDM>();
 		
 //		TrnshprSDM TrnshprObj = new TrnshprSDM(); // New added
-		List<VoyageTransportEquipmentSDM> voyageTransportEquipmentList = new ArrayList<VoyageTransportEquipmentSDM>();
+		List<VoyageTransportEquipmentSDM> voyageTransportEquipmentList = new LinkedList<VoyageTransportEquipmentSDM>();
 	
-		List<PrsnOnBoardSDM> prsnOnBoardList = new ArrayList<PrsnOnBoardSDM>();
+		List<PrsnOnBoardSDM> prsnOnBoardList = new LinkedList<PrsnOnBoardSDM>();
 		List<CrewEfctSDM> cewEfctList = null;
-		List<ShipStoresSDM> shipStoresList = new ArrayList<ShipStoresSDM>();
-		List<MastrCnsgmtDecSDM> mastrCnsgmtDecList = new ArrayList<MastrCnsgmtDecSDM>();
+		List<ShipStoresSDM> shipStoresList = new LinkedList<ShipStoresSDM>();
+		List<MastrCnsgmtDecSDM> mastrCnsgmtDecList = new LinkedList<MastrCnsgmtDecSDM>();
 		
 		//===============================================
 		for (ImportGeneralManifestMod blObj : blList) { 
@@ -1428,21 +1447,21 @@ public class CreatingJSON {
 			MastrCnsgmtDecSDM mastrCnsgmtDec = new MastrCnsgmtDecSDM(); 
 			HouseCargoDecSDM houseCargoDecSDMObj = new HouseCargoDecSDM();
 			
-//			List<ShipItnrySDM> shipItnry = new ArrayList<ShipItnrySDM>();
-			List<ItnrySDM> itnry = new ArrayList<ItnrySDM>();
-			List<TrnsprtDocSDM> trnsprtDoc = new ArrayList<TrnsprtDocSDM>();
+//			List<ShipItnrySDM> shipItnry = new LinkedList<ShipItnrySDM>();
+			List<ItnrySDM> itnry = new LinkedList<ItnrySDM>();
+			List<TrnsprtDocSDM> trnsprtDoc = new LinkedList<TrnsprtDocSDM>();
 			TrnsprtDocSDM trnsprtDocClassObj = new TrnsprtDocSDM();
-//			List<PrevRefSDM> prevRef = new ArrayList<PrevRefSDM>();
-			List<ItemDtlsSDM> itemDtls = new ArrayList<ItemDtlsSDM>();
-			List<TrnsprtEqmtSDM> trnsprtEqmt = new ArrayList<TrnsprtEqmtSDM>();
-			List<LocCstmSDM> locCstm = new ArrayList<LocCstmSDM>();
-//			List<TrnshprSDM> trnshpr = new ArrayList<TrnshprSDM>();
-			List<HouseCargoDecSDM> houseCargoDec = new ArrayList<HouseCargoDecSDM>();
-			List<MCSuprtDocsSDM> mcSuprtDoc = new ArrayList<MCSuprtDocsSDM>();
-			List<MCAdtnlDecSDM> mcAdtnlDec= new ArrayList<MCAdtnlDecSDM>();
-			List<HCAdtnlDecSDM> hcAdtnlDec= new ArrayList<HCAdtnlDecSDM>();
-			List<HCCrgoSuprtDocsSDM> crgoSuprtDoc = new ArrayList<HCCrgoSuprtDocsSDM>();
-			List<TrnsprtDocMsrSDM> trnsprtDocMsr = new ArrayList<TrnsprtDocMsrSDM>();
+//			List<PrevRefSDM> prevRef = new LinkedList<PrevRefSDM>();
+			List<ItemDtlsSDM> itemDtls = new LinkedList<ItemDtlsSDM>();
+			List<TrnsprtEqmtSDM> trnsprtEqmt = new LinkedList<TrnsprtEqmtSDM>();
+			List<LocCstmSDM> locCstm = new LinkedList<LocCstmSDM>();
+//			List<TrnshprSDM> trnshpr = new LinkedList<TrnshprSDM>();
+			List<HouseCargoDecSDM> houseCargoDec = new LinkedList<HouseCargoDecSDM>();
+			List<MCSuprtDocsSDM> mcSuprtDoc = new LinkedList<MCSuprtDocsSDM>();
+			List<MCAdtnlDecSDM> mcAdtnlDec= new LinkedList<MCAdtnlDecSDM>();
+			List<HCAdtnlDecSDM> hcAdtnlDec= new LinkedList<HCAdtnlDecSDM>();
+			List<HCCrgoSuprtDocsSDM> crgoSuprtDoc = new LinkedList<HCCrgoSuprtDocsSDM>();
+			List<TrnsprtDocMsrSDM> trnsprtDocMsr = new LinkedList<TrnsprtDocMsrSDM>();
 
 			
 			List<NotifyParty> notifyPartyDetailes = blObj.getNotifyParty();
@@ -1472,7 +1491,7 @@ public class CreatingJSON {
 //			itnryClassObj = null;
 
 			//===============================================
-			List<HCRefSDM> hCRef = new ArrayList<HCRefSDM>();
+			List<HCRefSDM> hCRef = new LinkedList<HCRefSDM>();
 			HCRefSDM hCRefObj = new HCRefSDM();
 			hCRefObj.setBlDt(blObj.getBlDate());
 			hCRefObj.setBlNo(settingLength(blObj.getBl(),20));
@@ -1986,7 +2005,7 @@ public class CreatingJSON {
 //-------------------------------------------------------------------------------------------------------------------------------------------			
 			for(int l = 0;l<crewEfctMod.size();l++) {
 			
-					cewEfctList = new ArrayList<CrewEfctSDM>();
+					cewEfctList = new LinkedList<CrewEfctSDM>();
 					CrewEfctSDM cewEfct = new CrewEfctSDM();
 					cewEfct.setCrewEfctDescCdd(settingLength(crewEfctMod.get(l).getCrewEfctDescCdd(),3));
 					cewEfct.setCrewEfctQntyOnbrd(settingLengthForDouble(crewEfctMod.get(l).getCrewEfctQntyOnbrd(),16,6));
@@ -2203,7 +2222,7 @@ public class CreatingJSON {
 		
 		//===============================================
 //		TmSuprtDocsSDM tmSuprtDocs = new TmSuprtDocsSDM (); 
-//		List<TmSuprtDocsSDM> tmSuprtDocsList = new ArrayList<TmSuprtDocsSDM>();
+//		List<TmSuprtDocsSDM> tmSuprtDocsList = new LinkedList<TmSuprtDocsSDM>();
 //		tmSuprtDocs.setBnefcryCdpublic(settingLength("",35));  Guru said to comment
 //		tmSuprtDocs.setDocRefNmbr(settingLength("",17));  Guru said to comment
 //		tmSuprtDocs.setDocTypCd(settingLength("",6));  Guru said to comment
@@ -2226,7 +2245,7 @@ public class CreatingJSON {
 //		tmAdtnlDec.setInfoQualifier(settingLength("",10)); Guru said to comment
 //		tmAdtnlDec.setInfoText(settingLength("",100));guru said to comment
 //		tmAdtnlDec.setInfoTyp(settingLength("",10)); 	Guru said to comment
-//		List<TmAdtnlDecSDM> tmAdtnlDecList= new ArrayList<TmAdtnlDecSDM>();
+//		List<TmAdtnlDecSDM> tmAdtnlDecList= new LinkedList<TmAdtnlDecSDM>();
 //		tmAdtnlDecList.add(null);
 //		mster.setTmAdtnlDec(null);
 		
@@ -2299,14 +2318,14 @@ public class CreatingJSON {
 				+ "_" + decHeader + ".json";
 
 		// Creating object of all class
-		List<ItemDtlsSEI> itemDtls = new ArrayList<ItemDtlsSEI>();
-		List<TrnsprtEqmtSEI> trnsprtEqmt = new ArrayList<TrnsprtEqmtSEI>();
-		List<LocCstmSEI> locCstm = new ArrayList<LocCstmSEI>();
-		List<MCRefSEI> mCRef = new ArrayList<MCRefSEI>();
-		List<TrnsprtDocMsrSEI> trnsprtDocMsr = new ArrayList<TrnsprtDocMsrSEI>();
-		List<ShipItnrySEI> shipItnry = new ArrayList<ShipItnrySEI>();
-		List<ItnrySEI> itnry = new ArrayList<ItnrySEI>();
-		List<TrnsprtDocSEI> trnsprtDoc = new ArrayList<TrnsprtDocSEI>();
+		List<ItemDtlsSEI> itemDtls = new LinkedList<ItemDtlsSEI>();
+		List<TrnsprtEqmtSEI> trnsprtEqmt = new LinkedList<TrnsprtEqmtSEI>();
+		List<LocCstmSEI> locCstm = new LinkedList<LocCstmSEI>();
+		List<MCRefSEI> mCRef = new LinkedList<MCRefSEI>();
+		List<TrnsprtDocMsrSEI> trnsprtDocMsr = new LinkedList<TrnsprtDocMsrSEI>();
+		List<ShipItnrySEI> shipItnry = new LinkedList<ShipItnrySEI>();
+		List<ItnrySEI> itnry = new LinkedList<ItnrySEI>();
+		List<TrnsprtDocSEI> trnsprtDoc = new LinkedList<TrnsprtDocSEI>();
 		
 		// =============================================================
 		for (ImportGeneralManifestMod blObj : blList) {
@@ -2359,13 +2378,13 @@ public class CreatingJSON {
 		decRefClaObj.setMnfstNoRotnNo(settingLength(service.getRotnNo(),7)); //
 		decRefClaObj.setMnfstDtRotnDt(service.getRotnDate()); //
 		decRefClaObj.setVesselTypMvmt(settingLength(service.getVessel_type_movement(),2)); //
-		//List<DecRefSEI> decRefList = new ArrayList<DecRefSEI>();
+		//List<DecRefSEI> decRefList = new LinkedList<DecRefSEI>();
 		//decRefList.add(decRefClaObj);
 		mster.setDecRef(decRefClaObj);
 
 		// =============================================================
 		 
-		List<PrsnOnBoardSEI> prsnOnBoardList = new ArrayList<PrsnOnBoardSEI>();
+		List<PrsnOnBoardSEI> prsnOnBoardList = new LinkedList<PrsnOnBoardSEI>();
 		for (int i =0; i<personOnBoardMod.size();i++) {
 			if(personOnBoardMod.get(i).getBlNo().equals(blObj.getBl())) {
 				PrsnOnBoardSEI prsnOnBoard = new PrsnOnBoardSEI();
@@ -2379,7 +2398,7 @@ public class CreatingJSON {
 		// =============================================================
 		
 		/*int i = 0;
-		List<VoyageTransportEquipmentSEI> voyageTransportEquipmentList = new ArrayList<VoyageTransportEquipmentSEI>();
+		List<VoyageTransportEquipmentSEI> voyageTransportEquipmentList = new LinkedList<VoyageTransportEquipmentSEI>();
 		for (ContainerDetails cntnerDtl : containerDtls) {
 
 			System.out.println("   coneeDtls  " + i + ((String) cntnerDtl.getContainerSealNumber()));
@@ -2403,7 +2422,7 @@ public class CreatingJSON {
 		tmSuprtDocs.setRefSerialNo(settingLength("",5));
 		tmSuprtDocs.setSubSerialNoRef("");
 		tmSuprtDocs.setTagRef(settingLength("",5));
-		List<TmSuprtDocsSEI> tmSuprtDocsList = new ArrayList<TmSuprtDocsSEI>();
+		List<TmSuprtDocsSEI> tmSuprtDocsList = new LinkedList<TmSuprtDocsSEI>();
 		tmSuprtDocsList.add(tmSuprtDocs);
 		mster.setTmSuprtDocs(tmSuprtDocsList);
 		
@@ -2416,7 +2435,7 @@ public class CreatingJSON {
 		tmAdtnlDec.setInfoQualifier(settingLength("",10));
 //		tmAdtnlDec.setInfoText(settingLength("",100)); guru said to comment
 		tmAdtnlDec.setInfoTyp(settingLength("",10));
-		List<TmAdtnlDecSEI> tmAdtnlDecList= new ArrayList<TmAdtnlDecSEI>();
+		List<TmAdtnlDecSEI> tmAdtnlDecList= new LinkedList<TmAdtnlDecSEI>();
 		tmAdtnlDecList.add(tmAdtnlDec);
 		mster.setTmAdtnlDec(tmAdtnlDecList);
 
@@ -2504,21 +2523,21 @@ public class CreatingJSON {
 				+ "_" + decHeader + ".json";
 
 		// Creating object of all class
-		List<ItemDtlsSDA> itemDtls = new ArrayList<ItemDtlsSDA>();
-		List<TrnsprtEqmtSDA> trnsprtEqmt = new ArrayList<TrnsprtEqmtSDA>();
-		List<LocCstmSDA> locCstm = new ArrayList<LocCstmSDA>();
-		List<MCRefSDA> mCRef = new ArrayList<MCRefSDA>();
-		List<TrnsprtDocMsrSDA> trnsprtDocMsr = new ArrayList<TrnsprtDocMsrSDA>();
-		List<ShipItnrySDA> shipItnry = new ArrayList<ShipItnrySDA>();
-		List<ItnrySDA> itnry = new ArrayList<ItnrySDA>();
-		List<TrnsprtDocSDA> trnsprtDoc = new ArrayList<TrnsprtDocSDA>();
-		List<PrevRefSDA> prevRef = new ArrayList<PrevRefSDA>();
-		List<TrnshprSDA> trnshpr = new ArrayList<TrnshprSDA>();
-		List<HouseCargoDecSDA> houseCargoDec = new ArrayList<HouseCargoDecSDA>();
-		List<MCSuprtDocsSDA> mcSuprtDoc = new ArrayList<MCSuprtDocsSDA>();
-		List<MCAdtnlDecSDA> mcAdtnlDec= new ArrayList<MCAdtnlDecSDA>();
-		List<HCAdtnlDecSDA> hcAdtnlDec= new ArrayList<HCAdtnlDecSDA>();
-		List<HCCrgoSuprtDocsSDA> crgoSuprtDoc = new ArrayList<HCCrgoSuprtDocsSDA>();
+		List<ItemDtlsSDA> itemDtls = new LinkedList<ItemDtlsSDA>();
+		List<TrnsprtEqmtSDA> trnsprtEqmt = new LinkedList<TrnsprtEqmtSDA>();
+		List<LocCstmSDA> locCstm = new LinkedList<LocCstmSDA>();
+		List<MCRefSDA> mCRef = new LinkedList<MCRefSDA>();
+		List<TrnsprtDocMsrSDA> trnsprtDocMsr = new LinkedList<TrnsprtDocMsrSDA>();
+		List<ShipItnrySDA> shipItnry = new LinkedList<ShipItnrySDA>();
+		List<ItnrySDA> itnry = new LinkedList<ItnrySDA>();
+		List<TrnsprtDocSDA> trnsprtDoc = new LinkedList<TrnsprtDocSDA>();
+		List<PrevRefSDA> prevRef = new LinkedList<PrevRefSDA>();
+		List<TrnshprSDA> trnshpr = new LinkedList<TrnshprSDA>();
+		List<HouseCargoDecSDA> houseCargoDec = new LinkedList<HouseCargoDecSDA>();
+		List<MCSuprtDocsSDA> mcSuprtDoc = new LinkedList<MCSuprtDocsSDA>();
+		List<MCAdtnlDecSDA> mcAdtnlDec= new LinkedList<MCAdtnlDecSDA>();
+		List<HCAdtnlDecSDA> hcAdtnlDec= new LinkedList<HCAdtnlDecSDA>();
+		List<HCCrgoSuprtDocsSDA> crgoSuprtDoc = new LinkedList<HCCrgoSuprtDocsSDA>();
 		
 		// ===================
 
@@ -2536,7 +2555,7 @@ public class CreatingJSON {
 			houseCargoDecSDAObj.setItnry(itnry);
 			// --------------------------------------------------------
 			
-			List<HCRefSDA> hCRef = new ArrayList<HCRefSDA>();
+			List<HCRefSDA> hCRef = new LinkedList<HCRefSDA>();
 
 			HCRefSDA hCRefObj = new HCRefSDA();
 			hCRefObj.setBlDt(blObj.getBlDate());
@@ -2880,7 +2899,7 @@ public class CreatingJSON {
 		mastrCnsgmtDec.setHouseCargoDec(houseCargoDec); 
 		mastrCnsgmtDec.setmCSuprtDocs(mcSuprtDoc);
 		mastrCnsgmtDec.setmCAdtnlDec(mcAdtnlDec);
-		List<MastrCnsgmtDecSDA> mastrCnsgmtDecList = new ArrayList<MastrCnsgmtDecSDA>();
+		List<MastrCnsgmtDecSDA> mastrCnsgmtDecList = new LinkedList<MastrCnsgmtDecSDA>();
 		mastrCnsgmtDecList.add(mastrCnsgmtDec);
 		
 
@@ -2898,7 +2917,7 @@ public class CreatingJSON {
 		voyageDtlsClassObj.setNmbrOfCrewMnfsted(objForm.getCrewListDeclaration());
 		voyageDtlsClassObj.setShipItnry(shipItnry);
 
-		List<VoyageDtlsSDA> voyageDtlsList = new ArrayList<VoyageDtlsSDA>();
+		List<VoyageDtlsSDA> voyageDtlsList = new LinkedList<VoyageDtlsSDA>();
 		voyageDtlsList.add(voyageDtlsClassObj);
 		// ---------------------------------------------------
 		VesselDtlsSDA vesselDtls = new VesselDtlsSDA();
@@ -2908,7 +2927,7 @@ public class CreatingJSON {
 		vesselDtls.setTrnsprtMeansId(settingLength("",25));
 		vesselDtls.setShipTyp(objForm.getShip_type()); // Line 192
 		vesselDtls.setPurposeOfCall("1"); // always hard coded
-		List<VesselDtlsSDA> vesselDtlsList = new ArrayList<VesselDtlsSDA>();
+		List<VesselDtlsSDA> vesselDtlsList = new LinkedList<VesselDtlsSDA>();
 		vesselDtlsList.add(vesselDtls);
 		// ----------------------------
 		AuthPrsnSDA authPrsClassObj = new AuthPrsnSDA();
@@ -2921,7 +2940,7 @@ public class CreatingJSON {
 		authPrsClassObj.setShpngLineBondNmbr(settingLength(objForm.getShipping_line_bond_no_r(),10)); // LinNo:-190
 		authPrsClassObj.setTrmnlOprtrCd(settingLength(objForm.getCustomTerminalCode(),10)); // LinNo:-132
 
-		List<AuthPrsnSDA> authPrsnList = new ArrayList<AuthPrsnSDA>();
+		List<AuthPrsnSDA> authPrsnList = new LinkedList<AuthPrsnSDA>();
 		authPrsnList.add(authPrsClassObj);
 		// ----------------------------
 		DecRefSDA decRefClaObj = new DecRefSDA();
@@ -2942,7 +2961,7 @@ public class CreatingJSON {
 		// * decRefClaObj.setDptrMnfstNo(); //
 		// *decRefClaObj.setDptrMnfstDt(""); //
 		// #
-		List<DecRefSDA> decRefList = new ArrayList<DecRefSDA>();
+		List<DecRefSDA> decRefList = new LinkedList<DecRefSDA>();
 		decRefList.add(decRefClaObj);
 		// ----------------------------
 		PrsnDtlsSDA prsDtls = new PrsnDtlsSDA();
@@ -2965,7 +2984,7 @@ public class CreatingJSON {
 		prsnIdclassObj.setPrsnIdOrTravelDocIssuingNationCdd(settingLength("",2));
 		prsnIdclassObj.setPrsnIdOrTravelDocNmbr(settingLength("",70));
 		prsnIdclassObj.setPrsnIdOrTravelDocTypCdd(settingLength("",3));
-		List<PrsnIdSDA> prsnIdList = new ArrayList<PrsnIdSDA>();
+		List<PrsnIdSDA> prsnIdList = new LinkedList<PrsnIdSDA>();
 		prsnIdList.add(prsnIdclassObj);
 		//===============================================
 		CrewEfctSDA cewEfct = new CrewEfctSDA();
@@ -2974,10 +2993,10 @@ public class CreatingJSON {
 		cewEfct.setCrewEfctQntyOnbrdCd(settingLength("",3));
 		cewEfct.setCrewEfctsDesc(settingLength("",256));
 		cewEfct.setCrewEfctsSeqNmbr(settingLength("",5));
-		List<CrewEfctSDA> cewEfctList = new ArrayList<CrewEfctSDA>();
+		List<CrewEfctSDA> cewEfctList = new LinkedList<CrewEfctSDA>();
 		cewEfctList.add(cewEfct);
 		// ---------------
-		List<PrsnDtlsSDA> prsnDtlsList = new ArrayList<PrsnDtlsSDA>();
+		List<PrsnDtlsSDA> prsnDtlsList = new LinkedList<PrsnDtlsSDA>();
 		prsnDtlsList.add(prsDtls);
 		PrsnOnBoardSDA prsnOnBoard = new PrsnOnBoardSDA();
 		prsnOnBoard.setPrsnDtls(prsnDtlsList);
@@ -2985,7 +3004,7 @@ public class CreatingJSON {
 		prsnOnBoard.setCrewEfct(cewEfctList);
 		prsnOnBoard.setPrsnOnBoardSeqNmbr(settingLength("",5));
 
-		List<PrsnOnBoardSDA> prsnOnBoardList = new ArrayList<PrsnOnBoardSDA>();
+		List<PrsnOnBoardSDA> prsnOnBoardList = new LinkedList<PrsnOnBoardSDA>();
 		prsnOnBoardList.add(prsnOnBoard);
 		// --------------------------------------------------------
 		ShipStoresSDA shipStores = new ShipStoresSDA();
@@ -2995,7 +3014,7 @@ public class CreatingJSON {
 		shipStores.setLocOnbrdText(settingLength("",256));
 		shipStores.setQntyCdOnbrd(settingLength("",3));
 		shipStores.setQntyOnbrd(settingLengthForDouble("",16,6));
-		List<ShipStoresSDA> shipStoresList = new ArrayList<ShipStoresSDA>();
+		List<ShipStoresSDA> shipStoresList = new LinkedList<ShipStoresSDA>();
 		shipStoresList.add(shipStores);
 		//----------------------------------------------------------------
 		TmSuprtDocsSDA tmSuprtDocs = new TmSuprtDocsSDA (); 
@@ -3007,7 +3026,7 @@ public class CreatingJSON {
 		tmSuprtDocs.setRefSerialNo(settingLength("",5));
 		tmSuprtDocs.setSubSerialNoRef("");
 		tmSuprtDocs.setTagRef(settingLength("",5));
-		List<TmSuprtDocsSDA> tmSuprtDocsList = new ArrayList<TmSuprtDocsSDA>();
+		List<TmSuprtDocsSDA> tmSuprtDocsList = new LinkedList<TmSuprtDocsSDA>();
 		tmSuprtDocsList.add(tmSuprtDocs);
 		//------------------------------------------------------------
 		TmAdtnlDecSDA tmAdtnlDec = new TmAdtnlDecSDA();
@@ -3019,11 +3038,11 @@ public class CreatingJSON {
 		tmAdtnlDec.setInfoQualifier(settingLength("",10));
 		tmAdtnlDec.setInfoText(settingLength("",100));
 		tmAdtnlDec.setInfoTyp(settingLength("",10));
-		List<TmAdtnlDecSDA> tmAdtnlDecList= new ArrayList<TmAdtnlDecSDA>();
+		List<TmAdtnlDecSDA> tmAdtnlDecList= new LinkedList<TmAdtnlDecSDA>();
 		tmAdtnlDecList.add(tmAdtnlDec);
 		//-------------------------------------------------------
 		int i = 0;
-		List<VoyageTransportEquipmentSDA> voyageTransportEquipmentList = new ArrayList<VoyageTransportEquipmentSDA>();
+		List<VoyageTransportEquipmentSDA> voyageTransportEquipmentList = new LinkedList<VoyageTransportEquipmentSDA>();
 		for (ContainerDetails cntnerDtl : containerDtls) {
 
 			System.out.println("   coneeDtls  " + i + ((String) cntnerDtl.getContainerSealNumber()));
@@ -3043,7 +3062,7 @@ public class CreatingJSON {
 		digSignClassObj.setStartCertificate("");
 		digSignClassObj.setSignerVersion("");
 
-		List<DigSignSDA> digSignList = new ArrayList<DigSignSDA>();
+		List<DigSignSDA> digSignList = new LinkedList<DigSignSDA>();
 		digSignList.add(digSignClassObj);
 		// ----------------
 		MasterSDA mster = new MasterSDA();
@@ -3075,10 +3094,10 @@ public class CreatingJSON {
 		headerFieldClassObj.setReportingEvent("ES");
 		// -------------------------------------------------
 
-		List<MasterSDA> masterList = new ArrayList<MasterSDA>();
+		List<MasterSDA> masterList = new LinkedList<MasterSDA>();
 		masterList.add(mster);
 
-		List<HeaderFieldSDA> headerFieldList = new ArrayList<HeaderFieldSDA>();
+		List<HeaderFieldSDA> headerFieldList = new LinkedList<HeaderFieldSDA>();
 		headerFieldList.add(headerFieldClassObj);
 
 		JsonMainObjctSDA org = new JsonMainObjctSDA();
@@ -3129,21 +3148,21 @@ public class CreatingJSON {
 				+ "_" + decHeader + ".json";
 
 		// Creating object of all class
-		List<ItemDtlsSAA> itemDtls = new ArrayList<ItemDtlsSAA>();
-		List<TrnsprtEqmtSAA> trnsprtEqmt = new ArrayList<TrnsprtEqmtSAA>();
-		List<LocCstmSAA> locCstm = new ArrayList<LocCstmSAA>();
-		List<MCRefSAA> mCRef = new ArrayList<MCRefSAA>();
-		List<TrnsprtDocMsrSAA> trnsprtDocMsr = new ArrayList<TrnsprtDocMsrSAA>();
-		List<ShipItnrySAA> shipItnry = new ArrayList<ShipItnrySAA>();
-		List<ItnrySAA> itnry = new ArrayList<ItnrySAA>();
-		List<TrnsprtDocSAA> trnsprtDoc = new ArrayList<TrnsprtDocSAA>();
-		List<PrevRefSAA> prevRef = new ArrayList<PrevRefSAA>();
-		List<TrnshprSAA> trnshpr = new ArrayList<TrnshprSAA>();
-		List<HouseCargoDecSAA> houseCargoDec = new ArrayList<HouseCargoDecSAA>();
-		List<MCSuprtDocsSAA> mcSuprtDoc = new ArrayList<MCSuprtDocsSAA>();
-		List<MCAdtnlDecSAA> mcAdtnlDec= new ArrayList<MCAdtnlDecSAA>();
-		List<HCAdtnlDecSAA> hcAdtnlDec= new ArrayList<HCAdtnlDecSAA>();
-		List<HCCrgoSuprtDocsSAA> crgoSuprtDoc = new ArrayList<HCCrgoSuprtDocsSAA>();
+		List<ItemDtlsSAA> itemDtls = new LinkedList<ItemDtlsSAA>();
+		List<TrnsprtEqmtSAA> trnsprtEqmt = new LinkedList<TrnsprtEqmtSAA>();
+		List<LocCstmSAA> locCstm = new LinkedList<LocCstmSAA>();
+		List<MCRefSAA> mCRef = new LinkedList<MCRefSAA>();
+		List<TrnsprtDocMsrSAA> trnsprtDocMsr = new LinkedList<TrnsprtDocMsrSAA>();
+		List<ShipItnrySAA> shipItnry = new LinkedList<ShipItnrySAA>();
+		List<ItnrySAA> itnry = new LinkedList<ItnrySAA>();
+		List<TrnsprtDocSAA> trnsprtDoc = new LinkedList<TrnsprtDocSAA>();
+		List<PrevRefSAA> prevRef = new LinkedList<PrevRefSAA>();
+		List<TrnshprSAA> trnshpr = new LinkedList<TrnshprSAA>();
+		List<HouseCargoDecSAA> houseCargoDec = new LinkedList<HouseCargoDecSAA>();
+		List<MCSuprtDocsSAA> mcSuprtDoc = new LinkedList<MCSuprtDocsSAA>();
+		List<MCAdtnlDecSAA> mcAdtnlDec= new LinkedList<MCAdtnlDecSAA>();
+		List<HCAdtnlDecSAA> hcAdtnlDec= new LinkedList<HCAdtnlDecSAA>();
+		List<HCCrgoSuprtDocsSAA> crgoSuprtDoc = new LinkedList<HCCrgoSuprtDocsSAA>();
 		
 		// ===================
 
@@ -3161,7 +3180,7 @@ public class CreatingJSON {
 			houseCargoDecSAAObj.setItnry(itnry);
 			// --------------------------------------------------------
 			
-			List<HCRefSAA> hCRef = new ArrayList<HCRefSAA>();
+			List<HCRefSAA> hCRef = new LinkedList<HCRefSAA>();
 
 			HCRefSAA hCRefObj = new HCRefSAA();
 			hCRefObj.setBlDt(blObj.getBlDate());
@@ -3504,7 +3523,7 @@ public class CreatingJSON {
 		mastrCnsgmtDec.setHouseCargoDec(houseCargoDec); 
 		mastrCnsgmtDec.setmCSuprtDocs(mcSuprtDoc);
 		mastrCnsgmtDec.setmCAdtnlDec(mcAdtnlDec);
-		List<MastrCnsgmtDecSAA> mastrCnsgmtDecList = new ArrayList<MastrCnsgmtDecSAA>();
+		List<MastrCnsgmtDecSAA> mastrCnsgmtDecList = new LinkedList<MastrCnsgmtDecSAA>();
 		mastrCnsgmtDecList.add(mastrCnsgmtDec);
 		
 
@@ -3522,7 +3541,7 @@ public class CreatingJSON {
 		voyageDtlsClassObj.setNmbrOfCrewMnfsted(objForm.getCrewListDeclaration());
 		voyageDtlsClassObj.setShipItnry(shipItnry);
 
-		List<VoyageDtlsSAA> voyageDtlsList = new ArrayList<VoyageDtlsSAA>();
+		List<VoyageDtlsSAA> voyageDtlsList = new LinkedList<VoyageDtlsSAA>();
 		voyageDtlsList.add(voyageDtlsClassObj);
 		// ---------------------------------------------------
 		VesselDtlsSAA vesselDtls = new VesselDtlsSAA();
@@ -3532,7 +3551,7 @@ public class CreatingJSON {
 		vesselDtls.setTrnsprtMeansId(settingLength("",25));
 		vesselDtls.setShipTyp(objForm.getShip_type()); // Line 192
 		vesselDtls.setPurposeOfCall("1"); // always hard coded
-		List<VesselDtlsSAA> vesselDtlsList = new ArrayList<VesselDtlsSAA>();
+		List<VesselDtlsSAA> vesselDtlsList = new LinkedList<VesselDtlsSAA>();
 		vesselDtlsList.add(vesselDtls);
 		// ----------------------------
 		AuthPrsnSAA authPrsClassObj = new AuthPrsnSAA();
@@ -3544,7 +3563,7 @@ public class CreatingJSON {
 		authPrsClassObj.setMasterName(settingLength(objForm.getMasterName(),30));// 21
 		authPrsClassObj.setShpngLineBondNmbr(settingLength(objForm.getShipping_line_bond_no_r(),10)); // LinNo:-190
 		authPrsClassObj.setTrmnlOprtrCd(settingLength(objForm.getCustomTerminalCode(),10));
-		List<AuthPrsnSAA> authPrsnList = new ArrayList<AuthPrsnSAA>();
+		List<AuthPrsnSAA> authPrsnList = new LinkedList<AuthPrsnSAA>();
 		authPrsnList.add(authPrsClassObj);
 		// ----------------------------
 		DecRefSAA decRefClaObj = new DecRefSAA();
@@ -3565,7 +3584,7 @@ public class CreatingJSON {
 		// * decRefClaObj.setDptrMnfstNo(); //
 		// *decRefClaObj.setDptrMnfstDt(""); //
 		// #
-		List<DecRefSAA> decRefList = new ArrayList<DecRefSAA>();
+		List<DecRefSAA> decRefList = new LinkedList<DecRefSAA>();
 		decRefList.add(decRefClaObj);
 		// ----------------------------
 		PrsnDtlsSAA prsDtls = new PrsnDtlsSAA();
@@ -3588,7 +3607,7 @@ public class CreatingJSON {
 		prsnIdclassObj.setPrsnIdOrTravelDocIssuingNationCdd(settingLength("",2));
 		prsnIdclassObj.setPrsnIdOrTravelDocNmbr(settingLength("",70));
 		prsnIdclassObj.setPrsnIdOrTravelDocTypCdd(settingLength("",3));
-		List<PrsnIdSAA> prsnIdList = new ArrayList<PrsnIdSAA>();
+		List<PrsnIdSAA> prsnIdList = new LinkedList<PrsnIdSAA>();
 		prsnIdList.add(prsnIdclassObj);
 		//===============================================
 		CrewEfctSAA cewEfct = new CrewEfctSAA();
@@ -3597,10 +3616,10 @@ public class CreatingJSON {
 		cewEfct.setCrewEfctQntyOnbrdCd(settingLength("",3));
 		cewEfct.setCrewEfctsDesc(settingLength("",256));
 		cewEfct.setCrewEfctsSeqNmbr(settingLength("",5));
-		List<CrewEfctSAA> cewEfctList = new ArrayList<CrewEfctSAA>();
+		List<CrewEfctSAA> cewEfctList = new LinkedList<CrewEfctSAA>();
 		cewEfctList.add(cewEfct);
 		// ------------------------------------
-		List<PrsnDtlsSAA> prsnDtlsList = new ArrayList<PrsnDtlsSAA>();
+		List<PrsnDtlsSAA> prsnDtlsList = new LinkedList<PrsnDtlsSAA>();
 		prsnDtlsList.add(prsDtls);
 		PrsnOnBoardSAA prsnOnBoard = new PrsnOnBoardSAA();
 		prsnOnBoard.setPrsnDtls(prsnDtlsList);
@@ -3608,7 +3627,7 @@ public class CreatingJSON {
 		prsnOnBoard.setCrewEfct(cewEfctList);
 		prsnOnBoard.setPrsnOnBoardSeqNmbr(settingLength("",5));
 
-		List<PrsnOnBoardSAA> prsnOnBoardList = new ArrayList<PrsnOnBoardSAA>();
+		List<PrsnOnBoardSAA> prsnOnBoardList = new LinkedList<PrsnOnBoardSAA>();
 		prsnOnBoardList.add(prsnOnBoard);
 		// --------------------------------------------------------
 		ShipStoresSAA shipStores = new ShipStoresSAA();
@@ -3618,7 +3637,7 @@ public class CreatingJSON {
 		shipStores.setLocOnbrdText(settingLength("",256));
 		shipStores.setQntyCdOnbrd(settingLength("",3));
 		shipStores.setQntyOnbrd(settingLengthForDouble("",16,6));
-		List<ShipStoresSAA> shipStoresList = new ArrayList<ShipStoresSAA>();
+		List<ShipStoresSAA> shipStoresList = new LinkedList<ShipStoresSAA>();
 		shipStoresList.add(shipStores);
 		//----------------------------------------------------------------
 		TmSuprtDocsSAA tmSuprtDocs = new TmSuprtDocsSAA (); 
@@ -3630,7 +3649,7 @@ public class CreatingJSON {
 		tmSuprtDocs.setRefSerialNo(settingLength("",5));
 		tmSuprtDocs.setSubSerialNoRef("");
 		tmSuprtDocs.setTagRef(settingLength("",5));
-		List<TmSuprtDocsSAA> tmSuprtDocsList = new ArrayList<TmSuprtDocsSAA>();
+		List<TmSuprtDocsSAA> tmSuprtDocsList = new LinkedList<TmSuprtDocsSAA>();
 		tmSuprtDocsList.add(tmSuprtDocs);
 		//------------------------------------------------------------
 		TmAdtnlDecSAA tmAdtnlDec = new TmAdtnlDecSAA();
@@ -3642,11 +3661,11 @@ public class CreatingJSON {
 		tmAdtnlDec.setInfoQualifier(settingLength("",10));
 		tmAdtnlDec.setInfoText(settingLength("",100));
 		tmAdtnlDec.setInfoTyp(settingLength("",10));
-		List<TmAdtnlDecSAA> tmAdtnlDecList= new ArrayList<TmAdtnlDecSAA>();
+		List<TmAdtnlDecSAA> tmAdtnlDecList= new LinkedList<TmAdtnlDecSAA>();
 		tmAdtnlDecList.add(tmAdtnlDec);
 		//-------------------------------------------------------
 		int i = 0;
-		List<VoyageTransportEquipmentSAA> voyageTransportEquipmentList = new ArrayList<VoyageTransportEquipmentSAA>();
+		List<VoyageTransportEquipmentSAA> voyageTransportEquipmentList = new LinkedList<VoyageTransportEquipmentSAA>();
 		for (ContainerDetails cntnerDtl : containerDtls) {
 
 			System.out.println("   coneeDtls  " + i + ((String) cntnerDtl.getContainerSealNumber()));
@@ -3666,7 +3685,7 @@ public class CreatingJSON {
 		digSignClassObj.setStartCertificate("");
 		digSignClassObj.setSignerVersion("");
 
-		List<DigSignSAA> digSignList = new ArrayList<DigSignSAA>();
+		List<DigSignSAA> digSignList = new LinkedList<DigSignSAA>();
 		digSignList.add(digSignClassObj);
 		// ----------------
 		MasterSAA mster = new MasterSAA();
@@ -3698,10 +3717,10 @@ public class CreatingJSON {
 		headerFieldClassObj.setReportingEvent("ES");
 		// -------------------------------------------------
 
-		List<MasterSAA> masterList = new ArrayList<MasterSAA>();
+		List<MasterSAA> masterList = new LinkedList<MasterSAA>();
 		masterList.add(mster);
 
-		List<HeaderFieldSAA> headerFieldList = new ArrayList<HeaderFieldSAA>();
+		List<HeaderFieldSAA> headerFieldList = new LinkedList<HeaderFieldSAA>();
 		headerFieldList.add(headerFieldClassObj);
 
 		JsonMainObjctSAA org = new JsonMainObjctSAA();
@@ -3750,12 +3769,12 @@ public class CreatingJSON {
 				+ "_" + decHeader + ".json";
 
 		// Creating object of all class
-		List<ItemDtlsSDN> itemDtls = new ArrayList<ItemDtlsSDN>();
-		List<TrnsprtEqmtSDN> trnsprtEqmt = new ArrayList<TrnsprtEqmtSDN>();
-		List<LocCstmSDN> locCstm = new ArrayList<LocCstmSDN>();
-		List<TrnsprtDocMsrSDN> trnsprtDocMsr = new ArrayList<TrnsprtDocMsrSDN>();
-		List<ItnrySDN> itnry = new ArrayList<ItnrySDN>();
-		List<TrnsprtDocSDN> trnsprtDoc = new ArrayList<TrnsprtDocSDN>();
+		List<ItemDtlsSDN> itemDtls = new LinkedList<ItemDtlsSDN>();
+		List<TrnsprtEqmtSDN> trnsprtEqmt = new LinkedList<TrnsprtEqmtSDN>();
+		List<LocCstmSDN> locCstm = new LinkedList<LocCstmSDN>();
+		List<TrnsprtDocMsrSDN> trnsprtDocMsr = new LinkedList<TrnsprtDocMsrSDN>();
+		List<ItnrySDN> itnry = new LinkedList<ItnrySDN>();
+		List<TrnsprtDocSDN> trnsprtDoc = new LinkedList<TrnsprtDocSDN>();
 
 		DecRefSDN decRefClaObj = new DecRefSDN();
 		decRefClaObj.setMsgTyp(settingLength( msgTyp,1));
@@ -3804,7 +3823,7 @@ public class CreatingJSON {
 		tmSuprtDocs.setIrnNmbr(settingLength("",14));		
 		tmSuprtDocs.setDocRefNmbr(settingLength("",17));
 		tmSuprtDocs.setSubSerialNoRef("");
-		List<TmSuprtDocsSDN> tmSuprtDocsSDNList = new ArrayList<TmSuprtDocsSDN>();
+		List<TmSuprtDocsSDN> tmSuprtDocsSDNList = new LinkedList<TmSuprtDocsSDN>();
 		tmSuprtDocsSDNList.add(tmSuprtDocs);
 		mster.setTmSuprtDocs(tmSuprtDocsSDNList);
 		
@@ -3817,7 +3836,7 @@ public class CreatingJSON {
 		tmAdtnlDec.setInfoQualifier(settingLength("",10));
 		tmAdtnlDec.setInfoText(settingLength("",100));
 		tmAdtnlDec.setInfoTyp(settingLength("",10));
-		List<TmAdtnlDecSDN> tmAdtnlDecSDNList = new ArrayList<TmAdtnlDecSDN>();
+		List<TmAdtnlDecSDN> tmAdtnlDecSDNList = new LinkedList<TmAdtnlDecSDN>();
 		tmAdtnlDecSDNList.add(tmAdtnlDec);
 		mster.setTmAdtnlDec(tmAdtnlDecSDNList);
 		
@@ -3882,15 +3901,15 @@ public class CreatingJSON {
 
 		// Creating object of all class
 
-		List<ShipItnrySCX> shipItnry = new ArrayList<ShipItnrySCX>();
+		List<ShipItnrySCX> shipItnry = new LinkedList<ShipItnrySCX>();
 		
-		List<MastrCnsgmtDecSCX> mastrCnsgmtDecList = new ArrayList<MastrCnsgmtDecSCX>();
+		List<MastrCnsgmtDecSCX> mastrCnsgmtDecList = new LinkedList<MastrCnsgmtDecSCX>();
 		
-		List<HouseCargoDecSCX> houseCargoDec = new ArrayList<HouseCargoDecSCX>();
-		List<MCSuprtDocsSCX> mcSuprtDoc = new ArrayList<MCSuprtDocsSCX>();
-		List<MCAdtnlDecSCX> mcAdtnlDec = new ArrayList<MCAdtnlDecSCX>();
-		List<HCAdtnlDecSCX> hcAdtnlDec = new ArrayList<HCAdtnlDecSCX>();
-		List<HCCrgoSuprtDocsSCX> crgoSuprtDoc = new ArrayList<HCCrgoSuprtDocsSCX>();
+		List<HouseCargoDecSCX> houseCargoDec = new LinkedList<HouseCargoDecSCX>();
+		List<MCSuprtDocsSCX> mcSuprtDoc = new LinkedList<MCSuprtDocsSCX>();
+		List<MCAdtnlDecSCX> mcAdtnlDec = new LinkedList<MCAdtnlDecSCX>();
+		List<HCAdtnlDecSCX> hcAdtnlDec = new LinkedList<HCAdtnlDecSCX>();
+		List<HCCrgoSuprtDocsSCX> crgoSuprtDoc = new LinkedList<HCCrgoSuprtDocsSCX>();
 
 		// ===================
 //		JsonMainObjctSCX org = new JsonMainObjctSCX();
@@ -3910,15 +3929,15 @@ public class CreatingJSON {
 			List<Consigner> consignerDtls = objForm.getConsigner();
 			List<ContainerDetails> containerDtls = objForm.getContainerDetailes();
 			
-			List<ItemDtlsSCX> itemDtls = new ArrayList<ItemDtlsSCX>();
-			List<TrnsprtEqmtSCX> trnsprtEqmt = new ArrayList<TrnsprtEqmtSCX>();
-			List<LocCstmSCX> locCstm = new ArrayList<LocCstmSCX>();
-			List<MCRefSCX> mCRef = new ArrayList<MCRefSCX>();
-			List<TrnsprtDocMsrSCX> trnsprtDocMsr = new ArrayList<TrnsprtDocMsrSCX>();
-			List<ItnrySCX> itnry = new ArrayList<ItnrySCX>();
-			List<TrnsprtDocSCX> trnsprtDoc = new ArrayList<TrnsprtDocSCX>();
-			List<PrevRefSCX> prevRef = new ArrayList<PrevRefSCX>();
-			List<TrnshprSCX> trnshpr = new ArrayList<TrnshprSCX>();
+			List<ItemDtlsSCX> itemDtls = new LinkedList<ItemDtlsSCX>();
+			List<TrnsprtEqmtSCX> trnsprtEqmt = new LinkedList<TrnsprtEqmtSCX>();
+			List<LocCstmSCX> locCstm = new LinkedList<LocCstmSCX>();
+			List<MCRefSCX> mCRef = new LinkedList<MCRefSCX>();
+			List<TrnsprtDocMsrSCX> trnsprtDocMsr = new LinkedList<TrnsprtDocMsrSCX>();
+			List<ItnrySCX> itnry = new LinkedList<ItnrySCX>();
+			List<TrnsprtDocSCX> trnsprtDoc = new LinkedList<TrnsprtDocSCX>();
+			List<PrevRefSCX> prevRef = new LinkedList<PrevRefSCX>();
+			List<TrnshprSCX> trnshpr = new LinkedList<TrnshprSCX>();
 			
 			
 			ItnrySCX itnryClassObj = new ItnrySCX();
@@ -3940,7 +3959,7 @@ public class CreatingJSON {
 			houseCargoDecSCXObj.setItnry(itnry);
 			// --------------------------------------------------------
 
-			List<HCRefSCX> hCRef = new ArrayList<HCRefSCX>();
+			List<HCRefSCX> hCRef = new LinkedList<HCRefSCX>();
 
 			HCRefSCX hCRefObj = new HCRefSCX();
 			hCRefObj.setBlDt(blObj.getBlDate());
@@ -4388,18 +4407,18 @@ public class CreatingJSON {
 		prsnIdclassObj.setPrsnIdOrTravelDocIssuingNationCdd(settingLength("", 2));
 		prsnIdclassObj.setPrsnIdOrTravelDocNmbr(settingLength("", 70));
 		prsnIdclassObj.setPrsnIdOrTravelDocTypCdd(settingLength("", 3));
-		List<PrsnIdSCX> prsnIdList = new ArrayList<PrsnIdSCX>();
+		List<PrsnIdSCX> prsnIdList = new LinkedList<PrsnIdSCX>();
 		prsnIdList.add(prsnIdclassObj);
 
 		// ---------------
-		List<PrsnDtlsSCX> prsnDtlsList = new ArrayList<PrsnDtlsSCX>();
+		List<PrsnDtlsSCX> prsnDtlsList = new LinkedList<PrsnDtlsSCX>();
 		prsnDtlsList.add(prsDtls);
 //		PrsnOnBoardSCX prsnOnBoard = new PrsnOnBoardSCX();
 //		prsnOnBoard.setPrsnDtls(prsnDtlsList);
 //		prsnOnBoard.setPrsnId(prsnIdList);
 //		prsnOnBoard.setPrsnOnBoardSeqNmbr(settingLength("", 5));
 
-//		List<PrsnOnBoardSCX> prsnOnBoardList = new ArrayList<PrsnOnBoardSCX>();
+//		List<PrsnOnBoardSCX> prsnOnBoardList = new LinkedList<PrsnOnBoardSCX>();
 //		prsnOnBoardList.add(prsnOnBoard);
 		// --------------------------------------------------------
 //		ShipStoresSCX shipStores = new ShipStoresSCX();
@@ -4409,7 +4428,7 @@ public class CreatingJSON {
 //		shipStores.setLocOnbrdText(settingLength("", 256));
 //		shipStores.setQntyCdOnbrd(settingLength("", 3));
 //		shipStores.setQntyOnbrd(settingLengthForDouble("", 16, 6));
-//		List<ShipStoresSCX> shipStoresList = new ArrayList<ShipStoresSCX>();
+//		List<ShipStoresSCX> shipStoresList = new LinkedList<ShipStoresSCX>();
 //		shipStoresList.add(shipStores);
 		// ----------------------------------------------------------------
 //		 ArvlDtlsSCX arvlDtls = new ArvlDtlsSCX();
@@ -4419,13 +4438,13 @@ public class CreatingJSON {
 //		 arvlDtls.setTotalNmbrOfTrnsprtContractsRprtdOnArvlDptr(generatedFileNameOfJson);
 //		 arvlDtls.setTotalNoOfCntrsLoaded(generatedFileNameOfJson);
 //		 arvlDtls.setTotalNoOfTrnsprtEqmtRprtdOnArvlDptr(generatedFileNameOfJson);
-//		 List<ArvlDtlsSCE> arvlDtlsList = new ArrayList<ArvlDtlsSCE>();
+//		 List<ArvlDtlsSCE> arvlDtlsList = new LinkedList<ArvlDtlsSCE>();
 //		 arvlDtlsList.add(arvlDtls);
 		
 		//------------------------------------------------------------------------
 
 //		int i = 0;
-//		List<VoyageTransportEquipmentSCX> voyageTransportEquipmentList = new ArrayList<VoyageTransportEquipmentSCX>();
+//		List<VoyageTransportEquipmentSCX> voyageTransportEquipmentList = new LinkedList<VoyageTransportEquipmentSCX>();
 //		for (ContainerDetails cntnerDtl : containerDtls) {
 //
 //			System.out.println("   coneeDtls  " + i + ((String) cntnerDtl.getContainerSealNumber()));
@@ -4448,7 +4467,7 @@ public class CreatingJSON {
 //		digSignClassObj.setStartCertificate("");
 //		digSignClassObj.setSignerVersion("");
 //
-//		List<DigSignSCX> digSignList = new ArrayList<DigSignSCX>();
+//		List<DigSignSCX> digSignList = new LinkedList<DigSignSCX>();
 //		digSignList.add(digSignClassObj);
 		// ----------------
 		mster.setMastrCnsgmtDec(mastrCnsgmtDecList);
@@ -4498,7 +4517,7 @@ public class CreatingJSON {
 				vesselDtls.setTrnsprtMeansId(settingLength(service.getImoCode(),25));
 //				vesselDtls.setShipTyp(objForm.getShip_type()); // Line 192
 //				vesselDtls.setPurposeOfCall("1"); // always hard coded
-				List<VesselDtlsSCX> vesselDtlsList = new ArrayList<VesselDtlsSCX>();
+				List<VesselDtlsSCX> vesselDtlsList = new LinkedList<VesselDtlsSCX>();
 				vesselDtlsList.add(vesselDtls);
 				
 				// ----------------------------
@@ -4512,7 +4531,7 @@ public class CreatingJSON {
 //				authPrsClassObj.setShpngLineBondNmbr(settingLength(objForm.getShipping_line_bond_no_r(), 10)); // LinNo:-190
 //				authPrsClassObj.setTrmnlOprtrCd(settingLength(objForm.getCustomTerminalCode(), 10));// LinNo:-132
 
-				List<AuthPrsnSCX> authPrsnList = new ArrayList<AuthPrsnSCX>();
+				List<AuthPrsnSCX> authPrsnList = new LinkedList<AuthPrsnSCX>();
 				authPrsnList.add(authPrsClassObj);
 				// ----------------------------
 				DecRefSCX decRefClaObj = new DecRefSCX();
@@ -4527,9 +4546,9 @@ public class CreatingJSON {
 //				    decRefClaObj.setVesselTypMvmt(settingLength("FI",2));
 				    mster.setDecRef(decRefClaObj);
 				    decRefClaObj = null;
-				List<DecRefSCX> decRefList = new ArrayList<DecRefSCX>();
+				List<DecRefSCX> decRefList = new LinkedList<DecRefSCX>();
 				decRefList.add(decRefClaObj);
-				List<VoyageDtlsSCX> voyageDtlsList = new ArrayList<VoyageDtlsSCX>();
+				List<VoyageDtlsSCX> voyageDtlsList = new LinkedList<VoyageDtlsSCX>();
 				voyageDtlsList.add(voyageDtlsClassObj);
 //		---------------------------------------------------------------------------------		
 		
@@ -4587,21 +4606,21 @@ public class CreatingJSON {
 				+ "_" + decHeader + ".json";
 
 		// Creating object of all class
-		List<ItemDtlsSCD> itemDtls = new ArrayList<ItemDtlsSCD>();
-		List<TrnsprtEqmtSCD> trnsprtEqmt = new ArrayList<TrnsprtEqmtSCD>();
-		List<LocCstmSCD> locCstm = new ArrayList<LocCstmSCD>();
-		List<MCRefSCD> mCRef = new ArrayList<MCRefSCD>();
-		List<TrnsprtDocMsrSCD> trnsprtDocMsr = new ArrayList<TrnsprtDocMsrSCD>();
-		List<ShipItnrySCD> shipItnry = new ArrayList<ShipItnrySCD>();
-		List<ItnrySCD> itnry = new ArrayList<ItnrySCD>();
-		List<TrnsprtDocSCD> trnsprtDoc = new ArrayList<TrnsprtDocSCD>();
-		List<PrevRefSCD> prevRef = new ArrayList<PrevRefSCD>();
-		List<TrnshprSCD> trnshpr = new ArrayList<TrnshprSCD>();
-		List<HouseCargoDecSCD> houseCargoDec = new ArrayList<HouseCargoDecSCD>();
-		List<MCSuprtDocsSCD> mcSuprtDoc = new ArrayList<MCSuprtDocsSCD>();
-		List<MCAdtnlDecSCD> mcAdtnlDec= new ArrayList<MCAdtnlDecSCD>();
-		List<HCAdtnlDecSCD> hcAdtnlDec= new ArrayList<HCAdtnlDecSCD>();
-		List<HCCrgoSuprtDocsSCD> crgoSuprtDoc = new ArrayList<HCCrgoSuprtDocsSCD>();
+		List<ItemDtlsSCD> itemDtls = new LinkedList<ItemDtlsSCD>();
+		List<TrnsprtEqmtSCD> trnsprtEqmt = new LinkedList<TrnsprtEqmtSCD>();
+		List<LocCstmSCD> locCstm = new LinkedList<LocCstmSCD>();
+		List<MCRefSCD> mCRef = new LinkedList<MCRefSCD>();
+		List<TrnsprtDocMsrSCD> trnsprtDocMsr = new LinkedList<TrnsprtDocMsrSCD>();
+		List<ShipItnrySCD> shipItnry = new LinkedList<ShipItnrySCD>();
+		List<ItnrySCD> itnry = new LinkedList<ItnrySCD>();
+		List<TrnsprtDocSCD> trnsprtDoc = new LinkedList<TrnsprtDocSCD>();
+		List<PrevRefSCD> prevRef = new LinkedList<PrevRefSCD>();
+		List<TrnshprSCD> trnshpr = new LinkedList<TrnshprSCD>();
+		List<HouseCargoDecSCD> houseCargoDec = new LinkedList<HouseCargoDecSCD>();
+		List<MCSuprtDocsSCD> mcSuprtDoc = new LinkedList<MCSuprtDocsSCD>();
+		List<MCAdtnlDecSCD> mcAdtnlDec= new LinkedList<MCAdtnlDecSCD>();
+		List<HCAdtnlDecSCD> hcAdtnlDec= new LinkedList<HCAdtnlDecSCD>();
+		List<HCCrgoSuprtDocsSCD> crgoSuprtDoc = new LinkedList<HCCrgoSuprtDocsSCD>();
 		
 		// ===================
 
@@ -4619,7 +4638,7 @@ public class CreatingJSON {
 			houseCargoDecSCDObj.setItnry(itnry);
 			// --------------------------------------------------------
 			
-			List<HCRefSCD> hCRef = new ArrayList<HCRefSCD>();
+			List<HCRefSCD> hCRef = new LinkedList<HCRefSCD>();
 
 			HCRefSCD hCRefObj = new HCRefSCD();
 			hCRefObj.setBlDt(blObj.getBlDate());
@@ -4964,7 +4983,7 @@ public class CreatingJSON {
 		mastrCnsgmtDec.setHouseCargoDec(houseCargoDec); 
 		mastrCnsgmtDec.setmCSuprtDocs(mcSuprtDoc);
 		mastrCnsgmtDec.setmCAdtnlDec(mcAdtnlDec);
-		List<MastrCnsgmtDecSCD> mastrCnsgmtDecList = new ArrayList<MastrCnsgmtDecSCD>();
+		List<MastrCnsgmtDecSCD> mastrCnsgmtDecList = new LinkedList<MastrCnsgmtDecSCD>();
 		mastrCnsgmtDecList.add(mastrCnsgmtDec);
 		
 
@@ -4982,7 +5001,7 @@ public class CreatingJSON {
 		voyageDtlsClassObj.setNmbrOfCrewMnfsted(objForm.getCrewListDeclaration());
 		voyageDtlsClassObj.setShipItnry(shipItnry);
 
-		List<VoyageDtlsSCD> voyageDtlsList = new ArrayList<VoyageDtlsSCD>();
+		List<VoyageDtlsSCD> voyageDtlsList = new LinkedList<VoyageDtlsSCD>();
 		voyageDtlsList.add(voyageDtlsClassObj);
 		// ---------------------------------------------------
 		VesselDtlsSCD vesselDtls = new VesselDtlsSCD();
@@ -4992,7 +5011,7 @@ public class CreatingJSON {
 		vesselDtls.setTrnsprtMeansId(settingLength("",25));
 		vesselDtls.setShipTyp(objForm.getShip_type()); // Line 192
 		vesselDtls.setPurposeOfCall("1"); // always hard coded
-		List<VesselDtlsSCD> vesselDtlsList = new ArrayList<VesselDtlsSCD>();
+		List<VesselDtlsSCD> vesselDtlsList = new LinkedList<VesselDtlsSCD>();
 		vesselDtlsList.add(vesselDtls);
 		// ----------------------------
 		AuthPrsnSCD authPrsClassObj = new AuthPrsnSCD();
@@ -5005,7 +5024,7 @@ public class CreatingJSON {
 		authPrsClassObj.setShpngLineBondNmbr(settingLength(objForm.getShipping_line_bond_no_r(),10)); // LinNo:-190
 		authPrsClassObj.setTrmnlOprtrCd(settingLength(objForm.getCustomTerminalCode(),10)); // LinNo:-132
 
-		List<AuthPrsnSCD> authPrsnList = new ArrayList<AuthPrsnSCD>();
+		List<AuthPrsnSCD> authPrsnList = new LinkedList<AuthPrsnSCD>();
 		authPrsnList.add(authPrsClassObj);
 		// ----------------------------
 		DecRefSCD decRefClaObj = new DecRefSCD();
@@ -5026,7 +5045,7 @@ public class CreatingJSON {
 		// * decRefClaObj.setDptrMnfstNo(); //
 		// *decRefClaObj.setDptrMnfstDt(""); //
 		// #
-		List<DecRefSCD> decRefList = new ArrayList<DecRefSCD>();
+		List<DecRefSCD> decRefList = new LinkedList<DecRefSCD>();
 		decRefList.add(decRefClaObj);
 		// ----------------------------
 		PrsnDtlsSCD prsDtls = new PrsnDtlsSCD();
@@ -5049,18 +5068,18 @@ public class CreatingJSON {
 		prsnIdclassObj.setPrsnIdOrTravelDocIssuingNationCdd(settingLength("",2));
 		prsnIdclassObj.setPrsnIdOrTravelDocNmbr(settingLength("",70));
 		prsnIdclassObj.setPrsnIdOrTravelDocTypCdd(settingLength("",3));
-		List<PrsnIdSCD> prsnIdList = new ArrayList<PrsnIdSCD>();
+		List<PrsnIdSCD> prsnIdList = new LinkedList<PrsnIdSCD>();
 		prsnIdList.add(prsnIdclassObj);
 
 		// ---------------
-		List<PrsnDtlsSCD> prsnDtlsList = new ArrayList<PrsnDtlsSCD>();
+		List<PrsnDtlsSCD> prsnDtlsList = new LinkedList<PrsnDtlsSCD>();
 		prsnDtlsList.add(prsDtls);
 		PrsnOnBoardSCD prsnOnBoard = new PrsnOnBoardSCD();
 		prsnOnBoard.setPrsnDtls(prsnDtlsList);
 		prsnOnBoard.setPrsnId(prsnIdList);
 		prsnOnBoard.setPrsnOnBoardSeqNmbr(settingLength("",5));
 
-		List<PrsnOnBoardSCD> prsnOnBoardList = new ArrayList<PrsnOnBoardSCD>();
+		List<PrsnOnBoardSCD> prsnOnBoardList = new LinkedList<PrsnOnBoardSCD>();
 		prsnOnBoardList.add(prsnOnBoard);
 		// --------------------------------------------------------
 		ShipStoresSCD shipStores = new ShipStoresSCD();
@@ -5070,13 +5089,13 @@ public class CreatingJSON {
 		shipStores.setLocOnbrdText(settingLength("",256));
 		shipStores.setQntyCdOnbrd(settingLength("",3));
 		shipStores.setQntyOnbrd(settingLengthForDouble("",16,6));
-		List<ShipStoresSCD> shipStoresList = new ArrayList<ShipStoresSCD>();
+		List<ShipStoresSCD> shipStoresList = new LinkedList<ShipStoresSCD>();
 		shipStoresList.add(shipStores);
 		//----------------------------------------------------------------
 		
 		//-------------------------------------------------------
 		int i = 0;
-		List<VoyageTransportEquipmentSCD> voyageTransportEquipmentList = new ArrayList<VoyageTransportEquipmentSCD>();
+		List<VoyageTransportEquipmentSCD> voyageTransportEquipmentList = new LinkedList<VoyageTransportEquipmentSCD>();
 		for (ContainerDetails cntnerDtl : containerDtls) {
 
 			System.out.println("   coneeDtls  " + i + ((String) cntnerDtl.getContainerSealNumber()));
@@ -5096,7 +5115,7 @@ public class CreatingJSON {
 		digSignClassObj.setStartCertificate("");
 		digSignClassObj.setSignerVersion("");
 
-		List<DigSignSCD> digSignList = new ArrayList<DigSignSCD>();
+		List<DigSignSCD> digSignList = new LinkedList<DigSignSCD>();
 		digSignList.add(digSignClassObj);
 		// ----------------
 		MasterSCD mster = new MasterSCD();
@@ -5127,10 +5146,10 @@ public class CreatingJSON {
 		headerFieldClassObj.setReportingEvent("ES");
 		// -------------------------------------------------
 
-		List<MasterSCD> masterList = new ArrayList<MasterSCD>();
+		List<MasterSCD> masterList = new LinkedList<MasterSCD>();
 		masterList.add(mster);
 
-		List<HeaderFieldSCD> headerFieldList = new ArrayList<HeaderFieldSCD>();
+		List<HeaderFieldSCD> headerFieldList = new LinkedList<HeaderFieldSCD>();
 		headerFieldList.add(headerFieldClassObj);
 
 		JsonMainObjctSCD org = new JsonMainObjctSCD();
@@ -5182,22 +5201,22 @@ public class CreatingJSON {
 				+ "_" + decHeader + ".json";
 
 		// Creating object of all class
-		List<ItemDtlsSCA> itemDtls = new ArrayList<ItemDtlsSCA>();
-		List<TrnsprtEqmtSCA> trnsprtEqmt = new ArrayList<TrnsprtEqmtSCA>();
-		List<LocCstmSCA> locCstm = new ArrayList<LocCstmSCA>();
-		List<MCRefSCA> mCRef = new ArrayList<MCRefSCA>();
-		List<TrnsprtDocMsrSCA> trnsprtDocMsr = new ArrayList<TrnsprtDocMsrSCA>();
-		List<ShipItnrySCA> shipItnry = new ArrayList<ShipItnrySCA>();
-		List<ItnrySCA> itnry = new ArrayList<ItnrySCA>();
-		List<TrnsprtDocSCA> trnsprtDoc = new ArrayList<TrnsprtDocSCA>();
-		List<PrevRefSCA> prevRef = new ArrayList<PrevRefSCA>();
-		List<SupRefSCA> supRef = new ArrayList<SupRefSCA>();
-		List<TrnshprSCA> trnshpr = new ArrayList<TrnshprSCA>();
-		List<HouseCargoDecSCA> houseCargoDec = new ArrayList<HouseCargoDecSCA>();
-		List<MCSuprtDocsSCA> mcSuprtDoc = new ArrayList<MCSuprtDocsSCA>();
-		List<MCAdtnlDecSCA> mcAdtnlDec= new ArrayList<MCAdtnlDecSCA>();
-		List<HCAdtnlDecSCA> hcAdtnlDec= new ArrayList<HCAdtnlDecSCA>();
-		List<HCCrgoSuprtDocsSCA> crgoSuprtDoc = new ArrayList<HCCrgoSuprtDocsSCA>();
+		List<ItemDtlsSCA> itemDtls = new LinkedList<ItemDtlsSCA>();
+		List<TrnsprtEqmtSCA> trnsprtEqmt = new LinkedList<TrnsprtEqmtSCA>();
+		List<LocCstmSCA> locCstm = new LinkedList<LocCstmSCA>();
+		List<MCRefSCA> mCRef = new LinkedList<MCRefSCA>();
+		List<TrnsprtDocMsrSCA> trnsprtDocMsr = new LinkedList<TrnsprtDocMsrSCA>();
+		List<ShipItnrySCA> shipItnry = new LinkedList<ShipItnrySCA>();
+		List<ItnrySCA> itnry = new LinkedList<ItnrySCA>();
+		List<TrnsprtDocSCA> trnsprtDoc = new LinkedList<TrnsprtDocSCA>();
+		List<PrevRefSCA> prevRef = new LinkedList<PrevRefSCA>();
+		List<SupRefSCA> supRef = new LinkedList<SupRefSCA>();
+		List<TrnshprSCA> trnshpr = new LinkedList<TrnshprSCA>();
+		List<HouseCargoDecSCA> houseCargoDec = new LinkedList<HouseCargoDecSCA>();
+		List<MCSuprtDocsSCA> mcSuprtDoc = new LinkedList<MCSuprtDocsSCA>();
+		List<MCAdtnlDecSCA> mcAdtnlDec= new LinkedList<MCAdtnlDecSCA>();
+		List<HCAdtnlDecSCA> hcAdtnlDec= new LinkedList<HCAdtnlDecSCA>();
+		List<HCCrgoSuprtDocsSCA> crgoSuprtDoc = new LinkedList<HCCrgoSuprtDocsSCA>();
 		
 		// ===================
 
@@ -5215,7 +5234,7 @@ public class CreatingJSON {
 			houseCargoDecSCAObj.setItnry(itnry);
 			// --------------------------------------------------------
 			
-			List<HCRefSCA> hCRef = new ArrayList<HCRefSCA>();
+			List<HCRefSCA> hCRef = new LinkedList<HCRefSCA>();
 
 			HCRefSCA hCRefObj = new HCRefSCA();
 			hCRefObj.setBlDt(blObj.getBlDate());
@@ -5569,7 +5588,7 @@ public class CreatingJSON {
 		mastrCnsgmtDec.setHouseCargoDec(houseCargoDec); 
 		mastrCnsgmtDec.setmCSuprtDocs(mcSuprtDoc);
 		mastrCnsgmtDec.setmCAdtnlDec(mcAdtnlDec);
-		List<MastrCnsgmtDecSCA> mastrCnsgmtDecList = new ArrayList<MastrCnsgmtDecSCA>();
+		List<MastrCnsgmtDecSCA> mastrCnsgmtDecList = new LinkedList<MastrCnsgmtDecSCA>();
 		mastrCnsgmtDecList.add(mastrCnsgmtDec);
 		
 
@@ -5587,7 +5606,7 @@ public class CreatingJSON {
 		voyageDtlsClassObj.setNmbrOfCrewMnfsted(objForm.getCrewListDeclaration());
 		voyageDtlsClassObj.setShipItnry(shipItnry);
 
-		List<VoyageDtlsSCA> voyageDtlsList = new ArrayList<VoyageDtlsSCA>();
+		List<VoyageDtlsSCA> voyageDtlsList = new LinkedList<VoyageDtlsSCA>();
 		voyageDtlsList.add(voyageDtlsClassObj);
 		// ---------------------------------------------------
 		VesselDtlsSCA vesselDtls = new VesselDtlsSCA();
@@ -5597,7 +5616,7 @@ public class CreatingJSON {
 		vesselDtls.setTrnsprtMeansId(settingLength("",25));
 		vesselDtls.setShipTyp(objForm.getShip_type()); // Line 192
 		vesselDtls.setPurposeOfCall("1"); // always hard coded
-		List<VesselDtlsSCA> vesselDtlsList = new ArrayList<VesselDtlsSCA>();
+		List<VesselDtlsSCA> vesselDtlsList = new LinkedList<VesselDtlsSCA>();
 		vesselDtlsList.add(vesselDtls);
 		// ----------------------------
 		AuthPrsnSCA authPrsClassObj = new AuthPrsnSCA();
@@ -5610,7 +5629,7 @@ public class CreatingJSON {
 		authPrsClassObj.setShpngLineBondNmbr(settingLength(objForm.getShipping_line_bond_no_r(),10)); // LinNo:-190
 		authPrsClassObj.setTrmnlOprtrCd(settingLength(objForm.getCustomTerminalCode(),10)); // LinNo:-132
 
-		List<AuthPrsnSCA> authPrsnList = new ArrayList<AuthPrsnSCA>();
+		List<AuthPrsnSCA> authPrsnList = new LinkedList<AuthPrsnSCA>();
 		authPrsnList.add(authPrsClassObj);
 		// ----------------------------
 		DecRefSCA decRefClaObj = new DecRefSCA();
@@ -5631,7 +5650,7 @@ public class CreatingJSON {
 		// * decRefClaObj.setDptrMnfstNo(); //
 		// *decRefClaObj.setDptrMnfstDt(""); //
 		// #
-		List<DecRefSCA> decRefList = new ArrayList<DecRefSCA>();
+		List<DecRefSCA> decRefList = new LinkedList<DecRefSCA>();
 		decRefList.add(decRefClaObj);
 		// ----------------------------
 		PrsnDtlsSCA prsDtls = new PrsnDtlsSCA();
@@ -5654,18 +5673,18 @@ public class CreatingJSON {
 		prsnIdclassObj.setPrsnIdOrTravelDocIssuingNationCdd(settingLength("",2));
 		prsnIdclassObj.setPrsnIdOrTravelDocNmbr(settingLength("",70));
 		prsnIdclassObj.setPrsnIdOrTravelDocTypCdd(settingLength("",3));
-		List<PrsnIdSCA> prsnIdList = new ArrayList<PrsnIdSCA>();
+		List<PrsnIdSCA> prsnIdList = new LinkedList<PrsnIdSCA>();
 		prsnIdList.add(prsnIdclassObj);
 
 		// ---------------
-		List<PrsnDtlsSCA> prsnDtlsList = new ArrayList<PrsnDtlsSCA>();
+		List<PrsnDtlsSCA> prsnDtlsList = new LinkedList<PrsnDtlsSCA>();
 		prsnDtlsList.add(prsDtls);
 		PrsnOnBoardSCA prsnOnBoard = new PrsnOnBoardSCA();
 		prsnOnBoard.setPrsnDtls(prsnDtlsList);
 		prsnOnBoard.setPrsnId(prsnIdList);
 		prsnOnBoard.setPrsnOnBoardSeqNmbr(settingLength("",5));
 
-		List<PrsnOnBoardSCA> prsnOnBoardList = new ArrayList<PrsnOnBoardSCA>();
+		List<PrsnOnBoardSCA> prsnOnBoardList = new LinkedList<PrsnOnBoardSCA>();
 		prsnOnBoardList.add(prsnOnBoard);
 		// --------------------------------------------------------
 		ShipStoresSCA shipStores = new ShipStoresSCA();
@@ -5675,12 +5694,12 @@ public class CreatingJSON {
 		shipStores.setLocOnbrdText(settingLength("",256));
 		shipStores.setQntyCdOnbrd(settingLength("",3));
 		shipStores.setQntyOnbrd(settingLengthForDouble("",16,6));
-		List<ShipStoresSCA> shipStoresList = new ArrayList<ShipStoresSCA>();
+		List<ShipStoresSCA> shipStoresList = new LinkedList<ShipStoresSCA>();
 		shipStoresList.add(shipStores);
 		//----------------------------------------------------------------
 		
 		int i = 0;
-		List<VoyageTransportEquipmentSCA> voyageTransportEquipmentList = new ArrayList<VoyageTransportEquipmentSCA>();
+		List<VoyageTransportEquipmentSCA> voyageTransportEquipmentList = new LinkedList<VoyageTransportEquipmentSCA>();
 		for (ContainerDetails cntnerDtl : containerDtls) {
 
 			System.out.println("   coneeDtls  " + i + ((String) cntnerDtl.getContainerSealNumber()));
@@ -5700,7 +5719,7 @@ public class CreatingJSON {
 		digSignClassObj.setStartCertificate("");
 		digSignClassObj.setSignerVersion("");
 
-		List<DigSignSCA> digSignList = new ArrayList<DigSignSCA>();
+		List<DigSignSCA> digSignList = new LinkedList<DigSignSCA>();
 		digSignList.add(digSignClassObj);
 		// ----------------
 		MasterSCA mster = new MasterSCA();
@@ -5731,10 +5750,10 @@ public class CreatingJSON {
 		headerFieldClassObj.setReportingEvent("ES");
 		// -------------------------------------------------
 
-		List<MasterSCA> masterList = new ArrayList<MasterSCA>();
+		List<MasterSCA> masterList = new LinkedList<MasterSCA>();
 		masterList.add(mster);
 
-		List<HeaderFieldSCA> headerFieldList = new ArrayList<HeaderFieldSCA>();
+		List<HeaderFieldSCA> headerFieldList = new LinkedList<HeaderFieldSCA>();
 		headerFieldList.add(headerFieldClassObj);
 
 		JsonMainObjctSCA org = new JsonMainObjctSCA();
@@ -5786,19 +5805,19 @@ ImportGeneralManifestMod objForm = blList.get(0);
 				+ "_" + decHeader + ".json";
 
 		// Creating object of all class
-		List<ItemDtlsSCU> itemDtls = new ArrayList<ItemDtlsSCU>();
-		List<TrnsprtEqmtSCU> trnsprtEqmt = new ArrayList<TrnsprtEqmtSCU>();
-		List<LocCstmSCU> locCstm = new ArrayList<LocCstmSCU>();
-		List<MCRefSCU> mCRef = new ArrayList<MCRefSCU>();
-		List<TrnsprtDocMsrSCU> trnsprtDocMsr = new ArrayList<TrnsprtDocMsrSCU>();
-		List<ShipItnrySCU> shipItnry = new ArrayList<ShipItnrySCU>();
-		List<ItnrySCU> itnry = new ArrayList<ItnrySCU>();
-		List<TrnsprtDocSCU> trnsprtDoc = new ArrayList<TrnsprtDocSCU>();
-		List<PrevRefSCU> prevRef = new ArrayList<PrevRefSCU>();
-		List<SupRefSCU> supRef = new ArrayList<SupRefSCU>();
-		List<TrnshprSCU> trnshpr = new ArrayList<TrnshprSCU>();
-		List<MCSuprtDocsSCU> mcSuprtDoc = new ArrayList<MCSuprtDocsSCU>();
-		List<MCAdtnlDecSCU> mcAdtnlDec= new ArrayList<MCAdtnlDecSCU>();
+		List<ItemDtlsSCU> itemDtls = new LinkedList<ItemDtlsSCU>();
+		List<TrnsprtEqmtSCU> trnsprtEqmt = new LinkedList<TrnsprtEqmtSCU>();
+		List<LocCstmSCU> locCstm = new LinkedList<LocCstmSCU>();
+		List<MCRefSCU> mCRef = new LinkedList<MCRefSCU>();
+		List<TrnsprtDocMsrSCU> trnsprtDocMsr = new LinkedList<TrnsprtDocMsrSCU>();
+		List<ShipItnrySCU> shipItnry = new LinkedList<ShipItnrySCU>();
+		List<ItnrySCU> itnry = new LinkedList<ItnrySCU>();
+		List<TrnsprtDocSCU> trnsprtDoc = new LinkedList<TrnsprtDocSCU>();
+		List<PrevRefSCU> prevRef = new LinkedList<PrevRefSCU>();
+		List<SupRefSCU> supRef = new LinkedList<SupRefSCU>();
+		List<TrnshprSCU> trnshpr = new LinkedList<TrnshprSCU>();
+		List<MCSuprtDocsSCU> mcSuprtDoc = new LinkedList<MCSuprtDocsSCU>();
+		List<MCAdtnlDecSCU> mcAdtnlDec= new LinkedList<MCAdtnlDecSCU>();
 
 
 		for (ImportGeneralManifestMod blObj : blList) {
@@ -6112,7 +6131,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 		mastrCnsgmtDec.setTrnsprtEqmt(trnsprtEqmt);
 		mastrCnsgmtDec.setPrevRef(prevRef);
 		mastrCnsgmtDec.setSupRef(supRef);
-		List<MastrCnsgmtDecSCU> mastrCnsgmtDecList = new ArrayList<MastrCnsgmtDecSCU>();
+		List<MastrCnsgmtDecSCU> mastrCnsgmtDecList = new LinkedList<MastrCnsgmtDecSCU>();
 		mastrCnsgmtDecList.add(mastrCnsgmtDec);
 		
 
@@ -6130,7 +6149,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 		voyageDtlsClassObj.setNmbrOfCrewMnfsted(objForm.getCrewListDeclaration());
 		voyageDtlsClassObj.setShipItnry(shipItnry);
 
-		List<VoyageDtlsSCU> voyageDtlsList = new ArrayList<VoyageDtlsSCU>();
+		List<VoyageDtlsSCU> voyageDtlsList = new LinkedList<VoyageDtlsSCU>();
 		voyageDtlsList.add(voyageDtlsClassObj);
 		// ---------------------------------------------------
 		VesselDtlsSCU vesselDtls = new VesselDtlsSCU();
@@ -6140,7 +6159,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 		vesselDtls.setTrnsprtMeansId(settingLength("",25));
 		vesselDtls.setShipTyp(objForm.getShip_type()); // Line 192
 		vesselDtls.setPurposeOfCall("1"); // always hard coded
-		List<VesselDtlsSCU> vesselDtlsList = new ArrayList<VesselDtlsSCU>();
+		List<VesselDtlsSCU> vesselDtlsList = new LinkedList<VesselDtlsSCU>();
 		vesselDtlsList.add(vesselDtls);
 		// ----------------------------
 		AuthPrsnSCU authPrsClassObj = new AuthPrsnSCU();
@@ -6153,7 +6172,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 		authPrsClassObj.setShpngLineBondNmbr(settingLength(objForm.getShipping_line_bond_no_r(),10));// LinNo:-190
 		authPrsClassObj.setTrmnlOprtrCd(settingLength(objForm.getCustomTerminalCode(),10)); // LinNo:-132
 
-		List<AuthPrsnSCU> authPrsnList = new ArrayList<AuthPrsnSCU>();
+		List<AuthPrsnSCU> authPrsnList = new LinkedList<AuthPrsnSCU>();
 		authPrsnList.add(authPrsClassObj);
 		// ----------------------------
 		DecRefSCU decRefClaObj = new DecRefSCU();
@@ -6174,7 +6193,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 		// * decRefClaObj.setDptrMnfstNo(); //
 		// *decRefClaObj.setDptrMnfstDt(""); //
 		// #
-		List<DecRefSCU> decRefList = new ArrayList<DecRefSCU>();
+		List<DecRefSCU> decRefList = new LinkedList<DecRefSCU>();
 		decRefList.add(decRefClaObj);
 		// ----------------------------
 		PrsnDtlsSCU prsDtls = new PrsnDtlsSCU();
@@ -6197,23 +6216,23 @@ ImportGeneralManifestMod objForm = blList.get(0);
 		prsnIdclassObj.setPrsnIdOrTravelDocIssuingNationCdd(settingLength("",2));
 		prsnIdclassObj.setPrsnIdOrTravelDocNmbr(settingLength("",70));
 		prsnIdclassObj.setPrsnIdOrTravelDocTypCdd(settingLength("",3));
-		List<PrsnIdSCU> prsnIdList = new ArrayList<PrsnIdSCU>();
+		List<PrsnIdSCU> prsnIdList = new LinkedList<PrsnIdSCU>();
 		prsnIdList.add(prsnIdclassObj);
 
 		// ---------------
-		List<PrsnDtlsSCU> prsnDtlsList = new ArrayList<PrsnDtlsSCU>();
+		List<PrsnDtlsSCU> prsnDtlsList = new LinkedList<PrsnDtlsSCU>();
 		prsnDtlsList.add(prsDtls);
 		PrsnOnBoardSCU prsnOnBoard = new PrsnOnBoardSCU();
 		prsnOnBoard.setPrsnDtls(prsnDtlsList);
 		prsnOnBoard.setPrsnId(prsnIdList);
 		prsnOnBoard.setPrsnOnBoardSeqNmbr(settingLength("",5));
 
-		List<PrsnOnBoardSCU> prsnOnBoardList = new ArrayList<PrsnOnBoardSCU>();
+		List<PrsnOnBoardSCU> prsnOnBoardList = new LinkedList<PrsnOnBoardSCU>();
 		prsnOnBoardList.add(prsnOnBoard);
 		
 		//-------------------------------------------------------
 		int i = 0;
-		List<VoyageTransportEquipmentSCU> voyageTransportEquipmentList = new ArrayList<VoyageTransportEquipmentSCU>();
+		List<VoyageTransportEquipmentSCU> voyageTransportEquipmentList = new LinkedList<VoyageTransportEquipmentSCU>();
 		for (ContainerDetails cntnerDtl : containerDtls) {
 
 			System.out.println("   coneeDtls  " + i + ((String) cntnerDtl.getContainerSealNumber()));
@@ -6233,7 +6252,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 		digSignClassObj.setStartCertificate("");
 		digSignClassObj.setSignerVersion("");
 
-		List<DigSignSCU> digSignList = new ArrayList<DigSignSCU>();
+		List<DigSignSCU> digSignList = new LinkedList<DigSignSCU>();
 		digSignList.add(digSignClassObj);
 		// ----------------
 		MasterSCU mster = new MasterSCU();
@@ -6263,10 +6282,10 @@ ImportGeneralManifestMod objForm = blList.get(0);
 		headerFieldClassObj.setReportingEvent("ES");
 		// -------------------------------------------------
 
-		List<MasterSCU> masterList = new ArrayList<MasterSCU>();
+		List<MasterSCU> masterList = new LinkedList<MasterSCU>();
 		masterList.add(mster);
 
-		List<HeaderFieldSCU> headerFieldList = new ArrayList<HeaderFieldSCU>();
+		List<HeaderFieldSCU> headerFieldList = new LinkedList<HeaderFieldSCU>();
 		headerFieldList.add(headerFieldClassObj);
 
 		JsonMainObjctSCU org = new JsonMainObjctSCU();
@@ -6315,10 +6334,10 @@ ImportGeneralManifestMod objForm = blList.get(0);
 				+ "_" + decHeader + ".json";
 
 		// Creating object of all class
-				List<ItemDtlsSCC> itemDtls = new ArrayList<ItemDtlsSCC>();
-				List<TrnsprtEqmtSCC> trnsprtEqmt = new ArrayList<TrnsprtEqmtSCC>();
-				List<LocCstmSCC> locCstm = new ArrayList<LocCstmSCC>();
-				List<MCRefSCC> mCRef = new ArrayList<MCRefSCC>();
+				List<ItemDtlsSCC> itemDtls = new LinkedList<ItemDtlsSCC>();
+				List<TrnsprtEqmtSCC> trnsprtEqmt = new LinkedList<TrnsprtEqmtSCC>();
+				List<LocCstmSCC> locCstm = new LinkedList<LocCstmSCC>();
+				List<MCRefSCC> mCRef = new LinkedList<MCRefSCC>();
 				
 				for (ImportGeneralManifestMod blObj : blList) {
 
@@ -6362,7 +6381,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 				MastrCnsgmtDecSCC mastrCnsgmtDec = new MastrCnsgmtDecSCC();
 				mastrCnsgmtDec.setmCRef(mCRef);
 				mastrCnsgmtDec.setTrnsprtEqmt(trnsprtEqmt);
-				List<MastrCnsgmtDecSCC> mastrCnsgmtDecList = new ArrayList<MastrCnsgmtDecSCC>();
+				List<MastrCnsgmtDecSCC> mastrCnsgmtDecList = new LinkedList<MastrCnsgmtDecSCC>();
 				mastrCnsgmtDecList.add(mastrCnsgmtDec);
 				
 
@@ -6379,7 +6398,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 				voyageDtlsClassObj.setNmbrOfPsngrsMnfsted(" "); // NotFound
 				voyageDtlsClassObj.setNmbrOfCrewMnfsted(objForm.getCrewListDeclaration());
 			
-				List<VoyageDtlsSCC> voyageDtlsList = new ArrayList<VoyageDtlsSCC>();
+				List<VoyageDtlsSCC> voyageDtlsList = new LinkedList<VoyageDtlsSCC>();
 				voyageDtlsList.add(voyageDtlsClassObj);
 				// ---------------------------------------------------
 				VesselDtlsSCC vesselDtls = new VesselDtlsSCC();
@@ -6389,7 +6408,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 				vesselDtls.setTrnsprtMeansId(settingLength("",25));
 				vesselDtls.setShipTyp(objForm.getShip_type()); // Line 192
 				vesselDtls.setPurposeOfCall("1"); // always hard coded
-				List<VesselDtlsSCC> vesselDtlsList = new ArrayList<VesselDtlsSCC>();
+				List<VesselDtlsSCC> vesselDtlsList = new LinkedList<VesselDtlsSCC>();
 				vesselDtlsList.add(vesselDtls);
 				// ----------------------------
 				AuthPrsnSCC authPrsClassObj = new AuthPrsnSCC();
@@ -6402,7 +6421,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 				authPrsClassObj.setShpngLineBondNmbr(settingLength(objForm.getShipping_line_bond_no_r(),10));// LinNo:-190
 				authPrsClassObj.setTrmnlOprtrCd(settingLength(objForm.getCustomTerminalCode(),10)); // LinNo:-132
 
-				List<AuthPrsnSCC> authPrsnList = new ArrayList<AuthPrsnSCC>();
+				List<AuthPrsnSCC> authPrsnList = new LinkedList<AuthPrsnSCC>();
 				authPrsnList.add(authPrsClassObj);
 				// ----------------------------
 				DecRefSCC decRefClaObj = new DecRefSCC();
@@ -6423,7 +6442,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 				// * decRefClaObj.setDptrMnfstNo(); //
 				// *decRefClaObj.setDptrMnfstDt(""); //
 				// #
-				List<DecRefSCC> decRefList = new ArrayList<DecRefSCC>();
+				List<DecRefSCC> decRefList = new LinkedList<DecRefSCC>();
 				decRefList.add(decRefClaObj);
 				// ----------------------------
 				PrsnDtlsSCC prsDtls = new PrsnDtlsSCC();
@@ -6446,23 +6465,23 @@ ImportGeneralManifestMod objForm = blList.get(0);
 				prsnIdclassObj.setPrsnIdOrTravelDocIssuingNationCdd(settingLength("",2));
 				prsnIdclassObj.setPrsnIdOrTravelDocNmbr(settingLength("",70));
 				prsnIdclassObj.setPrsnIdOrTravelDocTypCdd(settingLength("",3));
-				List<PrsnIdSCC> prsnIdList = new ArrayList<PrsnIdSCC>();
+				List<PrsnIdSCC> prsnIdList = new LinkedList<PrsnIdSCC>();
 				prsnIdList.add(prsnIdclassObj);
 
 				// ---------------
-				List<PrsnDtlsSCC> prsnDtlsList = new ArrayList<PrsnDtlsSCC>();
+				List<PrsnDtlsSCC> prsnDtlsList = new LinkedList<PrsnDtlsSCC>();
 				prsnDtlsList.add(prsDtls);
 				PrsnOnBoardSCC prsnOnBoard = new PrsnOnBoardSCC();
 				prsnOnBoard.setPrsnDtls(prsnDtlsList);
 				prsnOnBoard.setPrsnId(prsnIdList);
 				prsnOnBoard.setPrsnOnBoardSeqNmbr(settingLength("",5));
 
-				List<PrsnOnBoardSCC> prsnOnBoardList = new ArrayList<PrsnOnBoardSCC>();
+				List<PrsnOnBoardSCC> prsnOnBoardList = new LinkedList<PrsnOnBoardSCC>();
 				prsnOnBoardList.add(prsnOnBoard);
 				
 				//-------------------------------------------------------
 				int i = 0;
-				List<VoyageTransportEquipmentSCC> voyageTransportEquipmentList = new ArrayList<VoyageTransportEquipmentSCC>();
+				List<VoyageTransportEquipmentSCC> voyageTransportEquipmentList = new LinkedList<VoyageTransportEquipmentSCC>();
 				for (ContainerDetails cntnerDtl : containerDtls) {
 
 					System.out.println("   coneeDtls  " + i + ((String) cntnerDtl.getContainerSealNumber()));
@@ -6482,7 +6501,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 				digSignClassObj.setStartCertificate("");
 				digSignClassObj.setSignerVersion("");
 
-				List<DigSignSCC> digSignList = new ArrayList<DigSignSCC>();
+				List<DigSignSCC> digSignList = new LinkedList<DigSignSCC>();
 				digSignList.add(digSignClassObj);
 				// ----------------
 				MasterSCC mster = new MasterSCC();
@@ -6512,10 +6531,10 @@ ImportGeneralManifestMod objForm = blList.get(0);
 				headerFieldClassObj.setReportingEvent("ES");
 				// -------------------------------------------------
 
-				List<MasterSCC> masterList = new ArrayList<MasterSCC>();
+				List<MasterSCC> masterList = new LinkedList<MasterSCC>();
 				masterList.add(mster);
 
-				List<HeaderFieldSCC> headerFieldList = new ArrayList<HeaderFieldSCC>();
+				List<HeaderFieldSCC> headerFieldList = new LinkedList<HeaderFieldSCC>();
 				headerFieldList.add(headerFieldClassObj);
 
 				JsonMainObjctSCC org = new JsonMainObjctSCC();
@@ -6566,10 +6585,10 @@ ImportGeneralManifestMod objForm = blList.get(0);
 
 		// Creating object of all class
 		
-		List<ShipItnrySCE> shipItnry = new ArrayList<ShipItnrySCE>();
-		List<MCSuprtDocsSCE> mcSuprtDoc = new ArrayList<MCSuprtDocsSCE>();
-		List<MCAdtnlDecSCE> mcAdtnlDec= new ArrayList<MCAdtnlDecSCE>();
-		List<MastrCnsgmtDecSCE> mastrCnsgmtDecList = new ArrayList<MastrCnsgmtDecSCE>();
+		List<ShipItnrySCE> shipItnry = new LinkedList<ShipItnrySCE>();
+		List<MCSuprtDocsSCE> mcSuprtDoc = new LinkedList<MCSuprtDocsSCE>();
+		List<MCAdtnlDecSCE> mcAdtnlDec= new LinkedList<MCAdtnlDecSCE>();
+		List<MastrCnsgmtDecSCE> mastrCnsgmtDecList = new LinkedList<MastrCnsgmtDecSCE>();
 		
 	
 		
@@ -6591,18 +6610,18 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			MastrCnsgmtDecSCE mastrCnsgmtDec = new MastrCnsgmtDecSCE();
 			HouseCargoDecSCE houseCargoDecSCEObj = new HouseCargoDecSCE();
 		
-			List<ItemDtlsSCE> itemDtls = new ArrayList<ItemDtlsSCE>();
-			List<TrnsprtEqmtSCE> trnsprtEqmt = new ArrayList<TrnsprtEqmtSCE>();
-			List<LocCstmSCE> locCstm = new ArrayList<LocCstmSCE>();
-			List<MCRefSCE> mCRef = new ArrayList<MCRefSCE>();
-			List<TrnsprtDocMsrSCE> trnsprtDocMsr = new ArrayList<TrnsprtDocMsrSCE>();
-			List<ItnrySCE> itnry = new ArrayList<ItnrySCE>();
-			List<TrnsprtDocSCE> trnsprtDoc = new ArrayList<TrnsprtDocSCE>();
-			List<PrevRefSCE> prevRef = new ArrayList<PrevRefSCE>();
-			List<TrnshprSCE> trnshpr = new ArrayList<TrnshprSCE>();
-			List<HouseCargoDecSCE> houseCargoDec = new ArrayList<HouseCargoDecSCE>();
-//			List<HCAdtnlDecSCE> hcAdtnlDec= new ArrayList<HCAdtnlDecSCE>();
-//			List<HCCrgoSuprtDocsSCE> crgoSuprtDoc = new ArrayList<HCCrgoSuprtDocsSCE>();
+			List<ItemDtlsSCE> itemDtls = new LinkedList<ItemDtlsSCE>();
+			List<TrnsprtEqmtSCE> trnsprtEqmt = new LinkedList<TrnsprtEqmtSCE>();
+			List<LocCstmSCE> locCstm = new LinkedList<LocCstmSCE>();
+			List<MCRefSCE> mCRef = new LinkedList<MCRefSCE>();
+			List<TrnsprtDocMsrSCE> trnsprtDocMsr = new LinkedList<TrnsprtDocMsrSCE>();
+			List<ItnrySCE> itnry = new LinkedList<ItnrySCE>();
+			List<TrnsprtDocSCE> trnsprtDoc = new LinkedList<TrnsprtDocSCE>();
+			List<PrevRefSCE> prevRef = new LinkedList<PrevRefSCE>();
+			List<TrnshprSCE> trnshpr = new LinkedList<TrnshprSCE>();
+			List<HouseCargoDecSCE> houseCargoDec = new LinkedList<HouseCargoDecSCE>();
+//			List<HCAdtnlDecSCE> hcAdtnlDec= new LinkedList<HCAdtnlDecSCE>();
+//			List<HCCrgoSuprtDocsSCE> crgoSuprtDoc = new LinkedList<HCCrgoSuprtDocsSCE>();
 			
 			
 			
@@ -6625,7 +6644,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			houseCargoDecSCEObj.setItnry(itnry);
 			// --------------------------------------------------------
 			
-			List<HCRefSCE> hCRef = new ArrayList<HCRefSCE>();
+			List<HCRefSCE> hCRef = new LinkedList<HCRefSCE>();
 			
 			HCRefSCE hCRefObj = new HCRefSCE();
 			hCRefObj.setBlDt(blObj.getBlDate());
@@ -7143,7 +7162,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 //		vesselDtls.setVesselCd("");//not required
 //		vesselDtls.setShipTyp(service.getShip_type()); // Line 192 not required
 //		vesselDtls.setPurposeOfCall("1"); // always hard coded not required
-		List<VesselDtlsSCE> vesselDtlsList = new ArrayList<VesselDtlsSCE>();
+		List<VesselDtlsSCE> vesselDtlsList = new LinkedList<VesselDtlsSCE>();
 		vesselDtlsList.add(vesselDtls);
 		
 		// ----------------------------
@@ -7157,7 +7176,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 //		authPrsClassObj.setShpngLineBondNmbr(settingLength(service.getShipping_line_bond_no_r(),10)); // LinNo:-190 //not required
 //		authPrsClassObj.setTrmnlOprtrCd(settingLength(service.getCustomTerminalCode(),10)); // LinNo:-132
 		
-		List<AuthPrsnSCE> authPrsnList = new ArrayList<AuthPrsnSCE>();
+		List<AuthPrsnSCE> authPrsnList = new LinkedList<AuthPrsnSCE>();
 		authPrsnList.add(authPrsClassObj);
 		
 		// ----------------------------
@@ -7177,7 +7196,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 		// * decRefClaObj.setDptrMnfstNo(); //
 		// *decRefClaObj.setDptrMnfstDt(""); //
 		// #
-		List<DecRefSCE> decRefList = new ArrayList<DecRefSCE>();
+		List<DecRefSCE> decRefList = new LinkedList<DecRefSCE>();
 		decRefList.add(decRefClaObj);
 	   
 		// ----------------------------
@@ -7203,11 +7222,11 @@ ImportGeneralManifestMod objForm = blList.get(0);
 //		prsnIdclassObj.setPrsnIdOrTravelDocIssuingNationCdd(settingLength("",2));
 //		prsnIdclassObj.setPrsnIdOrTravelDocNmbr(settingLength("",70));
 //		prsnIdclassObj.setPrsnIdOrTravelDocTypCdd(settingLength("",3));
-//		List<PrsnIdSCE> prsnIdList = new ArrayList<PrsnIdSCE>();
+//		List<PrsnIdSCE> prsnIdList = new LinkedList<PrsnIdSCE>();
 //		prsnIdList.add(prsnIdclassObj);
 //
 //		// ---------------
-//		List<PrsnDtlsSCE> prsnDtlsList = new ArrayList<PrsnDtlsSCE>();
+//		List<PrsnDtlsSCE> prsnDtlsList = new LinkedList<PrsnDtlsSCE>();
 //		prsnDtlsList.add(prsDtls);
 //		PrsnOnBoardSCE prsnOnBoard = new PrsnOnBoardSCE();
 //		prsnOnBoard.setPrsnDtls(prsnDtlsList);
@@ -7222,7 +7241,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 		
 	//-------------------------------------------------------------------------------	
 //
-//		List<PrsnOnBoardSCE> prsnOnBoardList = new ArrayList<PrsnOnBoardSCE>();
+//		List<PrsnOnBoardSCE> prsnOnBoardList = new LinkedList<PrsnOnBoardSCE>();
 //		prsnOnBoardList.add(prsnOnBoard);
 			
 		
@@ -7234,7 +7253,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 //		shipStores.setLocOnbrdText(settingLength("",256));
 //		shipStores.setQntyCdOnbrd(settingLength("",3));
 //		shipStores.setQntyOnbrd(settingLengthForDouble("",16,6));
-//		List<ShipStoresSCE> shipStoresList = new ArrayList<ShipStoresSCE>();
+//		List<ShipStoresSCE> shipStoresList = new LinkedList<ShipStoresSCE>();
 //		shipStoresList.add(shipStores);
 //	
 		//-------------------------------------------------------
@@ -7246,13 +7265,13 @@ ImportGeneralManifestMod objForm = blList.get(0);
 //		 arvlDtls.setTotalNoOfCntrsLanded(generatedFileNameOfJson);
 //		 arvlDtls.setTotalNoOfCntrsLoaded(generatedFileNameOfJson);
 //		 arvlDtls.setTotalNoOfTrnsprtEqmtRprtdOnArvlDptr(generatedFileNameOfJson);
-//		 List<ArvlDtlsSCE> arvlDtlsList = new ArrayList<ArvlDtlsSCE>();
+//		 List<ArvlDtlsSCE> arvlDtlsList = new LinkedList<ArvlDtlsSCE>();
 //		 arvlDtlsList.add(arvlDtls);
 
 //-----------------------------------------------------------------------------------------------		
 		//newly commented
 //		int i = 0;
-//		List<VoyageTransportEquipmentSCE> voyageTransportEquipmentList = new ArrayList<VoyageTransportEquipmentSCE>();
+//		List<VoyageTransportEquipmentSCE> voyageTransportEquipmentList = new LinkedList<VoyageTransportEquipmentSCE>();
 //		for (ContainerDetails cntnerDtl : containerDtls) {
 //
 //			System.out.println("   coneeDtls  " + i + ((String) cntnerDtl.getContainerSealNumber()));
@@ -7269,13 +7288,13 @@ ImportGeneralManifestMod objForm = blList.get(0);
 		// ------------------------------------------------------------
 		
 //		TmSuprtDocsSCE  tmSuprtDocsObj = new TmSuprtDocsSCE();
-//		List<TmSuprtDocsSCE> tmSuprtDocsList = new ArrayList<TmSuprtDocsSCE>();
+//		List<TmSuprtDocsSCE> tmSuprtDocsList = new LinkedList<TmSuprtDocsSCE>();
 //	tmSuprtDocsList.add(tmSuprtDocsObj);
 		
 		//--------------------------------------------------------------------
 
 //		TmAdtnlDecSCE tmAdtnlDecObj = new TmAdtnlDecSCE();
-//		List<TmAdtnlDecSCE> tmAdtnlDecList = new ArrayList<TmAdtnlDecSCE>();
+//		List<TmAdtnlDecSCE> tmAdtnlDecList = new LinkedList<TmAdtnlDecSCE>();
 //		tmAdtnlDecList.add(tmAdtnlDecObj);
 
 		//--------------------------------------------------------------------
@@ -7285,7 +7304,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 //		digSignClassObj.setStartCertificate("");
 //		digSignClassObj.setSignerVersion("");
 //
-//		List<DigSignSCE> digSignList = new ArrayList<DigSignSCE>();
+//		List<DigSignSCE> digSignList = new LinkedList<DigSignSCE>();
 //		digSignList.add(digSignClassObj);
 		// ----------------
 		
@@ -7319,10 +7338,10 @@ ImportGeneralManifestMod objForm = blList.get(0);
 		headerFieldClassObj.setReportingEvent("SCE");
 		// -------------------------------------------------
 
-		List<MasterSCE> masterList = new ArrayList<MasterSCE>();
+		List<MasterSCE> masterList = new LinkedList<MasterSCE>();
 		masterList.add(mster);
 
-		List<HeaderFieldSCE> headerFieldList = new ArrayList<HeaderFieldSCE>();
+		List<HeaderFieldSCE> headerFieldList = new LinkedList<HeaderFieldSCE>();
 		headerFieldList.add(headerFieldClassObj);
 
 		
@@ -7344,7 +7363,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 	
 	public static  String getIsdTime() {
 		Date date = new Date();
-		DateFormat df = new SimpleDateFormat("hh:mm:ss");
+		DateFormat df = new SimpleDateFormat("hh:mm");
 
 		df.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
 
@@ -7365,7 +7384,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 		 * 
 		 */
 		Date date = new Date();
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat df = new SimpleDateFormat("yyyyMMdd");
 
 		df.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
 

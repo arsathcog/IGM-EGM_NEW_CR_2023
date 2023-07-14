@@ -10,10 +10,10 @@ public class VoyageTransportEquipmentSAM {
 //	private String additionalEquipmentHold;
 //	private String finalDestinationLocation;
 //	private String eventDt;
+	private String equipmentSealNumber;
 	private String equipmentSealType;
 //	private String otherEquipmentId;
 //	private String equipmentStatus;
-	private String equipmentSealNumber;
 	private String socFlag;
 	private String containerAgentCode;
 	private String containerWeight;
@@ -45,17 +45,17 @@ public class VoyageTransportEquipmentSAM {
 	public void setEquipmentSize(String equipmentSize) {
 		this.equipmentSize = equipmentSize;
 	}
-	public String getQuipmentLoadStatus() {
-		return quipmentLoadStatus;
-	}
-	public void setQuipmentLoadStatus(String quipmentLoadStatus) {
-		this.quipmentLoadStatus = quipmentLoadStatus;
-	}
 	public String getEquipmentSealNumber() {
 		return equipmentSealNumber;
 	}
 	public void setEquipmentSealNumber(String equipmentSealNumber) {
 		this.equipmentSealNumber = equipmentSealNumber;
+	}
+	public String getQuipmentLoadStatus() {
+		return quipmentLoadStatus;
+	}
+	public void setQuipmentLoadStatus(String quipmentLoadStatus) {
+		this.quipmentLoadStatus = quipmentLoadStatus;
 	}
 	public String getSocFlag() {
 		return socFlag;

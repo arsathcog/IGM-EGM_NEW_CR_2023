@@ -1495,16 +1495,17 @@ $(function () {
 						
 					if($("#fileType").val()=="SCE" || $("#fileType").val()=="SEX"){
 						two=StringResult.jsonFile['headerField']['senderID'];
-						/* three=StringResult.jsonFile['master']['decRef'][0]['jobNo'];
-						fore=StringResult.jsonFile['master']['decRef']['jobDt']; */
+						three=StringResult.jsonFile['master']['decRef'][0]['jobNo'];
+						fore=StringResult.jsonFile['master']['decRef']['jobDt'];
 					}else{
 						two=StringResult.jsonFile['headerField']['senderID'];
-						/* three=StringResult.jsonFile['master']['decRef']['jobNo'];
-						fore=StringResult.jsonFile['master']['decRef']['jobDt']; */
+						three=StringResult.jsonFile['master']['decRef']['jobNo'];
+						fore=StringResult.jsonFile['master']['decRef']['jobDt']; 
 					}
 					downloadfilename=one+'_'+'SACHM23'+'_'+fileNme+'_'+two+'_'+three+'_'+fore+'_'+'DEC'+'.json';
 					
-					var sampleBytes = new String(JSON.stringify(StringResult.jsonFile,null,4));
+
+					var sampleBytes = new String(JSON.stringify(StringResult.jsonFile,null,1));
 					var saveByteArray = (function() {
 						var a = document.createElement("a");
 						document.body.appendChild(a);

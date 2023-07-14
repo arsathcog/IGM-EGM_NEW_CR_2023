@@ -2,7 +2,9 @@
 package com.rclgroup.dolphin.web.igm.action;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -30,6 +32,8 @@ import org.springframework.util.CollectionUtils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.google.gson.Gson;
 import com.niit.control.common.exception.BusinessException;
 import com.niit.control.web.action.BaseAction;
 import com.rclgroup.dolphin.web.igm.actionform.ImportGeneralManifestUim;
@@ -1053,6 +1057,9 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		String dataCrewEfctMod = objForm.getCrewEfctMod();
 		String dataShipStoresMod = objForm.getShipStoresMod();
 		ObjectMapper mapper = new ObjectMapper();
+		  String empJson ="";
+		  String formated = "";
+			 String formattedJson = "";
 
 		ImportGeneralManifestInput saveParam = mapper.readValue(data, ImportGeneralManifestInput.class);
 		ImportGeneralManifestMod service = saveParam.getService();
@@ -1106,9 +1113,41 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 				crewEfctMod, shipStoresMod, getSeqNo);
 		objDao.updateSqnNoForJsonFile(service, getSeqNo, "IGM", objForm.getFileType());
 		System.out.println("Object Done..... 1");
+//		 Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		 mapper.enable(SerializationFeature.INDENT_OUTPUT);
+         empJson = mapper.writeValueAsString(manifestFile);
+
+           // Write the formatted JSON string to a file
+           String filePath = System.getProperty("user.home") + File.separator + "Downloads" + File.separator + "map.json";
+           try (FileWriter fileWriter = new FileWriter(filePath)) {
+               fileWriter.write(empJson);
+               System.out.println("JSON file downloaded successfully.");
+           } catch (IOException e) {
+               e.printStackTrace();
+           } catch (Exception e) {
+           e.printStackTrace();
+       }
+		
+//		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		
+//		String jsonStr = null;
+//		try {
+//			jsonStr = mapper.writeValueAsString(manifestFile);
+//			Object json = mapper.readValue(jsonStr, Object.class);
+//			  formattedJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
+//			  mapper.writeValue(
+//                      new File(
+//                          "D:"+File.separator+"map1.json"),
+//                      formattedJson);
+//             System.out.println("The hashSet object in json format:"+ jsonStr);
+//		}
+//		catch (IOException e) {
+//			e.printStackTrace();
+//		}
+	
 		try {
 			net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();
-			jsonObj.put("jsonFile", manifestFile);
+			jsonObj.put("jsonFile",formattedJson);
 			jsonObj.write(response.getWriter());
 
 			System.out.println("#IGMLogger downloadJson() completed..");
