@@ -28,4 +28,8 @@ public class Utils {
 		
 		
 	}
+	
+	public static String changeDateFormate(Object date) {
+		return new SimpleDateFormat("yyyymmdd").format(date);
+	}
 }

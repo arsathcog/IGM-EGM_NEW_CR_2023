@@ -185,7 +185,7 @@
                </tr>
                <tr>
                   <th class="veseelRemoveBorder">Rotation Date</th>
-                  <td><input type="text" class="roundshap2" id="rotnDate" onclick="dateToCommon(this)"
+                  <td><input type="text" class="roundshap2" id="rotnDate" onclick="dateToFormat(this)"
                      value="{{selectedServcies.rotnDate}}"
                      ng-model="selectedServcies.rotnDate" ></td>
                </tr>

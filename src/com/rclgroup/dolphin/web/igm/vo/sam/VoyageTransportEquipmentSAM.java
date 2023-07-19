@@ -2,11 +2,11 @@ package com.rclgroup.dolphin.web.igm.vo.sam;
 
 public class VoyageTransportEquipmentSAM {
 	
-	private String quipmentSequenceNo;
-	private String quipmentId;
-	private String quipmentType;
+	private String equipmentSequenceNo;
+	private String equipmentId;
+	private String equipmentType;
 	private String equipmentSize;
-	private String quipmentLoadStatus;
+	private String equipmentLoadStatus;
 //	private String additionalEquipmentHold;
 //	private String finalDestinationLocation;
 //	private String eventDt;
@@ -21,24 +21,32 @@ public class VoyageTransportEquipmentSAM {
 //	private String containerBondFlag;
 	private String stowagePositionOfContainer;
 	
-	public String getQuipmentSequenceNo() {
-		return quipmentSequenceNo;
+	
+	public String getEquipmentSequenceNo() {
+		return equipmentSequenceNo;
 	}
-	public void setQuipmentSequenceNo(String quipmentSequenceNo) {
-		this.quipmentSequenceNo = quipmentSequenceNo;
+	public void setEquipmentSequenceNo(String equipmentSequenceNo) {
+		this.equipmentSequenceNo = equipmentSequenceNo;
 	}
-	public String getQuipmentId() {
-		return quipmentId;
+	public String getEquipmentId() {
+		return equipmentId;
 	}
-	public void setQuipmentId(String quipmentId) {
-		this.quipmentId = quipmentId;
+	public void setEquipmentId(String equipmentId) {
+		this.equipmentId = equipmentId;
 	}
-	public String getQuipmentType() {
-		return quipmentType;
+	public String getEquipmentType() {
+		return equipmentType;
 	}
-	public void setQuipmentType(String quipmentType) {
-		this.quipmentType = quipmentType;
+	public void setEquipmentType(String equipmentType) {
+		this.equipmentType = equipmentType;
 	}
+	public String getEquipmentLoadStatus() {
+		return equipmentLoadStatus;
+	}
+	public void setEquipmentLoadStatus(String equipmentLoadStatus) {
+		this.equipmentLoadStatus = equipmentLoadStatus;
+	}
+	
 	public String getEquipmentSize() {
 		return equipmentSize;
 	}
@@ -50,12 +58,6 @@ public class VoyageTransportEquipmentSAM {
 	}
 	public void setEquipmentSealNumber(String equipmentSealNumber) {
 		this.equipmentSealNumber = equipmentSealNumber;
-	}
-	public String getQuipmentLoadStatus() {
-		return quipmentLoadStatus;
-	}
-	public void setQuipmentLoadStatus(String quipmentLoadStatus) {
-		this.quipmentLoadStatus = quipmentLoadStatus;
 	}
 	public String getSocFlag() {
 		return socFlag;

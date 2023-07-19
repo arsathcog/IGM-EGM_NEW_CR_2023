@@ -939,19 +939,8 @@ public class ImportGeneralManifestMod implements Cloneable {
 	}
 
 	public void setMasterBlDate(String masterBlDate) {
-		try {
-			if(blDate == null || blDate.equals("")) {
-				this.masterBlDate = masterBlDate;
-			}else if(masterBlDate.contains("/")) {
-				this.masterBlDate = masterBlDate;
-			}else if(masterBlDate.contains("/")) {
-				this.masterBlDate = masterBlDate;
-			}else {
-				this.masterBlDate =masterBlDate.substring(0,4)+"/"+ masterBlDate.substring(6,8)+"/"+masterBlDate.substring(4,6);
-			}
-			}catch (Exception e) {
-				return;
-			}
+		this.masterBlDate = masterBlDate;
+		
 	}
 
 	public String getMasterBl() {
@@ -1991,15 +1980,17 @@ public class ImportGeneralManifestMod implements Cloneable {
 	 *
 	 * @param arrivalDate the new arrival date
 	 */
-	public void setArrivalDate(String arrivalDate) {
-		String arDate = "";
-		if (arrivalDate != null && !arrivalDate.equals("") && !arrivalDate.contains("/")) {
-			arDate = arrivalDate.substring(6, 8) + "/" + arrivalDate.substring(4, 6) + "/"
-					+ arrivalDate.substring(0, 4);
-		}else if(arrivalDate != null && !arrivalDate.equals("") && arrivalDate.contains("/")) {
-			arDate=arrivalDate;
-		}
-		this.arrivalDate = arDate;
+	public void setArrivalDate(String arrivalDate) { 
+		/*
+		 * String arDate = ""; if(arrivalDate) if (arrivalDate != null &&
+		 * !arrivalDate.equals("") && !arrivalDate.contains("/")) { arDate =
+		 * arrivalDate.substring(6) +""+ arrivalDate.substring(3, 5)+""+
+		 * arrivalDate.substring(0, 2); }else if(arrivalDate != null &&
+		 * !arrivalDate.equals("") && arrivalDate.contains("/")) { arDate =
+		 * arrivalDate.substring(6) +""+ arrivalDate.substring(3, 5)+""+
+		 * arrivalDate.substring(0, 2); }
+		 */
+		this.arrivalDate = arrivalDate;
 	}
 
 	/**
