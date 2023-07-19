@@ -574,7 +574,7 @@ System.out.println("getCarogoDetails() Called.");
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, objForm.getVoyage());
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
 			
-			mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_EXPORT_NEW, true,false);
+			mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_EXPORT_NEW, true,false,blsInput);
 			blObj.addAll((List<ImportGeneralManifestMod>) mapSaveBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
 			containerDao.setContainerDetails(blObjTmp, IGMContainerDao.RCL_IGM_GET_SAVE_CONTAINOR_EXPORT);
 			objConsignerDao.setConsignerData(blObjTmp, IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER_EXPORT);
@@ -589,7 +589,7 @@ System.out.println("getCarogoDetails() Called.");
 				mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, objForm.getVoyage());
 				mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
 				
-				mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_EXPORT_NEW, true,false);
+				mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_EXPORT_NEW, true,false,blsInput);
 				blObj.addAll((List<ImportGeneralManifestMod>) mapSaveBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
 				containerDao.setContainerDetails(blObj, IGMContainerDao.RCL_IGM_GET_SAVE_CONTAINOR_EXPORT);
 				objConsignerDao.setConsignerData(blObj, IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER_EXPORT);
@@ -632,7 +632,7 @@ System.out.println("getCarogoDetails() Called.");
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, objForm.getVoyage());
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
 			
-			mapReturnBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_MSTR_DATA_EXPORT_NEW, true,true);
+			mapReturnBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_MSTR_DATA_EXPORT_NEW, true,true,blsInput);
 			blObj.addAll((List<ImportGeneralManifestMod>) mapReturnBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
 			containerDao.setContainerDetails(blObjTmp, IGMContainerDao.RCL_IGM_GET_MASTER_CONTAINOR_EXPORT);
 			objConsignerDao.setConsignerData(blObjTmp, IGMConsignerDataDao.RCL_IGM_GET_MASTER_CONSIGNER_EXPORT);
@@ -650,7 +650,7 @@ System.out.println("getCarogoDetails() Called.");
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, objForm.getVoyage());
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
 			
-			mapReturnBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_MSTR_DATA_EXPORT_NEW, true,true);
+			mapReturnBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_MSTR_DATA_EXPORT_NEW, true,true,blsInput);
 			blObj.addAll((List<ImportGeneralManifestMod>) mapReturnBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
 			containerDao.setContainerDetails(blObj, IGMContainerDao.RCL_IGM_GET_MASTER_CONTAINOR_EXPORT);
 			objConsignerDao.setConsignerData(blObj, IGMConsignerDataDao.RCL_IGM_GET_MASTER_CONSIGNER_EXPORT);
@@ -1258,23 +1258,17 @@ System.out.println("getCarogoDetails() Called.");
 		if (objForm.getSavedBlList() != null || !objForm.getSavedBlList().equals("")) {
 			Map<String, String> 		mapParam	 = 	new HashMap<>();
 			String 						blsInput 	 =  null;
+			String 						blsInputForBelow = null;
 			Map<Object, Object> 		mapSaveBL 	 = 	null;
 			String 						blNos[] 	 =  objForm.getSavedBlList().split(",");
 			int savedBlCount = 0;
 			for (String bl : blNos) {
 				savedBlCount++;
-				if(bl.contains("'")) {
-					if (blsInput == null ) {
-						blsInput =   bl ;
-					}else {
-						blsInput += "," + bl + "";
-					} 
-				}else {
-					if (blsInput == null)
-						blsInput = "'" + bl + "'";
-					else
-						blsInput += ",'" + bl + "'";
-				}
+				if (blsInputForBelow == null)
+					blsInputForBelow = bl ;
+				else
+					blsInputForBelow += ","+ bl;
+
 			}
 			if(savedBlCount>999) {
 				int modularOfBlCount = savedBlCount/999;
@@ -1297,15 +1291,15 @@ System.out.println("getCarogoDetails() Called.");
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, mod.getVoyage());
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
 			
-			mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_EXPORT_NEW, true,false);
-			blObj.addAll((List<ImportGeneralManifestMod>) mapSaveBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
-			containerDao.setContainerDetails(blObj, IGMContainerDao.RCL_IGM_GET_SAVE_CONTAINOR_EXPORT);
-			objConsignerDao.setConsignerData(blObj, IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER_EXPORT);
-			objConsigneeDao.setConsigneeData(blObj, IGMConsigneeDataDao.RCL_IGM_GET_SAVE_CONSIGNEE_EXPORT);
-			objNotifyPartyDao.setNotifyPartyData(blObj, IGMNodifyPartyDao.RCL_IGM_GET_SAVE_NODIFY_PARTY_DESCRIPTION_IMPORT);
-			objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_SAVE_MARKS_DESCRIPTION_EXPORT);
-			objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION_EXPORT);
-		
+			mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_EXPORT_NEW, true,false,blsInput);
+			blObjTmp.addAll((List<ImportGeneralManifestMod>) mapSaveBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
+			containerDao.setContainerDetails(blObjTmp, IGMContainerDao.RCL_IGM_GET_SAVE_CONTAINOR_EXPORT);
+			objConsignerDao.setConsignerData(blObjTmp, IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER_EXPORT);
+			objConsigneeDao.setConsigneeData(blObjTmp, IGMConsigneeDataDao.RCL_IGM_GET_SAVE_CONSIGNEE_EXPORT);
+			objNotifyPartyDao.setNotifyPartyData(blObjTmp, IGMNodifyPartyDao.RCL_IGM_GET_SAVE_NODIFY_PARTY_DESCRIPTION_IMPORT);
+			objMarksDescDao.setMarksDescriptionData(blObjTmp, IGMMarksAndDescDao.RCL_IGM_GET_SAVE_MARKS_DESCRIPTION_EXPORT);
+			objPreviousDao.setPreviousDeclData(blObjTmp, IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION_EXPORT);
+			blObj.addAll(blObjTmp);
 				}
 			}else {
 				mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD, mod.getPol());
@@ -1314,7 +1308,7 @@ System.out.println("getCarogoDetails() Called.");
 				mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, mod.getVoyage());
 				mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
 				
-				mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_NEW, true,false);
+				mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_NEW, true,false,blsInputForBelow);
 				blObj.addAll((List<ImportGeneralManifestMod>) mapSaveBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
 				containerDao.setContainerDetails(blObj, IGMContainerDao.RCL_IGM_GET_SAVE_CONTAINOR_EXPORT);
 				objConsignerDao.setConsignerData(blObj, IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER_EXPORT);

@@ -1159,6 +1159,16 @@ var bld = [{
 		$("#"+id).datepicker("show");
 		
 	}
+
+	function dateToFormat(id) {
+		//	alert(id);
+			debugger;
+			$("#"+id).datepicker();
+			$("#"+id).datepicker("option", "dateFormat", "YYYYMMDD"); 
+			$("#"+id).datepicker("show");
+			
+		}
+	
 	function dateTo() {
 		$("#blCreationDateTo").datepicker();
 		$("#blCreationDateTo").datepicker("option", "dateFormat", "dd/mm/yy"); 
@@ -1484,7 +1494,7 @@ $(function () {
 					mgsnull.innerHTML = '';
 					swal("Message","Manifest File generated successfully.","info");
 					var StringResult=JSON.parse(result);
-					var downloadfilename="";
+					/* var downloadfilename="";
 					var one="";
 					var two="";
 					var three="";
@@ -1529,7 +1539,7 @@ $(function () {
 							}
 						};
 					}());
-					saveByteArray([ sampleBytes ], downloadfilename);
+					saveByteArray([ sampleBytes ], downloadfilename); */
 				},
 			});
 

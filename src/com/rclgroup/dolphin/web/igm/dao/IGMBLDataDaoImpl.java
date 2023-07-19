@@ -49,7 +49,7 @@ public class IGMBLDataDaoImpl extends AncestorJdbcDao implements IGMBLDataDao {
 	
 //		String blCountLoop  =  Integer.toString(blcount);
 		List<ImportGeneralManifestMod> onlyBL= new ArrayList<ImportGeneralManifestMod>();
-		 
+		 System.out.println("unfetched bl list "+unFetchedinsertBLList);
 		if(unFetchedinsertBLList != null) {
 			
 			ObjectMapper mapper = new ObjectMapper();

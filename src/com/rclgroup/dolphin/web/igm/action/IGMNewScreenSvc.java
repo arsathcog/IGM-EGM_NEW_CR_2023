@@ -8,15 +8,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +38,6 @@ import org.springframework.util.CollectionUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.google.gson.Gson;
 import com.niit.control.common.exception.BusinessException;
 import com.niit.control.web.action.BaseAction;
 import com.rclgroup.dolphin.web.igm.actionform.ImportGeneralManifestUim;
@@ -662,8 +666,9 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 					mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, objForm.getVoyage());
 					mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
 
-					mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_NEW, true, false);
-					blObj.addAll(
+					mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_NEW, true, false,blsInput);
+					
+					blObjTmp.addAll(
 							(List<ImportGeneralManifestMod>) mapSaveBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
 					containerDao.setContainerDetails(blObjTmp, IGMContainerDao.RCL_IGM_GET_SAVE_CONTAINOR);
 					objConsignerDao.setConsignerData(blObjTmp, IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER);
@@ -683,8 +688,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 				mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, objForm.getVoyage());
 				mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
 
-				mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_NEW, true, false
-						);
+				mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_NEW, true, false,blsInput);
 				blObj.addAll((List<ImportGeneralManifestMod>) mapSaveBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
 				containerDao.setContainerDetails(blObj, IGMContainerDao.RCL_IGM_GET_SAVE_CONTAINOR);
 				objConsignerDao.setConsignerData(blObj, IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER);
@@ -730,7 +734,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 					mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, objForm.getVoyage());
 					mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
 
-					mapReturnBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_MSTR_DATA_NEW, true, true);
+					mapReturnBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_MSTR_DATA_NEW, true, true,blsInput);
 					blObjTmp.addAll((List<ImportGeneralManifestMod>) mapReturnBL
 							.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
 
@@ -753,7 +757,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 				mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, objForm.getVoyage());
 				mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
 
-				mapReturnBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_MSTR_DATA_NEW, true, true);
+				mapReturnBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_MSTR_DATA_NEW, true, true,blsInput);
 				blObj.addAll(
 						(List<ImportGeneralManifestMod>) mapReturnBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
 
@@ -1060,6 +1064,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		  String empJson ="";
 		  String formated = "";
 			 String formattedJson = "";
+			 String senderId = "";
 
 		ImportGeneralManifestInput saveParam = mapper.readValue(data, ImportGeneralManifestInput.class);
 		ImportGeneralManifestMod service = saveParam.getService();
@@ -1116,9 +1121,16 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 //		 Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		 mapper.enable(SerializationFeature.INDENT_OUTPUT);
          empJson = mapper.writeValueAsString(manifestFile);
-
+      
+         if(null ==  objForm.getSenderId() || ("").equals(objForm.getSenderId() )) {
+        	 senderId = "";
+         }else {
+        	 senderId =  objForm.getSenderId();
+         }
+         String FileName= "F_" + "SACHM23_"+ objForm.getFileType()+"_"+ objForm.getSenderId()+
+        		 "_"+getSeqNo+"_"+getTimeHeader()+"_"+"DEC"+".json";
            // Write the formatted JSON string to a file
-           String filePath = System.getProperty("user.home") + File.separator + "Downloads" + File.separator + "map.json";
+           String filePath = System.getProperty("user.home") + "\\Downloads" + File.separator + FileName;
            try (FileWriter fileWriter = new FileWriter(filePath)) {
                fileWriter.write(empJson);
                System.out.println("JSON file downloaded successfully.");
@@ -1147,7 +1159,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 	
 		try {
 			net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();
-			jsonObj.put("jsonFile",formattedJson);
+			jsonObj.put("jsonFile",manifestFile);
 			jsonObj.write(response.getWriter());
 
 			System.out.println("#IGMLogger downloadJson() completed..");
@@ -1178,7 +1190,60 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 			if (objForm.getSavedBlList() != null || !objForm.getSavedBlList().equals("")) {
 				Map<String, String> mapParam = new HashMap<>();
 				Map<Object, Object> mapSaveBL = null;
-			 
+				String blsInput = null;
+				String blsInputForBelow = null;
+				
+				String blNos[] = objForm.getSavedBlList().split(",");
+				int savedBlCount = 0;
+					for (String bl : blNos) {
+				savedBlCount++;
+				if (blsInputForBelow == null)
+					blsInputForBelow = bl ;
+				else
+					blsInputForBelow += ","+ bl;
+
+			}
+					if (savedBlCount > 999) {
+						int modularOfBlCount1 = savedBlCount / 999;
+						System.out.println(modularOfBlCount1);
+						String[] blsInputArray = objForm.getSavedBlList().split(",");
+						for (int i = 0; i <= modularOfBlCount1; i++) {
+							blsInput = "";	
+							
+							for (int j = i * 900; j < (i * i + 1) * 900; j++) {
+								if (StringUtils.isEmpty(blsInput))
+									blsInput = blsInputArray[j];
+								else
+									blsInput += "," + blsInputArray[j];
+								
+							}
+				
+			    List<ImportGeneralManifestMod> blObjTmp = new LinkedList<ImportGeneralManifestMod>();
+					mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD, mod.getPod());
+					mapParam.put(ImportGeneralManifestDao.KEY_IGM_SERVICE, mod.getService());
+					mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, mod.getVessel());
+					mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, mod.getVoyage());
+					mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
+
+					List<ImportGeneralManifestMod> blObjTmp1 = new LinkedList<ImportGeneralManifestMod>();
+
+				    mapSaveBL = objDao.getBLData(mapParam,
+				           IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_NEW, true, false,blsInput);
+					 
+				    blObjTmp1.addAll(
+							(List<ImportGeneralManifestMod>) mapSaveBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
+					containerDao.setContainerDetails(blObjTmp1, IGMContainerDao.RCL_IGM_GET_SAVE_CONTAINOR);
+					objConsignerDao.setConsignerData(blObjTmp1, IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER);
+					objConsigneeDao.setConsigneeData(blObjTmp1, IGMConsigneeDataDao.RCL_IGM_GET_SAVE_CONSIGNEE);
+					objNotifyPartyDao.setNotifyPartyData(blObjTmp1,
+							IGMNodifyPartyDao.RCL_IGM_GET_SAVE_NODIFY_PARTY_DESCRIPTION_IMPORT);
+					objMarksDescDao.setMarksDescriptionData(blObjTmp1,
+							IGMMarksAndDescDao.RCL_IGM_GET_SAVE_MARKS_DESCRIPTION);
+					objPreviousDao.setPreviousDeclData(blObjTmp1,
+							IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION);
+					blObj.addAll(blObjTmp1);
+						}
+				}else {
 
 					mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD, mod.getPod());
 					mapParam.put(ImportGeneralManifestDao.KEY_IGM_SERVICE, mod.getService());
@@ -1188,11 +1253,10 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 
 					List<ImportGeneralManifestMod> blObjTmp = new LinkedList<ImportGeneralManifestMod>();
 
-					
 				    mapSaveBL = objDao.getBLData(mapParam,
-				           IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_NEW, true, false);
+				           IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_NEW, true, false,blsInputForBelow);
 					 
-					blObj.addAll(
+				    blObj.addAll(
 							(List<ImportGeneralManifestMod>) mapSaveBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
 					containerDao.setContainerDetails(blObj, IGMContainerDao.RCL_IGM_GET_SAVE_CONTAINOR);
 					objConsignerDao.setConsignerData(blObj, IGMConsignerDataDao.RCL_IGM_GET_SAVE_CONSIGNER);
@@ -1202,9 +1266,10 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 					objMarksDescDao.setMarksDescriptionData(blObj,
 							IGMMarksAndDescDao.RCL_IGM_GET_SAVE_MARKS_DESCRIPTION);
 					objPreviousDao.setPreviousDeclData(blObj,
-							IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION);
-					 
+							IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION);					
 				}
+					
+			}
 
 		return blObj;
 	}
@@ -1416,6 +1481,24 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 	@Override
 	public void run() {
 
+	}
+	public static String getTimeHeader() {
+		/*
+		 * DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+		 * SimpleDateFormat sd = new SimpleDateFormat("HH:mm"); LocalDateTime now =
+		 * LocalDateTime.now(); sd.setTimeZone(TimeZone.getTimeZone("IST")); // pending
+		 * return (dtf.format(now));
+		 * 
+		 */
+		Date date = new Date();
+		DateFormat df = new SimpleDateFormat("yyyyMMdd");
+
+		df.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
+
+		System.out.println( df.format(date));
+		String isdDateAndTime = df.format(date);
+		System.out.println(isdDateAndTime);
+		return  isdDateAndTime;
 	}
 
 }

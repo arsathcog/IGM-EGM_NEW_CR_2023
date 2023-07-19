@@ -65,6 +65,9 @@ com.niit.control.common.AccountUtil.java -->
 		</init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    
+
+    
   
     <servlet>
         <servlet-name>DownloadServlet</servlet-name>
@@ -180,6 +183,7 @@ com.niit.control.common.AccountUtil.java -->
         <taglib-location>/WEB-INF/struts-tiles.tld</taglib-location>
     </taglib> 
     </jsp-config>
+
 	
 </web-app>	
 	
