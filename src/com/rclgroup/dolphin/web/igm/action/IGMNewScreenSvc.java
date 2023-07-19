@@ -2,13 +2,11 @@
 package com.rclgroup.dolphin.web.igm.action;
 
 import java.io.BufferedReader;
-import java.io.File;
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Field;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
@@ -1130,32 +1128,32 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
         	 senderId =  objForm.getSenderId();
          }
          String FileName= "F_" + "SACHM23_"+ objForm.getFileType()+"_"+ senderId+
-        		 "_"+getSeqNo+"_"+getTimeHeader()+"_"+"DEC"+".json";
+        		 "_"+getSeqNo+"_"+getTimeHeader()+"_"+"DEC";
          
          response.setContentType("application/json");
 
          // Set the filename and other headers for the download
-         String fileName = "your_json_file.json";
-         response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
-         response.setHeader("Pragma", "public");
-         response.setHeader("Cache-Control", "no-store");
-         response.addHeader("Cache-Control", "max-age=0");
+         response.setHeader("Content-Disposition", "attachment; filename=\"FileName.json\"");
+         // Use a temporary byte array output stream to capture the JSON data
+         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+         byteArrayOutputStream.write(empJson.getBytes());
          
          try (ServletOutputStream outputStream = response.getOutputStream()) {
-             outputStream.write(empJson.getBytes());
+        	 byteArrayOutputStream.writeTo(outputStream);
+        	 outputStream.flush(); 
          } catch (IOException e) {
              e.printStackTrace();
          }
            // Write the formatted JSON string to a file
-           String filePath = System.getProperty("user.home") + "\\Downloads" + File.separator + FileName;
-           try (FileWriter fileWriter = new FileWriter(filePath)) {
-               fileWriter.write(empJson);
-               System.out.println("JSON file downloaded successfully.");
-           } catch (IOException e) {
-               e.printStackTrace();
-           } catch (Exception e) {
-           e.printStackTrace();
-       }
+//           String filePath = System.getProperty("user.home") + "\\Downloads" + File.separator + FileName;
+//           try (FileWriter fileWriter = new FileWriter(filePath)) {
+//               fileWriter.write(empJson);
+//               System.out.println("JSON file downloaded successfully.");
+//           } catch (IOException e) {
+//               e.printStackTrace();
+//           } catch (Exception e) {
+//           e.printStackTrace();
+//       }
 		
 //		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		
@@ -1177,7 +1175,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		try {
 			net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();
 			jsonObj.put("jsonFile",manifestFile);
-			jsonObj.write(response.getWriter());
+//			jsonObj.write(response.getWriter());
 
 			System.out.println("#IGMLogger downloadJson() completed..");
 		} catch (Exception e) {

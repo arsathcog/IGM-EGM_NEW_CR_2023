@@ -4000,7 +4000,7 @@ public class CreatingJSON {
 				mCRefClassObj.setPrevDec(settingLength("S",4));
 			} // Line77
 			
-			mCRefClassObj.setConsolidatorPan(settingLength(service.getAgentCode(),16)); // Line 78
+			mCRefClassObj.setConsolidatorPan("PAN :"+ settingLength(service.getAgentCode(),16)); // Line 78
 
 			mCRef.add(mCRefClassObj);
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);
