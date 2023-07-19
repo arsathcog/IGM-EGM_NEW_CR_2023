@@ -24,6 +24,7 @@ import java.util.Set;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -1119,6 +1120,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		objDao.updateSqnNoForJsonFile(service, getSeqNo, "IGM", objForm.getFileType());
 		System.out.println("Object Done..... 1");
 //		 Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		
 		 mapper.enable(SerializationFeature.INDENT_OUTPUT);
          empJson = mapper.writeValueAsString(manifestFile);
       
@@ -1129,6 +1131,21 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
          }
          String FileName= "F_" + "SACHM23_"+ objForm.getFileType()+"_"+ objForm.getSenderId()+
         		 "_"+getSeqNo+"_"+getTimeHeader()+"_"+"DEC"+".json";
+         
+         response.setContentType("application/json");
+
+         // Set the filename and other headers for the download
+         String fileName = "your_json_file.json";
+         response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+         response.setHeader("Pragma", "public");
+         response.setHeader("Cache-Control", "no-store");
+         response.addHeader("Cache-Control", "max-age=0");
+         
+         try (ServletOutputStream outputStream = response.getOutputStream()) {
+             outputStream.write(empJson.getBytes());
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
            // Write the formatted JSON string to a file
            String filePath = System.getProperty("user.home") + "\\Downloads" + File.separator + FileName;
            try (FileWriter fileWriter = new FileWriter(filePath)) {
