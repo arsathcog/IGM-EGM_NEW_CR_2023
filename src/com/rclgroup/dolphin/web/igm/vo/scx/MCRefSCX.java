@@ -49,19 +49,7 @@ public class MCRefSCX {
 	}
 
 	public void setMstrBlDt(String mstrBlDt) {
-		try {
-			if(mstrBlDt == null || mstrBlDt.equals("")) {
-				this.mstrBlDt = mstrBlDt;
-			}else if(mstrBlDt.contains("/")) {
-				this.mstrBlDt = mstrBlDt;
-			}else if(mstrBlDt.contains("/")) {
-				this.mstrBlDt = mstrBlDt;
-			}else {
-				this.mstrBlDt = mstrBlDt.substring(6,8)+"/"+mstrBlDt.substring(4,6)+"/"+mstrBlDt.substring(0,4);
-			}
-			}catch (Exception e) {
-				return;
-			}
+		this.mstrBlDt = mstrBlDt;
 	}
 
    //Same as Item Number from current screen "Consolidated Indicator"

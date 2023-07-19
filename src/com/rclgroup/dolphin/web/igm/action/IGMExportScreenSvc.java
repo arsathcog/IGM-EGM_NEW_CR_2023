@@ -1,19 +1,25 @@
 package com.rclgroup.dolphin.web.igm.action;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +40,7 @@ import org.springframework.util.CollectionUtils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.niit.control.common.exception.BusinessException;
 import com.niit.control.web.action.BaseAction;
 import com.rclgroup.dolphin.web.igm.actionform.ImportGeneralManifestUim;
@@ -927,6 +934,10 @@ System.out.println("getCarogoDetails() Called.");
 		 String dataShipStoresMod = objForm.getShipStoresMod();
 		 
 		 ObjectMapper mapper = new ObjectMapper();
+		  String empJson ="";
+		  String formated = "";
+			 String formattedJson = "";
+			 String senderId = "";
 
 		 ImportGeneralManifestInput saveParam = mapper.readValue(data, ImportGeneralManifestInput.class);
 		 ImportGeneralManifestMod service = saveParam.getService();
@@ -973,12 +984,34 @@ System.out.println("getCarogoDetails() Called.");
 		 
 		 System.out.println("Object Done..... 0");
 		 int getSeqNo = objDao.getSeqNoJdbc(service,"EGM",objForm.getFileType());
+		 
 
 			 Object manifestFile = CreatingJSON.getJsonFile(blListNewSavedVal, objForm.getFileType(), service, personOnBoardMod,
 					crewEfctMod, shipStoresMod, getSeqNo);
 			 
 				objDao.updateSqnNoForJsonFile(service, getSeqNo, "EGM",objForm.getFileType());
-			 
+				System.out.println("Object Done..... 1");
+//				 Gson gson = new GsonBuilder().setPrettyPrinting().create();
+				 mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		         empJson = mapper.writeValueAsString(manifestFile);
+		      
+		         if(null ==  objForm.getSenderId() || ("").equals(objForm.getSenderId() )) {
+		        	 senderId = "";
+		         }else {
+		        	 senderId =  objForm.getSenderId();
+		         }
+		         String FileName= "F_" + "SACHM23_"+ objForm.getFileType()+"_"+ senderId+
+		        		 "_"+getSeqNo+"_"+getTimeHeader()+"_"+"DEC"+".json";
+		           // Write the formatted JSON string to a file
+		           String filePath = System.getProperty("user.home") + "\\Downloads" + File.separator + FileName;
+		           try (FileWriter fileWriter = new FileWriter(filePath)) {
+		               fileWriter.write(empJson);
+		               System.out.println("JSON file downloaded successfully.");
+		           } catch (IOException e) {
+		               e.printStackTrace();
+		           } catch (Exception e) {
+		           e.printStackTrace();
+		       }	
 				try{	
 				net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();
 			    jsonObj.put("jsonFile",manifestFile );
@@ -1366,5 +1399,22 @@ System.out.println("getCarogoDetails() Called.");
 			jsonObj.write(response.getWriter());
 		return null;
 	}
-	
+	public static String getTimeHeader() {
+		/*
+		 * DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+		 * SimpleDateFormat sd = new SimpleDateFormat("HH:mm"); LocalDateTime now =
+		 * LocalDateTime.now(); sd.setTimeZone(TimeZone.getTimeZone("IST")); // pending
+		 * return (dtf.format(now));
+		 * 
+		 */
+		Date date = new Date();
+		DateFormat df = new SimpleDateFormat("yyyyMMdd");
+
+		df.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
+
+		System.out.println( df.format(date));
+		String isdDateAndTime = df.format(date);
+		System.out.println(isdDateAndTime);
+		return  isdDateAndTime;
+	}
 }

@@ -1129,7 +1129,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
          }else {
         	 senderId =  objForm.getSenderId();
          }
-         String FileName= "F_" + "SACHM23_"+ objForm.getFileType()+"_"+ objForm.getSenderId()+
+         String FileName= "F_" + "SACHM23_"+ objForm.getFileType()+"_"+ senderId+
         		 "_"+getSeqNo+"_"+getTimeHeader()+"_"+"DEC"+".json";
          
          response.setContentType("application/json");
