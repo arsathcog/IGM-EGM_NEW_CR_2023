@@ -1064,7 +1064,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		  String formated = "";
 			 String formattedJson = "";
 			 String senderId = "";
-
+			 
 		ImportGeneralManifestInput saveParam = mapper.readValue(data, ImportGeneralManifestInput.class);
 		ImportGeneralManifestMod service = saveParam.getService();
 
@@ -1130,7 +1130,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
          String FileName= "F_" + "SACHM23_"+ objForm.getFileType()+"_"+ senderId+
         		 "_"+getSeqNo+"_"+getTimeHeader()+"_"+"DEC";
          
-         response.setContentType("application/json");
+         response.addHeader("content-type", "application/octet-stream;charset=UTF-8");
 
          // Set the filename and other headers for the download
          response.setHeader("Content-Disposition", "attachment; filename=\"FileName.json\"");
@@ -1141,6 +1141,8 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
          try (ServletOutputStream outputStream = response.getOutputStream()) {
         	 byteArrayOutputStream.writeTo(outputStream);
         	 outputStream.flush(); 
+        	 outputStream.close(); 
+
          } catch (IOException e) {
              e.printStackTrace();
          }
