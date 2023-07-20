@@ -100,10 +100,7 @@ public class MastrCnsgmtDecSAM {
 	public void setHouseCargoDec(HouseCargoDecSAM houseCargoDec) {
 		this.houseCargoDec = houseCargoDec;
 	}
-	public void setTrnshpr(List<TrnshprSAM> trnshpr2) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	@Override
 	public String toString() {
 		return "MastrCnsgmtDecSAM [mCRef=" + mCRef + ", locCstm=" + locCstm + ", trnshpr=" + trnshpr + ", trnsprtDoc="

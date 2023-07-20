@@ -516,7 +516,7 @@ public class CreatingJSON {
 				mCRefClassObj.setPrevDec("Y");
 			}
 //			mCRefClassObj.setPrevDec(settingLength(blObj.getPrevious_declaration(),4)); // Line77				//TODO  guru	
-			mCRefClassObj.setConsolidatorPan("PAN : " + settingLength(service.getAgentCode(),16)); // Line 78		
+			mCRefClassObj.setConsolidatorPan("PAN:"+settingLength(service.getAgentCode(),16)); // Line 78		
 			
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);	
 			
@@ -589,7 +589,12 @@ public class CreatingJSON {
 				trnshprObj.setTrnshprCode(blObj.getCarrierNo()); 
 				trnshprObj.setTrnshprBond(settingLength(blObj.getTpBondNo(),10));	
 			}else {
-				trnshprObj.setTrnshprCode(blObj.getCarrierNo()); 
+				
+				if(null == blObj.getCarrierNo()) {
+					trnshprObj.setTrnshprCode(""); 
+				}else {
+					trnshprObj.setTrnshprCode(blObj.getCarrierNo()); 
+				}
 				trnshprObj.setTrnshprBond(settingLength(blObj.getTpBondNo(),10));	
 			}		 //TODO  guru		
 			trnshpr.add(trnshprObj);
@@ -964,7 +969,11 @@ public class CreatingJSON {
 				voyageTransportEquipmentClassObj.setContainerWeight(cntnerDtl.getContainerWeight());
 				voyageTransportEquipmentClassObj.setTotalNumberOfPackages(cntnerDtl.getTotalNumberOfPackagesInContainer());
 //				voyageTransportEquipmentClassObj.setContainerBondFlag("D");
-				voyageTransportEquipmentClassObj.setStowagePositionOfContainer(blObj.getStowagePosition());
+				if(null==blObj.getStowagePosition()) {
+					voyageTransportEquipmentClassObj.setStowagePositionOfContainer("");
+				}else {
+					voyageTransportEquipmentClassObj.setStowagePositionOfContainer(blObj.getStowagePosition());
+				}
 				voyageTransportEquipmentList.add(voyageTransportEquipmentClassObj);
 			}
 			mster.setVoyageTransportEquipment(voyageTransportEquipmentList);   // Correct
@@ -1534,7 +1543,7 @@ public class CreatingJSON {
 			}
 			
 //			mCRefClassObj.setPrevDec(settingLength(blObj.getPrevious_declaration(),4)); // Line77				//TODO  guru	
-			mCRefClassObj.setConsolidatorPan("PAN : " + settingLength(service.getAgentCode(),16)); // Line 78		
+			mCRefClassObj.setConsolidatorPan("PAN:"+settingLength(service.getAgentCode(),16)); // Line 78		
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);
 			
 			// ---------------------------------------- Writing a new nitun
@@ -4000,7 +4009,7 @@ public class CreatingJSON {
 				mCRefClassObj.setPrevDec(settingLength("S",4));
 			} // Line77
 			
-			mCRefClassObj.setConsolidatorPan("PAN :"+ settingLength(service.getAgentCode(),16)); // Line 78
+			mCRefClassObj.setConsolidatorPan("PAN:"+settingLength(service.getAgentCode(),16)); // Line 78
 
 			mCRef.add(mCRefClassObj);
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);
@@ -6675,7 +6684,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			mCRefClassObj.setLineNo(blObj.getItemNumber()); // Line 60
 			mCRefClassObj.setMstrBlNo(settingLength(blObj.getBl(),20)); // Line 53
 			mCRefClassObj.setMstrBlDt(blObj.getMasterBlDate()); // Line 53
-			mCRefClassObj.setConsolidatorPan("PAN :" + settingLength(blObj.getAgentCode(),4));// Line 76
+			mCRefClassObj.setConsolidatorPan("PAN:"+settingLength(blObj.getAgentCode(),4));// Line 76
 			
 			if( null== blObj.getMcin() ||blObj.getMcin().equals("") && null== blObj.getPcin() || blObj.getPcin().equals("")) {
 				mCRefClassObj.setPrevDec("N");
@@ -6691,7 +6700,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			}catch (Exception e) {
 				mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
 			}
-		    mCRefClassObj.setConsolidatorPan("PAN :" +settingLength(service.getAgentCode(),16));
+		    mCRefClassObj.setConsolidatorPan("PAN:"+settingLength(service.getAgentCode(),16));
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);
 			mCRef.add(mCRefClassObj);
 			

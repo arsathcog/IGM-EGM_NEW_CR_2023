@@ -2,7 +2,7 @@ package com.rclgroup.dolphin.web.igm.vo.sam;
 
 public class TrnshprSAM {
 	
-	private String trnshprCode;
+	private String trnshprCode = "";
 	private String trnshprBond;
 	
 	 

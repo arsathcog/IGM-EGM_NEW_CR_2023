@@ -127,7 +127,7 @@ public class VoyageTransportEquipmentSAM {
 //	public void setEquipmentStatus(String equipmentStatus) {
 //		this.equipmentStatus = equipmentStatus;
 //	}
-//	
+	
 	public String getStowagePositionOfContainer() {
 		return stowagePositionOfContainer;
 	}

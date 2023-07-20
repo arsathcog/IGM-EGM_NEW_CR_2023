@@ -705,7 +705,11 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setUnit_of_weight(rs.getString("UNIT_OF_WEIGHT"));
 			objMod.setGross_volume(rs.getString("GROSS_VOLUME"));
 			objMod.setCargo_msmt(rs.getInt("cargo_msmt"));
-			objMod.setUnit_of_volume(rs.getString("UNIT_OF_VOLUME"));
+			if(null == rs.getString("UNIT_OF_VOLUME")) {
+				objMod.setUnit_of_volume("");
+			}else {
+				objMod.setUnit_of_volume(rs.getString("UNIT_OF_VOLUME"));
+			}
 			objMod.setCargo_item_sequence_no(rs.getString("CARGO_ITEM_SEQUENCE_NO"));
 			objMod.setCargo_item_description(rs.getString("CARGO_ITEM_DESCRIPTION"));
 			objMod.setContainer_weight(rs.getString("CONTAINER_WEIGHT"));

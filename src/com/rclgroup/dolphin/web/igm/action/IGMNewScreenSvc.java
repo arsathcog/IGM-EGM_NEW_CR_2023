@@ -1192,18 +1192,17 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 //		}
 	
          System.out.println("manifestFile"+empJson);
-		try {
-			net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();
-	//			Gson jsonObj = new Gson();
-				Field map = jsonObj.getClass().getDeclaredField("map");
-				map.setAccessible(true);//because the field is private final...
-				map.set(jsonObj, new LinkedHashMap<>());
-				map.setAccessible(false);
-				jsonObj.put("jsonFile",empJson);
-				jsonObj.write(response.getWriter());
-
+     	try {
+			LinkedHashMap<String, Object> jsonObj = new LinkedHashMap<>();
+			jsonObj.put("jsonFile", manifestFile);
+			
+			Gson gson = new Gson();
+			String jsonString = gson.toJson(jsonObj);
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write(jsonString.toString());
 			System.out.println("#IGMLogger downloadJson() completed..");
-		} catch (Exception e) {
+		}  catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			Runtime.getRuntime().gc();

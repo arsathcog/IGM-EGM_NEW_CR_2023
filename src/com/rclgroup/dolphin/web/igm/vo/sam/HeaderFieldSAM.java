@@ -11,9 +11,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.rclgroup.dolphin.web.igm.vo.FiledValidation;
 
-@JsonPropertyOrder({"senderID","receiverID","versionNo","indicator","messageID","sequenceOrControlNumber"
-	,"date","time","reportingEvent"})
-
 public class HeaderFieldSAM {
 
 	private String senderID;
@@ -25,23 +22,6 @@ public class HeaderFieldSAM {
 	private String date;
 	private String time;
 	private String reportingEvent;
-	
-    private Map<String, Object> data;
-    
-    public HeaderFieldSAM() {
-        data = new LinkedHashMap<>();
-    }
-    
-    public void addField(String key, Object value) {
-        data.put(key, value);
-    }
-
-    public String toJson() {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        return gson.toJson(data);
-    }
-
-	
 
 	public String getSenderID() {
 		return senderID;

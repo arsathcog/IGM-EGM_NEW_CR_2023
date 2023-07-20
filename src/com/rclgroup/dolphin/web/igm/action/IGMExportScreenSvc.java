@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -41,6 +42,7 @@ import org.springframework.util.CollectionUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.google.gson.Gson;
 import com.niit.control.common.exception.BusinessException;
 import com.niit.control.web.action.BaseAction;
 import com.rclgroup.dolphin.web.igm.actionform.ImportGeneralManifestUim;
@@ -1012,13 +1014,17 @@ System.out.println("getCarogoDetails() Called.");
 		           } catch (Exception e) {
 		           e.printStackTrace();
 		       }	
-				try{	
-				net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();
-			    jsonObj.put("jsonFile",manifestFile );
-			    jsonObj.write(response.getWriter());
-			    
-			    System.out.println("#IGMLogger downloadJson() completed..");
-			}catch (Exception e) {
+		       	try {
+					LinkedHashMap<String, Object> jsonObj = new LinkedHashMap<>();
+					jsonObj.put("jsonFile", manifestFile);
+					
+					Gson gson = new Gson();
+					String jsonString = gson.toJson(jsonObj);
+					response.setContentType("application/json");
+					response.setCharacterEncoding("UTF-8");
+					response.getWriter().write(jsonString.toString());
+					System.out.println("#IGMLogger downloadJson() completed..");
+				} catch (Exception e) {
 					e.printStackTrace();
 			}finally {
 				Runtime. getRuntime(). gc();

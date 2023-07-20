@@ -1436,7 +1436,6 @@ $(function () {
 				if (jsonData.result[0]["BLS"][x].isBlSave == true || jsonData.result[0]["BLS"][x].isBlSave == "true"
 						&& jsonData.result[0]["BLS"][x].itemNumber != ""
 						&& jsonData.result[0]["BLS"][x].itemNumber != null) {
-					if (jsonData.result[0]["BLS"][x].fetch == false) {
 						if (blNoSaved == "") {
 							blNoSaved = blNoSaved + "'"
 									+ jsonData.result[0]["BLS"][x].bl + "'";
@@ -1444,7 +1443,6 @@ $(function () {
 							blNoSaved = blNoSaved + ",'"
 									+ jsonData.result[0]["BLS"][x].bl + "'";
 						}
-					}
 				} else {
 					if (jsonData.result[0]["BLS"][x].fetch == false) {
 						if (blNoUnSaved == "") {
@@ -1490,8 +1488,8 @@ $(function () {
 					var mgsnull=document.getElementById("msg");
 					mgsnull.innerHTML = '';
 					swal("Message","Manifest File generated successfully.","info");
-					var StringResult=JSON.parse(result);
-			/* 		var downloadfilename="";
+					var StringResult=result;
+					var downloadfilename="";
 					var one="";
 					var two="";
 					var three="";
@@ -1511,7 +1509,7 @@ $(function () {
 					}
 					downloadfilename=one+'_'+'SACHM23'+'_'+fileNme+'_'+two+'_'+three+'_'+fore+'_'+'DEC'+'.json';
 					
-					var sampleBytes = new String(JSON.stringify(StringResult.jsonFile,null,"\t"));
+					var sampleBytes = new String(JSON.stringify(StringResult.jsonFile,null,2));
 
 					var saveByteArray = (function() {
 						var a = document.createElement("a");
@@ -1534,7 +1532,7 @@ $(function () {
 							}
 						};
 					}());
-					saveByteArray([ sampleBytes ], downloadfilename); */
+					saveByteArray([ sampleBytes ], downloadfilename); 
 				},
 			});
 

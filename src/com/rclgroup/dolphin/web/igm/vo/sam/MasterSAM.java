@@ -21,8 +21,7 @@ public class MasterSAM {
 	private List<VoyageTransportEquipmentSAM> voyageTransportEquipment;
 //	private List<TmSuprtDocsSAM> tmSuprtDocs;	//TODO
 //	private List<TmAdtnlDecSAM> tmAdtnlDec;		//TODO
-
-	 
+ 
 	public AuthPrsnSAM getAuthPrsn() {
 		return authPrsn;
 	}
