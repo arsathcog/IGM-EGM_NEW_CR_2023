@@ -1494,7 +1494,7 @@ $(function () {
 					mgsnull.innerHTML = '';
 					swal("Message","Manifest File generated successfully.","info");
 					var StringResult=JSON.parse(result);
-					/* var downloadfilename="";
+					var downloadfilename="";
 					var one="";
 					var two="";
 					var three="";
@@ -1539,7 +1539,7 @@ $(function () {
 							}
 						};
 					}());
-					saveByteArray([ sampleBytes ], downloadfilename); */
+					saveByteArray([ sampleBytes ], downloadfilename);
 				},
 			});
 
