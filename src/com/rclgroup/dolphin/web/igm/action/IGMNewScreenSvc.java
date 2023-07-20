@@ -2,11 +2,11 @@
 package com.rclgroup.dolphin.web.igm.action;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +23,6 @@ import java.util.Set;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -37,6 +37,7 @@ import org.springframework.util.CollectionUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.google.gson.Gson;
 import com.niit.control.common.exception.BusinessException;
 import com.niit.control.web.action.BaseAction;
 import com.rclgroup.dolphin.web.igm.actionform.ImportGeneralManifestUim;
@@ -1064,7 +1065,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		  String formated = "";
 			 String formattedJson = "";
 			 String senderId = "";
-			 
+
 		ImportGeneralManifestInput saveParam = mapper.readValue(data, ImportGeneralManifestInput.class);
 		ImportGeneralManifestMod service = saveParam.getService();
 
@@ -1128,24 +1129,40 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
         	 senderId =  objForm.getSenderId();
          }
          String FileName= "F_" + "SACHM23_"+ objForm.getFileType()+"_"+ senderId+
-        		 "_"+getSeqNo+"_"+getTimeHeader()+"_"+"DEC";
+        		 "_"+getSeqNo+"_"+getTimeHeader()+"_"+"DEC"+".json";
          
-         response.addHeader("content-type", "application/octet-stream;charset=UTF-8");
+         response.setContentType("application/octet-stream");
+         response.setHeader("Content-Disposition", "attachment; filename=\"" + FileName + "\"");
 
-         // Set the filename and other headers for the download
-         response.setHeader("Content-Disposition", "attachment; filename=\"FileName.json\"");
+//         try (ServletOutputStream outputStream = response.getOutputStream()) {
+//        	 JsonFactory jsonFactory = new JsonFactory();
+//        	 JsonGenerator jsonGenerator = jsonFactory.createGenerator(outputStream);
+//        	 jsonGenerator.writeStartArray(); 
+//        	 jsonGenerator.writeRaw(empJson);
+//        	 jsonGenerator.writeEndArray(); 
+//        	 jsonGenerator.flush();
+//        	 jsonGenerator.close();
+//        	 outputStream.flush(); 
+//        	 outputStream.close();
+//         } catch (IOException e) {
+//             e.printStackTrace();
+//         }	
          // Use a temporary byte array output stream to capture the JSON data
-         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-         byteArrayOutputStream.write(empJson.getBytes());
-         
-         try (ServletOutputStream outputStream = response.getOutputStream()) {
-        	 byteArrayOutputStream.writeTo(outputStream);
-        	 outputStream.flush(); 
-        	 outputStream.close(); 
-
-         } catch (IOException e) {
-             e.printStackTrace();
-         }
+//         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//         byteArrayOutputStream.write(empJson.getBytes());
+//         try (ServletOutputStream outputStream = response.getOutputStream()) {
+//        	    outputStream.print(empJson);
+//        	    outputStream.flush();
+//        	} catch (IOException e) {
+//        	    e.printStackTrace();
+//        	}
+//         try (ServletOutputStream outputStream = response.getOutputStream()) {
+//        	 byteArrayOutputStream.writeTo(outputStream);
+//        	 outputStream.flush();
+//        	 outputStream.close();
+//         } catch (IOException e) {
+//             e.printStackTrace();
+//         }
            // Write the formatted JSON string to a file
 //           String filePath = System.getProperty("user.home") + "\\Downloads" + File.separator + FileName;
 //           try (FileWriter fileWriter = new FileWriter(filePath)) {
@@ -1174,10 +1191,16 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 //			e.printStackTrace();
 //		}
 	
+         System.out.println("manifestFile"+empJson);
 		try {
 			net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();
-			jsonObj.put("jsonFile",manifestFile);
-//			jsonObj.write(response.getWriter());
+	//			Gson jsonObj = new Gson();
+				Field map = jsonObj.getClass().getDeclaredField("map");
+				map.setAccessible(true);//because the field is private final...
+				map.set(jsonObj, new LinkedHashMap<>());
+				map.setAccessible(false);
+				jsonObj.put("jsonFile",empJson);
+				jsonObj.write(response.getWriter());
 
 			System.out.println("#IGMLogger downloadJson() completed..");
 		} catch (Exception e) {
