@@ -1379,8 +1379,14 @@ $(document).ready(function() {
 	      Cancel: function() {
 	    	  $("#saveDataModal").dialog("close");
 	    	  angular.element(document.getElementById('dialog-tabs')).scope().clearSaveDialog();
-	      } 
-	    },
+	      },
+	      OK: function() {
+	          // Add your OK button's functionality here
+	          // For example, close the dialog and perform some action
+	          $("#saveDataModal").dialog("close");
+	          // Add your code for OK button functionality here
+	        }
+	      }, 
 	    close: function() {
 	    		$("#saveDataModal").dialog("close");
 	    	    angular.element(document.getElementById('dialog-tabs')).scope().clearSaveDialog();
@@ -3267,7 +3273,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 						$scope.BLS[$scope.blIndex].manifest_no_csn_no  =  result.data.blDetails[0].manifest_no_csn_no
 						$scope.BLS[$scope.blIndex].mariTimeDecl  =  result.data.blDetails[0].mariTimeDecl
 						$scope.BLS[$scope.blIndex].masterBl  =  result.data.blDetails[0].masterBl
-						$scope.BLS[$scope.blIndex].masterBlDate  =  result.data.blDetails[0].masterBlDate
+						$scope.BLS[$scope.blIndex].masterBlDate = reverseDateFormat($scope.BLS[$scope.blIndex].masterBlDate)
 						$scope.BLS[$scope.blIndex].masterName  =  result.data.blDetails[0].masterName
 						$scope.BLS[$scope.blIndex].mblNo  =  result.data.blDetails[0].mblNo
 						$scope.BLS[$scope.blIndex].mc_item_details  =  result.data.blDetails[0].mc_item_details
@@ -3413,6 +3419,20 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 		
 		 
 	}
+
+	// Function to convert date from yyyy-mm-dd format to dd/mm/yyyy format
+	function reverseDateFormat(dateStr) {
+	  const parts = dateStr.split('-'); // Split the date string by "-"
+	  if (parts.length === 3) {
+	   
+	    const reversedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
+	    return reversedDate;
+	  } else {
+	  
+	    return dateStr;
+	  }
+	}
+		
 	
 	$scope.getCarogoDetailsHBL=function() {
  	    debugger;
