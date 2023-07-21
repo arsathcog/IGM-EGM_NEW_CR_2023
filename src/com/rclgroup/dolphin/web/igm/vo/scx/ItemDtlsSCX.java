@@ -5,8 +5,9 @@ import com.rclgroup.dolphin.web.igm.vo.FiledValidation;
 public class ItemDtlsSCX {
 
 	// # not given in scma
-	private String hsCd;
+
 	private String crgoItemSeqNmbr;
+	private String hsCd;
 	private String crgoItemDesc;
 	private String unoCd;
 	private String imdgCd;
@@ -21,14 +22,7 @@ public class ItemDtlsSCX {
 //	  	public void setAmendment(String amendment) {
 //	  		this.amendment = amendment;
 //	  	}
-	public String getHsCd() {
-		return hsCd;
-	}
 
-	public void setHsCd(String hsCd) {
-		hsCd = FiledValidation.isNullAndSetlength(hsCd, 8);
-		this.hsCd = hsCd;
-	}
 
 	// This value is come from BL Json object "Cargo Item Sequence No"
 	public String getCrgoItemSeqNmbr() {
@@ -37,6 +31,15 @@ public class ItemDtlsSCX {
 
 	public void setCrgoItemSeqNmbr(String crgoItemSeqNmbr) {
 		this.crgoItemSeqNmbr = crgoItemSeqNmbr;
+	}
+	
+	public String getHsCd() {
+		return hsCd;
+	}
+
+	public void setHsCd(String hsCd) {
+		hsCd = FiledValidation.isNullAndSetlength(hsCd, 8);
+		this.hsCd = hsCd;
 	}
 
 	// This value is come from BL Json object "Cargo Item Description"

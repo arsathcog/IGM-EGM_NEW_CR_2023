@@ -4,22 +4,16 @@ import com.rclgroup.dolphin.web.igm.vo.FiledValidation;
 
 public class ItemDtlsSDM {
 
-	private String hsCd;
+
 	private String crgoItemSeqNmbr;
+	private String hsCd;
 	private String crgoItemDesc;
 	private String unoCd;
 	private String imdgCd;
 	private String nmbrOfPkgs;
 	private String typOfPkgs;
 
-	public String getHsCd() {
-		return hsCd;
-	}
 
-	public void setHsCd(String hsCd) {
-//		hsCd = FiledValidation.isNullAndSetlength(hsCd, 8);
-		this.hsCd = hsCd;
-	}
 
 	// This value is come from BL Json object "Cargo Item Sequence No"
 	public String getCrgoItemSeqNmbr() {
@@ -30,6 +24,14 @@ public class ItemDtlsSDM {
 		this.crgoItemSeqNmbr = crgoItemSeqNmbr;
 	}
 
+	public String getHsCd() {
+		return hsCd;
+	}
+
+	public void setHsCd(String hsCd) {
+//		hsCd = FiledValidation.isNullAndSetlength(hsCd, 8);
+		this.hsCd = hsCd;
+	}
 	// This value is come from BL Json object "Cargo Item Description"
 	public String getCrgoItemDesc() {
 		return crgoItemDesc;

@@ -371,24 +371,27 @@ public class CreatingJSON {
 			resultObj = getSCC(blList);
 		}
 		// Creating Object of ObjectMapper define in Jakson Api
-				System.gc();
-				ObjectMapper objectMapper = new ObjectMapper();
-				objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-				
-				String jsonStr = null;
-				try {	
-					jsonStr = objectMapper.writeValueAsString(resultObj);
-				}
-				catch (IOException e) {
-					e.printStackTrace();
-				}finally {
-					System.gc();
-				}
-//				return jsonStr;
+//				System.gc();
+//				ObjectMapper objectMapper = new ObjectMapper();
+//				objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+//				
+//				String jsonStr = null;
+//				try {	
+//					jsonStr = objectMapper.writeValueAsString(resultObj);
+//				}
+//				catch (IOException e) {
+//					e.printStackTrace();
+//				}finally {
+//					System.gc();
+//				}
+////				return jsonStr;
 				return resultObj;
 			}
 
-
+/*
+ * method that create  json
+ *============================* SAM *==========================================================================
+ */
 	public static JsonMainObjctSAM getSAM(List<ImportGeneralManifestMod> blList,ImportGeneralManifestMod   service,List<IGMPersonOnBoardMod> personOnBoardMod,int getSeqNo) {
 
    		JsonMainObjctSAM org = new JsonMainObjctSAM();
@@ -425,7 +428,7 @@ public class CreatingJSON {
 		String generatedFileNameOfJson = null;
 		generatedFileNameOfJson = msgTyp + "_" + msgID + "_" + rpngEvent + "_" + senderId + "_" + jobID + "_" + currDate
 				+ "_" + decHeader + ".json";
-
+//===============================*HeaderFieldSAM*======================================================================
 		HeaderFieldSAM headerFieldClassObj = new HeaderFieldSAM();
 		headerFieldClassObj.setSenderID(settingLength(service.getSenderId().toString(),20));
 		headerFieldClassObj.setReceiverID(service.getRecieverId());
@@ -448,7 +451,7 @@ public class CreatingJSON {
 //	        System.out.println(json);
 		//List<MCRefSAM> mCRef = new LinkedList<MCRefSAM>();
 
-//		---------------------------------------------------------------
+//	----------------------------------------------------------------------------------------------
 		// Creating object of all class
 		List<ShipItnrySAM> shipItnry = new LinkedList<ShipItnrySAM>();
 		List<MCSuprtDocsSAM> mcSuprtDoc = new LinkedList<MCSuprtDocsSAM>();
@@ -458,7 +461,7 @@ public class CreatingJSON {
 		mastrCnsgmtDecList	= new LinkedList<MastrCnsgmtDecSAM>();
 		List<VoyageTransportEquipmentSAM> voyageTransportEquipmentList = new LinkedList<VoyageTransportEquipmentSAM>();
 		//fromItemNoTemp=Integer.valueOf(blList.);
-		// ===================
+// ==============================================================================
 
 		for (ImportGeneralManifestMod blObj : blList) {
 			if (blObj != null && "true".equalsIgnoreCase(blObj.getIsBlSave())) {
@@ -494,7 +497,7 @@ public class CreatingJSON {
 			List<Consigner> consignerDtls = blObj.getConsigner();
 			List<ContainerDetails> containerDtls = blObj.getContainerDetailes();
 			
-//		------------------------------------------------------------------------------	
+//		---------------------------------*MCRefSAM*---------------------------------------------	
 			MCRefSAM mCRefClassObj = new MCRefSAM();
 			mCRefClassObj.setLineNo(blObj.getItemNumber()); // Line 60    
 			mCRefClassObj.setMstrBlNo(settingLength(blObj.getBl(),20)); // Line 53
@@ -520,7 +523,7 @@ public class CreatingJSON {
 			
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);	
 			
-//		-------------------------------------------------------------------------------
+//		----------------------------*LocCstmSAM*---------------------------------------------------
 			LocCstmSAM locCstmClassObj = new LocCstmSAM();
 			locCstmClassObj.setFirstPrtOfEntry( service.getPortArrival());
 //			locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),6)); // New added
@@ -636,7 +639,7 @@ public class CreatingJSON {
 					trnsprtDocClassObj.setCnsgneCntryCd( settingLength(cnsneeDtl.getCountryCode(),2));
 					trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(settingLength(cnsneeDtl.getCustomerName(),70));
 					trnsprtDocClassObj.setCnsgneCntrySubDivName(settingLength(cnsneeDtl.getState(),35));
-					if(blObj.getGstStateCode() == null)
+					if(cnsneeDtl.getState()== null)
 					{
 					   trnsprtDocClassObj.setCnsgneCntrySubDiv("");
 					}
@@ -1466,7 +1469,7 @@ public class CreatingJSON {
 //			List<ShipItnrySDM> shipItnry = new LinkedList<ShipItnrySDM>();
 			List<ItnrySDM> itnry = new LinkedList<ItnrySDM>();
 			List<TrnsprtDocSDM> trnsprtDoc = new LinkedList<TrnsprtDocSDM>();
-			TrnsprtDocSDM trnsprtDocClassObj = new TrnsprtDocSDM();
+		
 //			List<PrevRefSDM> prevRef = new LinkedList<PrevRefSDM>();
 			List<ItemDtlsSDM> itemDtls = new LinkedList<ItemDtlsSDM>();
 			List<TrnsprtEqmtSDM> trnsprtEqmt = new LinkedList<TrnsprtEqmtSDM>();
@@ -1487,24 +1490,7 @@ public class CreatingJSON {
 			List<ContainerDetails> containerDtls = blObj.getContainerDetailes();
 			
 			
-			ItnrySDM itnryClassObj = new ItnrySDM();
-			if(blObj.getPortOfLoading()!= null && blObj.getPod()!= null) {
-				itnryClassObj.setPrtOfCallSeqNmbr(settingLength("1",5)); 
-			}else if (blObj.getPortOfLoading()!= null && blObj.getPod()!= null && blObj.getPortOfDestination() != null ) {
-				itnryClassObj.setPrtOfCallSeqNmbr(settingLength("2",5)); 		
-			}else if(blObj.getPortOfLoading()!= null && blObj.getPod()!= null && 
-					blObj.getPortOfDestination() != null && blObj.getPortOfDeschargedCfs() != null ) {
-				itnryClassObj.setPrtOfCallSeqNmbr(settingLength("3",5)); 
-			}
-			itnryClassObj.setNxtPrtOfCallCdd(settingLength(blObj.getNext_port_of_call_coded(),10));    //TODO  guru
-			itnryClassObj.setNxtPrtOfCallName(settingLength(blObj.getNext_port_of_call_name(),256));		//TODO  guru
-			itnryClassObj.setPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));			//TODO  guru
-			itnryClassObj.setPrtOfCallCdd(settingLength(blObj.getPod(),10));
-			itnryClassObj.setModeOfTrnsprt(settingLength(blObj.getMode_of_transport(),4));
-//			itnry.add(itnryClassObj);
-			mastrCnsgmtDec.setItnry(itnryClassObj);
-			houseCargoDecSDMObj.setItnry(itnry);
-//			itnryClassObj = null;
+			
 
 			//===============================================
 			List<HCRefSDM> hCRef = new LinkedList<HCRefSDM>();
@@ -1601,7 +1587,77 @@ public class CreatingJSON {
 			mastrCnsgmtDec.setLocCstm(locCstmClassObj);
 			houseCargoDecSDMObj.setLocCstm(locCstm); 
 
-			//===============================================
+//=========================================================================================================================
+			TrnsprtDocSDM trnsprtDocClassObj = new TrnsprtDocSDM();
+			trnsprtDocClassObj.setPrtOfAcptCdd( settingLength(blObj.getPort_of_acceptance(),6));							//TODO  guru
+			trnsprtDocClassObj.setPrtOfAcptName( settingLength(blObj.getAcceptanceName(),256));			//TODO  guru
+			trnsprtDocClassObj.setPrtOfReceiptCdd(settingLength(blObj.getPort_of_receipt(),10));
+			trnsprtDocClassObj.setPrtOfReceiptName( settingLength(blObj.getRecieptName(),256));		
+//				trnsprtDocClassObj.setUcrTyp(settingLength(blObj.getUcr_type(),3));  Guru said to comment 
+//				trnsprtDocClassObj.setUcrCd( settingLength(blObj.getUcr_code(),35));	 Guru said to comment
+
+				for (NotifyParty notyObj : notifyPartyDetailes) {
+
+					if ((blObj.getBl()).equals(notyObj.getBlNo())) {
+						String add = (String) notyObj.getAddressLine1() + notyObj.getAddressLine2()
+								+ (String) notyObj.getAddressLine3() + (String) notyObj.getAddressLine4();
+						trnsprtDocClassObj.setNotfdPartyStreetAddress(settingLength(add,70));
+						trnsprtDocClassObj.setNotfdPartyCity( settingLength(notyObj.getCity(),70));
+//						trnsprtDocClassObj.setNotfdPartyCntrySubDivName( settingLength(notyObj.getState(),35));
+						trnsprtDocClassObj.setNotfdPartyCntryCd( settingLength(notyObj.getCountryCode(),2));
+//						trnsprtDocClassObj.setNotfdPartyPstcd( settingLength(notyObj.getZip(),9));
+//						trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(notyObj.getCostumerCode(),3));
+	      				trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(notyObj.getCostumerName());
+					}
+				}
+//				trnsprtDocClassObj.setPanOfNotfdParty( settingLength(blObj.getPan_of_notified_party(),17));
+
+				//===============================================
+		
+			
+				 
+				//===============================================
+				for (Consignee cnsneeDtl : consigneeDtls) {
+
+					if ((blObj.getBl()).equals(cnsneeDtl.getBlNO()))
+					{
+						String add = (String) cnsneeDtl.getAddressLine1() + cnsneeDtl.getAddressLine2()
+								+ (String) cnsneeDtl.getAddressLine3() + (String) cnsneeDtl.getAddressLine4();
+						trnsprtDocClassObj.setCnsgneStreetAddress(settingLength(add,70));
+						trnsprtDocClassObj.setCnsgnesName( settingLength(cnsneeDtl.getCustomerName(),70));
+						trnsprtDocClassObj.setCnsgneCity( settingLength(cnsneeDtl.getCity(),70));
+//						trnsprtDocClassObj.setCnsgneCntrySubDivName(  settingLength(cnsneeDtl.getState(),35));
+						trnsprtDocClassObj.setCnsgneCntryCd( settingLength(cnsneeDtl.getCountryCode(),2));
+//						trnsprtDocClassObj.setCnsgnePstcd( settingLength(cnsneeDtl.getZip(),9));
+//						trnsprtDocClassObj.setCnsgnesCd( settingLength(cnsneeDtl.getCustomerCode(),17));
+//						trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(settingLength(cnsneeDtl.getCustomerName(),70));
+						
+					}
+				}
+
+				//===============================================
+				for (Consigner cnsnerDtls : consignerDtls) {
+
+					if ((blObj.getBl()).equals(cnsnerDtls.getBlNO())) {
+						String add = (String) cnsnerDtls.getAddressLine1() + cnsnerDtls.getAddressLine2()
+								+ (String) cnsnerDtls.getAddressLine3() + (String) cnsnerDtls.getAddressLine4();
+						// set all values in TrnsprtDoc Class Obj cnsgnrsName;
+						trnsprtDocClassObj.setCnsgnrStreetAddress(settingLength(add,70));
+						trnsprtDocClassObj.setCnsgnrsName(settingLength(cnsnerDtls.getCustomerName(),70));
+						trnsprtDocClassObj.setCnsgnrCity( settingLength(cnsnerDtls.getCity(),70));
+						trnsprtDocClassObj.setCnsgnrCntrySubDivName( settingLength(cnsnerDtls.getState(),35));  //Guru said to comment
+						trnsprtDocClassObj.setCnsgnrsCd( settingLength(cnsnerDtls.getCustomerCode(),17));
+						trnsprtDocClassObj.setCnsgnrCdTyp("");
+						 trnsprtDocClassObj.setCnsgnrCntrySubDivCd(blObj.getGstStateCode());
+						trnsprtDocClassObj.setCnsgnrCntryCd( settingLength(cnsnerDtls.getCountryCode(),2));
+						trnsprtDocClassObj.setCnsgnrPstcd( settingLength(cnsnerDtls.getZip(),9)); 
+//						trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(settingLength(cnsnerDtls.getCustomerName(),70));
+					}
+				}
+				trnsprtDoc.add(trnsprtDocClassObj);
+				mastrCnsgmtDec.setTrnsprtDoc(trnsprtDocClassObj);
+				houseCargoDecSDMObj.setTrnsprtDoc(trnsprtDoc);
+				
 //			
 //			TrnshprObj.setTrnshprCd(settingLength("",10));
 //			TrnshprObj.setTrnshprBond(settingLength("",10));
@@ -1624,6 +1680,17 @@ public class CreatingJSON {
 			if(! "".equals(trnsprtDocMsrClassObj.getGrossVolume())&&  trnsprtDocMsrClassObj.getGrossVolume() != null ) {
 				trnsprtDocMsrClassObj.setUnitOfVolume(settingLength("CBM",3));
 			}
+			
+			for (MarksNumber marksAndNumberDtls : marksNumberDtls) {
+
+				if ((blObj.getBl()).equals(marksAndNumberDtls.getBlNO())) {
+					trnsprtDocMsrClassObj.setMarksNoOnPkgs(settingLength(marksAndNumberDtls.getMarksNumbers(),512));
+					trnsprtDocClassObj.setGoodsDescAsPerBl( settingLength(marksAndNumberDtls.getDescription(),512));
+				}
+			}
+			trnsprtDocMsr.add(trnsprtDocMsrClassObj);
+			mastrCnsgmtDec.setTrnsprtDocMsr(trnsprtDocMsrClassObj);
+			houseCargoDecSDMObj.setTrnsprtDocMsr(trnsprtDocMsr);
 			
 			//===============================================
 		if(mCRefClassObj.getConsolidatedIndctr().equals("S")) {
@@ -1666,86 +1733,7 @@ public class CreatingJSON {
 				}
 				
 			}
-
-			//===============================================
-			
-			trnsprtDocClassObj.setPrtOfAcptName( settingLength(blObj.getAcceptanceName(),256));			//TODO  guru
-			trnsprtDocClassObj.setPrtOfReceiptName( settingLength(blObj.getRecieptName(),256));	
-			trnsprtDocClassObj.setPrtOfReceiptCdd(settingLength(blObj.getPort_of_receipt(),10));
-			trnsprtDocClassObj.setPrtOfAcptCdd( settingLength(blObj.getPort_of_acceptance(),6));		
-//			trnsprtDocClassObj.setUcrTyp(settingLength(blObj.getUcr_type(),3));  Guru said to comment 
-//			trnsprtDocClassObj.setUcrCd( settingLength(blObj.getUcr_code(),35));	 Guru said to comment
-
-			for (NotifyParty notyObj : notifyPartyDetailes) {
-
-				if ((blObj.getBl()).equals(notyObj.getBlNo())) {
-					String add = (String) notyObj.getAddressLine1() + notyObj.getAddressLine2()
-							+ (String) notyObj.getAddressLine3() + (String) notyObj.getAddressLine4();
-					trnsprtDocClassObj.setNotfdPartyStreetAddress(settingLength(add,70));
-					trnsprtDocClassObj.setNotfdPartyCity( settingLength(notyObj.getCity(),70));
-//					trnsprtDocClassObj.setNotfdPartyCntrySubDivName( settingLength(notyObj.getState(),35));
-					trnsprtDocClassObj.setNotfdPartyCntryCd( settingLength(notyObj.getCountryCode(),2));
-//					trnsprtDocClassObj.setNotfdPartyPstcd( settingLength(notyObj.getZip(),9));
-//					trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(notyObj.getCostumerCode(),3));
-      				trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(notyObj.getCostumerName());
-				}
-			}
-//			trnsprtDocClassObj.setPanOfNotfdParty( settingLength(blObj.getPan_of_notified_party(),17));
-
-			//===============================================
-			for (MarksNumber marksAndNumberDtls : marksNumberDtls) {
-
-				if ((blObj.getBl()).equals(marksAndNumberDtls.getBlNO())) {
-					trnsprtDocMsrClassObj.setMarksNoOnPkgs(settingLength(marksAndNumberDtls.getMarksNumbers(),512));
-					trnsprtDocClassObj.setGoodsDescAsPerBl( settingLength(marksAndNumberDtls.getDescription(),512));
-				}
-			}
-			trnsprtDocMsr.add(trnsprtDocMsrClassObj);
-			mastrCnsgmtDec.setTrnsprtDocMsr(trnsprtDocMsrClassObj);
-			houseCargoDecSDMObj.setTrnsprtDocMsr(trnsprtDocMsr);
-			 
-			//===============================================
-			for (Consignee cnsneeDtl : consigneeDtls) {
-
-				if ((blObj.getBl()).equals(cnsneeDtl.getBlNO()))
-				{
-					String add = (String) cnsneeDtl.getAddressLine1() + cnsneeDtl.getAddressLine2()
-							+ (String) cnsneeDtl.getAddressLine3() + (String) cnsneeDtl.getAddressLine4();
-					trnsprtDocClassObj.setCnsgneStreetAddress(settingLength(add,70));
-					trnsprtDocClassObj.setCnsgnesName( settingLength(cnsneeDtl.getCustomerName(),70));
-					trnsprtDocClassObj.setCnsgneCity( settingLength(cnsneeDtl.getCity(),70));
-//					trnsprtDocClassObj.setCnsgneCntrySubDivName(  settingLength(cnsneeDtl.getState(),35));
-					trnsprtDocClassObj.setCnsgneCntryCd( settingLength(cnsneeDtl.getCountryCode(),2));
-//					trnsprtDocClassObj.setCnsgnePstcd( settingLength(cnsneeDtl.getZip(),9));
-//					trnsprtDocClassObj.setCnsgnesCd( settingLength(cnsneeDtl.getCustomerCode(),17));
-//					trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(settingLength(cnsneeDtl.getCustomerName(),70));
-					
-				}
-			}
-
-			//===============================================
-			for (Consigner cnsnerDtls : consignerDtls) {
-
-				if ((blObj.getBl()).equals(cnsnerDtls.getBlNO())) {
-					String add = (String) cnsnerDtls.getAddressLine1() + cnsnerDtls.getAddressLine2()
-							+ (String) cnsnerDtls.getAddressLine3() + (String) cnsnerDtls.getAddressLine4();
-					// set all values in TrnsprtDoc Class Obj cnsgnrsName;
-					trnsprtDocClassObj.setCnsgnrStreetAddress(settingLength(add,70));
-					trnsprtDocClassObj.setCnsgnrsName(settingLength(cnsnerDtls.getCustomerName(),70));
-					trnsprtDocClassObj.setCnsgnrCity( settingLength(cnsnerDtls.getCity(),70));
-					trnsprtDocClassObj.setCnsgnrCntrySubDivName( settingLength(cnsnerDtls.getState(),35));  //Guru said to comment
-					trnsprtDocClassObj.setCnsgnrsCd( settingLength(cnsnerDtls.getCustomerCode(),17));
-					trnsprtDocClassObj.setCnsgnrCdTyp("");
-					 trnsprtDocClassObj.setCnsgnrCntrySubDivCd(blObj.getGstStateCode());
-					trnsprtDocClassObj.setCnsgnrCntryCd( settingLength(cnsnerDtls.getCountryCode(),2));
-					trnsprtDocClassObj.setCnsgnrPstcd( settingLength(cnsnerDtls.getZip(),9)); 
-//					trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(settingLength(cnsnerDtls.getCustomerName(),70));
-				}
-			}
-			trnsprtDoc.add(trnsprtDocClassObj);
-			mastrCnsgmtDec.setTrnsprtDoc(trnsprtDocClassObj);
-			houseCargoDecSDMObj.setTrnsprtDoc(trnsprtDoc);
-			
+		
 			//===============================================
 			
 			int j = 0 ;
@@ -1779,6 +1767,26 @@ public class CreatingJSON {
 			houseCargoDecSDMObj.setTrnsprtEqmt(trnsprtEqmt);
 
 			//===============================================
+			ItnrySDM itnryClassObj = new ItnrySDM();
+			if(blObj.getPortOfLoading()!= null && blObj.getPod()!= null) {
+				itnryClassObj.setPrtOfCallSeqNmbr(settingLength("1",5)); 
+			}else if (blObj.getPortOfLoading()!= null && blObj.getPod()!= null && blObj.getPortOfDestination() != null ) {
+				itnryClassObj.setPrtOfCallSeqNmbr(settingLength("2",5)); 		
+			}else if(blObj.getPortOfLoading()!= null && blObj.getPod()!= null && 
+					blObj.getPortOfDestination() != null && blObj.getPortOfDeschargedCfs() != null ) {
+				itnryClassObj.setPrtOfCallSeqNmbr(settingLength("3",5)); 
+			}
+			itnryClassObj.setNxtPrtOfCallCdd(settingLength(blObj.getNext_port_of_call_coded(),10));    //TODO  guru
+			itnryClassObj.setNxtPrtOfCallName(settingLength(blObj.getNext_port_of_call_name(),256));		//TODO  guru
+			itnryClassObj.setPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));			//TODO  guru
+			itnryClassObj.setPrtOfCallCdd(settingLength(blObj.getPod(),10));
+			itnryClassObj.setModeOfTrnsprt(settingLength(blObj.getMode_of_transport(),4));
+//			itnry.add(itnryClassObj);
+			mastrCnsgmtDec.setItnry(itnryClassObj);
+			houseCargoDecSDMObj.setItnry(itnry);
+//			itnryClassObj = null;
+			
+//===================================================================================================================
 			//HCCrgoSuprtDocsSDM crgoSuprtDocs = new HCCrgoSuprtDocsSDM(); 
 //			crgoSuprtDocs.setBnefcryCdpublic(settingLength("",35));  Guru said to comment
 //			crgoSuprtDocs.setDocRefNmbr(settingLength("",17));  Guru said to comment
@@ -1831,11 +1839,8 @@ public class CreatingJSON {
 //			mcAdtnlDec.add(null);
 			
 			//===============================================
-
 			houseCargoDec.add(houseCargoDecSDMObj);
-			
-
-			
+//===============================================================================================================================
 			for (ContainerDetails cntnerDtl : containerDtls) {
 
 //				System.out.println("   coneeDtls  " + i + ((String) cntnerDtl.getContainerSealNumber()));

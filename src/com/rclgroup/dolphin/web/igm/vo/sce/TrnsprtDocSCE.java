@@ -21,6 +21,7 @@ public class TrnsprtDocSCE {
 	private String typOfCd;
 	private String cnsgneStreetAddress;
 	private String cnsgneCity;
+	private String cnsgneCntrySubDivName;
 	private String cnsgneCntrySubDiv ;
 	private String cnsgneCntryCd ;
 	private String cnsgnePstcd ;
@@ -37,7 +38,7 @@ public class TrnsprtDocSCE {
 //	private String ucrTyp;
 //	private String ucrCd;
 //	private String amendment;
-	private String cnsgneCntrySubDivName;
+
 //	public String getAmendment() {
 //		return amendment;
 //	}
@@ -216,6 +217,13 @@ public class TrnsprtDocSCE {
 		this.cnsgneCity = cnsgneCity;
 	}
 
+	public String getCnsgneCntrySubDivName() {
+		return cnsgneCntrySubDivName;
+	}
+
+	public void setCnsgneCntrySubDivName(String cnsgneCntrySubDivName) {
+		this.cnsgneCntrySubDivName = cnsgneCntrySubDivName;
+	}
    //optional (Already in current IGM screen)
 //	public String getCnsgneCntrySubDivName() {
 //		return cnsgneCntrySubDivName;
@@ -239,14 +247,6 @@ public class TrnsprtDocSCE {
 //       //This value is come from BL Json object   "countryCode" (Already in current IGM screen)   mandatory.
 	public String getCnsgneCntryCd() {
 		return cnsgneCntryCd;
-	}
-
-	public String getCnsgneCntrySubDivName() {
-		return cnsgneCntrySubDivName;
-	}
-
-	public void setCnsgneCntrySubDivName(String cnsgneCntrySubDivName) {
-		this.cnsgneCntrySubDivName = cnsgneCntrySubDivName;
 	}
 
 	public void setCnsgneCntryCd(String cnsgneCntryCd) {

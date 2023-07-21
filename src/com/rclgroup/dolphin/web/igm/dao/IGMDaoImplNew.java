@@ -703,7 +703,11 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 //			objMod.setPort_of_receipt_name(rs.getString("PORT_OF_RECEIPT_NAME"));
 			objMod.setPan_of_notified_party(rs.getString("PAN_OF_NOTIFIED_PARTY"));
 			objMod.setUnit_of_weight(rs.getString("UNIT_OF_WEIGHT"));
-			objMod.setGross_volume(rs.getString("GROSS_VOLUME"));
+			if(null == rs.getString("GROSS_VOLUME")) {
+				objMod.setGross_volume("");
+			}else {
+				objMod.setGross_volume(rs.getString("GROSS_VOLUME"));
+			}
 			objMod.setCargo_msmt(rs.getInt("cargo_msmt"));
 			if(null == rs.getString("UNIT_OF_VOLUME")) {
 				objMod.setUnit_of_volume("");
@@ -776,7 +780,11 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setCargoNature("C");
 			objMod.setCargoMovmnt(rs.getString("cargo_movmnt"));
 			objMod.setDutyInr(rs.getString("DUTY_INR"));
-			objMod.setCarrierNo(rs.getString("ROAD_CARR_CODE"));
+			if(null == rs.getString("ROAD_CARR_CODE")) {
+				objMod.setCarrierNo("");
+			}else {
+				objMod.setCarrierNo(rs.getString("ROAD_CARR_CODE"));
+			}
 			objMod.setTpBondNo(rs.getString("ROAD_TP_BOND_NO"));
 			objMod.setNeCargoMovmnt(rs.getString("NE_CARGO_MOVMNT"));
 			objMod.setConsigneeName(rs.getString("CONSIGNEE_NAME"));

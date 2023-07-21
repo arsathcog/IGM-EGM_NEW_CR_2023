@@ -14,6 +14,7 @@ public class VoyageTransportEquipmentSDM {
 //	private String eventDt;
 	private String equipmentSealType;
 	private String equipmentSealNumber;
+	private String socFlag;
 //	private String otherEquipmentId;
 //	private String equipmentStatus;
 	
@@ -23,7 +24,7 @@ public class VoyageTransportEquipmentSDM {
 	private String stowagePositionOfContainer; 
 //	private String containerBondFlag;
 	
-	private String socFlag;
+
 
 	
 
@@ -114,7 +115,15 @@ public class VoyageTransportEquipmentSDM {
 	public void setEquipmentSealNumber(String equipmentSealNumber) {
 		this.equipmentSealNumber = equipmentSealNumber;
 	}
-//
+
+	public String getSocFlag() {
+		return socFlag;
+	}
+
+	public void setSocFlag(String socFlag) {
+		this.socFlag = socFlag;
+	}
+	
 //	public String getOtherEquipmentId() {
 //		return otherEquipmentId;
 //	}
@@ -171,13 +180,7 @@ public class VoyageTransportEquipmentSDM {
 //		this.containerBondFlag = containerBondFlag;
 //	}
 
-	public String getSocFlag() {
-		return socFlag;
-	}
 
-	public void setSocFlag(String socFlag) {
-		this.socFlag = socFlag;
-	}
 
 	
 	 
