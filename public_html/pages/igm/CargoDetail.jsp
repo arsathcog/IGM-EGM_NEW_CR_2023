@@ -23,7 +23,7 @@
 						</tr>
 						<tr>
 							<td><input type="text" class="seqCssNew" value="{{BLS[blIndex].masterBl}}" ng-model="selectedBL.masterBl"> 
-							    <input type="text"  class="seqCssNew" value="{{BLS[blIndex].masterBlDate}}" ng-model="selectedBL.BlDate"> </td>
+							    <input type="text"  class="seqCssNew" value="{{BLS[blIndex].BlDate}}" ng-model="selectedBL.BlDate"> </td>
 						</tr>
 						<tr>
 							<td>B/L NO & Date</td>
@@ -31,7 +31,7 @@
 						</tr>
 						<tr>
 							<td><input type="text"  class="seqCssNew" value="{{BLS[blIndex].bl}}" ng-model="selectedBL.bl" maxlength="20"> 
-							<input type="text"  class="seqCssNew" value="{{BLS[blIndex].BlDate}}" ng-model="selectedBL.masterBlDate" id="blNoDate" readonly="true" onclick="dateToCommon(this)" ng-change="setTwoNumberDecimal(this,blIndex,12,3,'MasterBl');"> </td>
+							<input type="text"  class="seqCssNew" value="{{BLS[blIndex].masterBlDate}}" ng-model="selectedBL.masterBlDate" id="blNoDate" readonly="true" onclick="dateToCommon(this)" ng-change="setTwoNumberDecimal(this,blIndex,12,3,'MasterBl');"> </td>
 						</tr>
 					</tbody>
 				</table>
