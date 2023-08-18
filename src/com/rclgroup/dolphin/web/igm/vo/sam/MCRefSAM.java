@@ -7,7 +7,7 @@ import com.rclgroup.dolphin.web.igm.vo.FiledValidation;
 @JsonPropertyOrder({"lineNo","mstrBlNo","mstrBlDt","consolidatedIndctr","prevDec","consolidatorPan"})
 public class MCRefSAM {
 	
-	private String lineNo;
+	private Integer lineNo;
 	private String mstrBlNo;
 	private String mstrBlDt ;
 	private String consolidatedIndctr;
@@ -15,17 +15,19 @@ public class MCRefSAM {
 	private String consolidatorPan;
 
 //Same as Item Number from current screen "Item Number"
-	public String getLineNo() {
-		return lineNo;
-	}
 
-	public void setLineNo(String lineNo) {
-		this.lineNo = lineNo;
-	}
 
    //Same as Item Number from current screen "BL#"
 	public String getMstrBlNo() {
 		return mstrBlNo;
+	}
+
+	public Integer getLineNo() {
+		return lineNo;
+	}
+
+	public void setLineNo(Integer lineNo) {
+		this.lineNo = lineNo;
 	}
 
 	public void setMstrBlNo(String mstrBlNo) {

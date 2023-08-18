@@ -3,7 +3,7 @@ package com.rclgroup.dolphin.web.igm.vo.sce;
 import com.rclgroup.dolphin.web.igm.vo.FiledValidation;
 
 public class MCRefSCE {
-	private String lineNo;
+	private Integer lineNo;
 	private String mstrBlNo;
 	private String mstrBlDt ;
 	private String consolidatedIndctr;
@@ -19,20 +19,24 @@ public class MCRefSCE {
 //			this.amendment = amendment;
 //		}
 //Same as Item Number from current screen "Item Number"
-	public String getLineNo() {
-		return lineNo;
-	}
 
-	public void setLineNo(String lineNo) {
-		/*
-		 * int i = Integer.parseInt(lineNo); if (1.0 < i || i < 9999999.0) { lineNo =
+	
+		/* int i = Integer.parseInt(lineNo); if (1.0 < i || i < 9999999.0) { lineNo =
 		 * Integer.toString(i); lineNo = FiledValidation.isNullAndSetlength(lineNo,
 		 * 100); }
 		 */
+
+	
+   //Same as Item Number from current screen "BL#"
+
+	public Integer getLineNo() {
+		return lineNo;
+	}
+
+	public void setLineNo(Integer lineNo) {
 		this.lineNo = lineNo;
 	}
 
-   //Same as Item Number from current screen "BL#"
 	public String getMstrBlNo() {
 		return mstrBlNo;
 	}

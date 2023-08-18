@@ -808,10 +808,10 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 				objMod.setHbl(false);
 			}
 			objMod.setBlCriteria("MBL"); 
-			objMod.setPort_of_receipt(rs.getString("DN_PLR")); 
-			objMod.setPort_of_acceptance(rs.getString("DN_PLD"));
+			objMod.setPort_of_receipt(rs.getString("DN_PLD")); 
+			objMod.setPort_of_acceptance(rs.getString("DN_PLR"));
 			objMod.setDn_plr(rs.getString("DN_PLR")); 
-			objMod.setPort_of_acceptance(rs.getString("DN_PLD"));
+			objMod.setPort_of_acceptance(rs.getString("DN_PLR"));
 			objMod.setDn_pld(rs.getString("DN_PLD"));
 			objMod.setAcceptanceName(rs.getString("ACCEPTANCE_NAME"));
 			objMod.setRecieptName(rs.getString("RECIEPT_NAME"));

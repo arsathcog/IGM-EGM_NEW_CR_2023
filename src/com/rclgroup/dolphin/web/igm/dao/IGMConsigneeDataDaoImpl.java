@@ -127,8 +127,11 @@ public class IGMConsigneeDataDaoImpl extends AncestorJdbcDao implements IGMConsi
 			consignee.setPortOfDischarge(rs.getString("PORT_OF_DISCHARGE"));
 			consignee.setConsigneCheckBox(rs.getString("CONSIGNEE_CHECK_BOX"));
 			consignee.setConsigneFwr(rs.getString("CONSIGNEE_FWR"));
-			consignee.setStateName(rs.getString("STATE_NAME"));
-			
+			if(null != rs.getString("STATE") || ("").equals(rs.getString("STATE"))) {
+				consignee.setStateName(rs.getString("STATE_NAME"));
+			}else {
+				consignee.setStateName("");
+			}
 
 			return consignee;
 		}

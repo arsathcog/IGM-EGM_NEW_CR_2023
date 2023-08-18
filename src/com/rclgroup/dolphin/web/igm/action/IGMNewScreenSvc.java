@@ -1191,7 +1191,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 //			e.printStackTrace();
 //		}
 	
-         System.out.println("manifestFile"+empJson);
+//         System.out.println("manifestFile"+empJson);
      	try {
 			LinkedHashMap<String, Object> jsonObj = new LinkedHashMap<>();
 			jsonObj.put("jsonFile", manifestFile);
