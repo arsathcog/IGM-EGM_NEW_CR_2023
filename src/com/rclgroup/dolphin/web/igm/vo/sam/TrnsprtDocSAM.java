@@ -311,7 +311,7 @@ public class TrnsprtDocSAM {
 		}
 	      
 		public void setNotfdPartyCntrySubDiv(String notfdPartyCntrySubDiv) {
-			notfdPartyCntrySubDivName = FiledValidation.isNullAndSetlength(notfdPartyCntrySubDivName, 9);
+	//		notfdPartyCntrySubDivName = FiledValidation.isNullAndSetlength(notfdPartyCntrySubDivName, 9);
 			this.notfdPartyCntrySubDiv = notfdPartyCntrySubDiv;
 		}
 
