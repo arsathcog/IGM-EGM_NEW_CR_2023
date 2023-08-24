@@ -421,6 +421,9 @@ public class ImportGeneralManifestUim extends PaginationForm {
 	
 		private String hsCd;
 		
+		private String podScreen;
+		
+		
 	public String getFileTypeEgm() {
 		return fileTypeEgm;
 	}
@@ -2120,6 +2123,14 @@ public class ImportGeneralManifestUim extends PaginationForm {
 
 	public void setHsCd(String hsCd) {
 		this.hsCd = hsCd;
+	}
+	
+	public String getPodScreen() {
+		return podScreen;
+	}
+
+	public void setPodScreen(String podScreen) {
+		this.podScreen = podScreen;
 	}
 
 	public String getFlagDg() {

@@ -736,6 +736,8 @@ public class ImportGeneralManifestMod implements Cloneable {
 	
 	private String blDischargedStatus;
 	
+	private String trshprFlag;
+	
 	private List<ImportGeneralManifestUim> hblArr = new ArrayList<>();
 	
 	public List<ImportGeneralManifestUim> getHblArr() {
@@ -3908,8 +3910,16 @@ public class ImportGeneralManifestMod implements Cloneable {
 
 	public void setFlagRobDischarge(String flagRobDischarge) {
 		this.flagRobDischarge = flagRobDischarge;
-	}
+	}	
 	
+	public String getTrshprFlag() {
+		return trshprFlag;
+	}
+
+	public void setTrshprFlag(String trshprFlag) {
+		this.trshprFlag = trshprFlag;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

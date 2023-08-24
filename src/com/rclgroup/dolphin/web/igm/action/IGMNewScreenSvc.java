@@ -388,6 +388,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		mapParam.put(ImportGeneralManifestDao.KEY_IGM_CONSIGNEE_COUNTRYCODE, aobjForm.getConsigneeCountryCode());
 		mapParam.put(ImportGeneralManifestDao.KEY_IGM_CONSIGNEE_STATE, aobjForm.getConsigneeState());
 		mapParam.put(ImportGeneralManifestDao.KEY_IGM_CONTAINER_NUM, aobjForm.getContainer());
+		mapParam.put(ImportGeneralManifestDao.KEY_IGM_CONTAINER_NUM, aobjForm.getPodScreen());
 		return mapParam;
 	}
 
@@ -953,7 +954,6 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 			List<ImportGeneralManifestMod> insertBL,List<ImportGeneralManifestMod> insertBLFtch) {
 
 		System.out.println("getSaveDataList() Start.");
-
 		List<ImportGeneralManifestMod> bl = new ArrayList<ImportGeneralManifestMod>();
 
 		bl = blList.stream().filter(c -> c.getSaveFlags().trim().equals("D")).collect(Collectors.toList());
@@ -968,7 +968,6 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		insertBLFtch.addAll(bl);
 		bl.clear(); 
 		System.out.println("getSaveDataList() end.");
-
 	}
 
 	private ActionForward getContainerDetails(ActionMapping mapping, ActionForm form, HttpServletRequest request,
@@ -1071,6 +1070,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 
 		List<ImportGeneralManifestMod> blList = saveParam.getBls();
 
+		
 		List<IGMPersonOnBoardMod> personOnBoardMod = mapper.readValue(dataPersonOnBord,
 				new TypeReference<List<IGMPersonOnBoardMod>>() {
 				});
@@ -1289,7 +1289,9 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 					mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, mod.getVessel());
 					mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, mod.getVoyage());
 					mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, objForm.getSavedBlList());
-
+					mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD_SCREEN, objForm.getPodScreen());
+					System.out.println( objForm.getPodScreen());
+//
 					List<ImportGeneralManifestMod> blObjTmp = new LinkedList<ImportGeneralManifestMod>();
 
 				    mapSaveBL = objDao.getBLData(mapParam,

@@ -501,7 +501,7 @@ public class CreatingJSON {
 			MCRefSAM mCRefClassObj = new MCRefSAM();
 			mCRefClassObj.setLineNo(Integer.parseInt(blObj.getItemNumber())); // Line 60    
 			mCRefClassObj.setMstrBlNo(settingLength(blObj.getBl(),20)); // Line 53
-			mCRefClassObj.setMstrBlDt(blObj.getMasterBlDate()); // Line 53
+			mCRefClassObj.setMstrBlDt(removeSlash(blObj.getMasterBlDate())); // Line 53
 			try {
 				if( blObj.getHblArr().isEmpty() || blObj.isHbl()==false  ) {
 					 mCRefClassObj.setConsolidatedIndctr("S");// Line 76   //TODO
@@ -584,25 +584,29 @@ public class CreatingJSON {
 			mastrCnsgmtDec.setLocCstm(locCstmClassObj);
 			houseCargoDecSAMObj.setLocCstm(locCstmClassObj);
 			
-//		------------------------------------------------------------------------	
+//		------------------------------*TrnshprSAM*------------------------------------------	
 			
-
-			TrnshprSAM trnshprObj = new TrnshprSAM();
-			if(blObj.getMode_of_transport()== "Rail" ) {
-				trnshprObj.setTrnshprCode(blObj.getCarrierNo()); 
-				trnshprObj.setTrnshprBond(settingLength(blObj.getTpBondNo(),10));	
-			}else {
-				
-				if(null == blObj.getCarrierNo()) {
-					trnshprObj.setTrnshprCode(""); 
-				}else {
+			if(blObj.getPod().equals(service.getPod()) && !blObj.getPortOfDestination().equals(blObj.getPod()) && blObj.getTrshprFlag().equals("1")  ) {
+				TrnshprSAM trnshprObj = new TrnshprSAM();
+				if(blObj.getMode_of_transport()== "Rail" ) {
 					trnshprObj.setTrnshprCode(blObj.getCarrierNo()); 
-				}
-				trnshprObj.setTrnshprBond(settingLength(blObj.getTpBondNo(),10));	
-			}		 //TODO  guru		
-			trnshpr.add(trnshprObj);
-			mastrCnsgmtDec.setTrnshpr(trnshprObj);	
-//		----------------------------------------------------------------------------------------	
+					trnshprObj.setTrnshprBond(settingLength(blObj.getTpBondNo(),10));	
+				}else {
+					
+					if(null == blObj.getCarrierNo()) {
+						trnshprObj.setTrnshprCode(""); 
+					}else {
+						trnshprObj.setTrnshprCode(blObj.getCarrierNo()); 
+					}
+					trnshprObj.setTrnshprBond(settingLength(blObj.getTpBondNo(),10));	
+				}		 //TODO  guru		
+				trnshpr.add(trnshprObj);
+				mastrCnsgmtDec.setTrnshpr(trnshprObj);
+			}
+		
+//_________________________________________________________________________________________________________			
+			
+//------------------------------------*TrnsprtDocSAM*----------------------------------------------------	
 
 			TrnsprtDocSAM trnsprtDocClassObj = new TrnsprtDocSAM();
 			trnsprtDocClassObj.setPrtOfAcptCdd( settingLength(blObj.getPort_of_acceptance(),6));							//TODO  guru
@@ -685,25 +689,28 @@ public class CreatingJSON {
 					}else {
 						for (Consignee cnsneeDtl : consigneeDtls) {
 							trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
-							trnsprtDocClassObj.setTypOfCd( settingLength(cnsneeDtl.getConsignePan(),30));
+							trnsprtDocClassObj.setTypOfCd( settingLength("PAN",30));
 						}
 					}
 				}catch (Exception e) {
 					for (Consignee cnsneeDtl : consigneeDtls) {
 						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
 						trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(cnsneeDtl.getConsignePan(),30));
-						trnsprtDocClassObj.setTypOfCd( settingLength(cnsneeDtl.getConsignePan(),30));
+						trnsprtDocClassObj.setTypOfCd( settingLength("IEC",30));
 					}
 				}
 				}
 			}
 //			trnsprtDoc.add(trnsprtDocClassObj);
 			mastrCnsgmtDec.setTrnsprtDoc(trnsprtDocClassObj);
-//		--------------------------------------------------------------------------------------------------	
+//_________________________________________________________________________________________________________			
+			
+			
+//------------------------------------------------*TrnsprtDocMsrSAM*--------------------------------------------------	
 			
 			TrnsprtDocMsrSAM trnsprtDocMsrClassObj = new TrnsprtDocMsrSAM();
 			trnsprtDocMsrClassObj.setNmbrOfPkgs(settingLength(blObj.getTotal_number_of_packages(),9));  	
-			trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getPackage_kind());
+			trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getType_of_package());
 //			trnsprtDocMsrClassObj.setMarksNoOnPkgs(settingLength("",512)); 
 			trnsprtDocMsrClassObj.setGrossWeight(settingLengthForDouble(blObj.getGrosWeight(),12,3));    //TODO  	
 			trnsprtDocMsrClassObj.setUnitOfWeight(settingLength("KGS",3));			 
@@ -718,8 +725,9 @@ public class CreatingJSON {
 			if(! "".equals(trnsprtDocMsrClassObj.getGrossVolume())&& trnsprtDocMsrClassObj.getGrossVolume() != null ) {
 				trnsprtDocMsrClassObj.setUnitOfVolume(settingLength("CBM",3));
 			}
+//_________________________________________________________________________________________________________			
 			
-//		----------------------------------------------------------------------------------------
+//------------------------------------------*ItemDtlsSAM*----------------------------------------------
 
 			if(mCRefClassObj.getConsolidatedIndctr().equals("S")) {
 				ItemDtlsSAM itemDtlsClassObj = new ItemDtlsSAM();
@@ -758,8 +766,9 @@ public class CreatingJSON {
 					}
 				}
 			}
+//_________________________________________________________________________________________________________			
 		
-//		----------------------------------------------------------------------------------------
+//----------------------------------------*TrnsprtEqmtSAM*------------------------------------------------
 			int j = 0 ;
 			Set<String> containseSets= new HashSet<>();
 			for (ContainerDetails ctnerDtl : containerDtls) {
@@ -788,9 +797,10 @@ public class CreatingJSON {
 				}
 			}  
 			mastrCnsgmtDec.setTrnsprtEqmt(trnsprtEqmt);
+//_________________________________________________________________________________________________________			
 			
 			//Dep ends on Rob
-//			--------------------------------------------------------------
+//-----------------------------------------*ItnrySAM*---------------------------------------------------------------------
 
 
 			ItnrySAM itnryClassObj = new ItnrySAM();
@@ -813,7 +823,9 @@ public class CreatingJSON {
 			
 			mastrCnsgmtDec.setItnry(itnryClassObj);
 			houseCargoDecSAMObj.setItnry(itnry);
-//			--------------------------------------------------------------
+//_________________________________________________________________________________________________________			
+			
+//--------------------------------------*PrevRefSAM*-------------------------------------------------------
 			try {
 			if((!blObj.getMcin().equals(""))|| (!blObj.getPcin().equals(""))) {
 			PrevRefSAM prevRefObj = new PrevRefSAM();
@@ -842,8 +854,9 @@ public class CreatingJSON {
 //			prevRefObj.setTypOfPackage(settingLength(blObj.getType_of_package(),4));
 
 //			prevRef.add(prevRefObj);
+//_________________________________________________________________________________________________________			
 			
-//		--------------------------------------------------------------------------------------------------			
+//----------------------------------*HCRefSAM*----------------------------------------------------------------			
 
 			List<HCRefSAM> hCRef = new LinkedList<HCRefSAM>();
 			HCRefSAM hCRefObj = new HCRefSAM();
@@ -908,7 +921,9 @@ public class CreatingJSON {
 //			hcAdtnlDec.add(adtnlDec);
 //			houseCargoDecSAMObj.setHcAdtnlDec(hcAdtnlDec);
 //			houseCargoDec.add(houseCargoDecSAMObj);
-//		--------------------------------------------------------	
+//_________________________________________________________________________________________________________			
+
+//--------------------------------------------*HCPrevRefSAM*---------------------------------------------------------------	
 			HCPrevRefSAM PrevRef =new HCPrevRefSAM();
 			PrevRef.setCinTyp("");
 //			PrevRef.setCsnDt(generatedFileNameOfJson);
@@ -923,8 +938,9 @@ public class CreatingJSON {
 //			PrevRef.setTypOfPackage(pol);
 //			hcPrevRef.add(PrevRef);
 //			houseCargoDecSAMObj.setHcPrevRef(hcPrevRef);	
+//_________________________________________________________________________________________________________			
 			
-//		-------------------------------------------------------	
+//------------------------------------------------------------------------------------------------------------	
 //			MCSuprtDocsSAM mcSuprtDocs = new MCSuprtDocsSAM ();  		
 //			mcSuprtDocs.setBnefcryCdpublic(settingLength("",35));  Guru said to comment
 //			mcSuprtDocs.setDocRefNmbr(settingLength("",17));  Guru said to comment 
@@ -951,7 +967,7 @@ public class CreatingJSON {
 
 		
 
-// -----------------------------------------------------------------------------------
+// --------------------------------------*VoyageTransportEquipmentSAM*---------------------------------------------
 			
 			for (ContainerDetails cntnerDtl : containerDtls) {
 
@@ -994,8 +1010,9 @@ public class CreatingJSON {
 			
 
 		}
+//_________________________________________________________________________________________________________			
 		
-//		======================== end of loop ======================================
+//	======================== end of loop ======================================
 		
 		
 		for(int g=0;g<personOnBoardMod.size();g++) {
@@ -1611,11 +1628,9 @@ public class CreatingJSON {
 				}
 //				trnsprtDocClassObj.setPanOfNotfdParty( settingLength(blObj.getPan_of_notified_party(),17));
 
-				//===============================================
+//==================================================================================================================
 		
-			
-				 
-				//===============================================
+//===============================================================================================================
 				for (Consignee cnsneeDtl : consigneeDtls) {
 
 					if ((blObj.getBl()).equals(cnsneeDtl.getBlNO()))
@@ -2493,7 +2508,6 @@ public class CreatingJSON {
 		digSignClassObj.setSignerVersion("");
 		digSignClassObj.setStartCertificate("");
 		digSignClassObj.setStartSignature("");
-		
 		
 		JsonMainObjctSEI org = new JsonMainObjctSEI();
 		 
@@ -6685,7 +6699,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			MCRefSCE mCRefClassObj = new MCRefSCE();
 			mCRefClassObj.setLineNo(Integer.parseInt(blObj.getItemNumber())); // Line 60
 			mCRefClassObj.setMstrBlNo(settingLength(blObj.getBl(),20)); // Line 53
-			mCRefClassObj.setMstrBlDt(blObj.getMasterBlDate()); // Line 53
+			mCRefClassObj.setMstrBlDt(removeSlash(blObj.getMasterBlDate())); // Line 53
 			mCRefClassObj.setConsolidatorPan("PAN:"+settingLength(blObj.getAgentCode(),4));// Line 76
 			
 			if( null== blObj.getMcin() ||blObj.getMcin().equals("") && null== blObj.getPcin() || blObj.getPcin().equals("")) {
@@ -6779,6 +6793,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			houseCargoDecSCEObj.setLocCstm(locCstm);
 		
 			// ------------------------------------------
+			if(blObj.getPod().equals(service.getPod()) && !blObj.getPortOfDestination().equals(blObj.getPod()) && blObj.getTrshprFlag().equals("1")  ) {
 			TrnshprSCE TrnshprObj = new TrnshprSCE(); // New added
 			if(blObj.getMode_of_transport()== "Rail" ) {
 				TrnshprObj.setTrnsprtCod(blObj.getCarrierNo()); 
@@ -6793,11 +6808,11 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			trnshpr.add(TrnshprObj);
 			mastrCnsgmtDec.setTrnshpr(TrnshprObj);
 			houseCargoDecSCEObj.setTrnshpr(trnshpr);
-			
+			}
 			// ---------------------------------------------------------
 			TrnsprtDocMsrSCE trnsprtDocMsrClassObj = new TrnsprtDocMsrSCE();
 			trnsprtDocMsrClassObj.setNmbrOfPkgs( settingLength(blObj.getTotal_number_of_packages(),8)); 
-			trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getPackage_kind());
+			trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getType_of_package());
 			trnsprtDocMsrClassObj.setGrossWeight(settingLengthForDouble(blObj.getGrosWeight(),12,3));
 //			trnsprtDocMsrClassObj.setNetWeight(settingLengthForDouble(blObj.getNetWeight(),12,3));  no need
 			trnsprtDocMsrClassObj.setUnitOfWeight(settingLength("KGS",3));
@@ -6867,7 +6882,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 						for (Consignee cnsneeDtl : consigneeDtls) {
 							trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
 							trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(cnsneeDtl.getConsignePan(),30));
-							trnsprtDocClassObj.setTypOfCd( settingLength(cnsneeDtl.getConsignePan(),30));
+							trnsprtDocClassObj.setTypOfCd( settingLength("PAN",30));
 						}
 						
 					}
@@ -6875,7 +6890,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 					for (Consignee cnsneeDtl : consigneeDtls) {
 						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
 						trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(cnsneeDtl.getConsignePan(),30));
-						trnsprtDocClassObj.setTypOfCd( settingLength(cnsneeDtl.getConsignePan(),30));
+						trnsprtDocClassObj.setTypOfCd( settingLength("IEC",30));
 					}
 				  }
 				}

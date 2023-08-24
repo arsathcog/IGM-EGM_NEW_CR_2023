@@ -531,6 +531,10 @@ public interface ImportGeneralManifestDao {
 	//The constatnt for count of the saved and unsaved bl 
 	public static final String KEY_IGM_BL_COUNT = "P_I_V_BL_COUNT";
 	
+	public static final String KEY_IGM_POD_SCREEN = "P_I_V_POD_SCREEN";
+	
+	
+	
 	//BL SECTION END
 	
 	

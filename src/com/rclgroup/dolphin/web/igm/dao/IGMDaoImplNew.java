@@ -528,6 +528,8 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 				{ KEY_IGM_DEPOT, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_DEPOT) },
 				{ KEY_IGM_POL_TERMINAL, BLANK + ORACLE_VARCHAR, PARAM_IN,
 						(String) amapParam.get(KEY_IGM_POL_TERMINAL) },
+				{ KEY_IGM_POD_SCREEN, BLANK + ORACLE_VARCHAR, PARAM_IN,
+							(String) amapParam.get(KEY_IGM_POD_SCREEN) },
 				{ KEY_IGM_DIRECTION, BLANK + ORACLE_VARCHAR, PARAM_IN, null },
 				{ KEY_IGM_ERROR, BLANK + ORACLE_VARCHAR, PARAM_OUT, BLANK } };
 
@@ -818,7 +820,8 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setStowagePosition(rs.getString("STOWAGE_POSITION"));
 			objMod.setGstStateCode(rs.getString("GST_STATE_CODE"));
 			objMod.setMasterBlDate(rs.getString("MASTER_BL_DATE"));
-	
+			objMod.setTrshprFlag(rs.getString("TRNSHPR_FLAG"));
+			
 			return objMod;
 		}
 	}
@@ -1021,6 +1024,8 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 				{ KEY_IGM_DEPOT, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_DEPOT) },
 				{ KEY_IGM_POL_TERMINAL, BLANK + ORACLE_VARCHAR, PARAM_IN,
 						(String) amapParam.get(KEY_IGM_POL_TERMINAL) },
+				{ KEY_IGM_POD_SCREEN, BLANK + ORACLE_VARCHAR, PARAM_IN,
+							(String) amapParam.get(KEY_IGM_POD_SCREEN) },
 				{ KEY_IGM_DIRECTION, BLANK + ORACLE_VARCHAR, PARAM_IN, null},
 				{ KEY_IGM_ERROR, BLANK + ORACLE_VARCHAR, PARAM_OUT, BLANK } };
 
