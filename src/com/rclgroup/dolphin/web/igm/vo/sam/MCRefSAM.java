@@ -47,9 +47,10 @@ public class MCRefSAM {
 			}else if(mstrBlDt.contains("/")) {
 				this.mstrBlDt = mstrBlDt;
 			}else if(mstrBlDt.contains("/")) {
-				this.mstrBlDt = mstrBlDt;
+				this.mstrBlDt = mstrBlDt; //29122020
 			}else {
-				this.mstrBlDt = mstrBlDt.substring(0,4)+""+mstrBlDt.substring(4,6)+""+mstrBlDt.substring(6,8);
+				this.mstrBlDt = mstrBlDt.substring(4,8)+""+mstrBlDt.substring(2,4)+""+mstrBlDt.substring(0,2);
+				
 			}
 			}catch (Exception e) {
 				return;

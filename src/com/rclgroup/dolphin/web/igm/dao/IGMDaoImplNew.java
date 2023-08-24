@@ -5,7 +5,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -654,6 +657,8 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 		public Object mapRow(ResultSet rs, int row) throws SQLException {
 			// System.out.println("#IGMLogger mapRow() started..");
 			ImportGeneralManifestMod objMod = new ImportGeneralManifestMod();
+		
+			 
 			objMod.setIsBlSave(String.valueOf(isSaved));
 			objMod.setService(rs.getString("SERVICE"));
 			objMod.setBl(rs.getString("BL_NO"));
@@ -819,7 +824,23 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setRecieptName(rs.getString("RECIEPT_NAME"));
 			objMod.setStowagePosition(rs.getString("STOWAGE_POSITION"));
 			objMod.setGstStateCode(rs.getString("GST_STATE_CODE"));
+
+			 SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
+		     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMdd");
+			if(rs.getString("MASTER_BL_DATE").contains("/")) {
 			objMod.setMasterBlDate(rs.getString("MASTER_BL_DATE"));
+			}else {
+				 Date date;
+				try {
+					date = inputFormat.parse(rs.getString("MASTER_BL_DATE"));
+					 String formattedDate = outputFormat.format(date);
+					 objMod.setMasterBlDate(formattedDate);
+				} catch (ParseException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		        
+			}
 			objMod.setTrshprFlag(rs.getString("TRNSHPR_FLAG"));
 			
 			return objMod;
