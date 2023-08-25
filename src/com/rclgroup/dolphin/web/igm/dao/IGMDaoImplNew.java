@@ -777,7 +777,11 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setMultipalPakages(rs.getString("MULTIPAL_PAKAGES"));
 			objMod.setCbm(rs.getString("CBM"));
 			objMod.setHightValue(rs.getString("HIGHT_VALUE"));
-			objMod.setGrosWeight(rs.getString("GROS_WEIGHT"));
+			if(null != rs.getString("GROS_WEIGHT")  || !("").equals( rs.getString("GROS_WEIGHT"))) {
+				objMod.setGrosWeight(rs.getString("GROS_WEIGHT"));
+			}else {
+				objMod.setGrosWeight(rs.getString(""));
+			}		
 			objMod.setUnit(rs.getString("UNIT"));
 			objMod.setVolume(rs.getString("VOLUME"));
 			objMod.setBlVersion(rs.getString("BL_VERSION"));

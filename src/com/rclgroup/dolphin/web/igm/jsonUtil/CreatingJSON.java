@@ -717,7 +717,7 @@ public class CreatingJSON {
 //			trnsprtDocMsrClassObj.setNetWeight(settingLengthForDouble(blObj.getNetWeight(),12,3));				 //TODO  guru	
 //			trnsprtDocMsrClassObj.setInvoiceValueOfCnsgmt(settingLengthForDouble(blObj.getInvoiceValueFc(),16,2)); Guru said to comment // not cleared by Guru    //TODO  guru	
 //			trnsprtDocMsrClassObj.setCrncyCd(settingLength(blObj.getCurrency(),3));      Guru said to comment	 
-
+			
 			
 			if(blObj.getCargo_msmt() > 0) {
 				trnsprtDocMsrClassObj.setGrossVolume(settingLengthForDouble(blObj.getGross_volume(),12,3));
@@ -744,7 +744,7 @@ public class CreatingJSON {
 													//TODO  guru
 				itemDtlsClassObj.setNmbrOfPkgs( settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6)); 
 				
-				itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getPackage_kind(),3));
+				itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getType_of_package(),3));
 				
 
 				itemDtls.add(itemDtlsClassObj);
@@ -6841,7 +6841,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 					itemDtlsClassObj.setImdgCd( settingLength("ZZZ",3));	
 			}
 			itemDtlsClassObj.setNmbrOfPkgs(settingLength(blObj.getTotal_number_of_packages(),8)); 
-			itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getPackage_kind(),3));
+			itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getType_of_package(),3));
 			itemDtlsClassObj.setHsCd(blObj.getCommdity_code());
 			itemDtls.add(itemDtlsClassObj);
 			mastrCnsgmtDec.setItemDtls(itemDtlsClassObj);
@@ -6870,7 +6870,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 					trnsprtDocClassObj.setNotfdPartyStreetAddress(settingLength(add,256));
 					trnsprtDocClassObj.setNotfdPartyCity( settingLength(notyObj.getCity(),70));
 					trnsprtDocClassObj.setNotfdPartyCntrySubDiv(settingLength(blObj.getGstStateCode(),35));
-					trnsprtDocClassObj.setNotfdPartyCntrySubDivName( settingLength(notyObj.getState(),35)); // will be provided by customer
+					trnsprtDocClassObj.setNotfdPartyCntrySubDivName( settingLength(notyObj.getStateName(),35)); // will be provided by customer
 					trnsprtDocClassObj.setNotfdPartyCntryCd( settingLength(notyObj.getCountryCode(),2));
 					trnsprtDocClassObj.setNotfdPartyPstcd( settingLength(notyObj.getZip(),9));
 					try {

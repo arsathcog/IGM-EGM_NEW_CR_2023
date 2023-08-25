@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.rclgroup.dolphin.web.igm.vo.FiledValidation;
 
 
-@JsonInclude(JsonInclude.Include.NON_NULL)  
+
 public class TrnsprtDocMsrSAM {
 	
 	private String nmbrOfPkgs = null;
