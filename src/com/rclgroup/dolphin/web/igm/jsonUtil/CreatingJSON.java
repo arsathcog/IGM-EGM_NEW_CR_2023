@@ -712,7 +712,11 @@ public class CreatingJSON {
 			trnsprtDocMsrClassObj.setNmbrOfPkgs(settingLength(blObj.getTotal_number_of_packages(),9));  	
 			trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getType_of_package());
 //			trnsprtDocMsrClassObj.setMarksNoOnPkgs(settingLength("",512)); 
-			trnsprtDocMsrClassObj.setGrossWeight(settingLengthForDouble(blObj.getGrosWeight(),12,3));    //TODO  	
+			if(null != blObj.getGrosWeight() || ("").equals(blObj.getGrosWeight())) {
+				trnsprtDocMsrClassObj.setGrossWeight(settingLengthForDouble(blObj.getGrosWeight(),12,3));
+			}else {
+				trnsprtDocMsrClassObj.setGrossWeight("");
+			}   //TODO  	
 			trnsprtDocMsrClassObj.setUnitOfWeight(settingLength("KGS",3));			 
 //			trnsprtDocMsrClassObj.setNetWeight(settingLengthForDouble(blObj.getNetWeight(),12,3));				 //TODO  guru	
 //			trnsprtDocMsrClassObj.setInvoiceValueOfCnsgmt(settingLengthForDouble(blObj.getInvoiceValueFc(),16,2)); Guru said to comment // not cleared by Guru    //TODO  guru	
@@ -1682,7 +1686,12 @@ public class CreatingJSON {
 			TrnsprtDocMsrSDM trnsprtDocMsrClassObj = new TrnsprtDocMsrSDM();
 			trnsprtDocMsrClassObj.setNmbrOfPkgs(settingLength(blObj.getTotal_number_of_packages(),8));
 			trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getPackage_kind());
-			trnsprtDocMsrClassObj.setGrossWeight(settingLengthForDouble(blObj.getGrosWeight(),12,3));
+			if(null != blObj.getGrosWeight() || ("").equals(blObj.getGrosWeight())) {
+				trnsprtDocMsrClassObj.setGrossWeight(settingLengthForDouble(blObj.getGrosWeight(),12,3));
+			}else {
+				trnsprtDocMsrClassObj.setGrossWeight("");
+			}
+			
 //			trnsprtDocMsrClassObj.setNetWeight(settingLengthForDouble(blObj.getNetWeight(),12,3));
 			trnsprtDocMsrClassObj.setUnitOfWeight(settingLength("KGS",3));
 //			trnsprtDocMsrClassObj.setInvoiceValueOfCnsgmt(settingLengthForDouble(blObj.getInvoiceValueFc(),16,2)); Guru said to comment //not cleared by Guru
@@ -6813,7 +6822,11 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			TrnsprtDocMsrSCE trnsprtDocMsrClassObj = new TrnsprtDocMsrSCE();
 			trnsprtDocMsrClassObj.setNmbrOfPkgs( settingLength(blObj.getTotal_number_of_packages(),8)); 
 			trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getType_of_package());
-			trnsprtDocMsrClassObj.setGrossWeight(settingLengthForDouble(blObj.getGrosWeight(),12,3));
+			if(null != blObj.getGrosWeight() || ("").equals(blObj.getGrosWeight())) {
+				trnsprtDocMsrClassObj.setGrossWeight(settingLengthForDouble(blObj.getGrosWeight(),12,3));
+			}else {
+				trnsprtDocMsrClassObj.setGrossWeight("");
+			}
 //			trnsprtDocMsrClassObj.setNetWeight(settingLengthForDouble(blObj.getNetWeight(),12,3));  no need
 			trnsprtDocMsrClassObj.setUnitOfWeight(settingLength("KGS",3));
 //			trnsprtDocMsrClassObj.setInvoiceValueOfCnsgmt(settingLengthForDouble(blObj.getInvoiceValueFc(),16,2)); // not cleared by Guru
