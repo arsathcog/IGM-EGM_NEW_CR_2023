@@ -75,10 +75,22 @@ public class MCRefSCE {
 	}
 
 	public void setMstrBlDt(String mstrBlDt) {
-	
+		try {
+			if(mstrBlDt == null || mstrBlDt.equals("")) {
 				this.mstrBlDt = mstrBlDt;
-	
+			}else if(mstrBlDt.contains("/")) {
+				this.mstrBlDt = mstrBlDt;
+			}else if(mstrBlDt.contains("/")) {
+				this.mstrBlDt = mstrBlDt; //29122020
+			}else {
+				this.mstrBlDt = mstrBlDt.substring(4,8)+""+mstrBlDt.substring(2,4)+""+mstrBlDt.substring(0,2);
+				
+			}
+			}catch (Exception e) {
+				return;
+			}
 	}
+
 
 	public void setConsolidatedIndctr(String consolidatedIndctr) {
 		consolidatedIndctr = FiledValidation.isNullAndSetlength(consolidatedIndctr, 4);

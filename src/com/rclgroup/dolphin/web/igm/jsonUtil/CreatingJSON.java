@@ -684,8 +684,8 @@ public class CreatingJSON {
 					try {
 					if(!notyObj.getNotifyPan().equals("")) {
 						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(notyObj.getNotifyPan(),17));
-						trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(notyObj.getNotifyPan(),30));
-						trnsprtDocClassObj.setTypOfCd( settingLength(notyObj.getNotifyPan(),30));
+						trnsprtDocClassObj.setTypOfNotfdPartyCd("PAN");
+						trnsprtDocClassObj.setTypOfCd( settingLength("PAN",30));
 					}else {
 						for (Consignee cnsneeDtl : consigneeDtls) {
 							trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
@@ -695,7 +695,7 @@ public class CreatingJSON {
 				}catch (Exception e) {
 					for (Consignee cnsneeDtl : consigneeDtls) {
 						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
-						trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(cnsneeDtl.getConsignePan(),30));
+						trnsprtDocClassObj.setTypOfNotfdPartyCd("IEC");
 						trnsprtDocClassObj.setTypOfCd( settingLength("IEC",30));
 					}
 				}
@@ -6876,12 +6876,12 @@ ImportGeneralManifestMod objForm = blList.get(0);
 					try {
 					if(!notyObj.getNotifyPan().equals("")) {
 						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(notyObj.getNotifyPan(),17));
-						trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(notyObj.getNotifyPan(),30));
-						trnsprtDocClassObj.setTypOfCd( settingLength(notyObj.getNotifyPan(),30));
+						trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength("PAN",30));
+						trnsprtDocClassObj.setTypOfCd( settingLength("PAN",30));
 					}else {
 						for (Consignee cnsneeDtl : consigneeDtls) {
 							trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
-							trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(cnsneeDtl.getConsignePan(),30));
+							trnsprtDocClassObj.setTypOfNotfdPartyCd("PAN");
 							trnsprtDocClassObj.setTypOfCd( settingLength("PAN",30));
 						}
 						
@@ -6889,7 +6889,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 				}catch (Exception e) {
 					for (Consignee cnsneeDtl : consigneeDtls) {
 						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
-						trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength(cnsneeDtl.getConsignePan(),30));
+						trnsprtDocClassObj.setTypOfNotfdPartyCd("IEC");
 						trnsprtDocClassObj.setTypOfCd( settingLength("IEC",30));
 					}
 				  }
