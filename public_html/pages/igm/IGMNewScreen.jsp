@@ -1506,19 +1506,24 @@ $(function () {
 					var three="";
 					var fore="";
 					var five="";
-					if(fileNme=='SAM'){one='F'}else if(fileNme=='SAA'){one='A'}else{one='F'}
+					var msgId = "";
+					if(fileNme=='SAM'){one='F' ; 
+					msgId = "SACHM23"
+					}else if(fileNme=='SAA'){one='A'}else{one='F'}
 					fileNme = $("#fileType").val();
 						
 					if($("#fileType").val()=="SCE" || $("#fileType").val()=="SEX"){
+						msgId = "SACHM22";
 						two=StringResult.jsonFile['headerField']['senderID'];
 						three=StringResult.jsonFile['master']['decRef']['jobNo'];
 						fore=StringResult.jsonFile['master']['decRef']['jobDt'];
 					}else{
+						msgId = "SACHM23";
 						two=StringResult.jsonFile['headerField']['senderID'];
 						three=StringResult.jsonFile['master']['decRef']['jobNo'];
 						fore=StringResult.jsonFile['master']['decRef']['jobDt']; 
 					}
-					downloadfilename=one+'_'+'SACHM23'+'_'+fileNme+'_'+two+'_'+three+'_'+fore+'_'+'DEC'+'.json';
+					downloadfilename=one+'_'+msgId+'_'+fileNme+'_'+two+'_'+three+'_'+fore+'_'+'DEC'+'.json';
 					
 
 					var sampleBytes = new String(JSON.stringify(StringResult.jsonFile,null,2));
