@@ -3179,7 +3179,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 			  }).then(function(result, status, headers, config) {
 				  		$("body").find('.loading').remove();
 				  		$( "body" ).append('<div class="loading"></div>');
-						$scope.BLS[$scope.blIndex].agencyType  =  result.data.blDetails[0].agencyType
+						$scope.BLS[$scope.blIndex].agencyType  =  result.data.blDetails.agencyType
 						$scope.BLS[$scope.blIndex].agentCode  =  result.data.blDetails[0].agentCode
 						$scope.BLS[$scope.blIndex].arrivalDate  =  result.data.blDetails[0].arrivalDate
 						$scope.BLS[$scope.blIndex].arrivalTime  =  result.data.blDetails[0].arrivalTime

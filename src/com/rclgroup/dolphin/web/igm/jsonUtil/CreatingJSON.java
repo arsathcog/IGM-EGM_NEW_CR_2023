@@ -814,7 +814,7 @@ public class CreatingJSON {
 				itnryClassObj.setPrtOfCallSeqNmbr(settingLength("3",5)); 
 			}
 			 //TODO  guru
-			itnryClassObj.setPrtOfCallName(settingLength(blObj.getNext_port_of_call_coded(),10));    //TODO  guru
+			itnryClassObj.setPrtOfCallCdd(settingLength(blObj.getNext_port_of_call_coded(),10));    //TODO  guru
 			itnryClassObj.setPrtOfCallName(settingLength(blObj.getNext_port_of_call_name(),256));		//TODO  guru
 			itnryClassObj.setNxtPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));			//TODO  guru
 			itnryClassObj.setNxtPrtOfCallCdd(settingLength(blObj.getPod(),10));				//TODO  guru
@@ -6666,7 +6666,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 					blObj.getPortOfDestination() != null && blObj.getPortOfDeschargedCfs() != null ) {
 				itnryClassObj.setPrtOfCallSeqNmbr(settingLength("3",5)); 
 			}
-			itnryClassObj.setPrtOfCallName(settingLength(blObj.getNext_port_of_call_coded(),10));    //TODO  guru
+			itnryClassObj.setPrtOfCallCdd(settingLength(blObj.getNext_port_of_call_coded(),10));    //TODO  guru
 			itnryClassObj.setPrtOfCallName(settingLength(blObj.getNext_port_of_call_name(),256));		//TODO  guru
 			itnryClassObj.setNxtPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));			//TODO  guru
 			itnryClassObj.setNxtPrtOfCallCdd(settingLength(blObj.getPod(),10));							//TODO  guru
