@@ -341,7 +341,7 @@
                 <td>
                 
                  <select class="SelectCargo" ng-model="selectedBL.mode_of_transport"  >
-				 <option value="{{BLS[blIndex].mode_of_transport}}">{{BLS[blIndex].mode_of_transport}}</option>
+				 <!-- <option value="{{BLS[blIndex].mode_of_transport}}">{{BLS[blIndex].mode_of_transport}}</option> -->
                         <option value="1" >Sea</option>
                         <option value="2">Rail</option>
                         <option value="3">Truck</option>

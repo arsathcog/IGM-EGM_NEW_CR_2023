@@ -649,7 +649,12 @@ public class CreatingJSON {
 					}
 					else
 					{
-					   trnsprtDocClassObj.setCnsgneCntrySubDiv(blObj.getGstStateCode());
+					if(null != blObj.getGstStateCode() || ("").equals(blObj.getGstStateCode())) {
+						 trnsprtDocClassObj.setCnsgneCntrySubDiv(blObj.getGstStateCode());
+					}else {
+						trnsprtDocClassObj.setCnsgneCntrySubDiv("");
+					}
+					  
 					}
 					trnsprtDocClassObj.setCnsgnePstcd( settingLength(cnsneeDtl.getZip(),9));
 					try {
@@ -709,8 +714,13 @@ public class CreatingJSON {
 //------------------------------------------------*TrnsprtDocMsrSAM*--------------------------------------------------	
 			
 			TrnsprtDocMsrSAM trnsprtDocMsrClassObj = new TrnsprtDocMsrSAM();
-			trnsprtDocMsrClassObj.setNmbrOfPkgs(settingLength(blObj.getTotal_number_of_packages(),9));  	
-			trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getType_of_package());
+			trnsprtDocMsrClassObj.setNmbrOfPkgs(settingLength(blObj.getTotal_number_of_packages(),9));
+			if(null != blObj.getType_of_package()|| ("").equals(blObj.getType_of_package())) {
+				trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getType_of_package());
+			}else {
+				trnsprtDocMsrClassObj.setTypsOfPkgs("");
+			}
+		
 //			trnsprtDocMsrClassObj.setMarksNoOnPkgs(settingLength("",512)); 
 			if(null != blObj.getGrosWeight() || ("").equals(blObj.getGrosWeight())) {
 				trnsprtDocMsrClassObj.setGrossWeight(settingLengthForDouble(blObj.getGrosWeight(),12,3));
@@ -818,11 +828,11 @@ public class CreatingJSON {
 				itnryClassObj.setPrtOfCallSeqNmbr(settingLength("3",5)); 
 			}
 			 //TODO  guru
-			itnryClassObj.setPrtOfCallCdd(settingLength(blObj.getNext_port_of_call_coded(),10));     //TODO  guru
+			itnryClassObj.setPrtOfCallCdd(settingLength(blObj.getNext_port_of_call_coded(),10));    //TODO  guru
 			itnryClassObj.setPrtOfCallName(settingLength(blObj.getNext_port_of_call_name(),256));		//TODO  guru
 			itnryClassObj.setNxtPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));			//TODO  guru
 			itnryClassObj.setNxtPrtOfCallCdd(settingLength(blObj.getPod(),10));				//TODO  guru
-			itnryClassObj.setModeOfTrnsprt(settingLength(blObj.getMode_of_transport(),4));
+			itnryClassObj.setModeOfTrnsprt(settingLength(service.getMode_of_transport(),1));
 //			itnry.add(itnryClassObj);
 			
 			mastrCnsgmtDec.setItnry(itnryClassObj);
@@ -6821,7 +6831,11 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			// ---------------------------------------------------------
 			TrnsprtDocMsrSCE trnsprtDocMsrClassObj = new TrnsprtDocMsrSCE();
 			trnsprtDocMsrClassObj.setNmbrOfPkgs( settingLength(blObj.getTotal_number_of_packages(),8)); 
-			trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getType_of_package());
+			if(null != blObj.getType_of_package()|| ("").equals(blObj.getType_of_package())) {
+				trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getType_of_package());
+			}else {
+				trnsprtDocMsrClassObj.setTypsOfPkgs("");
+			}
 			if(null != blObj.getGrosWeight() || ("").equals(blObj.getGrosWeight())) {
 				trnsprtDocMsrClassObj.setGrossWeight(settingLengthForDouble(blObj.getGrosWeight(),12,3));
 			}else {
