@@ -1405,6 +1405,14 @@ public class CreatingJSON {
 		org.setMaster(mster);
 		return org;
 	}
+	
+	public static String checkNull(String value ) {
+		if( value == null) {
+			return "";
+		}
+		return value;
+	}
+	
 	public static String settingLength (String str, int num) {
 		if(str == null || str.equals("")) {
 			return "";
@@ -1651,7 +1659,7 @@ public class CreatingJSON {
 					{
 						String add = (String) cnsneeDtl.getAddressLine1() + cnsneeDtl.getAddressLine2()
 								+ (String) cnsneeDtl.getAddressLine3() + (String) cnsneeDtl.getAddressLine4();
-						trnsprtDocClassObj.setCnsgneStreetAddress(settingLength(add,70));
+						trnsprtDocClassObj.setCnsgneStreetAddress(settingLength(add,120));
 						trnsprtDocClassObj.setCnsgnesName( settingLength(cnsneeDtl.getCustomerName(),70));
 						trnsprtDocClassObj.setCnsgneCity( settingLength(cnsneeDtl.getCity(),70));
 //						trnsprtDocClassObj.setCnsgneCntrySubDivName(  settingLength(cnsneeDtl.getState(),35));
@@ -6689,7 +6697,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			itnryClassObj.setPrtOfCallName(settingLength(blObj.getNext_port_of_call_name(),256));		//TODO  guru
 			itnryClassObj.setNxtPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));			//TODO  guru
 			itnryClassObj.setNxtPrtOfCallCdd(settingLength(blObj.getPod(),10));							//TODO  guru
-			itnryClassObj.setModeOfTrnsprt(settingLength(blObj.getMode_of_transport(),4));
+			itnryClassObj.setModeOfTrnsprt(settingLength(service.getMode_of_transport(),1));
 			itnry.add(itnryClassObj);
 			mastrCnsgmtDec.setItnry(itnryClassObj);
 			houseCargoDecSCEObj.setItnry(itnry);
@@ -6892,8 +6900,9 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			for (NotifyParty notyObj : notifyPartyDetailes) {
 
 				if ((blObj.getBl()).equals(notyObj.getBlNo())) {
-					String add =  notyObj.getAddressLine1() + notyObj.getAddressLine2()
-							+  notyObj.getAddressLine3() +  notyObj.getAddressLine4();
+					
+					String add =  checkNull(notyObj.getAddressLine1()) +checkNull( notyObj.getAddressLine2())
+							+ checkNull( notyObj.getAddressLine3()) + checkNull( notyObj.getAddressLine4());
 					trnsprtDocClassObj.setNotfdPartyStreetAddress(settingLength(add,256));
 					trnsprtDocClassObj.setNotfdPartyCity( settingLength(notyObj.getCity(),70));
 					trnsprtDocClassObj.setNotfdPartyCntrySubDiv(settingLength(blObj.getGstStateCode(),35));
@@ -6947,7 +6956,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 					String add = (String) cnsneeDtl.getAddressLine1() + cnsneeDtl.getAddressLine2()
 							+ (String) cnsneeDtl.getAddressLine3() + (String) cnsneeDtl.getAddressLine4();
 					// set all values in TrnsprtDoc Class Obj
-					trnsprtDocClassObj.setCnsgneStreetAddress(settingLength(add,70));
+					trnsprtDocClassObj.setCnsgneStreetAddress(settingLength(add,120));
 					trnsprtDocClassObj.setCnsgnesName( settingLength(cnsneeDtl.getCustomerName(),70));
 					trnsprtDocClassObj.setCnsgneCity(  settingLength(cnsneeDtl.getCity(),70));
 					trnsprtDocClassObj.setCnsgneCntrySubDivName(settingLength(cnsneeDtl.getStateName(),35));
@@ -6974,8 +6983,8 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			for (Consigner cnsnerDtls : consignerDtls) {
 
 				if ((blObj.getBl()).equals(cnsnerDtls.getBlNO())) {
-					String add = (String) cnsnerDtls.getAddressLine1() + cnsnerDtls.getAddressLine2()
-							+ (String) cnsnerDtls.getAddressLine3() + (String) cnsnerDtls.getAddressLine4();
+					String add =checkNull ((String) cnsnerDtls.getAddressLine1()) +checkNull ( cnsnerDtls.getAddressLine2())
+							+ checkNull ((String) cnsnerDtls.getAddressLine3()) + checkNull ((String) cnsnerDtls.getAddressLine4());
 					// set all values in TrnsprtDoc Class Obj cnsgnrsName;
 					trnsprtDocClassObj.setCnsgnrStreetAddress(settingLength(add,70));
 					trnsprtDocClassObj.setCnsgnrsName( settingLength(cnsnerDtls.getCustomerName(),70));
