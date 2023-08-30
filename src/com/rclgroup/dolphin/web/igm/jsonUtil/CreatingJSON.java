@@ -586,7 +586,8 @@ public class CreatingJSON {
 			
 //		------------------------------*TrnshprSAM*------------------------------------------	
 			
-			if(blObj.getPod().equals(service.getPod()) && !blObj.getPortOfDestination().equals(blObj.getPod()) && blObj.getTrshprFlag().equals("1")  ) {
+			if(blObj.getPod().equals(service.getPod()) && !blObj.getPortOfDestination().equals(blObj.getPod()) 
+					&& blObj.getTrshprFlag().equals("1")  ) {
 				TrnshprSAM trnshprObj = new TrnshprSAM();
 				if(blObj.getMode_of_transport()== "Rail" ) {
 					trnshprObj.setTrnshprCode(blObj.getCarrierNo()); 

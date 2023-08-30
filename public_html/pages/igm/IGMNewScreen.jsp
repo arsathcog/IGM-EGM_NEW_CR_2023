@@ -1442,6 +1442,7 @@ $(function () {
 
 			var blNoSaved = "";
 			var blNoUnSaved = "";
+			var podScreen = "";
 			for (var x = 0; x < jsonData.result[0]["BLS"].length; x++) {
 				if ((jsonData.result[0]["BLS"][x].isBlSave == true || jsonData.result[0]["BLS"][x].isBlSave == "true")
 						&& jsonData.result[0]["BLS"][x].itemNumber != ""
@@ -1450,9 +1451,14 @@ $(function () {
 						if (blNoSaved == "") {
 							blNoSaved = blNoSaved + "'"
 									+ jsonData.result[0]["BLS"][x].bl + "'";
+							 podScreen = podScreen + "'"
+								+ jsonData.result[0]["BLS"][x].portOfDestination + "'";
+							
 						} else {
 							blNoSaved = blNoSaved + ",'"
 									+ jsonData.result[0]["BLS"][x].bl + "'";
+							 podScreen = podScreen + ",'"
+								+ jsonData.result[0]["BLS"][x].portOfDestination + "'";
 						}
 				} else {
 					if (jsonData.result[0]["BLS"][x].fetch == false) {
