@@ -298,7 +298,7 @@ public class TrnsprtDocSCE {
 	}
 
 	public void setNotfdPartyStreetAddress(String notfdPartyStreetAddress) {
-		notfdPartyStreetAddress = FiledValidation.isNullAndSetlength(notfdPartyStreetAddress, 70);
+	//	notfdPartyStreetAddress = FiledValidation.isNullAndSetlength(notfdPartyStreetAddress, 70);
 		this.notfdPartyStreetAddress = notfdPartyStreetAddress;
 	}
      
