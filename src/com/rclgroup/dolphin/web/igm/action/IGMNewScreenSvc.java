@@ -1109,7 +1109,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 			}
 		}
 		 
-		blListNewSavedVal.addAll(getBlDetails(service, objForm));
+		blListNewSavedVal.addAll(getBlDetails(service, objForm, blList));
 		System.out.println("Object Done..... 0");
 
 		int getSeqNo = objDao.getSeqNoJdbc(service, "IGM", objForm.getFileType());
@@ -1210,7 +1210,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		return null;
 	}
 
-	private List<ImportGeneralManifestMod> getBlDetails(ImportGeneralManifestMod mod, ImportGeneralManifestUim objForm)
+	private List<ImportGeneralManifestMod> getBlDetails(ImportGeneralManifestMod mod, ImportGeneralManifestUim objForm,List<ImportGeneralManifestMod> blList)
 			throws Exception {
 
 		IGMDaoNew objDao = (IGMDaoNew) getDao(DAO_BEAN_ID);
@@ -1225,7 +1225,8 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		IGMContainerDaoImpl containerDao = (IGMContainerDaoImpl) getDao(DAO_BEAN_CONTAINER_ID);
 		List<ContainerDetails> containerList = null;
 		List<ImportGeneralManifestMod> blObj = new LinkedList<ImportGeneralManifestMod>();
-
+		List<ImportGeneralManifestMod> blObjForPod = new LinkedList<ImportGeneralManifestMod>();
+		
 			if (objForm.getSavedBlList() != null || !objForm.getSavedBlList().equals("")) {
 				Map<String, String> mapParam = new HashMap<>();
 				Map<Object, Object> mapSaveBL = null;
@@ -1256,7 +1257,12 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 									blsInput += "," + blsInputArray[j];
 								
 							}
-				
+							for (int l = 0; l < blList.size(); l++) {
+								ImportGeneralManifestMod obj = blList.get(l);
+									blObjForPod.add(obj);
+									System.out.println();
+									
+							}
 			    List<ImportGeneralManifestMod> blObjTmp = new LinkedList<ImportGeneralManifestMod>();
 					mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD, mod.getPod());
 					mapParam.put(ImportGeneralManifestDao.KEY_IGM_SERVICE, mod.getService());
@@ -1296,7 +1302,6 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 
 				    mapSaveBL = objDao.getBLData(mapParam,
 				           IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_NEW, true, false,blsInputForBelow);
-					 
 				    blObj.addAll(
 							(List<ImportGeneralManifestMod>) mapSaveBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA));
 					containerDao.setContainerDetails(blObj, IGMContainerDao.RCL_IGM_GET_SAVE_CONTAINOR);

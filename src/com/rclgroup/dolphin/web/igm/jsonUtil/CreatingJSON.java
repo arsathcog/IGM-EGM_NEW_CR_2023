@@ -585,9 +585,11 @@ public class CreatingJSON {
 			houseCargoDecSAMObj.setLocCstm(locCstmClassObj);
 			
 //		------------------------------*TrnshprSAM*------------------------------------------	
-			
+
+	
 			if(blObj.getPod().equals(service.getPod()) && !blObj.getPortOfDestination().equals(blObj.getPod()) 
-					&& blObj.getTrshprFlag().equals("1")  ) {
+					&& (null != blObj.getTrshprFlag() && blObj.getTrshprFlag().equals("1")) ) {
+			
 				TrnshprSAM trnshprObj = new TrnshprSAM();
 				if(blObj.getMode_of_transport()== "Rail" ) {
 					trnshprObj.setTrnshprCode(blObj.getCarrierNo()); 
@@ -604,7 +606,7 @@ public class CreatingJSON {
 				trnshpr.add(trnshprObj);
 				mastrCnsgmtDec.setTrnshpr(trnshprObj);
 			}
-		
+			
 //_________________________________________________________________________________________________________			
 			
 //------------------------------------*TrnsprtDocSAM*----------------------------------------------------	
@@ -6821,7 +6823,9 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			houseCargoDecSCEObj.setLocCstm(locCstm);
 		
 			// ------------------------------------------
-			if(blObj.getPod().equals(service.getPod()) && !blObj.getPortOfDestination().equals(blObj.getPod()) && blObj.getTrshprFlag().equals("1")  ) {
+
+			if(blObj.getPod().equals(service.getPod()) && !blObj.getPortOfDestination().equals(blObj.getPod()) 
+					&& (null != blObj.getTrshprFlag() && blObj.getTrshprFlag().equals("1")) ) {
 			TrnshprSCE TrnshprObj = new TrnshprSCE(); // New added
 			if(blObj.getMode_of_transport()== "Rail" ) {
 				TrnshprObj.setTrnsprtCod(blObj.getCarrierNo()); 

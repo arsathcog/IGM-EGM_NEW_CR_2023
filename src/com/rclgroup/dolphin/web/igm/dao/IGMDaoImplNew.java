@@ -513,7 +513,7 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 		System.out.println("#IGMLogger getBLData() started.." + isSave);
 		
 		String blCountLoop  =  "0";
-
+		
 		String[][] arrParam = { { KEY_REF_IGM_DATA, BLANK + ORACLE_CURSOR, PARAM_OUT, BLANK },
 				{ KEY_IGM_POD, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) amapParam.get(KEY_IGM_POD) },
 				{ KEY_IGM_BL, BLANK + ORACLE_VARCHAR, PARAM_IN, (String) saveBlList },
@@ -532,8 +532,6 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 				{ KEY_IGM_POL_TERMINAL, BLANK + ORACLE_VARCHAR, PARAM_IN,
 						(String) amapParam.get(KEY_IGM_POL_TERMINAL) },
 				{ KEY_IGM_DIRECTION, BLANK + ORACLE_VARCHAR, PARAM_IN, null },
-				{ KEY_IGM_POD_SCREEN, BLANK + ORACLE_VARCHAR, PARAM_IN,
-					(String) amapParam.get(KEY_IGM_POD_SCREEN) },
 				{ KEY_IGM_ERROR, BLANK + ORACLE_VARCHAR, PARAM_OUT, BLANK } };
 
 		this.blrNumber = new HashSet<String>();

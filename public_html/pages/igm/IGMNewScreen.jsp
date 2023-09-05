@@ -1496,7 +1496,8 @@ $(function () {
 					crewEfctMod  :  (JSON.stringify(jsonData.result[0].service.crewEfctMods)),
 					shipStoresMod:  (JSON.stringify(jsonData.result[0].service.igmShipStoresMods)),
 					unSavedBlList:  blNoUnSaved,
-					savedBlList  :  blNoSaved
+					savedBlList  :  blNoSaved,
+					podScreen     : podScreen
 				},
 				success : function(result) {
 					debugger;
