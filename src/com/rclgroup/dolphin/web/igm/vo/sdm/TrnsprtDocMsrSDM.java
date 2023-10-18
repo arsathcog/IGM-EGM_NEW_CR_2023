@@ -3,10 +3,10 @@ package com.rclgroup.dolphin.web.igm.vo.sdm;
 import com.rclgroup.dolphin.web.igm.vo.FiledValidation;
 
 public class TrnsprtDocMsrSDM {
-	private String nmbrOfPkgs = null;
+	private int nmbrOfPkgs;
 	private String typsOfPkgs = null;
 	private String marksNoOnPkgs = null;
-	private String grossWeight = null;
+	private Double grossWeight = null;
 //	private String netWeight;
 	private String unitOfWeight = null;
 //	private String invoiceValueOfCnsgmt;
@@ -15,17 +15,25 @@ public class TrnsprtDocMsrSDM {
 	private String unitOfVolume = null;
 
     //This value is come from BL Json object  "Number of Packages"  (Same like above. Details in 3.5.6.3	MC Location_Customs)
-	public String getNmbrOfPkgs() {
-		return nmbrOfPkgs;
-	}
-
-	public void setNmbrOfPkgs(String nmbrOfPkgs) {
-		this.nmbrOfPkgs = nmbrOfPkgs;
-	}
 
 //This value is come from BL Json object   "Type of Package" (Same like above. Details in 3.5.6.3	MC Location_Customs)
 	public String getTypsOfPkgs() {
 		return typsOfPkgs;
+	}
+
+	public int getNmbrOfPkgs() {
+		return nmbrOfPkgs;
+	}
+
+	public void setNmbrOfPkgs(int nmbrOfPkgs) {
+		this.nmbrOfPkgs = nmbrOfPkgs;
+	}
+
+	  
+	  //This value is come from BL Json object  "GrossWeightVessel" , "Gross Cargo Weight BL level" (Use Gross Cargo Weight  of BL while generating json file)
+
+	public void setGrossWeight(Double grossWeight) {
+		this.grossWeight = grossWeight;
 	}
 
 	public void setTypsOfPkgs(String typsOfPkgs) {
@@ -41,16 +49,7 @@ public class TrnsprtDocMsrSDM {
 		marksNoOnPkgs = FiledValidation.isNullAndSetlength(marksNoOnPkgs, 512);
 		this.marksNoOnPkgs = marksNoOnPkgs;
 	}
-  
-	  //This value is come from BL Json object  "GrossWeightVessel" , "Gross Cargo Weight BL level" (Use Gross Cargo Weight  of BL while generating json file)
-	public String getGrossWeight() {
-		return grossWeight;
-	}
 
-	public void setGrossWeight(String grossWeight) {
-		//grossWeight = FiledValidation.isNullAndSetlength(grossWeight, 512);
-		this.grossWeight = grossWeight;
-	}
    
 	  //This value is come from BL Json object "NetWeightVessel" (Use general tab Net Cargo Weight of BL while generating JSON file)>optional
 //	public String getNetWeight() {

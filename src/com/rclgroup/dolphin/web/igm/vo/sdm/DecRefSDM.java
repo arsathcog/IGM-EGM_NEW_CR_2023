@@ -8,7 +8,7 @@ public class DecRefSDM {
 	private int jobNo;
 	private String jobDt;
 	private String rptngEvent;
-	private String mnfstNoRotnNo;
+	private int mnfstNoRotnNo;
 	private String mnfstDtRotnDt;
 	private String vesselTypMvmt;
 
@@ -76,18 +76,18 @@ public class DecRefSDM {
 	}
 
 	// This value is come from BL Json object "mainNocsnno"
-	public String getMnfstNoRotnNo() {
-		return mnfstNoRotnNo;
-	}
-
-	public void setMnfstNoRotnNo(String mnfstNoRotnNo) {
-		mnfstNoRotnNo = FiledValidation.isNullAndSetlength(mnfstNoRotnNo, 100);
-		this.mnfstNoRotnNo = mnfstNoRotnNo;
-	}
 
 	// This value is come from BL Json object "manifestdateCsndate"
 	public String getMnfstDtRotnDt() {
 		return mnfstDtRotnDt;
+	}
+
+	public int getMnfstNoRotnNo() {
+		return mnfstNoRotnNo;
+	}
+
+	public void setMnfstNoRotnNo(int mnfstNoRotnNo) {
+		this.mnfstNoRotnNo = mnfstNoRotnNo;
 	}
 
 	public void setMnfstDtRotnDt(String mnfstDtRotnDt) {

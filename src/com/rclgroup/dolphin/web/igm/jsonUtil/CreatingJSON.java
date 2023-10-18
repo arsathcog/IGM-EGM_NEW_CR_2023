@@ -345,7 +345,7 @@ public class CreatingJSON {
 
 		Object resultObj = new Object();
 
-		if ("SAM".equals(fileType)) {
+		if ("SAM".equals(fileType)) { 
 			resultObj = getSAM(blList,service,personOnBoardMod,getSeqNo);  // Done
 		} else if ("SDM".equals(fileType)) {
 			resultObj = getSDM(blList,service,personOnBoardMod,crewEfctMod,shipStoresMod,getSeqNo);
@@ -1608,9 +1608,9 @@ public class CreatingJSON {
 			//===============================================
 			LocCstmSDM locCstmClassObj = new LocCstmSDM();
 			
-			locCstmClassObj.setFirstPrtOfEntry(blObj.getPod());
-			locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),6));// New added
-			locCstmClassObj.setNxtPrtOfUnlading(settingLength(blObj.getPortOfDestination(),6));  // New added
+			locCstmClassObj.setFirstPrtOfEntry( service.getPortArrival());
+			locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),8));
+			locCstmClassObj.setNxtPrtOfUnlading (settingLength(blObj.getPortOfDestination(),6)); // New added
 			
 			if(blObj.getPortOfDestination().substring(0, 2).equals("IN") && blObj.getPod().substring(0, 2).equals("IN")){
 				locCstmClassObj.setTypOfCrgo(settingLength("EX",2)); // if both value in india base
@@ -1705,12 +1705,12 @@ public class CreatingJSON {
 
 			//===============================================
 			TrnsprtDocMsrSDM trnsprtDocMsrClassObj = new TrnsprtDocMsrSDM();
-			trnsprtDocMsrClassObj.setNmbrOfPkgs(settingLength(blObj.getTotal_number_of_packages(),8));
+			trnsprtDocMsrClassObj.setNmbrOfPkgs(Integer.parseInt(blObj.getTotal_number_of_packages(),8));
 			trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getPackage_kind());
 			if(null != blObj.getGrosWeight() || ("").equals(blObj.getGrosWeight())) {
-				trnsprtDocMsrClassObj.setGrossWeight(settingLengthForDouble(blObj.getGrosWeight(),12,3));
+				trnsprtDocMsrClassObj.setGrossWeight(Double.valueOf(settingLengthForDouble(blObj.getGrosWeight(),12,3)));
 			}else {
-				trnsprtDocMsrClassObj.setGrossWeight("");
+				trnsprtDocMsrClassObj.setGrossWeight(Double.valueOf(""));
 			}
 			
 //			trnsprtDocMsrClassObj.setNetWeight(settingLengthForDouble(blObj.getNetWeight(),12,3));
@@ -2216,7 +2216,7 @@ public class CreatingJSON {
 	    decRefClaObj.setJobNo(getSeqNo +1);
 	    decRefClaObj.setJobDt(currDate);
 	    decRefClaObj.setRptngEvent(settingLength(rpngEvent,4));
-	    decRefClaObj.setMnfstNoRotnNo(settingLength(service.getRotnNo(),7));
+	    decRefClaObj.setMnfstNoRotnNo(Integer.parseInt(service.getRotnNo(),7));
 	    decRefClaObj.setMnfstDtRotnDt(service.getRotnDate()	);
 	    decRefClaObj.setVesselTypMvmt(settingLength("FI",2));
 	    mster.setDecRef(decRefClaObj);
@@ -2242,14 +2242,14 @@ public class CreatingJSON {
 		VoyageDtlsSDM voyageDtlsClassObj = new VoyageDtlsSDM();
 		voyageDtlsClassObj.setVoyageNo(settingLength(service.getVoyage() , 10)); // Line10
 		voyageDtlsClassObj.setCnvnceRefNmbr(settingLength(service.getViaVcn(),35)); // Line 193
-		voyageDtlsClassObj.setTotalNmbrOfLines(service.getTotalNmbrOfLines()); //newly added field
-		voyageDtlsClassObj.setTotalNoOfTrnsprtEqmtMnfsted( settingLength(containerCount+" ",5)); // Line:-46
+		voyageDtlsClassObj.setTotalNmbrOfLines(Integer.parseInt(service.getTotalNmbrOfLines())); //newly added field
+		voyageDtlsClassObj.setTotalNoOfTrnsprtEqmtMnfsted(Integer.parseInt(settingLength(containerCount+" ",5))); // Line:-46
 		voyageDtlsClassObj.setCrgoDescCdd("3"); // Line:-195
 		voyageDtlsClassObj.setBriefCrgoDesc(settingLength("GENERAL",30)); // Line:-195
-		voyageDtlsClassObj.setTotalNmbrOfLines(settingLength(service.getTotalItem() ,5));  // Line38 (objForm.getTotalItem()); nitun
+		voyageDtlsClassObj.setTotalNmbrOfLines(Integer.parseInt(settingLength(service.getTotalItem() ,5)));  // Line38 (objForm.getTotalItem()); nitun
 		voyageDtlsClassObj.setExptdDtAndTimeOfDptr(removeSlash(service.getDepartureDate() + "T" + getTime(service.getDepartureTime())));
-		voyageDtlsClassObj.setNmbrOfPsngrsMnfsted(settingLength("0",4)); // NotFound
-		voyageDtlsClassObj.setNmbrOfCrewMnfsted(service.getNoOfCrew());
+		voyageDtlsClassObj.setNmbrOfPsngrsMnfsted(0); // NotFound
+		voyageDtlsClassObj.setNmbrOfCrewMnfsted(Integer.parseInt(service.getNoOfCrew()));
 		voyageDtlsClassObj.setShipItnry(shipItnry);
 		mster.setVoyageDtls(voyageDtlsClassObj);
 		 
