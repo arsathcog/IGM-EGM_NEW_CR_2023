@@ -3,7 +3,7 @@ package com.rclgroup.dolphin.web.igm.vo.sdm;
 public class VoyageTransportEquipmentSDM {
 	
 //	private String voyageTransportEquipment;
-	private String equipmentSequenceNo;
+	private int equipmentSequenceNo;
 	private String equipmentId;
 	private String equipmentType;
 	private String equipmentSize;
@@ -19,14 +19,18 @@ public class VoyageTransportEquipmentSDM {
 //	private String equipmentStatus;
 	
 	private String containerAgentCode;
-	private String containerWeight ;
-	private String totalNumberOfPackages;
+	private Double containerWeight ;
+	private int totalNumberOfPackages;
 	private String stowagePositionOfContainer; 
 //	private String containerBondFlag;
 	
+	public int getEquipmentSequenceNo() {
+		return equipmentSequenceNo;
+	}
 
-
-	
+	public void setEquipmentSequenceNo(int equipmentSequenceNo) {
+		this.equipmentSequenceNo = equipmentSequenceNo;
+	}
 
 //	public String getVoyageTransportEquipment() {
 //		return voyageTransportEquipment;
@@ -36,13 +40,7 @@ public class VoyageTransportEquipmentSDM {
 //		this.voyageTransportEquipment = voyageTransportEquipment;
 //	}
 
-	public String getEquipmentSequenceNo() {
-		return equipmentSequenceNo;
-	}
-
-	public void setEquipmentSequenceNo(String equipmentSequenceNo) {
-		this.equipmentSequenceNo = equipmentSequenceNo;
-	}
+	
 
 	public String getEquipmentId() {
 		return equipmentId;
@@ -148,19 +146,20 @@ public class VoyageTransportEquipmentSDM {
 		this.containerAgentCode = containerAgentCode;
 	}
 
-	public String getContainerWeight() {
+
+	public Double getContainerWeight() {
 		return containerWeight;
 	}
 
-	public void setContainerWeight(String containerWeight) {
+	public void setContainerWeight(Double containerWeight) {
 		this.containerWeight = containerWeight;
 	}
 
-	public String getTotalNumberOfPackages() {
+	public int getTotalNumberOfPackages() {
 		return totalNumberOfPackages;
 	}
 
-	public void setTotalNumberOfPackages(String totalNumberOfPackages) {
+	public void setTotalNumberOfPackages(int totalNumberOfPackages) {
 		this.totalNumberOfPackages = totalNumberOfPackages;
 	}
 

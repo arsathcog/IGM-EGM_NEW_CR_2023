@@ -1,18 +1,13 @@
 package com.rclgroup.dolphin.web.igm.vo.sdm;
 
 public class CrewEfctSDM {
-	private String crewEfctsSeqNmbr;
+	private int crewEfctsSeqNmbr;
 	private String crewEfctDescCdd;
 	private String crewEfctsDesc;
-	private String crewEfctQntyOnbrd;
+	private int crewEfctQntyOnbrd;
 	private String crewEfctQntyOnbrdCd;
 	
-	public String getCrewEfctsSeqNmbr() {
-		return crewEfctsSeqNmbr;
-	}
-	public void setCrewEfctsSeqNmbr(String crewEfctsSeqNmbr) {
-		this.crewEfctsSeqNmbr = crewEfctsSeqNmbr;
-	}
+	
 	public String getCrewEfctDescCdd() {
 		return crewEfctDescCdd;
 	}
@@ -25,10 +20,17 @@ public class CrewEfctSDM {
 	public void setCrewEfctsDesc(String crewEfctsDesc) {
 		this.crewEfctsDesc = crewEfctsDesc;
 	}
-	public String getCrewEfctQntyOnbrd() {
+	
+	public int getCrewEfctsSeqNmbr() {
+		return crewEfctsSeqNmbr;
+	}
+	public void setCrewEfctsSeqNmbr(int crewEfctsSeqNmbr) {
+		this.crewEfctsSeqNmbr = crewEfctsSeqNmbr;
+	}
+	public int getCrewEfctQntyOnbrd() {
 		return crewEfctQntyOnbrd;
 	}
-	public void setCrewEfctQntyOnbrd(String crewEfctQntyOnbrd) {
+	public void setCrewEfctQntyOnbrd(int crewEfctQntyOnbrd) {
 		this.crewEfctQntyOnbrd = crewEfctQntyOnbrd;
 	}
 	public String getCrewEfctQntyOnbrdCd() {

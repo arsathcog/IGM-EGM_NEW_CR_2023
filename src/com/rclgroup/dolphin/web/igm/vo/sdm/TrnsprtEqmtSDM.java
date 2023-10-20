@@ -3,7 +3,7 @@ package com.rclgroup.dolphin.web.igm.vo.sdm;
 import com.rclgroup.dolphin.web.igm.vo.FiledValidation;
 
 public class TrnsprtEqmtSDM {
-	private String eqmtSeqNo;
+	private int eqmtSeqNo;
 	private String eqmtId;
 	private String eqmtTyp;
 	private String eqmtSize;
@@ -17,16 +17,17 @@ public class TrnsprtEqmtSDM {
 //	private String eqmtStatus;
 	private String socFlag;
     private String cntrAgntCd;
-    private String cntrWeight;
-	private String totalNmbrOfPkgs;
+    private Double cntrWeight;
+	private int totalNmbrOfPkgs;
 	
 
 	// (Already in IGM screen in container section. Use same seq from there.)
-	public String getEqmtSeqNo() {
+	
+	public int getEqmtSeqNo() {
 		return eqmtSeqNo;
 	}
 
-	public void setEqmtSeqNo(String eqmtSeqNo) {
+	public void setEqmtSeqNo(int eqmtSeqNo) {
 		this.eqmtSeqNo = eqmtSeqNo;
 	}
 
@@ -35,6 +36,7 @@ public class TrnsprtEqmtSDM {
 		return eqmtId;
 	}
 
+	
 	public void setEqmtId(String eqmtId) {
 		eqmtId = FiledValidation.isNullAndSetlength(eqmtId, 17);
 		this.eqmtId = eqmtId;
@@ -155,22 +157,17 @@ public class TrnsprtEqmtSDM {
 	public void setCntrAgntCd(String cntrAgntCd) {
 		this.cntrAgntCd = cntrAgntCd;
 	}
-
-	public String getCntrWeight() {
+	
+	public Double getCntrWeight() {
 		return cntrWeight;
 	}
 
-	public void setCntrWeight(String cntrWeight) {
+	public void setCntrWeight(Double cntrWeight) {
 		this.cntrWeight = cntrWeight;
 	}
 
-	public String getTotalNmbrOfPkgs() {
-		return totalNmbrOfPkgs;
-	}
-
-	public void setTotalNmbrOfPkgs(String totalNmbrOfPkgs) {
+	public void setTotalNmbrOfPkgs(int totalNmbrOfPkgs) {
 		this.totalNmbrOfPkgs = totalNmbrOfPkgs;
 	}
-
 
 }

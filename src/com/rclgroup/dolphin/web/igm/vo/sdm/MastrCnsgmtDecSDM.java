@@ -9,8 +9,9 @@ public class MastrCnsgmtDecSDM {
 //    private List<TrnshprSDM> trnshpr;
 	private TrnsprtDocSDM trnsprtDoc;
     private TrnsprtDocMsrSDM trnsprtDocMsr;
+    private ItemDtlsSDM itemDtls;
 	private List<TrnsprtEqmtSDM> trnsprtEqmt;
-	private ItemDtlsSDM itemDtls;
+	
 	private ItnrySDM itnry;
 //	private PrevRefSDM prevRef;
 	private HouseCargoDecSDM houseCargoDec;
@@ -75,6 +76,16 @@ public class MastrCnsgmtDecSDM {
 		this.trnsprtDocMsr = trnsprtDocMsr;
 	}
 
+	public ItemDtlsSDM getItemDtls() {
+		return itemDtls;
+	}
+
+
+
+	public void setItemDtls(ItemDtlsSDM itemDtls) {
+		this.itemDtls = itemDtls;
+	}
+
 
 	public List<TrnsprtEqmtSDM> getTrnsprtEqmt() {
 		return trnsprtEqmt;
@@ -86,15 +97,6 @@ public class MastrCnsgmtDecSDM {
 		this.trnsprtEqmt = trnsprtEqmt;
 	}
 
-	public ItemDtlsSDM getItemDtls() {
-		return itemDtls;
-	}
-
-
-
-	public void setItemDtls(ItemDtlsSDM itemDtls) {
-		this.itemDtls = itemDtls;
-	}
 
 
 

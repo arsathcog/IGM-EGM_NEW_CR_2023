@@ -3,7 +3,7 @@ package com.rclgroup.dolphin.web.igm.vo.sdm;
 import com.rclgroup.dolphin.web.igm.vo.FiledValidation;
 
 public class ItnrySDM {
-	private String prtOfCallSeqNmbr;
+	private int prtOfCallSeqNmbr;
 	private String prtOfCallCdd;
 	private String prtOfCallName;
 	private String nxtPrtOfCallCdd;
@@ -12,21 +12,27 @@ public class ItnrySDM {
 
 
     //This value is come from BL Json object  "Port of call sequence numbe"
-	public String getPrtOfCallSeqNmbr() {
+	
+
+	public int getPrtOfCallSeqNmbr() {
 		return prtOfCallSeqNmbr;
 	}
 
-	public void setPrtOfCallSeqNmbr(String prtOfCallSeqNmbr) {
+	public void setPrtOfCallSeqNmbr(int prtOfCallSeqNmbr) {
 //		System.out.println("prtOfCallSeqNmbr 1"+prtOfCallSeqNmbr);
 //		prtOfCallSeqNmbr = FiledValidation.isNullAndSetlength(prtOfCallSeqNmbr, 100);
 //		System.out.println("prtOfCallSeqNmbr 1"+prtOfCallSeqNmbr);
+		
 		this.prtOfCallSeqNmbr = prtOfCallSeqNmbr;
 	}
 
+	
     //This value is come from BL Json object   "Port of Call Coded"
 	public String getPrtOfCallCdd() {
 		return prtOfCallCdd;
 	}
+
+	
 
 	public void setPrtOfCallCdd(String prtOfCallCdd) {
 //		prtOfCallCdd = FiledValidation.isNullAndSetlength(prtOfCallCdd, 10);

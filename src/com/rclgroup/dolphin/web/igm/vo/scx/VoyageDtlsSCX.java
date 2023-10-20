@@ -9,11 +9,11 @@ import com.rclgroup.dolphin.web.igm.vo.sca.ShipItnrySCA;
 public class VoyageDtlsSCX {
 //	private String voyageNo; 	//Not required
 	private String cnvnceRefNmbr;
-	private String totalNoOfTrnsprtEqmtMnfsted;
+	private int totalNoOfTrnsprtEqmtMnfsted;
 	//Not required
 //	private String crgoDescCdd;
 //	private String briefCrgoDesc;
-	private String totalNmbrOfLines;
+	private int totalNmbrOfLines;
 	//Not required
 //	private String exptdDtAndTimeOfArvl;
 //	private String exptdDtAndTimeOfDptr;
@@ -67,16 +67,25 @@ public class VoyageDtlsSCX {
 		this.cnvnceRefNmbr = cnvnceRefNmbr;
 	}
 
-	// "totalNoofTransportEquipmentManifested" (Total number of equipment's add in
-	// screen Vessel/Voyage section)
-	public String getTotalNoOfTrnsprtEqmtMnfsted() {
+	public int getTotalNoOfTrnsprtEqmtMnfsted() {
 		return totalNoOfTrnsprtEqmtMnfsted;
 	}
 
-	public void setTotalNoOfTrnsprtEqmtMnfsted(String totalNoOfTrnsprtEqmtMnfsted) {
-//		totalNoOfTrnsprtEqmtMnfsted = FiledValidation.isNullAndSetlength(totalNoOfTrnsprtEqmtMnfsted, 5);
+	public void setTotalNoOfTrnsprtEqmtMnfsted(int totalNoOfTrnsprtEqmtMnfsted) {
 		this.totalNoOfTrnsprtEqmtMnfsted = totalNoOfTrnsprtEqmtMnfsted;
 	}
+
+	public int getTotalNmbrOfLines() {
+		return totalNmbrOfLines;
+	}
+
+	public void setTotalNmbrOfLines(int totalNmbrOfLines) {
+		this.totalNmbrOfLines = totalNmbrOfLines;
+	}
+
+	// "totalNoofTransportEquipmentManifested" (Total number of equipment's add in
+	// screen Vessel/Voyage section)
+
 
 	// "cargoDescription" (Add new column with free text Vessel/Voyage )
 //	public String getCrgoDescCdd() {
@@ -100,15 +109,7 @@ public class VoyageDtlsSCX {
 
 	// "totalNoofTransportEquipmentManifested" (Same as Total Items from current
 	// screen)
-	public String getTotalNmbrOfLines() {
-		return totalNmbrOfLines;
-	}
 
-	public void setTotalNmbrOfLines(String totalNmbrOfLines) {
-
-//		totalNmbrOfLines = FiledValidation.isNullAndSetlength(totalNmbrOfLines, 100);
-		this.totalNmbrOfLines = totalNmbrOfLines;
-	}
 //	public String getExptdDtAndTimeOfArvl() {
 //		return exptdDtAndTimeOfArvl;
 //	}

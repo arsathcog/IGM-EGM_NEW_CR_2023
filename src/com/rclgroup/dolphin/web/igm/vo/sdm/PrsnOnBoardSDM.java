@@ -8,11 +8,11 @@ import com.rclgroup.dolphin.web.igm.vo.saa.CrewEfctSAA;
 
 public class PrsnOnBoardSDM {
 	
-	private String prsnOnBoardSeqNmbr;
+	private int prsnOnBoardSeqNmbr;
 	private PrsnDtlsSDM prsnDtls;
 	private PrsnIdSDM prsnId;
-	private CrewEfctSDM crewEfct;
 	private VisaDtlsSDM visaDtls;
+	private CrewEfctSDM crewEfct;
 	
 	public VisaDtlsSDM getVisaDtls() {
 		return visaDtls;
@@ -20,13 +20,13 @@ public class PrsnOnBoardSDM {
 	public void setVisaDtls(VisaDtlsSDM visaDtls) {
 		this.visaDtls = visaDtls;
 	}
-	public String getPrsnOnBoardSeqNmbr() {
+	
+	public int getPrsnOnBoardSeqNmbr() {
 		return prsnOnBoardSeqNmbr;
 	}
-	public void setPrsnOnBoardSeqNmbr(String prsnOnBoardSeqNmbr) {
+	public void setPrsnOnBoardSeqNmbr(int prsnOnBoardSeqNmbr) {
 		this.prsnOnBoardSeqNmbr = prsnOnBoardSeqNmbr;
 	}
-	
 	public PrsnDtlsSDM getPrsnDtls() {
 		return prsnDtls;
 	}
