@@ -6,12 +6,12 @@ public class ItemDtlsSCX {
 
 	// # not given in scma
 
-	private String crgoItemSeqNmbr;
+	private int crgoItemSeqNmbr;
 	private String hsCd;
 	private String crgoItemDesc;
 	private String unoCd;
 	private String imdgCd;
-	private String nmbrOfPkgs;
+	private int nmbrOfPkgs;
 	private String typOfPkgs;
 //	 private String amendment;
 //
@@ -25,17 +25,19 @@ public class ItemDtlsSCX {
 
 
 	// This value is come from BL Json object "Cargo Item Sequence No"
-	public String getCrgoItemSeqNmbr() {
+
+	public int getCrgoItemSeqNmbr() {
 		return crgoItemSeqNmbr;
 	}
 
-	public void setCrgoItemSeqNmbr(String crgoItemSeqNmbr) {
+	public void setCrgoItemSeqNmbr(int crgoItemSeqNmbr) {
 		this.crgoItemSeqNmbr = crgoItemSeqNmbr;
 	}
 	
 	public String getHsCd() {
 		return hsCd;
 	}
+
 
 	public void setHsCd(String hsCd) {
 		hsCd = FiledValidation.isNullAndSetlength(hsCd, 8);
@@ -81,19 +83,22 @@ public class ItemDtlsSCX {
 	}
 
 	// added new field in current BL "Number of Packages"
-	public String getNmbrOfPkgs() {
+
+	public int getNmbrOfPkgs() {
 		return nmbrOfPkgs;
 	}
 
-	public void setNmbrOfPkgs(String nmbrOfPkgs) {
+	public void setNmbrOfPkgs(int nmbrOfPkgs) {
 		this.nmbrOfPkgs = nmbrOfPkgs;
 	}
+
 
 	// added new field in current BL "Type of Package"
 	public String getTypOfPkgs() {
 		return typOfPkgs;
 	}
 
+	
 	public void setTypOfPkgs(String typOfPkgs) {
 //		typOfPkgs = FiledValidation.isNullAndSetlength(typOfPkgs, 3);
 		this.typOfPkgs = typOfPkgs;

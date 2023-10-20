@@ -1705,15 +1705,10 @@ public class CreatingJSON {
 
 			//===============================================
 			TrnsprtDocMsrSDM trnsprtDocMsrClassObj = new TrnsprtDocMsrSDM();
-			trnsprtDocMsrClassObj.setNmbrOfPkgs(Integer.parseInt(blObj.getTotal_number_of_packages(),8));
+			trnsprtDocMsrClassObj.setNmbrOfPkgs(blObj.getTotal_number_of_packages().equals(null) || blObj.getTotal_number_of_packages().equals("") ? 0 : Integer.parseInt(blObj.getTotal_number_of_packages(),8));
 			System.out.println(blObj.getTotal_number_of_packages());
 			trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getPackage_kind());
-			if(null != blObj.getGrosWeight() || ("").equals(blObj.getGrosWeight())) {
-				trnsprtDocMsrClassObj.setGrossWeight(Double.valueOf(settingLengthForDouble(blObj.getGrosWeight(),12,3)));
-			}else {
-				trnsprtDocMsrClassObj.setGrossWeight((0.0));
-			}
-			
+			trnsprtDocMsrClassObj.setGrossWeight(blObj.getGrosWeight().equals(null) || blObj.getGrosWeight().equals("") ? 0.0 : Double.valueOf(settingLengthForDouble(blObj.getGrosWeight(),12,3)));
 //			trnsprtDocMsrClassObj.setNetWeight(settingLengthForDouble(blObj.getNetWeight(),12,3));
 			trnsprtDocMsrClassObj.setUnitOfWeight(settingLength("KGS",3));
 //			trnsprtDocMsrClassObj.setInvoiceValueOfCnsgmt(settingLengthForDouble(blObj.getInvoiceValueFc(),16,2)); Guru said to comment //not cleared by Guru
@@ -1754,7 +1749,7 @@ public class CreatingJSON {
 					itemDtlsClassObj.setUnoCd( settingLength("ZZZZZ",5));
 					itemDtlsClassObj.setImdgCd( settingLength("ZZZ",3));	
 			}
-			itemDtlsClassObj.setNmbrOfPkgs(Integer.parseInt(settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6))); 
+			itemDtlsClassObj.setNmbrOfPkgs(blObj.getTotal_number_of_packages().equals(null) || blObj.getTotal_number_of_packages().equals("") ? 0 : Integer.parseInt(settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6))); 
 			itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getPackage_kind(),3));
 			itemDtls.add(itemDtlsClassObj);
 			mastrCnsgmtDec.setItemDtls(itemDtlsClassObj);
@@ -1803,8 +1798,8 @@ public class CreatingJSON {
 //					trnsprtEqmtClassObj.setEventDt(""); guru said to comment
 //					trnsprtEqmtClassObj.setFinalDestLoc(settingLength("",10)); guru said to comment
 					trnsprtEqmtClassObj.setCntrAgntCd(settingLength(service.getAgentCode(),17));
-					trnsprtEqmtClassObj.setCntrWeight(Double.valueOf(settingLengthForDouble(ctnerDtl.getContainerWeight(),14,2)));
-					trnsprtEqmtClassObj.setTotalNmbrOfPkgs(Integer.parseInt(settingLength(ctnerDtl.getTotalNumberOfPackagesInContainer(),8)));
+					trnsprtEqmtClassObj.setCntrWeight(ctnerDtl.getContainerWeight().equals(null) || ctnerDtl.getContainerWeight().equals("") ? 0.0 : Double.valueOf(settingLengthForDouble(ctnerDtl.getContainerWeight(),14,2)));
+					trnsprtEqmtClassObj.setTotalNmbrOfPkgs(ctnerDtl.getTotalNumberOfPackagesInContainer().equals(null) || ctnerDtl.getTotalNumberOfPackagesInContainer().equals("") ? 0 : Integer.parseInt(settingLength(ctnerDtl.getTotalNumberOfPackagesInContainer(),8)));
 					trnsprtEqmt.add(trnsprtEqmtClassObj);
 				}
 			} // add to trnsprtDocMsr List
@@ -1910,7 +1905,7 @@ public class CreatingJSON {
 				voyageTransportEquipmentClassObj.setSocFlag(settingLength(cntnerDtl.getSoc_flag(),1));
 				
 				voyageTransportEquipmentClassObj.setContainerAgentCode(settingLength(service.getAgentCode(),17));
-				voyageTransportEquipmentClassObj.setContainerWeight(Double.valueOf(cntnerDtl.getContainerWeight()));
+				voyageTransportEquipmentClassObj.setContainerWeight(cntnerDtl.getContainerWeight().equals(null) || cntnerDtl.getContainerWeight().equals("") ? 0 : Double.valueOf(cntnerDtl.getContainerWeight()));
 				voyageTransportEquipmentClassObj.setTotalNumberOfPackages(Integer.parseInt(settingLength(cntnerDtl.getTotalNumberOfPackagesInContainer(),8)));
 				voyageTransportEquipmentClassObj.setStowagePositionOfContainer(settingLength(service.getStowagePosition(),17));
 //				voyageTransportEquipmentClassObj.setContainerBondFlag(settingLength("",1)); guru said to comment
@@ -2074,7 +2069,7 @@ public class CreatingJSON {
 					cewEfctList = new LinkedList<CrewEfctSDM>();
 					CrewEfctSDM cewEfct = new CrewEfctSDM();
 					cewEfct.setCrewEfctDescCdd(settingLength(crewEfctMod.get(l).getCrewEfctDescCdd(),3));
-					cewEfct.setCrewEfctQntyOnbrd(Integer.parseInt(settingLengthForDouble(crewEfctMod.get(l).getCrewEfctQntyOnbrd(),16,6)));
+					cewEfct.setCrewEfctQntyOnbrd(crewEfctMod.get(l).getCrewEfctQntyOnbrd().equals(null) || crewEfctMod.get(l).getCrewEfctQntyOnbrd().equals("") ? 0 : Integer.parseInt(settingLengthForDouble(crewEfctMod.get(l).getCrewEfctQntyOnbrd(),16,6)));
 					cewEfct.setCrewEfctQntyOnbrdCd(settingLength(crewEfctMod.get(l).getCrewEfctQntyCdOnbrd(),3));
 					cewEfct.setCrewEfctsDesc(settingLength(crewEfctMod.get(l).getCrewEfctsDesc(),256));
 					cewEfct.setCrewEfctsSeqNmbr(Integer.parseInt(settingLength(l+1+"",5)));
@@ -2095,7 +2090,7 @@ public class CreatingJSON {
 			shipStores.setArticleNameText(settingLength(shipStoresMod.get(l).getArticleNameText(),512));
 			shipStores.setLocOnbrdText(settingLength(shipStoresMod.get(l).getLocOnbrdText(),256));
 			shipStores.setQntyCdOnbrd( settingLength(shipStoresMod.get(l).getQntyCdOnbrd(),3));
-			shipStores.setQntyOnbrd(Integer.parseInt(settingLengthForDouble(shipStoresMod.get(l).getQntyOnbrd(),16,6)));
+			shipStores.setQntyOnbrd(shipStoresMod.get(l).getQntyOnbrd().equals(null) || shipStoresMod.get(l).getQntyOnbrd().equals("") ? 0 : Integer.parseInt(settingLengthForDouble(shipStoresMod.get(l).getQntyOnbrd(),16,6)));
 			shipStoresList.add(shipStores);
 		}
 		
@@ -2217,16 +2212,17 @@ public class CreatingJSON {
 	    decRefClaObj.setJobNo(getSeqNo +1);
 	    decRefClaObj.setJobDt(currDate);
 	    decRefClaObj.setRptngEvent(settingLength(rpngEvent,4));
-	    System.out.println("A"+service.getRotnNo()+"A");
-	    if(service.getRotnNo().equals(" "))
-	    {
-	    	decRefClaObj.setMnfstNoRotnNo(0);
-	    }
-	    else
-	    {
-	     decRefClaObj.setMnfstNoRotnNo(Integer.parseInt(settingLength(service.getRotnNo(),7)));
-	     System.out.println(Integer.parseInt(settingLength(service.getRotnNo(),7)));
-	    }
+//	    System.out.println("A"+service.getRotnNo()+"A");
+//	    if(service.getRotnNo().equals(" "))
+//	    {
+//	    	decRefClaObj.setMnfstNoRotnNo(0);
+//	    }
+//	    else
+//	    {
+//	     decRefClaObj.setMnfstNoRotnNo(Integer.parseInt(settingLength(service.getRotnNo(),7)));
+//	     System.out.println(Integer.parseInt(settingLength(service.getRotnNo(),7)));
+//	    }
+	    decRefClaObj.setMnfstNoRotnNo(service.getRotnNo().equals(null) || service.getRotnNo().equals("") ? 0:Integer.parseInt(settingLength(service.getRotnNo(),7)));
 	    decRefClaObj.setMnfstDtRotnDt(service.getRotnDate()	);
 	    decRefClaObj.setVesselTypMvmt(settingLength("FI",2));
 	    mster.setDecRef(decRefClaObj);
@@ -4015,12 +4011,12 @@ public class CreatingJSON {
 			
 			ItnrySCX itnryClassObj = new ItnrySCX();
 			if(blObj.getPortOfLoading()!= null && blObj.getPod()!= null) {
-				itnryClassObj.setPrtOfCallSeqNmbr(settingLength("1",5)); 
+				itnryClassObj.setPrtOfCallSeqNmbr(Integer.parseInt(settingLength("1",5))); 
 			}else if (blObj.getPortOfLoading()!= null && blObj.getPod()!= null && blObj.getPortOfDestination() != null ) {
-				itnryClassObj.setPrtOfCallSeqNmbr(settingLength("2",5)); 		
+				itnryClassObj.setPrtOfCallSeqNmbr(Integer.parseInt(settingLength("2",5))); 		
 			}else if(blObj.getPortOfLoading()!= null && blObj.getPod()!= null && 
 					blObj.getPortOfDestination() != null && blObj.getPortOfDeschargedCfs() != null ) {
-				itnryClassObj.setPrtOfCallSeqNmbr(settingLength("3",5)); 
+				itnryClassObj.setPrtOfCallSeqNmbr(Integer.parseInt(settingLength("3",5))); 
 			}
 			itnryClassObj.setNxtPrtOfCallCdd(settingLength(blObj.getNext_port_of_call_coded(),10));    //TODO  guru
 			itnryClassObj.setNxtPrtOfCallName(settingLength(blObj.getNext_port_of_call_name(),256));		//TODO  guru
@@ -4123,9 +4119,10 @@ public class CreatingJSON {
 
 			// ---------------------------------------------------------
 			TrnsprtDocMsrSCX trnsprtDocMsrClassObj = new TrnsprtDocMsrSCX();
-			trnsprtDocMsrClassObj.setNmbrOfPkgs(Integer.parseInt(settingLength(blObj.getTotal_number_of_packages(), 8)));
-			trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getPackage_kind());
-			trnsprtDocMsrClassObj.setGrossWeight(Double.valueOf(settingLengthForDouble(blObj.getGrosWeight(), 12, 3)));
+			trnsprtDocMsrClassObj.setNmbrOfPkgs(blObj.getTotal_number_of_packages().equals(null) || blObj.getTotal_number_of_packages().equals("") ? 0 : Integer.parseInt(settingLength(blObj.getTotal_number_of_packages(), 8)));
+			trnsprtDocMsrClassObj.setTypsOfPkgs(settingLength(blObj.getPackage_kind(),3));
+			System.out.println(blObj.getPackage_kind() + " type");
+			trnsprtDocMsrClassObj.setGrossWeight(blObj.getGrosWeight().equals(null) || ("").equals(blObj.getGrosWeight()) ? 0.0 :Double.valueOf(settingLengthForDouble(blObj.getGrosWeight(), 12, 3)));
 //			trnsprtDocMsrClassObj.setNetWeight(settingLengthForDouble(blObj.getNetWeight(), 12, 3));
 			trnsprtDocMsrClassObj.setUnitOfWeight(settingLength("KGS", 3));
 //			trnsprtDocMsrClassObj.setInvoiceValueOfCnsgmt(settingLengthForDouble(blObj.getInvoiceValueFc(), 16, 2));// not																										// Guru
@@ -4150,7 +4147,7 @@ public class CreatingJSON {
 			if(mCRefClassObj.getConsolidatedIndctr().equals("S")) {
 			ItemDtlsSCX itemDtlsClassObj = new ItemDtlsSCX();
 			itemDtlsClassObj.setHsCd(blObj.getCommdity_code());
-			itemDtlsClassObj.setCrgoItemSeqNmbr(settingLength(blObj.getCommodity_seq()+"", 5));
+			itemDtlsClassObj.setCrgoItemSeqNmbr(Integer.parseInt(settingLength(blObj.getCommodity_seq()+"", 5)));
 			itemDtlsClassObj.setCrgoItemDesc(settingLength(blObj.getCargo_item_description(), 256));
 			if(blObj.getDgFlag() != null && StringUtils.isNotBlank(blObj.getDgFlag()) ) {
 				itemDtlsClassObj.setUnoCd( settingLength(blObj.getUno_code(),5));
@@ -4159,7 +4156,7 @@ public class CreatingJSON {
 					itemDtlsClassObj.setUnoCd( settingLength("ZZZZZ",5));
 					itemDtlsClassObj.setImdgCd( settingLength("ZZZ",3));	
 			}
-			itemDtlsClassObj.setNmbrOfPkgs(settingLength(blObj.getTotal_number_of_packages(), 8));
+			itemDtlsClassObj.setNmbrOfPkgs(blObj.getTotal_number_of_packages().equals(null) || blObj.getTotal_number_of_packages().equals("") ? 0 : Integer.parseInt(settingLength(blObj.getTotal_number_of_packages(), 8)));
 			itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getPackage_kind(), 3));	
 			itemDtls.add(itemDtlsClassObj);
 			mastrCnsgmtDec.setItemDtls(itemDtlsClassObj);
@@ -4170,11 +4167,11 @@ public class CreatingJSON {
 						ItemDtlsSCX itemDtlsClassObj = new ItemDtlsSCX();
 						itemDtlsClassObj.setHsCd(blObj.getCommdity_code());
 						//	itemDtlsClassObj.setCrgoItemSeqNmbr(blObj.getCommodity_seq()+"");
-							itemDtlsClassObj.setCrgoItemSeqNmbr( settingLength(blObj.getCommodity_seq()+"",5));	
+							itemDtlsClassObj.setCrgoItemSeqNmbr(Integer.parseInt(settingLength(blObj.getCommodity_seq()+"",5)));	
 							itemDtlsClassObj.setCrgoItemDesc( settingLength(blObj.getCargo_item_description(),256));
 							itemDtlsClassObj.setUnoCd( settingLength(blObj.getUno_code(),5));
 							itemDtlsClassObj.setImdgCd( settingLength(blObj.getImdg_code(),4));
-							itemDtlsClassObj.setNmbrOfPkgs(settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6)); 
+							itemDtlsClassObj.setNmbrOfPkgs(blObj.getTotal_number_of_packages().equals(null) || blObj.getTotal_number_of_packages().equals("") ? 0 :Integer.parseInt(settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6))); 
 							itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getPackage_kind(),3));
 							itemDtls.add(itemDtlsClassObj);
 							mastrCnsgmtDec.setItemDtls(itemDtlsClassObj);
@@ -4276,7 +4273,7 @@ public class CreatingJSON {
 					j++;
 					containseSets.add(ctnerDtl.getContainerNumber());
 					TrnsprtEqmtSCX trnsprtEqmtClassObj = new TrnsprtEqmtSCX();
-					trnsprtEqmtClassObj.setEqmtSeqNo(settingLength(j+"",5));
+					trnsprtEqmtClassObj.setEqmtSeqNo(Integer.parseInt(settingLength(j+"",5)));
 					trnsprtEqmtClassObj.setEqmtId(settingLength(ctnerDtl.getContainerNumber(), 17));
 					trnsprtEqmtClassObj.setEqmtTyp(settingLength("CN", 3)); // alway CN hard codded
 																			// customerCodecontainer
@@ -4291,8 +4288,8 @@ public class CreatingJSON {
 //					trnsprtEqmtClassObj.setEventDt("");
 //					trnsprtEqmtClassObj.setFinalDestLoc(settingLength("", 10));
 					trnsprtEqmtClassObj.setCntrAgntCd(settingLength(service.getAgentCode(),17));
-					trnsprtEqmtClassObj.setCntrWeight(settingLengthForDouble(ctnerDtl.getContainerWeight(), 14, 2));
-					trnsprtEqmtClassObj.setTotalNmbrOfPkgs(settingLength(ctnerDtl.getTotalNumberOfPackagesInContainer(), 8));
+					trnsprtEqmtClassObj.setCntrWeight(ctnerDtl.getContainerWeight().equals(null) || ctnerDtl.getContainerWeight().equals("") ? 0.0 : Double.valueOf(settingLengthForDouble(ctnerDtl.getContainerWeight(), 14, 2)));
+					trnsprtEqmtClassObj.setTotalNmbrOfPkgs(ctnerDtl.getTotalNumberOfPackagesInContainer().equals(null) || ctnerDtl.getTotalNumberOfPackagesInContainer().equals("") ? 0 : Integer.parseInt(settingLength(ctnerDtl.getTotalNumberOfPackagesInContainer(), 8)));
 					trnsprtEqmt.add(trnsprtEqmtClassObj);
 					}
 				}  
@@ -4571,7 +4568,8 @@ public class CreatingJSON {
 		voyageDtlsClassObj.setTotalNoOfTrnsprtEqmtMnfsted(Integer.parseInt( settingLength(containerCount+"",5)));// Line:-46
 //		voyageDtlsClassObj.setCrgoDescCdd(objForm.getCargoDeclaration()); // Line:-195
 //		voyageDtlsClassObj.setBriefCrgoDesc(objForm.getBrief_cargo_des()); // Line:-195
-		voyageDtlsClassObj.setTotalNmbrOfLines(Integer.parseInt(settingLength(service.getTotalItem() ,5)));// Line38 (objForm.getTotalItem()); nitun
+		voyageDtlsClassObj.setTotalNmbrOfLines(service.getTotalItem().equals(null) || service.getTotalItem().equals("") ? 0 : Integer.parseInt(settingLength(service.getTotalItem() ,5)));// Line38 (objForm.getTotalItem()); nitun
+		
 //		voyageDtlsClassObj.setExptdDtAndTimeOfArvl(objForm.getArrivalDate() + "T" + getTime(objForm.getArrivalTime()));
 		// voyageDtlsClassObj.setExptdDtAndTimeOfDptr(objForm.getArrivalDate() + "T" +
 		// getTime(objForm.getArrivalTime()));
