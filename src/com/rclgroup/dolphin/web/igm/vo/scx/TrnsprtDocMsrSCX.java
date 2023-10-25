@@ -33,7 +33,7 @@ public class TrnsprtDocMsrSCX {
 		this.grossWeight = grossWeight;
 	}
 	public void setTypsOfPkgs(String typsOfPkgs) {
-		typsOfPkgs = FiledValidation.isNullAndSetlength(typsOfPkgs, 3);
+//		typsOfPkgs = FiledValidation.isNullAndSetlength(typsOfPkgs, 3);
 		this.typsOfPkgs = typsOfPkgs;
 	}
 //  "marksNumberDtlstls"  (Use Marks & Numbers from IGM screen. First 512 characters) > mandatory

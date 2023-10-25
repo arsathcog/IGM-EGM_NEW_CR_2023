@@ -8,7 +8,7 @@ public class ItnrySCX {
 	private String prtOfCallName;
 	private String nxtPrtOfCallCdd;
 	private String nxtPrtOfCallName;
-	private String modeOfTrnsprt;
+	private int modeOfTrnsprt;
 //	private String amendment;
 //
 //  	public String getAmendment() {
@@ -74,12 +74,13 @@ public class ItnrySCX {
 		this.nxtPrtOfCallName = nxtPrtOfCallName;
 	}
 //This value is come from BL Json object   "modeofTransport"
-	public String getModeOfTrnsprt() {
+
+	public int getModeOfTrnsprt() {
 		return modeOfTrnsprt;
 	}
 
-	public void setModeOfTrnsprt(String modeOfTrnsprt) {
-//		modeOfTrnsprt = FiledValidation.isNullAndSetlength(modeOfTrnsprt, 1);
+	public void setModeOfTrnsprt(int modeOfTrnsprt) {
 		this.modeOfTrnsprt = modeOfTrnsprt;
 	}
+
 }

@@ -1924,109 +1924,70 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 		   /* 	var selectedIndex = obj.blIndex; */
 		   $("body").append('<div class="loading"></div>');
 
-		   if ( ($scope.consignee.consigneeName != "BANK" || $scope.consignee.consigneeName != "TO THE ORDER OF" ||
-		      $scope.consignee.consigneeName != "TO ORDER" || $scope.consignee.consigneeName != "TO ORDER OF")&&
-		       $scope.notifyParty.notifyName == "SAME AS CONSIGNEE" ) {
-		      $scope.BLS[$scope.blIndex].notifyParty[0].costumerCode = $scope.BLS[$scope.blIndex].consignee[0].customerCode;
-		      $scope.BLS[$scope.blIndex].notifyParty[0].costumerName = $scope.BLS[$scope.blIndex].consignee[0].customerName;
-		      $scope.BLS[$scope.blIndex].notifyParty[0].addressLine1 = $scope.BLS[$scope.blIndex].consignee[0].addressLine1;
-		      $scope.BLS[$scope.blIndex].notifyParty[0].addressLine2 = $scope.BLS[$scope.blIndex].consignee[0].addressLine2;
+		   if($scope.consignee.consigneeName == "BANK" &&($scope.notifyParty.notifyName != "TO THE ORDER OF" ||
+				   $scope.notifyParty.notifyName  != "TO ORDER" ||$scope.notifyParty.notifyName != "TO ORDER OF")){
+			  $scope.BLS[$scope.blIndex].consignee[0].customerCode = $scope.BLS[$scope.blIndex].notifyParty[0].costumerCode;
+		      $scope.BLS[$scope.blIndex].consignee[0].customerName = $scope.BLS[$scope.blIndex].notifyParty[0].costumerName;
+		      $scope.BLS[$scope.blIndex].consignee[0].addressLine1 = $scope.BLS[$scope.blIndex].notifyParty[0].addressLine1;
+		      $scope.BLS[$scope.blIndex].consignee[0].addressLine2 = $scope.BLS[$scope.blIndex].notifyParty[0].addressLine2;
 
-		      $scope.BLS[$scope.blIndex].notifyParty[0].addressLine3 = $scope.BLS[$scope.blIndex].consignee[0].addressLine3;
-		      $scope.BLS[$scope.blIndex].notifyParty[0].addressLine4 = $scope.BLS[$scope.blIndex].consignee[0].addressLine4;
-		      $scope.BLS[$scope.blIndex].notifyParty[0].city = $scope.BLS[$scope.blIndex].consignee[0].city;
-		      $scope.BLS[$scope.blIndex].notifyParty[0].state = $scope.BLS[$scope.blIndex].consignee[0].state;
+		      $scope.BLS[$scope.blIndex].consignee[0].addressLine3 = $scope.BLS[$scope.blIndex].notifyParty[0].addressLine3;
+		      $scope.BLS[$scope.blIndex].consignee[0].addressLine4 = $scope.BLS[$scope.blIndex].notifyParty[0].addressLine4;
+		      $scope.BLS[$scope.blIndex].consignee[0].city = $scope.BLS[$scope.blIndex].notifyParty[0].city;
+		      $scope.BLS[$scope.blIndex].consignee[0].state = $scope.BLS[$scope.blIndex].notifyParty[0].state;
 
-		      $scope.BLS[$scope.blIndex].notifyParty[0].countryCode = $scope.BLS[$scope.blIndex].consignee[0].countryCode;
-		      $scope.BLS[$scope.blIndex].notifyParty[0].zip = $scope.BLS[$scope.blIndex].consignee[0].zip;
+		      $scope.BLS[$scope.blIndex].consignee[0].countryCode = $scope.BLS[$scope.blIndex].notifyParty[0].countryCode;
+		      $scope.BLS[$scope.blIndex].consignee[0].zip = $scope.BLS[$scope.blIndex].notifyParty[0].zip;
 
-		      $scope.notifyIec = $scope.consignee.consigneIec;
-		      $scope.notifyPan = $scope.consignee.consignePan;
+		      $scope.consigneIec = $scope.notifyParty.notifyIec;
+		      $scope.consignePan = $scope.notifyParty.notifyPan;
 		      
-		      swal("Message", "Consignee Data copy to Notify Party.", "info");
+		      swal("Message", "Notify Party Data copy to Consignee .", "info");
 		      $("body").find('.loading').remove();
 
 		     
-		   } else if (($scope.consignee.consigneeName != "BANK" || $scope.consignee.consigneeName != "TO THE ORDER OF" ||
-		      $scope.consignee.consigneeName != "TO ORDER" || $scope.consignee.consigneeName != "TO ORDER OF" )&&
-		      $scope.notifyParty.forwader == "FWR") {
+		   }else if(($scope.consignee.consigneeName == "TO THE ORDER OF" || 
+					$scope.consignee.consigneeName == "TO ORDER" || $scope.consignee.consigneeName == "TO ORDER OF" ||
+					$scope.notifyParty.countryCode != "IN"&& $scope.consignee.portOfDischarge.substring(0,2) == "IN") 
+					&& $scope.notifyParty.notifyName == "SAME AS CONSIGNEE" ){
+				
+			    $scope.BLS[$scope.blIndex].notifyParty[0].costumerCode = $scope.BLS[$scope.blIndex].consignee[0].customerCode;
+			      $scope.BLS[$scope.blIndex].notifyParty[0].costumerName = $scope.BLS[$scope.blIndex].consignee[0].customerName;
+			      $scope.BLS[$scope.blIndex].notifyParty[0].addressLine1 = $scope.BLS[$scope.blIndex].consignee[0].addressLine1;
+			      $scope.BLS[$scope.blIndex].notifyParty[0].addressLine2 = $scope.BLS[$scope.blIndex].consignee[0].addressLine2;
 
-		      $scope.consigneIec = $scope.consignee.consigneIec;
-		      $scope.notifyPan = $scope.notifyParty.notifyPan;
+			      $scope.BLS[$scope.blIndex].notifyParty[0].addressLine3 = $scope.BLS[$scope.blIndex].consignee[0].addressLine3;
+			      $scope.BLS[$scope.blIndex].notifyParty[0].addressLine4 = $scope.BLS[$scope.blIndex].consignee[0].addressLine4;
+			      $scope.BLS[$scope.blIndex].notifyParty[0].city = $scope.BLS[$scope.blIndex].consignee[0].city;
+			      $scope.BLS[$scope.blIndex].notifyParty[0].state = $scope.BLS[$scope.blIndex].consignee[0].state;
 
+			      $scope.BLS[$scope.blIndex].notifyParty[0].countryCode = $scope.BLS[$scope.blIndex].consignee[0].countryCode;
+			      $scope.BLS[$scope.blIndex].notifyParty[0].zip = $scope.BLS[$scope.blIndex].consignee[0].zip;
 
-		   } else if (($scope.notifyParty.countryCode != "IN" && $scope.consignee.portOfDischarge.substring(0, 2) == "IN")&&
-		     ( $scope.notifyParty.notifyName != "SAME AS CONSIGNEE" || $scope.notifyParty.forwader != "FWR")) {
+			      $scope.notifyIec = $scope.consignee.consigneIec;
+			      $scope.notifyPan = $scope.consignee.consignePan;
 
-		      $scope.BLS[$scope.blIndex].notifyParty[0].costumerCode = $scope.BLS[$scope.blIndex].consignee[0].customerCode;
-		      $scope.BLS[$scope.blIndex].notifyParty[0].costumerName = $scope.BLS[$scope.blIndex].consignee[0].customerName;
-		      $scope.BLS[$scope.blIndex].notifyParty[0].addressLine1 = $scope.BLS[$scope.blIndex].consignee[0].addressLine1;
-		      $scope.BLS[$scope.blIndex].notifyParty[0].addressLine2 = $scope.BLS[$scope.blIndex].consignee[0].addressLine2;
+			      swal("Message", "Consignee Data copy to Notify Party.", "info");
+			      $("body").find('.loading').remove();
+		   }else if($scope.consignee.consigneFwr = "FWR" &&  $scope.notifyParty.notifyName == "SAME AS CONSIGNEE"){
+			   $scope.BLS[$scope.blIndex].notifyParty[0].costumerCode = $scope.BLS[$scope.blIndex].consignee[0].customerCode;
+			      $scope.BLS[$scope.blIndex].notifyParty[0].costumerName = $scope.BLS[$scope.blIndex].consignee[0].customerName;
+			      $scope.BLS[$scope.blIndex].notifyParty[0].addressLine1 = $scope.BLS[$scope.blIndex].consignee[0].addressLine1;
+			      $scope.BLS[$scope.blIndex].notifyParty[0].addressLine2 = $scope.BLS[$scope.blIndex].consignee[0].addressLine2;
 
-		      $scope.BLS[$scope.blIndex].notifyParty[0].addressLine3 = $scope.BLS[$scope.blIndex].consignee[0].addressLine3;
-		      $scope.BLS[$scope.blIndex].notifyParty[0].addressLine4 = $scope.BLS[$scope.blIndex].consignee[0].addressLine4;
-		      $scope.BLS[$scope.blIndex].notifyParty[0].city = $scope.BLS[$scope.blIndex].consignee[0].city;
-		      $scope.BLS[$scope.blIndex].notifyParty[0].state = $scope.BLS[$scope.blIndex].consignee[0].state;
+			      $scope.BLS[$scope.blIndex].notifyParty[0].addressLine3 = $scope.BLS[$scope.blIndex].consignee[0].addressLine3;
+			      $scope.BLS[$scope.blIndex].notifyParty[0].addressLine4 = $scope.BLS[$scope.blIndex].consignee[0].addressLine4;
+			      $scope.BLS[$scope.blIndex].notifyParty[0].city = $scope.BLS[$scope.blIndex].consignee[0].city;
+			      $scope.BLS[$scope.blIndex].notifyParty[0].state = $scope.BLS[$scope.blIndex].consignee[0].state;
 
-		      $scope.BLS[$scope.blIndex].notifyParty[0].countryCode = $scope.BLS[$scope.blIndex].consignee[0].countryCode;
-		      $scope.BLS[$scope.blIndex].notifyParty[0].zip = $scope.BLS[$scope.blIndex].consignee[0].zip;
+			      $scope.BLS[$scope.blIndex].notifyParty[0].countryCode = $scope.BLS[$scope.blIndex].consignee[0].countryCode;
+			      $scope.BLS[$scope.blIndex].notifyParty[0].zip = $scope.BLS[$scope.blIndex].consignee[0].zip;
 
-		      $scope.notifyIec = $scope.consignee.consigneIec;
-		      $scope.notifyPan = $scope.consignee.consignePan;
-		      swal("Message", "Consignee Data copy to Notify Party.", "info");
-		      $("body").find('.loading').remove();
-
-		   } else if (($scope.consignee.consigneeName == "BANK" || $scope.consignee.consigneeName == "TO THE ORDER OF" ||
-		      $scope.consignee.consigneeName == "TO ORDER" || $scope.consignee.consigneeName == "TO ORDER OF" )&&
-		      ($scope.notifyParty.notifyName != "SAME AS CONSIGNEE" || $scope.notifyParty.forwader != "FWR")) {
-		      $scope.BLS[$scope.blIndex].consignee[0].customerCode = $scope.BLS[$scope.blIndex].notifyParty[0].costumerCode;
-		      $scope.BLS[$scope.blIndex].consignee[0].costumerName = $scope.BLS[$scope.blIndex].notifyParty[0].costumerName;
-		      $scope.BLS[$scope.blIndex].consignee[0].addressLine1 = $scope.BLS[$scope.blIndex].notifyParty[0].addressLine1;
-		      $scope.BLS[$scope.blIndex].consignee[0].addressLine2 = $scope.BLS[$scope.blIndex].notifyParty[0].addressLine2;
-
-		      $scope.BLS[$scope.blIndex].consignee[0].addressLine3 = $scope.BLS[$scope.blIndex].notifyParty[0].addressLine3;
-		      $scope.BLS[$scope.blIndex].consignee[0].addressLine4 = $scope.BLS[$scope.blIndex].notifyParty[0].addressLine4;
-		      $scope.BLS[$scope.blIndex].consignee[0].city = $scope.BLS[$scope.blIndex].notifyParty[0].city;
-		      $scope.BLS[$scope.blIndex].consignee[0].state = $scope.BLS[$scope.blIndex].notifyParty[0].state;
-
-		      $scope.BLS[$scope.blIndex].consignee[0].countryCode = $scope.BLS[$scope.blIndex].notifyParty[0].countryCode;
-		      $scope.BLS[$scope.blIndex].consignee[0].zip = $scope.BLS[$scope.blIndex].notifyParty[0].zip;
-
-		      $scope.consigneIec = $scope.notifyParty.notifyIec;
-		      $scope.consignePan = $scope.notifyParty.notifyPan;
-
-
-		      swal("Message", "Notify Party Data copy to Consignee.", "info");
-		      $("body").find('.loading').remove();
-		   } else if (($scope.consignee.consigneeName != "BANK" || $scope.consignee.consigneeName != "TO THE ORDER OF" ||
-		      $scope.consignee.consigneeName != "TO ORDER" || $scope.consignee.consigneeName != "TO ORDER OF" )&&
-		      $scope.notifyParty.countryCode != "IN" && $scope.consignee.portOfDischarge.substring(0, 2) == "IN") {
-		      $scope.BLS[$scope.blIndex].consignee[0].customerCode = $scope.BLS[$scope.blIndex].notifyParty[0].costumerCode;
-		      $scope.BLS[$scope.blIndex].consignee[0].costumerName = $scope.BLS[$scope.blIndex].notifyParty[0].costumerName;
-		      $scope.BLS[$scope.blIndex].consignee[0].addressLine1 = $scope.BLS[$scope.blIndex].notifyParty[0].addressLine1;
-		      $scope.BLS[$scope.blIndex].consignee[0].addressLine2 = $scope.BLS[$scope.blIndex].notifyParty[0].addressLine2;
-
-		      $scope.BLS[$scope.blIndex].consignee[0].addressLine3 = $scope.BLS[$scope.blIndex].notifyParty[0].addressLine3;
-		      $scope.BLS[$scope.blIndex].consignee[0].addressLine4 = $scope.BLS[$scope.blIndex].notifyParty[0].addressLine4;
-		      $scope.BLS[$scope.blIndex].consignee[0].city = $scope.BLS[$scope.blIndex].notifyParty[0].city;
-		      $scope.BLS[$scope.blIndex].consignee[0].state = $scope.BLS[$scope.blIndex].notifyParty[0].state;
-
-		      $scope.BLS[$scope.blIndex].consignee[0].countryCode = $scope.BLS[$scope.blIndex].notifyParty[0].countryCode;
-		      $scope.BLS[$scope.blIndex].consignee[0].zip = $scope.BLS[$scope.blIndex].notifyParty[0].zip;
-
-		      $scope.consigneIec = $scope.notifyParty.notifyIec;
-		      $scope.consignePan = $scope.notifyParty.notifyPan;
-		      swal("Message", "Notify Party Data copy to Consignee.", "info");
-		      $("body").find('.loading').remove();
-
-
-		   } else if ($scope.consignee.consigneFwr == "FWR") {
-		      $scope.consignePan = $scope.consignee.consignePan;
-		      $("body").find('.loading').remove();
-		   } else if ($scope.notifyParty.notifyFwr == "FWR") {
-		      $scope.notifyPan = $scope.notifyParty.notifyPan;
-		      $("body").find('.loading').remove();
-		   } else {
+			      $scope.notifyIec = $scope.consignee.consigneIec;
+			      $scope.notifyPan = $scope.consignee.consignePan;
+			      swal("Message", "Consignee Data copy to Notify Party.", "info");
+			      $("body").find('.loading').remove();
+			   }else {
 			   $scope.consigneIec = $scope.consignee.consigneIec;
 			   $scope.consignePan = $scope.consignee.consignePan;
 			   $scope.notifyIec = $scope.notifyParty.notifyIec;
@@ -2040,9 +2001,9 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 		debugger;
 		var selectedIndex = obj.blIndex;
 		if($scope.notifyParty.consigneCheckBox == "N"){
-		if($scope.consignee.consigneeName == "BANK" || $scope.consignee.consigneeName == "TO THE ORDER OF" || 
+		if($scope.consignee.consigneeName == "BANK" &&($scope.consignee.consigneeName == "TO THE ORDER OF" || 
 			$scope.consignee.consigneeName == "TO ORDER" || $scope.consignee.consigneeName == "TO ORDER OF" ||
-			$scope.notifyParty.countryCode != "IN"&& $scope.consignee.portOfDischarge.substring(0,2) == "IN"){
+			$scope.notifyParty.countryCode != "IN"&& $scope.consignee.portOfDischarge.substring(0,2) == "IN")){
 			obj.BLS[selectedIndex].consignee[0].customerCode=obj.BLS[selectedIndex].notifyParty[0].costumerCode;
 			obj.BLS[selectedIndex].consignee[0].costumerName=obj.BLS[selectedIndex].notifyParty[0].costumerName;
 			obj.BLS[selectedIndex].consignee[0].addressLine1=obj.BLS[selectedIndex].notifyParty[0].addressLine1;

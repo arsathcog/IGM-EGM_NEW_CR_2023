@@ -117,6 +117,10 @@ public class IGMConsignerDataDaoImpl extends AncestorJdbcDao implements IGMConsi
 				consigner.setCountryCode(rs.getString("DN_COUNTRY_CODE"));
 				consigner.setZip(rs.getString("ZIP"));	
 				consigner.setStateName(rs.getString("STATE_NAME"));	
+				consigner.setConsignerPan(rs.getString("CONSIGNER_PAN"));	
+				consigner.setConsignerIec(rs.getString("CONSIGNER_IEC"));	
+				consigner.setConsignerFwr(rs.getString("CONSIGNEE_FWR"));	
+
 				return consigner;
 			}
 		}

@@ -4,7 +4,7 @@ public class CrewEfctSDM {
 	private int crewEfctsSeqNmbr;
 	private String crewEfctDescCdd;
 	private String crewEfctsDesc;
-	private int crewEfctQntyOnbrd;
+	private Double crewEfctQntyOnbrd;
 	private String crewEfctQntyOnbrdCd;
 	
 	
@@ -27,10 +27,11 @@ public class CrewEfctSDM {
 	public void setCrewEfctsSeqNmbr(int crewEfctsSeqNmbr) {
 		this.crewEfctsSeqNmbr = crewEfctsSeqNmbr;
 	}
-	public int getCrewEfctQntyOnbrd() {
+
+	public Double getCrewEfctQntyOnbrd() {
 		return crewEfctQntyOnbrd;
 	}
-	public void setCrewEfctQntyOnbrd(int crewEfctQntyOnbrd) {
+	public void setCrewEfctQntyOnbrd(Double crewEfctQntyOnbrd) {
 		this.crewEfctQntyOnbrd = crewEfctQntyOnbrd;
 	}
 	public String getCrewEfctQntyOnbrdCd() {

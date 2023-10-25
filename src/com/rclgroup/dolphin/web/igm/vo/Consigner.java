@@ -16,6 +16,14 @@ public class Consigner {
 	private String countryCode;
 	private String zip;
 	private String stateName;
+	private String notifyIec;
+	private String notifyPan;
+	private String consignerName;
+	private String consignerIec;
+	private String consignerPan;
+	private String portOfDischarge;
+	private String consigneCheckBox;
+	private String consignerFwr;
 
 	
 	public String getBlNO() {
@@ -90,6 +98,56 @@ public class Consigner {
 	}
 	public void setStateName(String stateName) {
 		this.stateName = stateName;
+	}
+	
+	
+	public String getNotifyIec() {
+		return notifyIec;
+	}
+	public void setNotifyIec(String notifyIec) {
+		this.notifyIec = notifyIec;
+	}
+	public String getNotifyPan() {
+		return notifyPan;
+	}
+	public void setNotifyPan(String notifyPan) {
+		this.notifyPan = notifyPan;
+	}
+	public String getConsignerName() {
+		return consignerName;
+	}
+	public void setConsignerName(String consignerName) {
+		this.consignerName = consignerName;
+	}
+	public String getConsignerIec() {
+		return consignerIec;
+	}
+	public void setConsignerIec(String consignerIec) {
+		this.consignerIec = consignerIec;
+	}
+	public String getConsignerPan() {
+		return consignerPan;
+	}
+	public void setConsignerPan(String consignerPan) {
+		this.consignerPan = consignerPan;
+	}
+	public String getPortOfDischarge() {
+		return portOfDischarge;
+	}
+	public void setPortOfDischarge(String portOfDischarge) {
+		this.portOfDischarge = portOfDischarge;
+	}
+	public String getConsigneCheckBox() {
+		return consigneCheckBox;
+	}
+	public void setConsigneCheckBox(String consigneCheckBox) {
+		this.consigneCheckBox = consigneCheckBox;
+	}
+	public String getConsignerFwr() {
+		return consignerFwr;
+	}
+	public void setConsignerFwr(String consignerFwr) {
+		this.consignerFwr = consignerFwr;
 	}
 	@Override
 	public String toString() {

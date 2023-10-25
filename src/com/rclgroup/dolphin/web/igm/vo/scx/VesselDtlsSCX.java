@@ -1,7 +1,7 @@
 package com.rclgroup.dolphin.web.igm.vo.scx;
 
 public class VesselDtlsSCX {
-	private String modeOfTrnsprt;
+	private int modeOfTrnsprt;
 	private String typOfTrnsprtMeans;
 	private String trnsprtMeansId;
 //	private String shipTyp;
@@ -28,16 +28,18 @@ public class VesselDtlsSCX {
 //		this.amendment = amendment;
 //	}
 //(Default value as sea =1, (1=Sea, 2=Rail, 3=Truck, 4=Air). Add new column in vessel voyage . user will select manually.). mandatory
-	public String getModeOfTrnsprt() {
-		return modeOfTrnsprt;
-	}
 
-	public void setModeOfTrnsprt(String modeOfTrnsprt) {
-		this.modeOfTrnsprt = modeOfTrnsprt;
-	}
 
 	public String getTypOfTrnsprtMeans() {
 		return typOfTrnsprtMeans;
+	}
+
+	public int getModeOfTrnsprt() {
+		return modeOfTrnsprt;
+	}
+
+	public void setModeOfTrnsprt(int modeOfTrnsprt) {
+		this.modeOfTrnsprt = modeOfTrnsprt;
 	}
 
 	public void setTypOfTrnsprtMeans(String typOfTrnsprtMeans) {
