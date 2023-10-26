@@ -3225,7 +3225,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 						$scope.BLS[$scope.blIndex].mariTimeDecl  =  result.data.blDetails[0].mariTimeDecl
 						$scope.BLS[$scope.blIndex].masterBl  =  result.data.blDetails[0].masterBl
 						$scope.BLS[$scope.blIndex].masterBlDate  =  result.data.blDetails[0].masterBlDate
-						if ($scope.BLS[$scope.blIndex].masterBlDate) {
+						/* if ($scope.BLS[$scope.blIndex].masterBlDate) {
 							  var dateParts = $scope.BLS[$scope.blIndex].masterBlDate.toString().split('');
 							  var year = dateParts.slice(0, 4).join('');
 							  var month = dateParts.slice(4, 6).join('');
@@ -3233,7 +3233,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 
 							  var formattedDate = day + '/' + month + '/' + year;
 							  $scope.BLS[$scope.blIndex].masterBlDate = formattedDate;
-							}
+							} */
 						$scope.BLS[$scope.blIndex].masterName  =  result.data.blDetails[0].masterName
 						$scope.BLS[$scope.blIndex].mblNo  =  result.data.blDetails[0].mblNo
 						$scope.BLS[$scope.blIndex].mc_item_details  =  result.data.blDetails[0].mc_item_details

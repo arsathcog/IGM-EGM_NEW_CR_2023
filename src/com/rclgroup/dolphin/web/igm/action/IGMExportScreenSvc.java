@@ -834,26 +834,26 @@ System.out.println("getCarogoDetails() Called.");
 		
 		return finalResult;
 	}
-	private void getSaveDataList(List<ImportGeneralManifestMod> blList,List<ImportGeneralManifestMod> deleteBL,
-			List<ImportGeneralManifestMod> insertBL, List<ImportGeneralManifestMod> insertBLFtch){
-		     
-		System.out.println("getSaveDataList() Start."); 
-		
+	private void getSaveDataList(List<ImportGeneralManifestMod> blList, List<ImportGeneralManifestMod> deleteBL,
+			List<ImportGeneralManifestMod> insertBL,List<ImportGeneralManifestMod> insertBLFtch) {
+
+		System.out.println("getSaveDataList() Start.");
 		List<ImportGeneralManifestMod> bl = new ArrayList<ImportGeneralManifestMod>();
-		
-			bl = blList.stream()
-					.filter(c -> c.getSaveFlags().trim().equals("D")).collect(Collectors.toList());
-			deleteBL.addAll(bl);
-			bl.clear(); 
-			bl = blList.stream()
-					.filter(c -> c.getSaveFlags().trim().equals("I") || c.getSaveFlags().trim().equals("U")).collect(Collectors.toList());
-			insertBL.addAll(bl);
-			bl.clear(); 
-			//updateBL = blList.stream()
-					//.filter(c -> c.getCargoMovmnt().trim().equals("U")).collect(Collectors.toList());
-			System.out.println("getSaveDataList() end."); 
-			 
+
+		bl = blList.stream().filter(c -> c.getSaveFlags().trim().equals("D")).collect(Collectors.toList());
+		deleteBL.addAll(bl);
+		bl.clear();
+		bl = blList.stream().filter(c -> (c.getSaveFlags().trim().equals("I") || c.getSaveFlags().trim().equals("U")) && (c.isFetch()==false) )
+				.collect(Collectors.toList());
+		insertBL.addAll(bl);
+		bl.clear();
+		bl = blList.stream().filter(c -> (c.getSaveFlags().trim().equals("I") || c.getSaveFlags().trim().equals("U")) && (c.isFetch()==true) )
+				.collect(Collectors.toList());
+		insertBLFtch.addAll(bl);
+		bl.clear(); 
+		System.out.println("getSaveDataList() end.");
 	}
+	
 	private ActionForward getContainerDetails(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		 System.out.println("getContainerDetails() Start.");

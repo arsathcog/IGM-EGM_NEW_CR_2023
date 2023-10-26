@@ -1446,7 +1446,7 @@ public class CreatingJSON {
 	
 	public static Integer convertingStringtoInt(String aField){
 		int convertedIntVal = 0;
-		if( aField == null) {
+		if( aField == null || aField.equals("") || aField.equals(" ")) {
 			return 0;
 		}else {
 			convertedIntVal= Integer.parseInt(aField);
@@ -1635,7 +1635,7 @@ public class CreatingJSON {
 			locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),8));
 			locCstmClassObj.setNxtPrtOfUnlading (settingLength(blObj.getPortOfDestination(),6)); // New added
 			
-			if(blObj.getPortOfDestination().substring(0, 2).equals("IN") && blObj.getPod().substring(0, 2).equals("IN")){
+			if(blObj.getPortOfLoading().substring(0, 2).equals("IN") && blObj.getPod().substring(0, 2).equals("IN")){
 				locCstmClassObj.setTypOfCrgo(settingLength("EX",2)); // if both value in india base
 			}
 
@@ -1745,7 +1745,7 @@ public class CreatingJSON {
 			TrnsprtDocMsrSDM trnsprtDocMsrClassObj = new TrnsprtDocMsrSDM();
 			trnsprtDocMsrClassObj.setNmbrOfPkgs(convertingStringtoInt(blObj.getTotal_number_of_packages()));
 			System.out.println(blObj.getTotal_number_of_packages());
-			trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getPackage_kind());
+			trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getType_of_package());
 			trnsprtDocMsrClassObj.setGrossWeight(convertingStringtoDouble(settingLengthForDouble(blObj.getGrosWeight(),12,3)));
 //			trnsprtDocMsrClassObj.setNetWeight(settingLengthForDouble(blObj.getNetWeight(),12,3));
 			trnsprtDocMsrClassObj.setUnitOfWeight(settingLength("KGS",3));
@@ -4158,8 +4158,7 @@ public class CreatingJSON {
 			// ---------------------------------------------------------
 			TrnsprtDocMsrSCX trnsprtDocMsrClassObj = new TrnsprtDocMsrSCX();
 			trnsprtDocMsrClassObj.setNmbrOfPkgs(convertingStringtoInt(settingLength(blObj.getTotal_number_of_packages(), 8)));
-			trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getPackage_kind());
-			System.out.println(blObj.getPackage_kind() + " type");
+			trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getType_of_package());
 			trnsprtDocMsrClassObj.setGrossWeight(convertingStringtoDouble(settingLengthForDouble(blObj.getGrosWeight(), 12, 3)));
 //			trnsprtDocMsrClassObj.setNetWeight(settingLengthForDouble(blObj.getNetWeight(), 12, 3));
 			trnsprtDocMsrClassObj.setUnitOfWeight(settingLength("KGS", 3));
