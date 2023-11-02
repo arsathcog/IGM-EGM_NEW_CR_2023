@@ -5,12 +5,12 @@ import com.rclgroup.dolphin.web.igm.vo.FiledValidation;
 public class ItemDtlsSCE {
 
 	// # not given in scma
-	private String crgoItemSeqNmbr;
+	private int crgoItemSeqNmbr;
 	private String hsCd;
 	private String crgoItemDesc;
 	private String unoCd;
 	private String imdgCd;
-	private String nmbrOfPkgs;
+	private int nmbrOfPkgs;
 	private String typOfPkgs;
 //	private String amendment;
 
@@ -23,14 +23,16 @@ public class ItemDtlsSCE {
 //  	}
 
 	// This value is come from BL Json object "Cargo Item Sequence No"
-	public String getCrgoItemSeqNmbr() {
+
+	public int getCrgoItemSeqNmbr() {
 		return crgoItemSeqNmbr;
 	}
 
-	public void setCrgoItemSeqNmbr(String crgoItemSeqNmbr) {
+	public void setCrgoItemSeqNmbr(int crgoItemSeqNmbr) {
 		this.crgoItemSeqNmbr = crgoItemSeqNmbr;
 	}
-
+	
+	
 	public String getHsCd() {
 		return hsCd;
 	}
@@ -79,11 +81,11 @@ public class ItemDtlsSCE {
 	}
 
 	// added new field in current BL "Number of Packages"
-	public String getNmbrOfPkgs() {
+	public int getNmbrOfPkgs() {
 		return nmbrOfPkgs;
 	}
 
-	public void setNmbrOfPkgs(String nmbrOfPkgs) {
+	public void setNmbrOfPkgs(int nmbrOfPkgs) {
 		this.nmbrOfPkgs = nmbrOfPkgs;
 	}
 

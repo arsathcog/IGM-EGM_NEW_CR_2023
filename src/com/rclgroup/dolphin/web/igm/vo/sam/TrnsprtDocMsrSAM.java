@@ -7,11 +7,11 @@ import com.rclgroup.dolphin.web.igm.vo.FiledValidation;
 
 public class TrnsprtDocMsrSAM {
 	
-	private String nmbrOfPkgs = null;
+	private int nmbrOfPkgs;
 	private String typsOfPkgs = null;
 	private String marksNoOnPkgs = null;
 
-	private String grossWeight = null;
+	private Double grossWeight;
 //	private String netWeight;
 	private String unitOfWeight = null;
 //	private String invoiceValueOfCnsgmt;
@@ -19,12 +19,10 @@ public class TrnsprtDocMsrSAM {
 	private String grossVolume = null;
 	private String unitOfVolume = null;
 
-	public String getNmbrOfPkgs() {
-		return nmbrOfPkgs;
-	}
 
-	public void setNmbrOfPkgs(String nmbrOfPkgs) {
-		this.nmbrOfPkgs = nmbrOfPkgs;
+
+	public int getNmbrOfPkgs() {
+		return nmbrOfPkgs;
 	}
 
 	public String getTypsOfPkgs() {
@@ -46,15 +44,13 @@ public class TrnsprtDocMsrSAM {
 	}
     
 	  //This value is come from BL Json object  "GrossWeightVessel" , "Gross Cargo Weight BL level" (Use Gross Cargo Weight  of BL while generating json file)
-	public String getGrossWeight() {
-		return grossWeight;
+	public void setNmbrOfPkgs(int nmbrOfPkgs) {
+		this.nmbrOfPkgs = nmbrOfPkgs;
 	}
 
-	public void setGrossWeight(String grossWeight) {
-		//grossWeight = FiledValidation.isNullAndSetlength(grossWeight, 512);
+	public void setGrossWeight(Double grossWeight) {
 		this.grossWeight = grossWeight;
-	}
-     
+	} 
 	  //This value is come from BL Json object "NetWeightVessel" (Use general tab Net Cargo Weight of BL while generating JSON file)>optional
 //	public String getNetWeight() {
 //		return netWeight;

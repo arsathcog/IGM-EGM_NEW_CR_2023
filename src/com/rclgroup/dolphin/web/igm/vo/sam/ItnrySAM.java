@@ -3,25 +3,25 @@ package com.rclgroup.dolphin.web.igm.vo.sam;
 import com.rclgroup.dolphin.web.igm.vo.FiledValidation;
 
 public class ItnrySAM {
-	
-	private String prtOfCallSeqNmbr;
+
+	private int prtOfCallSeqNmbr;
 	private String prtOfCallCdd;
 	private String prtOfCallName;
 	private String nxtPrtOfCallCdd;
 	private String nxtPrtOfCallName;
-	private String modeOfTrnsprt;
+	private int modeOfTrnsprt;
 
+	// This value is come from BL Json object "Port of call sequence numbe"
 
-     //This value is come from BL Json object  "Port of call sequence numbe"
-	public String getPrtOfCallSeqNmbr() {
+	public int getPrtOfCallSeqNmbr() {
 		return prtOfCallSeqNmbr;
 	}
 
-	public void setPrtOfCallSeqNmbr(String prtOfCallSeqNmbr) {
+	public void setPrtOfCallSeqNmbr(int prtOfCallSeqNmbr) {
 		this.prtOfCallSeqNmbr = prtOfCallSeqNmbr;
 	}
 
-     //This value is come from BL Json object   "Port of Call Coded"
+	// This value is come from BL Json object "Port of Call Coded"
 	public String getPrtOfCallCdd() {
 		return prtOfCallCdd;
 	}
@@ -30,7 +30,8 @@ public class ItnrySAM {
 //		prtOfCallCdd = FiledValidation.isNullAndSetlength(prtOfCallCdd, 10);
 		this.prtOfCallCdd = prtOfCallCdd;
 	}
-  //This value is come from BL Json object   "portofCallname"
+
+	// This value is come from BL Json object "portofCallname"
 	public String getPrtOfCallName() {
 		return prtOfCallName;
 	}
@@ -39,7 +40,8 @@ public class ItnrySAM {
 
 		this.prtOfCallName = prtOfCallName;
 	}
- //This value is come from BL Json object   "Next port of call coded"
+
+	// This value is come from BL Json object "Next port of call coded"
 	public String getNxtPrtOfCallCdd() {
 		return nxtPrtOfCallCdd;
 	}
@@ -49,7 +51,7 @@ public class ItnrySAM {
 		this.nxtPrtOfCallCdd = nxtPrtOfCallCdd;
 	}
 
-	//    This value is come from  "of Next Port of Call,Text"
+	// This value is come from "of Next Port of Call,Text"
 	public String getNxtPrtOfCallName() {
 		return nxtPrtOfCallName;
 	}
@@ -58,13 +60,15 @@ public class ItnrySAM {
 		nxtPrtOfCallName = FiledValidation.isNullAndSetlength(nxtPrtOfCallName, 256);
 		this.nxtPrtOfCallName = nxtPrtOfCallName;
 	}
-//This value is come from BL Json object   "modeofTransport"
-	public String getModeOfTrnsprt() {
+
+	public int getModeOfTrnsprt() {
 		return modeOfTrnsprt;
 	}
 
-	public void setModeOfTrnsprt(String modeOfTrnsprt) {
-//		modeOfTrnsprt = FiledValidation.isNullAndSetlength(modeOfTrnsprt, 1);
+	public void setModeOfTrnsprt(int modeOfTrnsprt) {
 		this.modeOfTrnsprt = modeOfTrnsprt;
 	}
+
+//This value is come from BL Json object   "modeofTransport"
+
 }

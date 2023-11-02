@@ -3,12 +3,12 @@ package com.rclgroup.dolphin.web.igm.vo.sce;
 import com.rclgroup.dolphin.web.igm.vo.FiledValidation;
 
 public class ItnrySCE {
-	private String prtOfCallSeqNmbr;
+	private int prtOfCallSeqNmbr;
 	private String prtOfCallCdd;
 	private String prtOfCallName;
 	private String nxtPrtOfCallCdd;
 	private String nxtPrtOfCallName;
-	private String modeOfTrnsprt;
+	private int modeOfTrnsprt;
 //	private String amendment;
 
 //  	public String getAmendment() {
@@ -19,19 +19,16 @@ public class ItnrySCE {
 //  		this.amendment = amendment;
 //  	}
 
-     //This value is come from BL Json object  "Port of call sequence numbe"
-	public String getPrtOfCallSeqNmbr() {
+	// This value is come from BL Json object "Port of call sequence numbe"
+	public int getPrtOfCallSeqNmbr() {
 		return prtOfCallSeqNmbr;
 	}
 
-	public void setPrtOfCallSeqNmbr(String prtOfCallSeqNmbr) {
-		System.out.println("prtOfCallSeqNmbr 1"+prtOfCallSeqNmbr);
-		prtOfCallSeqNmbr = FiledValidation.isNullAndSetlength(prtOfCallSeqNmbr, 100);
-		System.out.println("prtOfCallSeqNmbr 1"+prtOfCallSeqNmbr);
+	public void setPrtOfCallSeqNmbr(int prtOfCallSeqNmbr) {
 		this.prtOfCallSeqNmbr = prtOfCallSeqNmbr;
 	}
 
-     //This value is come from BL Json object   "Port of Call Coded"
+	// This value is come from BL Json object "Port of Call Coded"
 	public String getPrtOfCallCdd() {
 		return prtOfCallCdd;
 	}
@@ -40,7 +37,8 @@ public class ItnrySCE {
 		prtOfCallCdd = FiledValidation.isNullAndSetlength(prtOfCallCdd, 10);
 		this.prtOfCallCdd = prtOfCallCdd;
 	}
-  //This value is come from BL Json object   "portofCallname"
+
+	// This value is come from BL Json object "portofCallname"
 	public String getPrtOfCallName() {
 		return prtOfCallName;
 	}
@@ -49,7 +47,8 @@ public class ItnrySCE {
 //		prtOfCallName = FiledValidation.isNullAndSetlength(prtOfCallCdd, 10);
 		this.prtOfCallName = prtOfCallName;
 	}
- //This value is come from BL Json object   "Next port of call coded"
+
+	// This value is come from BL Json object "Next port of call coded"
 	public String getNxtPrtOfCallCdd() {
 		return nxtPrtOfCallCdd;
 	}
@@ -59,7 +58,7 @@ public class ItnrySCE {
 		this.nxtPrtOfCallCdd = nxtPrtOfCallCdd;
 	}
 
-	//    This value is come from  "of Next Port of Call,Text"
+	// This value is come from "of Next Port of Call,Text"
 	public String getNxtPrtOfCallName() {
 		return nxtPrtOfCallName;
 	}
@@ -69,11 +68,13 @@ public class ItnrySCE {
 		this.nxtPrtOfCallName = nxtPrtOfCallName;
 	}
 //This value is come from BL Json object   "modeofTransport"
-	public String getModeOfTrnsprt() {
+
+	public int getModeOfTrnsprt() {
 		return modeOfTrnsprt;
 	}
 
-	public void setModeOfTrnsprt(String modeOfTrnsprt) {
+	public void setModeOfTrnsprt(int modeOfTrnsprt) {
 		this.modeOfTrnsprt = modeOfTrnsprt;
 	}
+
 }

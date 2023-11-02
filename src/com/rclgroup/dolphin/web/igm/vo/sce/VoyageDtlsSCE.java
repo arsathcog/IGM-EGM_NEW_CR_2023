@@ -7,10 +7,10 @@ import com.rclgroup.dolphin.web.igm.vo.FiledValidation;
 public class VoyageDtlsSCE {
 //	private String voyageNo; //not required
 	private String cnvnceRefNmbr;
-	private String totalNoOfTrnsprtEqmtMnfsted;
+	private int totalNoOfTrnsprtEqmtMnfsted;
 //	private String crgoDescCdd; not required 
 //	private String briefCrgoDesc; not required 
-	private String totalNmbrOfLines; 
+	private int totalNmbrOfLines; 
 //	private String exptdDtAndTimeOfArvl; not  required 
 //	private String exptdDtAndTimeOfDptr; not required 
 //	private String nmbrOfPsngrsMnfsted;  not required 
@@ -47,14 +47,7 @@ public class VoyageDtlsSCE {
 
 	// "totalNoofTransportEquipmentManifested" (Total number of equipment's add in
 	// screen Vessel/Voyage section)
-	public String getTotalNoOfTrnsprtEqmtMnfsted() {
-		return totalNoOfTrnsprtEqmtMnfsted;
-	}
 
-	public void setTotalNoOfTrnsprtEqmtMnfsted(String totalNoOfTrnsprtEqmtMnfsted) {
-//		totalNoOfTrnsprtEqmtMnfsted = FiledValidation.isNullAndSetlength(totalNoOfTrnsprtEqmtMnfsted, 5);
-		this.totalNoOfTrnsprtEqmtMnfsted = totalNoOfTrnsprtEqmtMnfsted;
-	}
 
 	// "cargoDescription" (Add new column with free text Vessel/Voyage )
 //	public String getCrgoDescCdd() {
@@ -78,15 +71,24 @@ public class VoyageDtlsSCE {
 
 	// "totalNoofTransportEquipmentManifested" (Same as Total Items from current
 	// screen)
-	public String getTotalNmbrOfLines() {
+	public int getTotalNmbrOfLines() {
 		return totalNmbrOfLines;
 	}
 
-	public void setTotalNmbrOfLines(String totalNmbrOfLines) {
-
-		totalNmbrOfLines = FiledValidation.isNullAndSetlength(totalNmbrOfLines, 100);
+	public void setTotalNmbrOfLines(int totalNmbrOfLines) {
 		this.totalNmbrOfLines = totalNmbrOfLines;
 	}
+
+
+	public int getTotalNoOfTrnsprtEqmtMnfsted() {
+		return totalNoOfTrnsprtEqmtMnfsted;
+	}
+
+	public void setTotalNoOfTrnsprtEqmtMnfsted(int totalNoOfTrnsprtEqmtMnfsted) {
+		this.totalNoOfTrnsprtEqmtMnfsted = totalNoOfTrnsprtEqmtMnfsted;
+	}
+
+
 //	public String getExptdDtAndTimeOfArvl() {
 //		return exptdDtAndTimeOfArvl;
 //	}

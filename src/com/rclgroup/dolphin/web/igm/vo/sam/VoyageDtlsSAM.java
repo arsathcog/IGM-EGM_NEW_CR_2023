@@ -9,7 +9,7 @@ public class VoyageDtlsSAM {
 	
 	private String voyageNo;
 	private String cnvnceRefNmbr;
-	private String totalNoOfTrnsprtEqmtMnfsted;
+	private int totalNoOfTrnsprtEqmtMnfsted;
 	private String crgoDescCdd;
 	private String briefCrgoDesc;
 	private String totalNmbrOfLines;
@@ -43,16 +43,17 @@ public class VoyageDtlsSAM {
 
 	// "totalNoofTransportEquipmentManifested" (Total number of equipment's add in
 	// screen Vessel/Voyage section)
-	public String getTotalNoOfTrnsprtEqmtMnfsted() {
+
+
+	// "cargoDescription" (Add new column with free text Vessel/Voyage )
+	public int getTotalNoOfTrnsprtEqmtMnfsted() {
 		return totalNoOfTrnsprtEqmtMnfsted;
 	}
 
-	public void setTotalNoOfTrnsprtEqmtMnfsted(String totalNoOfTrnsprtEqmtMnfsted) {
-		totalNoOfTrnsprtEqmtMnfsted = FiledValidation.isNullAndSetlength(totalNoOfTrnsprtEqmtMnfsted, 5);
+	public void setTotalNoOfTrnsprtEqmtMnfsted(int totalNoOfTrnsprtEqmtMnfsted) {
 		this.totalNoOfTrnsprtEqmtMnfsted = totalNoOfTrnsprtEqmtMnfsted;
 	}
 
-	// "cargoDescription" (Add new column with free text Vessel/Voyage )
 	public String getCrgoDescCdd() {
 		return crgoDescCdd;
 	}
