@@ -1062,9 +1062,9 @@ public class CreatingJSON {
 			}
 			
 			if(personOnBoardMod.get(g).getPsngrInTransitIndctr().equals("") && personOnBoardMod.get(g).getPsngrInTransitIndctr() == null) {
-				prsDtls.setPsngrInTransitIndctr(settingLength("NA",1));
+				prsDtls.setPsngrInTransitIndctr(convertingStringtoInt( settingLength("NA",1)));
 			}else {
-				prsDtls.setPsngrInTransitIndctr(settingLength(personOnBoardMod.get(g).getPsngrInTransitIndctr(),1));
+				prsDtls.setPsngrInTransitIndctr(convertingStringtoInt( settingLength(personOnBoardMod.get(g).getPsngrInTransitIndctr(),1)));
 			}
 			
 			if(personOnBoardMod.get(g).getCrewmemberRankOrRatingCdd().equals("")|| personOnBoardMod.get(g).getCrewmemberRankOrRatingCdd()==null) {
@@ -1166,7 +1166,7 @@ public class CreatingJSON {
 			
 			prsnOnBoard.setPrsnDtls(prsDtls);
 			prsnOnBoard.setPrsnId(prsnIdclassObj);
-			prsnOnBoard.setPrsnOnBoardSeqNmbr(settingLength(g+1+"",5));
+			prsnOnBoard.setPrsnOnBoardSeqNmbr(convertingStringtoInt(settingLength(g+1+"",5)));
 			prsnOnBoard.setVisaDtls(visaDtlsSAMObj);
 //			prsnOnBoard.setPrsnTypCdd(generatedFileNameOfJson);
 			

@@ -8,7 +8,7 @@ public class PrsnDtlsSAM {
 	private String prsnFamilyName;
 	private String prsnGivenName;
 	private String prsnNatnltyCdd;
-	private String psngrInTransitIndctr;
+	private int psngrInTransitIndctr;
 	private String crewmemberRankOrRatingName;
 	private String crewmemberRankOrRatingCdd;
 	private String psngrPrtOfEmbrktnCdd;
@@ -48,12 +48,14 @@ public class PrsnDtlsSAM {
 		prsnNatnltyCdd = FiledValidation.isNullAndSetlength(prsnNatnltyCdd, 2);
 		this.prsnNatnltyCdd = prsnNatnltyCdd;
 	}
-	public String getPsngrInTransitIndctr() {
+	
+	public int getPsngrInTransitIndctr() {
 		return psngrInTransitIndctr;
 	}
-	public void setPsngrInTransitIndctr(String psngrInTransitIndctr) {
+	public void setPsngrInTransitIndctr(int psngrInTransitIndctr) {
 		this.psngrInTransitIndctr = psngrInTransitIndctr;
 	}
+	
 	public String getCrewmemberRankOrRatingCdd() {
 		return crewmemberRankOrRatingCdd;
 	}

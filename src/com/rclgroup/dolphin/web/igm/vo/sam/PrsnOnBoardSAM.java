@@ -2,21 +2,23 @@ package com.rclgroup.dolphin.web.igm.vo.sam;
 
 public class PrsnOnBoardSAM {
 	
-	private String prsnOnBoardSeqNmbr;
+	private int prsnOnBoardSeqNmbr;
 	private PrsnDtlsSAM prsnDtls;
 	private PrsnIdSAM prsnId;
 	private VisaDtlsSAM visaDtls;
 //	private String prsnTypCdd;
 	
-	public String getPrsnOnBoardSeqNmbr() {
+	public int getPrsnOnBoardSeqNmbr() {
 		return prsnOnBoardSeqNmbr;
 	}
-	public void setPrsnOnBoardSeqNmbr(String prsnOnBoardSeqNmbr) {
+	public void setPrsnOnBoardSeqNmbr(int prsnOnBoardSeqNmbr) {
 		this.prsnOnBoardSeqNmbr = prsnOnBoardSeqNmbr;
 	}
+	
 	public PrsnDtlsSAM getPrsnDtls() {
 		return prsnDtls;
 	}
+	
 	public void setPrsnDtls(PrsnDtlsSAM prsnDtls) {
 		this.prsnDtls = prsnDtls;
 	}
