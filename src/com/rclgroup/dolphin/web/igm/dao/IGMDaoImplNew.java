@@ -825,7 +825,7 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setRecieptName(rs.getString("ACCEPTANCE_NAME"));
 			objMod.setStowagePosition(rs.getString("STOWAGE_POSITION"));
 			objMod.setGstStateCode(rs.getString("GST_STATE_CODE"));
-
+ 
 			 SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
 		     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMdd");
 			if(rs.getString("MASTER_BL_DATE").contains("/")) {
