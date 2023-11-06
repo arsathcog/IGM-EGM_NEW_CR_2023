@@ -57,7 +57,11 @@ public class MCRefSDM {
 	}
 
 	public void setMstrBlDt(String mstrBlDt) {
-		this.mstrBlDt = mstrBlDt;
+		String day = mstrBlDt.substring(0, 2);
+		String month = mstrBlDt.substring(2, 4);
+		String year = mstrBlDt.substring(4);
+		String newDate = year + month + day;
+		this.mstrBlDt = newDate;
 	}
 
 	public void setConsolidatedIndctr(String consolidatedIndctr) {

@@ -519,7 +519,11 @@ public class CreatingJSON {
 				mCRefClassObj.setPrevDec("Y");
 			}
 //			mCRefClassObj.setPrevDec(settingLength(blObj.getPrevious_declaration(),4)); // Line77				//TODO  guru	
-			mCRefClassObj.setConsolidatorPan("PAN:"+settingLength(service.getAgentCode(),16)); // Line 78		
+			if (null != service.getAgentCode() || !("").equals(service.getAgentCode())) {
+				mCRefClassObj.setConsolidatorPan(settingLength(service.getAgentCode(), 16)); // Line 78
+			} else {
+				mCRefClassObj.setConsolidatorPan("PAN:" + settingLength(service.getAgentCode(), 16)); // Line 78
+			}	
 			
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);	
 			
@@ -1593,7 +1597,12 @@ public class CreatingJSON {
 			}
 			
 //			mCRefClassObj.setPrevDec(settingLength(blObj.getPrevious_declaration(),4)); // Line77				//TODO  guru	
-			mCRefClassObj.setConsolidatorPan("PAN:"+settingLength(service.getAgentCode(),16)); // Line 78		
+			if (null != service.getAgentCode() || !("").equals(service.getAgentCode())) {
+				mCRefClassObj.setConsolidatorPan(settingLength(service.getAgentCode(), 16)); // Line 78
+			} else {
+				mCRefClassObj.setConsolidatorPan("PAN:" + settingLength(service.getAgentCode(), 16)); // Line 78
+			}	
+				
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);
 			
 			// ---------------------------------------- Writing a new nitun
@@ -1788,7 +1797,7 @@ public class CreatingJSON {
 					itemDtlsClassObj.setImdgCd( settingLength("ZZZ",3));	
 			}
 			itemDtlsClassObj.setNmbrOfPkgs(convertingStringtoInt(settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6))); 
-			itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getPackage_kind(),3));
+			itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getType_of_package(),3));
 			itemDtls.add(itemDtlsClassObj);
 			mastrCnsgmtDec.setItemDtls(itemDtlsClassObj);
 		
@@ -2374,7 +2383,7 @@ public class CreatingJSON {
 		/* headerFieldClassObj.setReceiverID(service.getPod()); */
 		headerFieldClassObj.setVersionNo("SDM1102");
 		headerFieldClassObj.setIndicator("T");
-		headerFieldClassObj.setMessageID("SACHM22");
+		headerFieldClassObj.setMessageID("SACHM23");
 		headerFieldClassObj.setSequenceOrControlNumber(getSeqNo+1);// old screen String sId (
 		headerFieldClassObj.setDate(getTimeHeader());
 		headerFieldClassObj.setTime("T" + getIsdTime());
@@ -4100,7 +4109,11 @@ public class CreatingJSON {
 				mCRefClassObj.setPrevDec(settingLength("S",4));
 			} // Line77
 			
-			mCRefClassObj.setConsolidatorPan("PAN:"+settingLength(service.getAgentCode(),16)); // Line 78
+			if (null != service.getAgentCode() || !("").equals(service.getAgentCode())) {
+				mCRefClassObj.setConsolidatorPan(settingLength(service.getAgentCode(), 16)); // Line 78
+			} else {
+				mCRefClassObj.setConsolidatorPan("PAN:" + settingLength(service.getAgentCode(), 16)); // Line 78
+			}	
 
 			mCRef.add(mCRefClassObj);
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);
@@ -4193,7 +4206,7 @@ public class CreatingJSON {
 					itemDtlsClassObj.setImdgCd( settingLength("ZZZ",3));	
 			}
 			itemDtlsClassObj.setNmbrOfPkgs(convertingStringtoInt(settingLength(blObj.getTotal_number_of_packages(), 8)));
-			itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getPackage_kind(), 3));	
+			itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getType_of_package(), 3));	
 			itemDtls.add(itemDtlsClassObj);
 			mastrCnsgmtDec.setItemDtls(itemDtlsClassObj);
 			houseCargoDecSCXObj.setItemDtls(itemDtls);
@@ -6805,7 +6818,11 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			}catch (Exception e) {
 				mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
 			}
-		    mCRefClassObj.setConsolidatorPan("PAN:"+settingLength(service.getAgentCode(),16));
+			if (null != service.getAgentCode() || !("").equals(service.getAgentCode())) {
+				mCRefClassObj.setConsolidatorPan(settingLength(service.getAgentCode(), 16)); // Line 78
+			} else {
+				mCRefClassObj.setConsolidatorPan("PAN:" + settingLength(service.getAgentCode(), 16)); // Line 78
+			}	
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);
 			mCRef.add(mCRefClassObj);
 			

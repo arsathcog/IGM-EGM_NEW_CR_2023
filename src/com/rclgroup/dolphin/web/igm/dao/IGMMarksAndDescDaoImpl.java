@@ -133,8 +133,18 @@ public class IGMMarksAndDescDaoImpl extends AncestorJdbcDao implements IGMMarksA
              }catch (Exception e) {
             	 marksnumber.setMarksNumbers(rs.getString("MARKS_NO"));
 			}
-			
-			marksnumber.setDescription(rs.getString("DESCRIPTION"));
+             String description = "";
+             if (rs.getString("DESCRIPTION").contains("\r\n")) {
+            	 description = rs.getString("DESCRIPTION").replaceAll("\r\n", "");
+            	 marksnumber.setDescription(description);
+             }else {
+            	 marksnumber.setDescription(rs.getString("DESCRIPTION"));
+             }  
+             
+             if(rs.getString("DESCRIPTION").contains("\n")){
+            	  description  = rs.getString("DESCRIPTION").replaceAll("\\n+", "");
+            	  marksnumber.setDescription(description);
+             }
 			marksnumber.setBldate(rs.getString("bldate"));
 			if(rs.getString("REMARK")==null || rs.getString("REMARK").equals("")) {
 				String remarkTemp="";
