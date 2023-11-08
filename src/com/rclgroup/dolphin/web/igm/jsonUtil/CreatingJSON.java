@@ -520,11 +520,10 @@ public class CreatingJSON {
 			}
 //			mCRefClassObj.setPrevDec(settingLength(blObj.getPrevious_declaration(),4)); // Line77				//TODO  guru	
 			if (null != service.getAgentCode() || !("").equals(service.getAgentCode())) {
-				mCRefClassObj.setConsolidatorPan(settingLength(service.getAgentCode(), 16)); // Line 78
+				mCRefClassObj.setConsolidatorPan("PAN:" + settingLength(service.getAgentCode(), 16));
 			} else {
-				mCRefClassObj.setConsolidatorPan("PAN:" + settingLength(service.getAgentCode(), 16)); // Line 78
+				mCRefClassObj.setConsolidatorPan(settingLength(service.getAgentCode(), 16)); // Line 78
 			}	
-			
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);	
 			
 //		----------------------------*LocCstmSAM*---------------------------------------------------
@@ -1598,9 +1597,9 @@ public class CreatingJSON {
 			
 //			mCRefClassObj.setPrevDec(settingLength(blObj.getPrevious_declaration(),4)); // Line77				//TODO  guru	
 			if (null != service.getAgentCode() || !("").equals(service.getAgentCode())) {
-				mCRefClassObj.setConsolidatorPan(settingLength(service.getAgentCode(), 16)); // Line 78
+				mCRefClassObj.setConsolidatorPan("PAN:" + settingLength(service.getAgentCode(), 16));
 			} else {
-				mCRefClassObj.setConsolidatorPan("PAN:" + settingLength(service.getAgentCode(), 16)); // Line 78
+				mCRefClassObj.setConsolidatorPan(settingLength(service.getAgentCode(), 16)); // Line 78
 			}	
 				
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);
@@ -4110,9 +4109,9 @@ public class CreatingJSON {
 			} // Line77
 			
 			if (null != service.getAgentCode() || !("").equals(service.getAgentCode())) {
-				mCRefClassObj.setConsolidatorPan(settingLength(service.getAgentCode(), 16)); // Line 78
+				mCRefClassObj.setConsolidatorPan("PAN:" + settingLength(service.getAgentCode(), 16));
 			} else {
-				mCRefClassObj.setConsolidatorPan("PAN:" + settingLength(service.getAgentCode(), 16)); // Line 78
+				mCRefClassObj.setConsolidatorPan(settingLength(service.getAgentCode(), 16)); // Line 78
 			}	
 
 			mCRef.add(mCRefClassObj);
@@ -6819,9 +6818,9 @@ ImportGeneralManifestMod objForm = blList.get(0);
 				mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
 			}
 			if (null != service.getAgentCode() || !("").equals(service.getAgentCode())) {
-				mCRefClassObj.setConsolidatorPan(settingLength(service.getAgentCode(), 16)); // Line 78
+				mCRefClassObj.setConsolidatorPan("PAN:" + settingLength(service.getAgentCode(), 16));
 			} else {
-				mCRefClassObj.setConsolidatorPan("PAN:" + settingLength(service.getAgentCode(), 16)); // Line 78
+				mCRefClassObj.setConsolidatorPan(settingLength(service.getAgentCode(), 16)); // Line 78
 			}	
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);
 			mCRef.add(mCRefClassObj);

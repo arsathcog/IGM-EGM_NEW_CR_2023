@@ -3113,9 +3113,9 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
  	    itemNumber = $scope.selectedBL.itemNumber
  	    var vessel = $scope.selectedServcies.vessel;
 		var voyage = $scope.selectedServcies.voyage;
-		var pod = $scope.selectedServcies.pod;
+		var pol = $scope.selectedServcies.pol;
 		var service     = $scope.selectedServcies.service;
-		var url = CAROGODETAILSSEARCH+"?vessel="+vessel+"&voyage="+voyage+"&pod="+pod+"&bl="+bl+"&isBlSave="+isBlSaved+"&itemNumber="+itemNumber+"&service="+service;
+		var url = CAROGODETAILSSEARCH+"?vessel="+vessel+"&voyage="+voyage+"&pol="+pol+"&bl="+bl+"&isBlSave="+isBlSaved+"&itemNumber="+itemNumber+"&service="+service;
  	    $( "body" ).append('<div class="loading"></div>');
 		$http({
 				method : "POST",

@@ -113,7 +113,8 @@ public class IGMMarksAndDescDaoImpl extends AncestorJdbcDao implements IGMMarksA
 			marksnumber.setBlNO(rs.getString("FK_BL_NO"));
 			
 //			marksnumber.setMarksNumbers(rs.getString("MARKS_NO"));
-
+			String marksNo = "";
+			String marksNoOnPkgs ="";
              String s2 = "(S)";
              try {
              if(rs.getString("MARKS_NO")!= null || !rs.getString("MARKS_NO").equals("null")) {
@@ -122,7 +123,20 @@ public class IGMMarksAndDescDaoImpl extends AncestorJdbcDao implements IGMMarksA
      			{
      				 int i = rs.getString("MARKS_NO").lastIndexOf(s2);
 //     				System.out.println(rs.getString("MARKS_NO").substring(i+3));
-     				marksnumber.setMarksNumbers(rs.getString("MARKS_NO").substring(i+3));
+//     				 marksnumber.setMarksNumbers(rs.getString("MARKS_NO").substring(i+3));
+     				marksNo = rs.getString("MARKS_NO").substring(i+3);
+     				if(marksNo.contains("\n")) {
+     					marksNoOnPkgs =  marksNo.replaceAll("\\n+", "");
+     					 marksnumber.setMarksNumbers(marksNoOnPkgs);
+     				}else {
+     					 marksnumber.setMarksNumbers(marksNo);
+     				}
+     				if(marksnumber.getMarksNumbers().contains("\r")) {
+     					marksNoOnPkgs =  marksnumber.getMarksNumbers().replaceAll("\\r+", "");
+     					 marksnumber.setMarksNumbers(marksNoOnPkgs);
+     				}else {
+     					marksnumber.setMarksNumbers(marksNoOnPkgs);
+     				}
      			}else {
      				marksnumber.setMarksNumbers(rs.getString("MARKS_NO"));
      			}
@@ -134,17 +148,19 @@ public class IGMMarksAndDescDaoImpl extends AncestorJdbcDao implements IGMMarksA
             	 marksnumber.setMarksNumbers(rs.getString("MARKS_NO"));
 			}
              String description = "";
-             if (rs.getString("DESCRIPTION").contains("\r\n")) {
-            	 description = rs.getString("DESCRIPTION").replaceAll("\r\n", "");
+             if (rs.getString("DESCRIPTION").contains("\r")) {
+            	 description = rs.getString("DESCRIPTION").replaceAll("\\r+", "");
             	 marksnumber.setDescription(description);
              }else {
             	 marksnumber.setDescription(rs.getString("DESCRIPTION"));
              }  
              
-             if(rs.getString("DESCRIPTION").contains("\n")){
+             if(rs.getString("DESCRIPTION").contains("\n") || description.contains("\n")){
             	  description  = rs.getString("DESCRIPTION").replaceAll("\\n+", "");
             	  marksnumber.setDescription(description);
-             }
+             }else {
+            	 marksnumber.setDescription(rs.getString("DESCRIPTION"));
+             }  
 			marksnumber.setBldate(rs.getString("bldate"));
 			if(rs.getString("REMARK")==null || rs.getString("REMARK").equals("")) {
 				String remarkTemp="";
