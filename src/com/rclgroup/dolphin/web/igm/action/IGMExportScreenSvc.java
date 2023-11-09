@@ -505,6 +505,8 @@ System.out.println("getCarogoDetails() Called.");
 		}
 		mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, service.getVessel());
 		mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, service.getVoyage());
+		mapParam.put(ImportGeneralManifestDao.KEY_IGM_POL, service.getPol());
+		
 		if(insertBL.size()>0) {
 			objBlDao.saveUnfetchedBlData(blsNotFetch,IGMBLDataDao.RCL_IGM_UNFETCHED_SAVE_BL_EXPORT,mapParam,insertBL);
 			containerDao.saveUnfetchedContainer(blsNotFetch,IGMContainerDao.RCL_IGM_SAVE_UNFETCHED_CONTAINOR_EXPORT);

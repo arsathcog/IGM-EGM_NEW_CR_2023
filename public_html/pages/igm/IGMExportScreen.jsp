@@ -2268,7 +2268,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				return false;
 			}
 			 
-			sendData ="?savedBlList="+payloadSaved+"&unSavedBlList="+payloadUnSaved+"&vessel="+$scope.selectedServcies.vessel+"&voyage="+$scope.selectedServcies.voyage+"&pod="+$scope.selectedServcies.pod;
+			sendData ="?savedBlList="+payloadSaved+"&unSavedBlList="+payloadUnSaved+"&vessel="+$scope.selectedServcies.vessel+"&voyage="+$scope.selectedServcies.voyage+"&pol="+$scope.selectedServcies.pol;
 			$( "body" ).append('<div class="loading"></div>');
 			$http({
 				method : "POST",

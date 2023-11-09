@@ -114,7 +114,6 @@ public class IGMMarksAndDescDaoImpl extends AncestorJdbcDao implements IGMMarksA
 			
 //			marksnumber.setMarksNumbers(rs.getString("MARKS_NO"));
 			String marksNo = "";
-			String marksNoOnPkgs ="";
              String s2 = "(S)";
              try {
              if(rs.getString("MARKS_NO")!= null || !rs.getString("MARKS_NO").equals("null")) {
@@ -126,19 +125,32 @@ public class IGMMarksAndDescDaoImpl extends AncestorJdbcDao implements IGMMarksA
 //     				 marksnumber.setMarksNumbers(rs.getString("MARKS_NO").substring(i+3));
      				marksNo = rs.getString("MARKS_NO").substring(i+3);
      				if(marksNo.contains("\n")) {
-     					marksNoOnPkgs =  marksNo.replaceAll("\\n+", "");
-     					 marksnumber.setMarksNumbers(marksNoOnPkgs);
+     					marksNo =  marksNo.replaceAll("\\n+", "");
+     					 marksnumber.setMarksNumbers(marksNo);
      				}else {
      					 marksnumber.setMarksNumbers(marksNo);
      				}
      				if(marksnumber.getMarksNumbers().contains("\r")) {
-     					marksNoOnPkgs =  marksnumber.getMarksNumbers().replaceAll("\\r+", "");
-     					 marksnumber.setMarksNumbers(marksNoOnPkgs);
+     					marksNo =  marksnumber.getMarksNumbers().replaceAll("\r", "");
+     					 marksnumber.setMarksNumbers(marksNo);
      				}else {
-     					marksnumber.setMarksNumbers(marksNoOnPkgs);
+     					marksnumber.setMarksNumbers(marksNo);
      				}
      			}else {
-     				marksnumber.setMarksNumbers(rs.getString("MARKS_NO"));
+     				marksNo = rs.getString("MARKS_NO");
+     				if(marksNo.contains("\n")) {
+     					marksNo =  marksNo.replaceAll("\\n+", "");
+    					 marksnumber.setMarksNumbers(marksNo);
+     				}else {
+    					 marksnumber.setMarksNumbers(marksNo);
+    				}
+     				if(marksnumber.getMarksNumbers().contains("\r")) {
+     					marksNo =  marksnumber.getMarksNumbers().replaceAll("\r", "");
+     					 marksnumber.setMarksNumbers(marksNo);
+     				}else {
+     					marksnumber.setMarksNumbers(marksNo);
+     				}
+     			
      			}
      			
             }else {
@@ -147,19 +159,18 @@ public class IGMMarksAndDescDaoImpl extends AncestorJdbcDao implements IGMMarksA
              }catch (Exception e) {
             	 marksnumber.setMarksNumbers(rs.getString("MARKS_NO"));
 			}
-             String description = "";
+             String description = rs.getString("DESCRIPTION");
              if (rs.getString("DESCRIPTION").contains("\r")) {
-            	 description = rs.getString("DESCRIPTION").replaceAll("\\r+", "");
+            	 description =description.replaceAll("\r", "");
             	 marksnumber.setDescription(description);
              }else {
             	 marksnumber.setDescription(rs.getString("DESCRIPTION"));
              }  
-             
-             if(rs.getString("DESCRIPTION").contains("\n") || description.contains("\n")){
-            	  description  = rs.getString("DESCRIPTION").replaceAll("\\n+", "");
+             if(rs.getString("DESCRIPTION").contains("\n") || marksnumber.getDescription().contains("\n")){
+            	  description  = description.replaceAll("\\n+", "");
             	  marksnumber.setDescription(description);
              }else {
-            	 marksnumber.setDescription(rs.getString("DESCRIPTION"));
+            	 marksnumber.setDescription(description);
              }  
 			marksnumber.setBldate(rs.getString("bldate"));
 			if(rs.getString("REMARK")==null || rs.getString("REMARK").equals("")) {

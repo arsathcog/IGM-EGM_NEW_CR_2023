@@ -509,7 +509,7 @@ public class CreatingJSON {
 					 mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
 				}
 			}catch (Exception e) {
-				mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
+				mCRefClassObj.setConsolidatedIndctr("C");// Line 76 itnry
 			}
 			
 
@@ -519,10 +519,11 @@ public class CreatingJSON {
 				mCRefClassObj.setPrevDec("Y");
 			}
 //			mCRefClassObj.setPrevDec(settingLength(blObj.getPrevious_declaration(),4)); // Line77				//TODO  guru	
-			if (null != service.getAgentCode() || !("").equals(service.getAgentCode())) {
-				mCRefClassObj.setConsolidatorPan("PAN:" + settingLength(service.getAgentCode(), 16));
-			} else {
+			if (null == service.getAgentCode() ||("").equals(service.getAgentCode())) {
 				mCRefClassObj.setConsolidatorPan(settingLength(service.getAgentCode(), 16)); // Line 78
+			} else {
+				
+				mCRefClassObj.setConsolidatorPan("PAN:" + settingLength(service.getAgentCode(), 16));
 			}	
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);	
 			
@@ -1596,10 +1597,11 @@ public class CreatingJSON {
 			}
 			
 //			mCRefClassObj.setPrevDec(settingLength(blObj.getPrevious_declaration(),4)); // Line77				//TODO  guru	
-			if (null != service.getAgentCode() || !("").equals(service.getAgentCode())) {
-				mCRefClassObj.setConsolidatorPan("PAN:" + settingLength(service.getAgentCode(), 16));
-			} else {
+			if (null == service.getAgentCode() ||("").equals(service.getAgentCode())) {
 				mCRefClassObj.setConsolidatorPan(settingLength(service.getAgentCode(), 16)); // Line 78
+			} else {
+				
+				mCRefClassObj.setConsolidatorPan("PAN:" + settingLength(service.getAgentCode(), 16));
 			}	
 				
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);
@@ -4038,11 +4040,11 @@ public class CreatingJSON {
 			MastrCnsgmtDecSCX mastrCnsgmtDec = new MastrCnsgmtDecSCX();
 			HouseCargoDecSCX houseCargoDecSCXObj = new HouseCargoDecSCX();
 			
-			List<NotifyParty> notifyPartyDetailes = objForm.getNotifyParty();
-			List<Consignee> consigneeDtls = objForm.getConsignee();
-			List<MarksNumber> marksNumberDtls = objForm.getMarksNumber();
-			List<Consigner> consignerDtls = objForm.getConsigner();
-			List<ContainerDetails> containerDtls = objForm.getContainerDetailes();
+			List<NotifyParty> notifyPartyDetailes = blObj.getNotifyParty();
+			List<Consignee> consigneeDtls = blObj.getConsignee();
+			List<MarksNumber> marksNumberDtls = blObj.getMarksNumber();
+			List<Consigner> consignerDtls = blObj.getConsigner();
+			List<ContainerDetails> containerDtls = blObj.getContainerDetailes();
 			
 			List<ItemDtlsSCX> itemDtls = new LinkedList<ItemDtlsSCX>();
 			List<TrnsprtEqmtSCX> trnsprtEqmt = new LinkedList<TrnsprtEqmtSCX>();
@@ -4108,11 +4110,12 @@ public class CreatingJSON {
 				mCRefClassObj.setPrevDec(settingLength("S",4));
 			} // Line77
 			
-			if (null != service.getAgentCode() || !("").equals(service.getAgentCode())) {
-				mCRefClassObj.setConsolidatorPan("PAN:" + settingLength(service.getAgentCode(), 16));
-			} else {
+			if (null == service.getAgentCode() ||("").equals(service.getAgentCode())) {
 				mCRefClassObj.setConsolidatorPan(settingLength(service.getAgentCode(), 16)); // Line 78
-			}	
+			} else {
+				
+				mCRefClassObj.setConsolidatorPan("PAN:" + settingLength(service.getAgentCode(), 16));
+			}		
 
 			mCRef.add(mCRefClassObj);
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);
@@ -4333,6 +4336,7 @@ public class CreatingJSON {
 				
 				if ((blObj.getBl()).equals(ctnerDtl.getBlNo()) && !containseSets.contains(ctnerDtl.getContainerNumber())) {
 					j++;
+				
 					containseSets.add(ctnerDtl.getContainerNumber());
 					TrnsprtEqmtSCX trnsprtEqmtClassObj = new TrnsprtEqmtSCX();
 					trnsprtEqmtClassObj.setEqmtSeqNo(convertingStringtoInt(settingLength(j+"",5)));
@@ -4627,7 +4631,7 @@ public class CreatingJSON {
 		VoyageDtlsSCX voyageDtlsClassObj = new VoyageDtlsSCX();
 //		voyageDtlsClassObj.setVoyageNo(voyage); // Line10
 		voyageDtlsClassObj.setCnvnceRefNmbr(settingLength(service.getViaVcn(),35)); // Line 193
-		voyageDtlsClassObj.setTotalNoOfTrnsprtEqmtMnfsted(convertingStringtoInt( settingLength(containerCount+"",5)));// Line:-46
+		voyageDtlsClassObj.setTotalNoOfTrnsprtEqmtMnfsted(convertingStringtoInt(containerCount+""));// Line:-46
 //		voyageDtlsClassObj.setCrgoDescCdd(objForm.getCargoDeclaration()); // Line:-195
 //		voyageDtlsClassObj.setBriefCrgoDesc(objForm.getBrief_cargo_des()); // Line:-195
 		voyageDtlsClassObj.setTotalNmbrOfLines(convertingStringtoInt(service.getTotalItem()));// Line38 (objForm.getTotalItem()); nitun
@@ -6801,7 +6805,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			mCRefClassObj.setLineNo(convertingStringtoInt(blObj.getItemNumber())); // Line 60
 			mCRefClassObj.setMstrBlNo(settingLength(blObj.getBl(),20)); // Line 53
 			mCRefClassObj.setMstrBlDt(removeSlash(blObj.getMasterBlDate())); // Line 53
-			mCRefClassObj.setConsolidatorPan("PAN:"+settingLength(blObj.getAgentCode(),4));// Line 76
+//			mCRefClassObj.setConsolidatorPan("PAN:"+settingLength(blObj.getAgentCode(),4));// Line 76
 			
 			if( null== blObj.getMcin() ||blObj.getMcin().equals("") && null== blObj.getPcin() || blObj.getPcin().equals("")) {
 				mCRefClassObj.setPrevDec("N");
@@ -6817,11 +6821,12 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			}catch (Exception e) {
 				mCRefClassObj.setConsolidatedIndctr("C");// Line 76 
 			}
-			if (null != service.getAgentCode() || !("").equals(service.getAgentCode())) {
-				mCRefClassObj.setConsolidatorPan("PAN:" + settingLength(service.getAgentCode(), 16));
-			} else {
+			if (null == service.getAgentCode() ||("").equals(service.getAgentCode())) {
 				mCRefClassObj.setConsolidatorPan(settingLength(service.getAgentCode(), 16)); // Line 78
-			}	
+			} else {
+				
+				mCRefClassObj.setConsolidatorPan("PAN:" + settingLength(service.getAgentCode(), 16));
+			}		
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);
 			mCRef.add(mCRefClassObj);
 			
