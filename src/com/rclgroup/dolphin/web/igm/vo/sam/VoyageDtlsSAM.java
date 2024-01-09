@@ -14,6 +14,7 @@ public class VoyageDtlsSAM {
 	private String briefCrgoDesc;
 	private String totalNmbrOfLines;
 	private String exptdDtAndTimeOfArvl;
+	private String exptdDtAndTimeOfDptr;
 	private String nmbrOfPsngrsMnfsted;
 	private String nmbrOfCrewMnfsted;
 	
@@ -115,6 +116,15 @@ public class VoyageDtlsSAM {
 	
 	public void setShipItnry(List<ShipItnrySAM> shipItnry) {
 		this.shipItnry = shipItnry;
+	}
+	
+	
+	public String getExptdDtAndTimeOfDptr() {
+		return exptdDtAndTimeOfDptr;
+	}
+
+	public void setExptdDtAndTimeOfDptr(String exptdDtAndTimeOfDptr) {
+		this.exptdDtAndTimeOfDptr = exptdDtAndTimeOfDptr;
 	}
 
 	@Override

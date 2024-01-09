@@ -1134,7 +1134,19 @@ public class ImportGeneralManifestMod implements Cloneable {
 	}
 
 	public void setCigmNo(String cigmNo) {
-		this.cigmNo = cigmNo;
+		String hrsMin = "";
+		if (cigmNo != null && !cigmNo.equals("") && !cigmNo.contains(":")) {
+			if (cigmNo.length() == 3) {
+				hrsMin = cigmNo.substring(0, 1) + ":" + cigmNo.substring(1);
+			} else if (cigmNo.length() == 4) {
+				hrsMin = cigmNo.substring(0, 2) + ":" + cigmNo.substring(2);
+			} else {
+				hrsMin = cigmNo + ":00";
+			}
+		}else if(cigmNo != null && !cigmNo.equals("") && cigmNo.contains(":")) {
+			hrsMin=cigmNo;
+		}
+		this.cigmNo = hrsMin;
 	}
 
 	public String getCigmDate() {
@@ -1142,7 +1154,9 @@ public class ImportGeneralManifestMod implements Cloneable {
 	}
 
 	public void setCigmDate(String cigmDate) {
-		this.cigmDate = cigmDate;
+	
+				this.cigmDate = cigmDate;
+		
 	}
 
 	public String getSmtpNo() {

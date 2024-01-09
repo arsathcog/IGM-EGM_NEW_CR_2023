@@ -1,8 +1,8 @@
 package com.rclgroup.dolphin.web.igm.jsonUtil;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -15,8 +15,6 @@ import java.util.TimeZone;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.rclgroup.dolphin.web.igm.vo.Consignee;
 import com.rclgroup.dolphin.web.igm.vo.Consigner;
 import com.rclgroup.dolphin.web.igm.vo.ContainerDetails;
@@ -339,6 +337,8 @@ import com.rclgroup.dolphin.web.igm.vo.sei.VesselDtlsSEI;
 
 public class CreatingJSON {
 	
+	private static CreatingJSON utils;
+
 	public static Object getJsonFile(List<ImportGeneralManifestMod> blList, String fileType,ImportGeneralManifestMod   service,List<IGMPersonOnBoardMod> personOnBoardMod,
 			List<IGMCrewEfctMod> crewEfctMod,List<IGMShipStoresMod> shipStoresMod,int getSeqNo) throws Exception {
 		String generatedFileNameOfJson = fileType;
@@ -532,7 +532,7 @@ public class CreatingJSON {
 			locCstmClassObj.setFirstPrtOfEntry( service.getPortArrival());
 //			locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),6)); // New added
 			
-			if(blObj.getPortOfDestination() != null || service.getPortOfDestination() != "") {
+			if(blObj.getPortOfDestination() != null || service.getDel() != "") {
 //			System.out.println("port of destination" +service.getPortOfDestination());
 //			System.out.println("port of destination" +blObj.getPod());
 //			System.out.println("port of destination" +service.getPortOfDeschargedCfs());
@@ -577,11 +577,16 @@ public class CreatingJSON {
 			}
 			
 			locCstmClassObj.setNatrOfCrgo(settingLength("C",4));  // Line 59
-//			locCstmClassObj.setTypOfPackage(settingLength(blObj.getType_of_package(),4));
-//			locCstmClassObj.setNmbrOfPkgs(settingLengthForDouble(blObj.getNumber_of_packages(),16,6)); 
-//			if(blObj.isHbl()==false) {
-//				locCstmClassObj.setSplitIndctr(generatedFileNameOfJson);
-//			}
+			locCstmClassObj.setTypOfPackage(settingLength(blObj.getType_of_package(),4));
+			if(null == blObj.getNumber_of_packages() || ("").equals(blObj.getNumber_of_packages())) {
+				locCstmClassObj.setNmbrOfPkgs(""); 
+			}else {
+				locCstmClassObj.setNmbrOfPkgs(settingLengthForDouble(blObj.getNumber_of_packages(),16,6)); 
+			}
+		
+			if(blObj.isHbl()==false) {
+				locCstmClassObj.setSplitIndctr(generatedFileNameOfJson);
+			}
 //			locCstmClassObj.setTypOfCrgo(pol);
 //			locCstmClassObj.setTypOfPackage(pol);
 //			locCstmSAMList.add(locCstmClassObj);	
@@ -1019,6 +1024,7 @@ public class CreatingJSON {
 			
 			
 			
+			
 		
 		
 			mastrCnsgmtDecList.add(mastrCnsgmtDec);
@@ -1320,6 +1326,13 @@ public class CreatingJSON {
 		voyageDtlsClassObj.setBriefCrgoDesc(settingLength("GENERAL",30)); // Line:-195
 		voyageDtlsClassObj.setTotalNmbrOfLines(settingLength(service.getTotalItem() ,5)); // Line38 (objForm.getTotalItem()); nitun
 		voyageDtlsClassObj.setExptdDtAndTimeOfArvl(removeSlash(service.getArrivalDate() + "T" + getTime(service.getArrivalTime())));
+		
+		String exptdDtAndTimeOfDpt  = changeDateFormate(service.getCigmDate())+ "T" + getTime(service.getCigmNo());
+		
+		if(exptdDtAndTimeOfDpt.contains("null")) {
+			exptdDtAndTimeOfDpt = "";
+		}
+		voyageDtlsClassObj.setExptdDtAndTimeOfDptr(exptdDtAndTimeOfDpt);
 		voyageDtlsClassObj.setNmbrOfPsngrsMnfsted(settingLength("0",4)); // NotFound
 		voyageDtlsClassObj.setNmbrOfCrewMnfsted(service.getNoOfCrew());
 		mster.setVoyageDtls(voyageDtlsClassObj);  // Correct 
@@ -1413,6 +1426,25 @@ public class CreatingJSON {
 		return org;
 	}
 	
+	private static String changeDateFormate(String cigmDate) {
+		
+if(null != cigmDate ) {
+	
+
+	    try {
+            SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = inputDateFormat.parse(cigmDate);
+
+            SimpleDateFormat outputDateFormat = new SimpleDateFormat("yyyyMMdd");
+            return outputDateFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null; // or handle the exception as needed
+        }
+}
+return "";
+	}
+
 	public static String checkNull(String value ) {
 		if( value == null) {
 			return "";

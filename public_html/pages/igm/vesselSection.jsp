@@ -546,16 +546,16 @@
                      ng-model="selectedServcies.exchangeRate"></td>
                </tr>
                <tr>
-                  <th class="veseelRemoveBorder">Cigm No</th>
-                  <td><input type="text" class="roundshap2"
-                     value="{{selectedServcies.cigmNo}}"
-                     ng-model="selectedServcies.cigmNo"></td>
-               </tr>
-               <tr>
-                  <th class="veseelRemoveBorder">Cigm Date</th>
+                  <th class="veseelRemoveBorder">Departure Date</th>
                   <td><input type="text" class="roundshap2"
                      value="{{selectedServcies.cigmDate}}"
                      ng-model="selectedServcies.cigmDate" id="cIgm" onclick="dateToCommon(this)"></td>
+               </tr>
+               <tr>
+                  <th class="veseelRemoveBorder">Departure Time</th>
+                  <td><input type="text" class="roundshap2"
+                     value="{{selectedServcies.cigmNo}}"
+                     ng-model="selectedServcies.cigmNo"></td>
                </tr>
                <tr>
                   <th class="veseelRemoveBorder">Smtp No</th>

@@ -11,9 +11,9 @@ public class LocCstmSAM {
 	private String itemTyp;
 	private String crgoMvmt;
 	private String natrOfCrgo;
-//	public String splitIndctr=null;
-//	public String nmbrOfPkgs;
-//	public String typOfPackage;
+	public String splitIndctr=null;
+	public String nmbrOfPkgs;
+	public String typOfPackage;
 
 //This value is come from BL Json object  "First Port of Entry/Last Port of Departure"
 	public String getFirstPrtOfEntry() {
@@ -82,29 +82,29 @@ public class LocCstmSAM {
 		this.natrOfCrgo = natrOfCrgo;
 	}
 
-//	public String getNmbrOfPkgs() {
-//		return nmbrOfPkgs;
-//	}
-//
-//	public void setNmbrOfPkgs(String nmbrOfPkgs) {
-//		this.nmbrOfPkgs = nmbrOfPkgs;
-//	}
-//
-//	public String getTypOfPackage() {
-//		return typOfPackage;
-//	}
-//
-//	public void setTypOfPackage(String typOfPackage) {
-//		this.typOfPackage = typOfPackage;
-//	}
-//
-//	public String getSplitIndctr() {
-//		return splitIndctr;
-//	}
-//
-//	public void setSplitIndctr(String splitIndctr) {
-//		this.splitIndctr = splitIndctr;
-//	}
+	public String getNmbrOfPkgs() {
+		return nmbrOfPkgs;
+	}
+
+	public void setNmbrOfPkgs(String nmbrOfPkgs) {
+		this.nmbrOfPkgs = nmbrOfPkgs;
+	}
+
+	public String getTypOfPackage() {
+		return typOfPackage;
+	}
+
+	public void setTypOfPackage(String typOfPackage) {
+		this.typOfPackage = typOfPackage;
+	}
+
+	public String getSplitIndctr() {
+		return splitIndctr;
+	}
+
+	public void setSplitIndctr(String splitIndctr) {
+		this.splitIndctr = splitIndctr;
+	}
 	
 	
   
