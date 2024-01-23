@@ -344,6 +344,8 @@ function downloadCVSFileAjax(val){
 			var res= [];
 			res = resultToJson.result;
 			downloadCSVFromJson(filename, res)
+
+			
 		},
         error: function(error){
 			showBarMessages("error : "+error.responseText,1);
@@ -369,6 +371,7 @@ function downloadCVSFileAjax(val){
 		  document.body.appendChild(link);
 		  link.click();
 		  document.body.removeChild(link);
+		  swal("Message",filename+ " downloaded successfully.","info");
 		}; 
 
 </script>

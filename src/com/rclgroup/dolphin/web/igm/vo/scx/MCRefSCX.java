@@ -45,11 +45,16 @@ public class MCRefSCX {
 	}
 
 	public void setMstrBlDt(String mstrBlDt) {
+		try {
 		String day = mstrBlDt.substring(0, 2);
 		String month = mstrBlDt.substring(2, 4);
 		String year = mstrBlDt.substring(4);
 		String newDate = year + month + day;
 		this.mstrBlDt = newDate;
+		}
+		catch (Exception e) {
+			return;
+		}
 	}
 
 	// Same as Item Number from current screen "Consolidated Indicator"

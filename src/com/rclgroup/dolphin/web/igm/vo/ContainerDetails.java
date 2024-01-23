@@ -46,6 +46,9 @@ public class ContainerDetails {
 	
 	private String containerWeightUnit;
 	
+	private String cargoGrossWeight;
+	
+	
 	public String getContainerBondFlag() {
 		return containerBondFlag;
 	}
@@ -171,6 +174,13 @@ public class ContainerDetails {
 	}
 	public void setContainerWeightUnit(String containerWeightUnit) {
 		this.containerWeightUnit = containerWeightUnit;
+	}
+
+	public String getCargoGrossWeight() {
+		return cargoGrossWeight;
+	}
+	public void setCargoGrossWeight(String cargoGrossWeight) {
+		this.cargoGrossWeight = cargoGrossWeight;
 	}
 	
 	@Override

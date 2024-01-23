@@ -1141,7 +1141,8 @@ var bld = [{
 		$("#smtp").datepicker();
 		$("#rotnDate").datepicker();
 		$("#igmDateApplyIgmDetails").datepicker();
-		$("#arrivalDate").datepicker();
+	/* 	$("#arrivalDate").datepicker();
+		$("#departureDate").datepicker(); */
 		$("#jobDate").datepicker();
 		$("#mBlDate").datepicker();
 		$("#blNoDate").datepicker();
@@ -1151,18 +1152,20 @@ var bld = [{
 		$("#blCreationDateTo").datepicker("option", "dateFormat", "dd/mm/yy");
 		$("#igmDateApplyIgmDetails").datepicker("option", "dateFormat", "dd/mm/yy");
 		$("#rotnDate").datepicker("option", "dateFormat", "dd/mm/yy");
-		$("#arrivalDate").datepicker("option", "dateFormat", "dd/mm/yy");
+		/* $("#arrivalDate").datepicker("option", "dateFormat", "dd/mm/yy");
+		$("#departureDate").datepicker("option", "dateFormat", "dd/mm/yy"); */
 		$("#jobDate").datepicker("option", "dateFormat", "dd/mm/yy");
 		$("#mBlDate").datepicker("option", "dateFormat", "dd/mm/yy");
 		$("#cIgm").datepicker("option", "dateFormat", "dd/mm/yy");
 		$("#smtp").datepicker("option", "dateFormat", "dd/mm/yy");
 	});
 	
-	function dateToCommon(id) {
+	function dateToCommon(obj) {
 		//	alert(id);
+			var id = $(obj).attr('id');
 			debugger;
 			$("#"+id).datepicker();
-			$("#"+id).datepicker("option", "dateFormat", "DD/MM/YYYY"); 
+			$("#"+id).datepicker("option", "dateFormat", "dd/mm/yy"); 
 			$("#"+id).datepicker("show");
 			
 		}
@@ -2933,14 +2936,29 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 								$scope.prsnOnBordTable=result.data.result;
 								$scope.selectedServcies.noOfCrew = Object.keys($scope.prsnOnBordTable).length;
 								jsonData.result[0].service.personOnBoardMod = result.data.result;
+								if(result.data.result.length >0){
+									swal("Message","Person Onboard File imported successfully.","info");
+									}else{
+										swal("Error", "An error occurred during the file import.", "error");
+										}
 							}
 							if (val === 'S'){
 								$scope.shipStoreTable=result.data.result;
 								jsonData.result[0].service.igmShipStoresMods = result.data.result;
+								if(result.data.result.length >0){
+									swal("Message","Ship store File imported successfully.","info");
+									}else{
+										swal("Error", "An error occurred during the file import.", "error");
+										}
 							}
 							if (val === 'C'){
 								$scope.crewEffetTable=result.data.result;
 								jsonData.result[0].service.crewEfctMods = result.data.result;
+								if(result.data.result.length >0){
+									swal("Message","Crew Effect File imported successfully.","info");
+									}else{
+										swal("Error", "An error occurred during the file import.", "error");
+										}
 							}
 							
 			});

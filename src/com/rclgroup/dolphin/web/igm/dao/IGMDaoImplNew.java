@@ -734,9 +734,14 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			if(rs.getString("FLAG_DG") == null || rs.getString("FLAG_DG").equals("N")) {
 				objMod.setUno_code("ZZZZZ");
 			}else {
-				objMod.setUno_code(rs.getString("UNO_CODE"));
+				objMod.setUno_code(rs.getString("UNO_CODE").trim());
 			}
-			objMod.setImdg_code(rs.getString("IMDG_CODE"));
+			if(null == rs.getString("IMDG_CODE") || ("").equals(rs.getString("IMDG_CODE")) ) {
+				objMod.setImdg_code(rs.getString("IMDG_CODE"));
+			}else {
+				objMod.setImdg_code(rs.getString("IMDG_CODE").trim());
+			}
+			
 			objMod.setItemNumber(rs.getString("ITEM_NUMBER"));
 			
 			objMod.setDpdCode(rs.getString("DPD_CODE"));
@@ -828,21 +833,31 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
  
 			 SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
 		     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMdd");
+		     
+		     if(null != rs.getString("MASTER_BL_DATE") || ("").equals(rs.getString("MASTER_BL_DATE"))) {
 			if(rs.getString("MASTER_BL_DATE").contains("/")) {
 			objMod.setMasterBlDate(rs.getString("MASTER_BL_DATE"));
-			}else {
-				 Date date;
-				try {
-					date = inputFormat.parse(rs.getString("MASTER_BL_DATE"));
-					 String formattedDate = outputFormat.format(date);
-					 objMod.setMasterBlDate(formattedDate);
-				} catch (ParseException | SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		        
 			}
+//			else {
+//				 Date date;
+//				try {
+//					date = inputFormat.parse(rs.getString("MASTER_BL_DATE"));
+//					 String formattedDate = outputFormat.format(date);
+//					 objMod.setMasterBlDate(formattedDate);
+//				} catch (ParseException | SQLException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//		        
+//			}
+		     }else {
+		    	 objMod.setMasterBlDate(rs.getString(""));
+		     }
 			objMod.setTrshprFlag(rs.getString("TRNSHPR_FLAG"));
+			objMod.setContainerFillStatus(rs.getString("CONTAINER_FILL_STATUS"));
+			objMod.setCargoGrossWeight(rs.getString("CARGO_GROSS_WEIGHT"));
+			
+			
 			
 			return objMod;
 		}

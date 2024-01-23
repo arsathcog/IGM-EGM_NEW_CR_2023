@@ -57,11 +57,17 @@ public class MCRefSDM {
 	}
 
 	public void setMstrBlDt(String mstrBlDt) {
+		try {
+		if(mstrBlDt == null || mstrBlDt.equals("")) {
 		String day = mstrBlDt.substring(0, 2);
 		String month = mstrBlDt.substring(2, 4);
 		String year = mstrBlDt.substring(4);
 		String newDate = year + month + day;
-		this.mstrBlDt = newDate;
+		this.mstrBlDt = mstrBlDt;
+		}
+		}catch (Exception e) {
+			return;
+		}
 	}
 
 	public void setConsolidatedIndctr(String consolidatedIndctr) {

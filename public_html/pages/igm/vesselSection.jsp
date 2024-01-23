@@ -488,15 +488,17 @@
                </tr>
                <tr>
                   <th class="veseelRemoveBorder" ng-if="pageType=='IGM'">Arrival Date</th>
-                    <th class="veseelRemoveBorder" ng-if="pageType=='EGM'">Departure Date</th>
-                    
-                  <td ng-if="pageType=='EGM'"><input type="text" class="roundshap2" id="arrivalDate" onclick="dateToCommon(this)"
-                     value="{{selectedServcies.arrivalDate}}" ng-model="selectedServcies.departureDate"  >
-                  </td>
-                    
-                  <td ng-if="pageType=='IGM'"><input type="text" class="roundshap2" id="arrivalDate" onclick="dateToCommon(this)"
+                  
+                  <td ng-if="pageType=='IGM'"><input type="text" class="roundshap2" id="arrivalDateigm" onclick="dateToCommon(this)"
                      value="{{selectedServcies.arrivalDate}}" ng-model="selectedServcies.arrivalDate"  >
                   </td>
+                    <th class="veseelRemoveBorder" ng-if="pageType=='EGM'">Departure Date</th>
+                    
+                  <td ng-if="pageType=='EGM'"><input type="text" class="roundshap2" id="departureDate" onclick="dateToCommon(this)"
+                     value="{{selectedServcies.departureDate}}" ng-model="selectedServcies.departureDate"  >
+                  </td>
+                    
+                  
                   
                     <!-- <td ng-if="pageType=='EGM'"><input type="text" class="roundshap2" id="arrivalDate" onclick="dateToCommon(this)"
                      value="{{selectedServcies.departureDate}}" ng-model="selectedServcies.departureDate"  >
@@ -546,13 +548,15 @@
                      ng-model="selectedServcies.exchangeRate"></td>
                </tr>
                <tr>
-                  <th class="veseelRemoveBorder">Departure Date</th>
+                  <th class="veseelRemoveBorder"  ng-if="pageType=='IGM'">Departure Date</th>
+                  <th class="veseelRemoveBorder"  ng-if="pageType=='EGM'">CIGM Date</th>
                   <td><input type="text" class="roundshap2"
                      value="{{selectedServcies.cigmDate}}"
                      ng-model="selectedServcies.cigmDate" id="cIgm" onclick="dateToCommon(this)"></td>
                </tr>
                <tr>
-                  <th class="veseelRemoveBorder">Departure Time</th>
+                  <th class="veseelRemoveBorder"  ng-if="pageType=='IGM'">Departure Time</th>
+                     <th class="veseelRemoveBorder"  ng-if="pageType=='EGM'">CIGM Time</th>
                   <td><input type="text" class="roundshap2"
                      value="{{selectedServcies.cigmNo}}"
                      ng-model="selectedServcies.cigmNo"></td>

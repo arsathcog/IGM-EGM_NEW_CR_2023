@@ -237,8 +237,10 @@ public class IGMContainerDaoImpl extends AncestorJdbcDao implements IGMContainer
             	contDetails.setEquipmentLoadStatus(rs.getString("EQUIPMENT_LOAD_STATUS"));
             }
 			contDetails.setContainerWeightUnit(waightIntoMTS(rs.getString("CONTAINER_WEIGHT")));
+			contDetails.setCargoGrossWeight(rs.getString("CARGO_GROSS_WEIGHT"));
+			
 			// END BL SECTION
-
+			
 			return contDetails;
 		}
 	}

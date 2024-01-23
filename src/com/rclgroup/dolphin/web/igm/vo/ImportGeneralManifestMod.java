@@ -738,6 +738,12 @@ public class ImportGeneralManifestMod implements Cloneable {
 	
 	private String trshprFlag;
 	
+	private String containerFillStatus;
+	
+	private String cargoGrossWeight;
+	
+	
+	
 	private List<ImportGeneralManifestUim> hblArr = new ArrayList<>();
 	
 	public List<ImportGeneralManifestUim> getHblArr() {
@@ -3932,6 +3938,22 @@ public class ImportGeneralManifestMod implements Cloneable {
 
 	public void setTrshprFlag(String trshprFlag) {
 		this.trshprFlag = trshprFlag;
+	}
+
+	public String getContainerFillStatus() {
+		return containerFillStatus;
+	}
+
+	public void setContainerFillStatus(String containerFillStatus) {
+		this.containerFillStatus = containerFillStatus;
+	}
+	
+	public String getCargoGrossWeight() {
+		return cargoGrossWeight;
+	}
+
+	public void setCargoGrossWeight(String cargoGrossWeight) {
+		this.cargoGrossWeight = cargoGrossWeight;
 	}
 
 	@Override

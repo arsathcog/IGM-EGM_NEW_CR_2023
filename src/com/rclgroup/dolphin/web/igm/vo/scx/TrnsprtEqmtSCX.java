@@ -19,6 +19,7 @@ public class TrnsprtEqmtSCX {
     private String cntrAgntCd;
     private Double cntrWeight;
 	private int totalNmbrOfPkgs;
+	 private Double cargoGrossWeight;
 //	private String amendment;
 //
 //	public String getAmendment() {
@@ -184,5 +185,13 @@ public class TrnsprtEqmtSCX {
 		this.cntrAgntCd = cntrAgntCd;
 	}
 
+	public Double getCargoGrossWeight() {
+		return cargoGrossWeight;
+	}
+
+	public void setCargoGrossWeight(Double cargoGrossWeight) {
+		this.cargoGrossWeight = cargoGrossWeight;
+	}
+	
 
 }

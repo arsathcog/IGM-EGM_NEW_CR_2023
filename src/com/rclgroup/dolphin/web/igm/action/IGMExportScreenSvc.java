@@ -1004,8 +1004,14 @@ System.out.println("getCarogoDetails() Called.");
 		         }else {
 		        	 senderId =  objForm.getSenderId();
 		         }
-		         String FileName= "F_" + "SACHM23_"+ objForm.getFileType()+"_"+ senderId+
+		         String FileName = "";
+		         if(objForm.getFileType() == "SDM") {
+		        	 FileName = "F_" + "SACHM23_"+ objForm.getFileType()+"_"+ senderId+
+			        		 "_"+getSeqNo+"_"+getTimeHeader()+"_"+"DEC"+".json";
+		         }else {
+		          FileName= "F_" + "SACHM22_"+ objForm.getFileType()+"_"+ senderId+
 		        		 "_"+getSeqNo+"_"+getTimeHeader()+"_"+"DEC"+".json";
+		         }
 		           // Write the formatted JSON string to a file
 		           String filePath = System.getProperty("user.home") + "\\Downloads" + File.separator + FileName;
 		           try (FileWriter fileWriter = new FileWriter(filePath)) {
