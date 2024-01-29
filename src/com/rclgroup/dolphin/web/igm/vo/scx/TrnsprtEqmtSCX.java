@@ -184,6 +184,11 @@ public class TrnsprtEqmtSCX {
 	public void setCntrAgntCd(String cntrAgntCd) {
 		this.cntrAgntCd = cntrAgntCd;
 	}
+	
+	
+	/* Newly implemented in Four JSON 
+	 * Guru asked t add this field in (jan-2024)
+	 * */
 
 	public Double getCargoGrossWeight() {
 		return cargoGrossWeight;

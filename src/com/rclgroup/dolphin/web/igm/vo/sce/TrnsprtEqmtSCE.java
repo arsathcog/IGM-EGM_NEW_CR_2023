@@ -19,6 +19,7 @@ public class TrnsprtEqmtSCE {
 	private String cntrAgntCd;
 	private Double cntrWeight;
 	private int totalNmbrOfPkgs;
+	private Double cargoGrossWeight;
 //	 private String amendment;
 //
 //		public String getAmendment() {
@@ -180,8 +181,19 @@ public class TrnsprtEqmtSCE {
 	public void setTotalNmbrOfPkgs(int totalNmbrOfPkgs) {
 		this.totalNmbrOfPkgs = totalNmbrOfPkgs;
 	}
+	
+	/* Newly implemented in Four JSON 
+	 * Guru asked t add this field in (jan-2024)
+	 * */
+	
 
+	public Double getCargoGrossWeight() {
+		return cargoGrossWeight;
+	}
 
+	public void setCargoGrossWeight(Double cargoGrossWeight) {
+		this.cargoGrossWeight = cargoGrossWeight;
+	}
 
 	// This value is come from BL Json object "containerAgentCode" (From current IGM
 	// screen from container section)

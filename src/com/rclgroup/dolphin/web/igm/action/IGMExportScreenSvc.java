@@ -1005,7 +1005,7 @@ System.out.println("getCarogoDetails() Called.");
 		        	 senderId =  objForm.getSenderId();
 		         }
 		         String FileName = "";
-		         if(objForm.getFileType() == "SDM") {
+		         if(objForm.getFileType().equals("SDM") ) {
 		        	 FileName = "F_" + "SACHM23_"+ objForm.getFileType()+"_"+ senderId+
 			        		 "_"+getSeqNo+"_"+getTimeHeader()+"_"+"DEC"+".json";
 		         }else {

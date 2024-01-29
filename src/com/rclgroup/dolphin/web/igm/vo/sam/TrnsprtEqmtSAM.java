@@ -20,8 +20,11 @@ public class TrnsprtEqmtSAM {
 	private String cntrAgntCd;
 	private Double cntrWeight;
 	private int totalNmbrOfPkgs;
+	private Double cargoGrossWeight;
+	
 
 	// (Already in IGM screen in container section. Use same seq from there.)
+
 
 	// (Container number from IGM screen.)>mandatory
 	public String getEqmtId() {
@@ -171,6 +174,19 @@ public class TrnsprtEqmtSAM {
 
 	public void setTotalNmbrOfPkgs(int totalNmbrOfPkgs) {
 		this.totalNmbrOfPkgs = totalNmbrOfPkgs;
+	}
+	
+	
+	/* Newly implemented in Four JSON 
+	 * Guru asked t add this field in (jan-2024)
+	 * */
+
+	public Double getCargoGrossWeight() {
+		return cargoGrossWeight;
+	}
+
+	public void setCargoGrossWeight(Double cargoGrossWeight) {
+		this.cargoGrossWeight = cargoGrossWeight;
 	}
 
 }
