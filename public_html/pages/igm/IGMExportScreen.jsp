@@ -1516,7 +1516,12 @@ $(function () {
 						three=StringResult.jsonFile['master']['decRef']['jobNo'];
 						fore=StringResult.jsonFile['master']['decRef']['jobDt']; 
 					}
-					downloadfilename=one+'_'+'SACHM23'+'_'+fileNme+'_'+two+'_'+three+'_'+fore+'_'+'DEC'+'.json';
+					if ($("#fileType").val()=="SDM" ){
+						downloadfilename=one+'_'+'SACHM23'+'_'+fileNme+'_'+two+'_'+three+'_'+fore+'_'+'DEC'+'.json';
+						}else{
+							downloadfilename=one+'_'+'SACHM22'+'_'+fileNme+'_'+two+'_'+three+'_'+fore+'_'+'DEC'+'.json';
+							}
+					
 					
 					var sampleBytes = new String(JSON.stringify(StringResult.jsonFile,null,2));
 

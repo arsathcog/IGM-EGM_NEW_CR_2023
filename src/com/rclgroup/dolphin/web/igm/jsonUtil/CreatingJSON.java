@@ -410,6 +410,7 @@ public class CreatingJSON {
 		String jobNum = "";
 		String msgTyp = "F";
 		String rpngEvent = "SAM";
+		String consigneePan ="";
 		int fromItemNoTemp =Integer.valueOf(service.getFromItemNo());
 		int containerCount = 0;
 		String voyage = isNull((String)service .getVoyage());
@@ -536,10 +537,24 @@ public class CreatingJSON {
 //			System.out.println("port of destination" +service.getPortOfDestination());
 //			System.out.println("port of destination" +blObj.getPod());
 //			System.out.println("port of destination" +service.getPortOfDeschargedCfs());
-				if(blObj.getPortOfDestination().equalsIgnoreCase(blObj.getPod()) ) {
-					locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDeschargedCfs(),6));
+				if((blObj.getPortOfDestination().substring(0, 2).equals("IN") && 
+						blObj.getPod().substring(0, 2).equals("IN"))
+							&& blObj.getPortOfDestination().equals(blObj.getPod()))  {
+					if (null == blObj.getPortOfDeschargedCfs() ||("").equals(blObj.getPortOfDeschargedCfs())) {
+						locCstmClassObj.setDestPrt(settingLength(service.getCustomTerminalCode(),6));
+					}else {
+						locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDeschargedCfs(),6));
+					}
+				}else if ((blObj.getPortOfDestination().substring(0, 2).equals("IN") && 
+						blObj.getPod().substring(0, 2).equals("IN"))
+						&& !blObj.getPortOfDestination().equals(blObj.getPod())){
+					if(null == blObj.getIgmDel() || ("").equals(blObj.getIgmDel()) ) {
+						locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),6));
+					}else {
+						locCstmClassObj.setDestPrt(settingLength(blObj.getIgmDel(),6));
+					}
 				}else {
-					locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),8));
+					locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),6));
 				}
 			}
 			
@@ -636,6 +651,19 @@ public class CreatingJSON {
 					
 					String add = cnsnerDtls.getAddressLine1() + cnsnerDtls.getAddressLine2()
 							+ cnsnerDtls.getAddressLine3() +  cnsnerDtls.getAddressLine4();
+					/* 
+					 * In the case of FROB and T/S needs to show these particular fields.
+					 * Guru asked to implement in (06-2-2024)
+					*/
+					if ((!blObj.getPod().substring(0,2).equals("IN") && !blObj.getPortOfLoading().substring(0,2).equals("IN"))  //  checking FROB
+							&& (!blObj.getPod().substring(0,2).equals("IN") && blObj.getPortOfDestination().substring(0,2).equals("IN")) )  //  checking T/S in India and POD is other than India
+						{
+						
+						trnsprtDocClassObj.setCnsgnrsName( settingLength(cnsnerDtls.getCustomerName(),70));
+						trnsprtDocClassObj.setCnsgnrStreetAddress(settingLength(add,70));
+						trnsprtDocClassObj.setCnsgnrCity(settingLength(cnsnerDtls.getCity(),70));
+						trnsprtDocClassObj.setCnsgnrCntryCd( settingLength(cnsnerDtls.getCountryCode(),2));
+					}else {
 					trnsprtDocClassObj.setCnsgnrsName( settingLength(cnsnerDtls.getCustomerName(),70));
 					trnsprtDocClassObj.setCnsgnrStreetAddress(settingLength(add,70));
 					trnsprtDocClassObj.setCnsgnrCity(settingLength(cnsnerDtls.getCity(),70));
@@ -643,20 +671,25 @@ public class CreatingJSON {
 //					trnsprtDocClassObj.setCnsgnrsCd( settingLength(cnsnerDtls.getCustomerCode(),17)); Guru said to comment
 					trnsprtDocClassObj.setCnsgnrCntryCd( settingLength(cnsnerDtls.getCountryCode(),2));
 //					trnsprtDocClassObj.setCnsgnrPstcd(settingLength(cnsnerDtls.getZip(),9)); guru said to comment
-					
+					}
 				}
 			}
 			for (Consignee cnsneeDtl : consigneeDtls) {
 				if ((blObj.getBl()).equals(cnsneeDtl.getBlNO()))
 				{
 					String add =  cnsneeDtl.getAddressLine1() + cnsneeDtl.getAddressLine2()
-							+  cnsneeDtl.getAddressLine3() +  cnsneeDtl.getAddressLine4();
-					
-					if (!blObj.getPod().equals(blObj.getPol())) {
-						trnsprtDocClassObj.setCnsgnesName( settingLength(cnsneeDtl.getCustomerName(),70));
-						trnsprtDocClassObj.setCnsgneCity(  settingLength(cnsneeDtl.getCity(),70));
-						trnsprtDocClassObj.setCnsgneStreetAddress(settingLength(add,120));
-						trnsprtDocClassObj.setCnsgneCntryCd(settingLength(cnsneeDtl.getCountryCode(),2));
+							+  cnsneeDtl.getAddressLine3() +  cnsneeDtl.getAddressLine4();		
+					/* 
+					 * In the case of FROB and T/S needs to show these particular fields.
+					 * Guru asked to implement in (06-2-2024)
+					*/
+					if ((!blObj.getPod().substring(0,2).equals("IN") && !blObj.getPortOfLoading().substring(0,2).equals("IN"))  //  checking FROB
+							&& (!blObj.getPod().substring(0,2).equals("IN") && blObj.getPortOfDestination().substring(0,2).equals("IN")) )  //  checking T/S in India and POD is other than India
+						{
+						trnsprtDocClassObj.setCnsgnesName(  settingLength(cnsneeDtl.getCustomerName(),70));
+						trnsprtDocClassObj.setCnsgneStreetAddress(settingLength(add,255));
+						trnsprtDocClassObj.setCnsgneCntryCd( settingLength(cnsneeDtl.getCountryCode(),2));
+						trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(settingLength(cnsneeDtl.getCustomerName(),70));
 					}else {
 					trnsprtDocClassObj.setCnsgnesName(  settingLength(cnsneeDtl.getCustomerName(),70));
 					trnsprtDocClassObj.setCnsgneStreetAddress(settingLength(add,255));
@@ -700,9 +733,16 @@ public class CreatingJSON {
 
 				if ((blObj.getBl()).equals(notyObj.getBlNo())) {
 					String add =  notyObj.getAddressLine1() + notyObj.getAddressLine2()
-							+  notyObj.getAddressLine3() +  notyObj.getAddressLine4();
-					if (!blObj.getPod().equals(blObj.getPol())) {
-						trnsprtDocClassObj.setNotfdPartyStreetAddress(settingLength(notyObj.getNotifyName(),256));
+							+  notyObj.getAddressLine3() +  notyObj.getAddressLine4();					
+					/* 
+					 * In the case of FROB and T/S needs to show these particular fields.
+					 * Guru asked to implement in (06-2-2024)
+					*/
+					
+					if ((!blObj.getPod().substring(0,2).equals("IN") && !blObj.getPortOfLoading().substring(0,2).equals("IN"))  //  checking FROB
+							&& (!blObj.getPod().substring(0,2).equals("IN") && 
+									blObj.getPortOfDestination().substring(0,2).equals("IN")) )  //  checking T/S in India and POD is other than India
+						{
 						trnsprtDocClassObj.setNotfdPartyStreetAddress(settingLength(add,256));
 						trnsprtDocClassObj.setNotfdPartyCity( settingLength(notyObj.getCity(),70));
 						trnsprtDocClassObj.setNotfdPartyCntryCd( settingLength(notyObj.getCountryCode(),2));
@@ -721,6 +761,8 @@ public class CreatingJSON {
 						trnsprtDocClassObj.setTypOfCd( settingLength("PAN",30));
 					}else {
 						for (Consignee cnsneeDtl : consigneeDtls) {
+							
+							consigneePan = cnsneeDtl.getConsignePan();
 							trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
 							trnsprtDocClassObj.setTypOfCd( settingLength("PAN",30));
 						}
@@ -738,7 +780,6 @@ public class CreatingJSON {
 //			trnsprtDoc.add(trnsprtDocClassObj);
 			mastrCnsgmtDec.setTrnsprtDoc(trnsprtDocClassObj);
 //_________________________________________________________________________________________________________			
-			
 			
 //------------------------------------------------*TrnsprtDocMsrSAM*--------------------------------------------------	
 			
@@ -772,6 +813,9 @@ public class CreatingJSON {
 			
 //------------------------------------------*ItemDtlsSAM*----------------------------------------------
 
+			if (!blObj.getPod().substring(0,2).equals("IN") 
+					&& !blObj.getPortOfLoading().substring(0,2).equals("IN")) {
+			
 			if(mCRefClassObj.getConsolidatedIndctr().equals("S")) {
 				ItemDtlsSAM itemDtlsClassObj = new ItemDtlsSAM();
 				itemDtlsClassObj.setCrgoItemSeqNmbr(convertingStringtoInt(settingLength(blObj.getCommodity_seq()+"",5)));				//TODO  guru
@@ -808,6 +852,7 @@ public class CreatingJSON {
 						itemDtls.add(itemDtlsClassObj);
 					}
 				}
+			}
 			}
 //_________________________________________________________________________________________________________			
 		
@@ -907,7 +952,7 @@ public class CreatingJSON {
 			hCRefObj.setBlDt(blObj.getBlDate());
 			hCRefObj.setBlNo(settingLength(blObj.getBl(),20));
 			hCRefObj.setConsolidatedIndctr(settingLength("H",4));   //TODO
-			hCRefObj.setConsolidatorPan(settingLength("",16));  
+			hCRefObj.setConsolidatorPan(settingLength(consigneePan,16));  
 			
 			//hCRefObj.setPrevDec(blObj.getPrevious_declaration());
 			if(blObj.getMcin()!= null && blObj.getPcin() != null) {
@@ -917,6 +962,7 @@ public class CreatingJSON {
 			}
 			
 			hCRefObj.setSubLineNo(settingLength(blObj.getSubLineNumber(),5));
+			
 //			hCRef.add(hCRefObj);
 			houseCargoDecSAMObj.sethCRef(hCRefObj);
 			
@@ -969,7 +1015,11 @@ public class CreatingJSON {
 
 //--------------------------------------------*HCPrevRefSAM*---------------------------------------------------------------	
 			HCPrevRefSAM PrevRef =new HCPrevRefSAM();
-			PrevRef.setCinTyp("");
+			if(blObj.getMcin() != null || blObj.getMcin() !="" ) {	
+				PrevRef.setCinTyp(settingLength(blObj.getMcin(),4));	
+					}else if( blObj.getPcin() != null || blObj.getPcin() !="") {
+						PrevRef.setCinTyp(settingLength(blObj.getPcin(),4));	
+					}
 //			PrevRef.setCsnDt(generatedFileNameOfJson);
 //			PrevRef.setCsnNmbr(generatedFileNameOfJson);
 			if(blObj.isHbl() == false) {
@@ -1367,16 +1417,25 @@ public class CreatingJSON {
 		vesselDtls.setTrnsprtMeansId(settingLength(service.getImoCode(),25));
 		vesselDtls.setPurposeOfCall(settingLength( "1",3 )); // always hard coded
 		vesselDtls.setShipTyp(settingLength("50",3)); // Line 192
+		if(null != service.getPort_of_registry() || !("").equals(service.getPort_of_registry())) {
+			vesselDtls.setPrtOfRegistry(service.getPort_of_registry());
+		}else {
+			vesselDtls.setPrtOfRegistry(service.getPort_of_registry());
+		}
+		if (null != service.getRegistry_date() || !("").equals(service.getRegistry_date())) {
+			vesselDtls.setRegistryDt(generatedFileNameOfJson);
+		}else {
+			vesselDtls.setRegistryDt(generatedFileNameOfJson);
+		}
+		vesselDtls.setRegistryNmbr(generatedFileNameOfJson);
+	
+		vesselDtls.setGrossTonnage(generatedFileNameOfJson);
+		vesselDtls.setNetTonnage(generatedFileNameOfJson);
 		
 		//keep it
 //		vesselDtls.setVesselCd(newVessel);// keep it
-//		vesselDtls.setGrossTonnage(generatedFileNameOfJson);
 //		vesselDtls.setNatnltyOfShip(generatedFileNameOfJson);
-//		vesselDtls.setNetTonnage(generatedFileNameOfJson);
-//		vesselDtls.setPrtOfRegistry(generatedFileNameOfJson);
-//		vesselDtls.setRegistryNmbr(generatedFileNameOfJson);
-//		vesselDtls.setRegistryDt(generatedFileNameOfJson);
-
+	
 		mster.setVesselDtls(vesselDtls);  // Correct
 		vesselDtls = null;
 		
@@ -6781,6 +6840,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 		String msgTyp = null;
 		String rpngEvent = "SCE";
 		int containerCount = 0;
+		String consigneePan = "";
 		String voyage = isNull((String) service.getVoyage());
 		String newVoyage = isNull((String) service.getNewVoyage());
 		String pol = isNull((String) service.getPol());
@@ -6863,15 +6923,17 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			HCRefSCE hCRefObj = new HCRefSCE();
 			hCRefObj.setBlDt(blObj.getBlDate());
 			hCRefObj.setBlNo(settingLength(blObj.getBl(),20));
-			hCRefObj.setConsolidatedIndctr(settingLength(blObj.getConsolidated_indicator(),4));
-			hCRefObj.setConsolidatorPan( settingLength(blObj.getConsolidator_pan(),16));
+			hCRefObj.setConsolidatedIndctr(settingLength("H",4));   //TODO
+			hCRefObj.setConsolidatorPan(settingLength(consigneePan,16));  
+			
+			//hCRefObj.setPrevDec(blObj.getPrevious_declaration());
 			if(blObj.getMcin()!= null && blObj.getPcin() != null) {
 				hCRefObj.setPrevDec("y");
 			}else {
 				hCRefObj.setPrevDec("N");
 			}
-//			hCRefObj.setPrevDec(blObj.getPrevious_declaration());
-			hCRefObj.setSubLineNo(settingLength(blObj.getSubLineNumber(),4));
+			
+			hCRefObj.setSubLineNo(settingLength(blObj.getSubLineNumber(),5));
 			hCRef.add(hCRefObj);
 			houseCargoDecSCEObj.sethCRef(hCRef);
 		//======================================================================================	
@@ -6935,12 +6997,25 @@ ImportGeneralManifestMod objForm = blList.get(0);
 				}
 //			locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),6)); // New added
 			
-			if(blObj.getPortOfDestination().equalsIgnoreCase(blObj.getPod()) ) {
-				locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDeschargedCfs(),6));
+			if((blObj.getPortOfDestination().substring(0, 2).equals("IN") && 
+					blObj.getPod().substring(0, 2).equals("IN"))
+						&& blObj.getPortOfDestination().equals(blObj.getPod()))  {
+				if (null == blObj.getPortOfDeschargedCfs() ||("").equals(blObj.getPortOfDeschargedCfs())) {
+					locCstmClassObj.setDestPrt(settingLength(service.getCustomTerminalCode(),6));
+				}else {
+					locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDeschargedCfs(),6));
+				}
+			}else if ((blObj.getPortOfDestination().substring(0, 2).equals("IN") && 
+					blObj.getPod().substring(0, 2).equals("IN"))
+					&& !blObj.getPortOfDestination().equals(blObj.getPod())){
+				if(null == blObj.getIgmDel() || ("").equals(blObj.getIgmDel()) ) {
+					locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),6));
+				}else {
+					locCstmClassObj.setDestPrt(settingLength(blObj.getIgmDel(),6));
+				}
 			}else {
-				locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),8));
+				locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),6));
 			}
-
 //			locCstmClassObj.setTypOfCrgo(settingLength(blObj.getType_of_cargo(),2)); // Line 90
 			if(blObj.getPortOfDestination() != null || !blObj.getPortOfDestination().equals(" ") &&
 					blObj.getPod() != null ||  !blObj.getPod().equals(" ")) {
@@ -7025,6 +7100,9 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			trnsprtDocMsr.add(trnsprtDocMsrClassObj); // below in mark nad no loop
 			houseCargoDecSCEObj.setTrnsprtDocMsr(trnsprtDocMsr);
 			// ------------------------------------------------------
+			if (!blObj.getPod().substring(0,2).equals("IN") 
+					&& !blObj.getPortOfLoading().substring(0,2).equals("IN")) {
+			
 			if(mCRefClassObj.getConsolidatedIndctr().equals("S")) {
 			ItemDtlsSCE itemDtlsClassObj = new ItemDtlsSCE();
 			// trnsprtEqmtClassObj.setHSCE((String)blObj.get(" ")); not cleared by guru
@@ -7042,6 +7120,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 			itemDtlsClassObj.setHsCd(blObj.getCommdity_code());
 			itemDtls.add(itemDtlsClassObj);
 			mastrCnsgmtDec.setItemDtls(itemDtlsClassObj);
+			}
 			}
 			houseCargoDecSCEObj.setItemDtls(itemDtls);
 			// ------------------------------------------------------
@@ -7064,9 +7143,14 @@ ImportGeneralManifestMod objForm = blList.get(0);
 				String add =  checkNull(notyObj.getAddressLine1()) +checkNull( notyObj.getAddressLine2())
 				+ checkNull( notyObj.getAddressLine3()) + checkNull( notyObj.getAddressLine4());
 				if ((blObj.getBl()).equals(notyObj.getBlNo())) {
+					/* 
+					 * In the case of FROB and T/S needs to show these particular fields.
+					 * Guru asked to implement in (06-2-2024)
+					*/
 					
-					if (!blObj.getPod().equals(blObj.getPol())) {
-						trnsprtDocClassObj.setNotfdPartyStreetAddress(settingLength(notyObj.getNotifyName(),256));
+					if ((!blObj.getPod().substring(0,2).equals("IN") && !blObj.getPortOfLoading().substring(0,2).equals("IN"))  //  checking FROB
+						&& (!blObj.getPod().substring(0,2).equals("IN") && blObj.getPortOfDestination().substring(0,2).equals("IN")) )  //  checking T/S in India and POD is other than India
+					{
 						trnsprtDocClassObj.setNotfdPartyStreetAddress(settingLength(add,256));
 						trnsprtDocClassObj.setNotfdPartyCity( settingLength(notyObj.getCity(),70));
 						trnsprtDocClassObj.setNotfdPartyCntryCd( settingLength(notyObj.getCountryCode(),2));
@@ -7085,6 +7169,8 @@ ImportGeneralManifestMod objForm = blList.get(0);
 						trnsprtDocClassObj.setTypOfCd( settingLength("PAN",30));
 					}else {
 						for (Consignee cnsneeDtl : consigneeDtls) {
+							
+							consigneePan = cnsneeDtl.getConsignePan();
 							trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
 							trnsprtDocClassObj.setTypOfNotfdPartyCd("PAN");
 							trnsprtDocClassObj.setTypOfCd( settingLength("PAN",30));
@@ -7126,11 +7212,17 @@ ImportGeneralManifestMod objForm = blList.get(0);
 					String add = (String) cnsneeDtl.getAddressLine1() + cnsneeDtl.getAddressLine2()
 							+ (String) cnsneeDtl.getAddressLine3() + (String) cnsneeDtl.getAddressLine4();
 					
-					if (!blObj.getPod().equals(blObj.getPol())) {
-						trnsprtDocClassObj.setCnsgnesName( settingLength(cnsneeDtl.getCustomerName(),70));
-						trnsprtDocClassObj.setCnsgneCity(  settingLength(cnsneeDtl.getCity(),70));
-						trnsprtDocClassObj.setCnsgneStreetAddress(settingLength(add,120));
-						trnsprtDocClassObj.setCnsgneCntryCd(settingLength(cnsneeDtl.getCountryCode(),2));
+					if ((!blObj.getPod().substring(0,2).equals("IN") && !blObj.getPortOfLoading().substring(0,2).equals("IN"))  //  checking FROB
+							&& (!blObj.getPod().substring(0,2).equals("IN") && blObj.getPortOfDestination().substring(0,2).equals("IN")) )  //  checking T/S in India and POD is other than India
+						{
+						/* 
+						 * In the case of FROB and T/S needs to show these particular fields.
+						 * Guru asked to implement in (06-2-2024)
+						*/
+						trnsprtDocClassObj.setCnsgnesName(  settingLength(cnsneeDtl.getCustomerName(),70));
+						trnsprtDocClassObj.setCnsgneStreetAddress(settingLength(add,255));
+						trnsprtDocClassObj.setCnsgneCntryCd( settingLength(cnsneeDtl.getCountryCode(),2));
+						trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(settingLength(cnsneeDtl.getCustomerName(),70));
 					}else {	
 					// set all values in TrnsprtDoc Class Obj
 					trnsprtDocClassObj.setCnsgneStreetAddress(settingLength(add,120));
@@ -7164,6 +7256,19 @@ ImportGeneralManifestMod objForm = blList.get(0);
 					String add =checkNull ((String) cnsnerDtls.getAddressLine1()) +checkNull ( cnsnerDtls.getAddressLine2())
 							+ checkNull ((String) cnsnerDtls.getAddressLine3()) + checkNull ((String) cnsnerDtls.getAddressLine4());
 					// set all values in TrnsprtDoc Class Obj cnsgnrsName;
+					
+					if ((!blObj.getPod().substring(0,2).equals("IN") && !blObj.getPortOfLoading().substring(0,2).equals("IN"))  //  checking FROB
+							&& (!blObj.getPod().substring(0,2).equals("IN") && blObj.getPortOfDestination().substring(0,2).equals("IN")) )  //  checking T/S in India and POD is other than India
+						{
+						/* 
+						 * In the case of FROB and T/S needs to show these particular fields.
+						 * Guru asked to implement in (06-2-2024)
+						*/
+						trnsprtDocClassObj.setCnsgnrsName( settingLength(cnsnerDtls.getCustomerName(),70));
+						trnsprtDocClassObj.setCnsgnrStreetAddress(settingLength(add,70));
+						trnsprtDocClassObj.setCnsgnrCity(settingLength(cnsnerDtls.getCity(),70));
+						trnsprtDocClassObj.setCnsgnrCntryCd( settingLength(cnsnerDtls.getCountryCode(),2));
+					}else {
 					trnsprtDocClassObj.setCnsgnrStreetAddress(settingLength(add,70));
 					trnsprtDocClassObj.setCnsgnrsName( settingLength(cnsnerDtls.getCustomerName(),70));
 					trnsprtDocClassObj.setCnsgnrCity( settingLength(cnsnerDtls.getCity(),70));
@@ -7175,6 +7280,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 					trnsprtDocClassObj.setCnsgnrCntryCd( settingLength(cnsnerDtls.getCountryCode(),2));
 //					trnsprtDocClassObj.setCnsgnrPstcd( settingLength(cnsnerDtls.getZip(),9));
 					trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(settingLength(cnsnerDtls.getCustomerName(),70));
+					}
 				}
 			}
 			trnsprtDoc.add(trnsprtDocClassObj);

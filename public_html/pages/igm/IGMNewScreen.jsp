@@ -1857,7 +1857,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 		//alert(2)
 		$scope.selectedServcies.toItemNo=0;
 		if($scope.selectedServcies.fromItemNo){
-			$scope.selectedServcies.toItemNo=parseInt($scope.selectedServcies.fromItemNo)+ $window.jsonData.result[0].BLS.length;
+			$scope.selectedServcies.toItemNo=parseInt($scope.selectedServcies.fromItemNo)+ $window.jsonData.result[0].BLS.length-1;
 			return parseInt($scope.selectedServcies.fromItemNo)+ $window.jsonData.result[0].BLS.length;
 		}
 		console.log($scope.selectedServcies.fromItemNo)

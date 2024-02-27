@@ -742,8 +742,9 @@ public class ImportGeneralManifestMod implements Cloneable {
 	
 	private String cargoGrossWeight;
 	
+	private String igmDel;
 	
-	
+
 	private List<ImportGeneralManifestUim> hblArr = new ArrayList<>();
 	
 	public List<ImportGeneralManifestUim> getHblArr() {
@@ -3954,6 +3955,14 @@ public class ImportGeneralManifestMod implements Cloneable {
 
 	public void setCargoGrossWeight(String cargoGrossWeight) {
 		this.cargoGrossWeight = cargoGrossWeight;
+	}
+
+	public String getIgmDel() {
+		return igmDel;
+	}
+
+	public void setIgmDel(String igmDel) {
+		this.igmDel = igmDel;
 	}
 
 	@Override

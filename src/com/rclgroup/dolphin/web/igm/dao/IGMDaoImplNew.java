@@ -856,6 +856,8 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setTrshprFlag(rs.getString("TRNSHPR_FLAG"));
 			objMod.setContainerFillStatus(rs.getString("CONTAINER_FILL_STATUS"));
 			objMod.setCargoGrossWeight(rs.getString("CARGO_GROSS_WEIGHT"));
+			objMod.setIgmDel(rs.getString("IGMDEL"));
+			
 			
 			
 			
