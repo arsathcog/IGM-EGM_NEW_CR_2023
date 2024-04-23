@@ -553,6 +553,7 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			System.out.println("Error while getting igm data from DB : " + strRetError);
 			throw ExceptionFactory.createApplicationException(strRetError);
 		}
+	
 		
 		return mapResult;
 	}
@@ -734,8 +735,14 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			if(rs.getString("FLAG_DG") == null || rs.getString("FLAG_DG").equals("N")) {
 				objMod.setUno_code("ZZZZZ");
 			}else {
-				objMod.setUno_code(rs.getString("UNO_CODE").trim());
+				if(rs.getString("UNO_CODE") != null) {
+				  objMod.setUno_code(rs.getString("UNO_CODE").trim());
+				}else
+				{
+					objMod.setUno_code("");
+				}
 			}
+			
 			if(null == rs.getString("IMDG_CODE") || ("").equals(rs.getString("IMDG_CODE")) ) {
 				objMod.setImdg_code(rs.getString("IMDG_CODE"));
 			}else {
@@ -763,9 +770,9 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 
 //			if(StringUtils.substringAfterLast(rs.getString("REMARK"), "(s)") != null) {
 //				System.out.println("success");
-//			}
-//			
-//			
+//			} 
+//
+			
 			objMod.setRemark(rs.getString("REMARK"));
 			
 			if(rs.getString("SUB_LINE_NUMBER")==null || rs.getString("SUB_LINE_NUMBER").equals("")) {
@@ -823,7 +830,7 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			}
 			objMod.setBlCriteria("MBL"); 
 			objMod.setPort_of_receipt(rs.getString("DN_PLD")); 
-			objMod.setPort_of_acceptance(rs.getString("DN_PLR"));
+			objMod.setPort_of_acceptance(rs.getString("DN_PLR")); 
 			objMod.setDn_plr(rs.getString("DN_PLR")); 
 			objMod.setDn_pld(rs.getString("DN_PLD"));
 			objMod.setAcceptanceName(rs.getString("ACCEPTANCE_NAME")); // nava sheva
@@ -834,7 +841,7 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			 SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
 		     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMdd");
 		     
-		     if(null != rs.getString("MASTER_BL_DATE") || ("").equals(rs.getString("MASTER_BL_DATE"))) {
+		    if((rs.getString("MASTER_BL_DATE") != null) || !rs.getString("MASTER_BL_DATE").equals("")) {
 			if(rs.getString("MASTER_BL_DATE").contains("/")) {
 			objMod.setMasterBlDate(rs.getString("MASTER_BL_DATE"));
 			}
@@ -849,15 +856,14 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 //					e.printStackTrace();
 //				}
 //		        
-//			}
-		     }else {
-		    	 objMod.setMasterBlDate(rs.getString(""));
+			}else {
+		    	 //objMod.setMasterBlDate(rs.getString(""));
+				objMod.setMasterBlDate("");
 		     }
 			objMod.setTrshprFlag(rs.getString("TRNSHPR_FLAG"));
 			objMod.setContainerFillStatus(rs.getString("CONTAINER_FILL_STATUS"));
 			objMod.setCargoGrossWeight(rs.getString("CARGO_GROSS_WEIGHT"));
 			objMod.setIgmDel(rs.getString("IGMDEL"));
-			
 			
 			
 			
@@ -1038,6 +1044,7 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			System.out.println("Error while getting igm data from DB : " + strRetError);
 			throw ExceptionFactory.createApplicationException(strRetError);
 		}
+		
 		
 		return mapResult;
 	}

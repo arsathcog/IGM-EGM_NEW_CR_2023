@@ -61,6 +61,7 @@ import com.rclgroup.dolphin.web.igm.dao.IGMVesselVoyageSaveDao;
 import com.rclgroup.dolphin.web.igm.dao.ImportGeneralManifestDao;
 import com.rclgroup.dolphin.web.igm.dao.PersonOnBoardDao;
 import com.rclgroup.dolphin.web.igm.jsonUtil.CreatingJSON;
+import com.rclgroup.dolphin.web.igm.vo.BlId;
 import com.rclgroup.dolphin.web.igm.vo.Consignee;
 import com.rclgroup.dolphin.web.igm.vo.Consigner;
 import com.rclgroup.dolphin.web.igm.vo.ContainerDetails;
@@ -71,10 +72,12 @@ import com.rclgroup.dolphin.web.igm.vo.ImportGeneralManifestExportMod;
 import com.rclgroup.dolphin.web.igm.vo.ImportGeneralManifestInput;
 import com.rclgroup.dolphin.web.igm.vo.ImportGeneralManifestMod;
 import com.rclgroup.dolphin.web.igm.vo.ImportGeneralManifestResultSet;
+import com.rclgroup.dolphin.web.igm.vo.Itnry;
 import com.rclgroup.dolphin.web.igm.vo.MarksNumber;
 import com.rclgroup.dolphin.web.igm.vo.NotifyParty;
 import com.rclgroup.dolphin.web.igm.vo.PortMod;
 import com.rclgroup.dolphin.web.igm.vo.PreviousDeclaration;
+import com.rclgroup.dolphin.web.igm.vo.sdm.ItnrySDM;
 
 public class IGMExportScreenSvc extends BaseAction {
 	/** The Constant DAO_BEAN_ID. */
@@ -717,6 +720,9 @@ System.out.println("getCarogoDetails() Called.");
 		/* BL Start.. */
 		 Map<Object, Object> mapReturnBL = objDao.getBLDataNew(mapParam, IGMExportDao.SQL_GET_IGM_BL_MASTER_SAVE_DATA_EXPORT, false);
 		List<ImportGeneralManifestMod> resultBL = (List<ImportGeneralManifestMod>) mapReturnBL	.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA);
+		// create a Dao method for fetching pol pod based on bl from routing table
+		// it should return array list of itrnry objects 
+		// then map those values into Json's itrnry section
 		 /* BL End.. */
 		String blsInput = null;
 		for (ImportGeneralManifestMod bl : resultBL) {
@@ -936,15 +942,22 @@ System.out.println("getCarogoDetails() Called.");
 		 String dataPersonOnBord = objForm.getPersonOnBoardMod();
 		 String dataCrewEfctMod = objForm.getCrewEfctMod();
 		 String dataShipStoresMod = objForm.getShipStoresMod();
+		 String dataItnry = objForm.getItnry();
+		
 		 
 		 ObjectMapper mapper = new ObjectMapper();
 		  String empJson ="";
 		  String formated = "";
 			 String formattedJson = "";
 			 String senderId = "";
+		
+			 
 
 		 ImportGeneralManifestInput saveParam = mapper.readValue(data, ImportGeneralManifestInput.class);
 		 ImportGeneralManifestMod service = saveParam.getService();
+		 
+		
+	
 
 		 List<ImportGeneralManifestMod> blList = saveParam.getBls();
 		 Map<String, String> mapParam = createHeaderParamsJson(service);
@@ -973,6 +986,10 @@ System.out.println("getCarogoDetails() Called.");
 				PersonOnBoardDao objPersonDao = (PersonOnBoardDao) getDao(DAO_BEAN_PERSON);
 		        shipStoresMod=objPersonDao.getShipStore(mapParam ,PersonOnBoardDao.SQL_RCL_IGM_GET_SAVE_SHIP_STORE);
 			}
+			
+			//-----------------------------------getItrnry-------------------------------------------------------------
+			
+			
 
 		 
 		 List<ImportGeneralManifestMod> blListNewSavedVal = new ArrayList<ImportGeneralManifestMod>();
@@ -985,8 +1002,36 @@ System.out.println("getCarogoDetails() Called.");
 			} 
 		 }
 		 	blListNewSavedVal.addAll(getBlDetails(service,objForm));
+		 	 PersonOnBoardDao objPersonDao = (PersonOnBoardDao) getDao(DAO_BEAN_PERSON);
+		 	 
+		 	 // for itrnry 
+		 	List<ItnrySDM> itrnry = null;
+		    // for BlId 
+	 	    List<BlId> blId = null;
+		 	 for(int i =0;i<blListNewSavedVal.size();i++) {
+		 		 
+		 	 
+			    itrnry = objPersonDao.getItrnry( blListNewSavedVal.get(i).getBl(),PersonOnBoardDao.SQL_RCL_GET_ITNRY_DATA);
+			    blListNewSavedVal.get(i).setItnrySdm(itrnry);
+			    //FOR bl id
+			    blId = objPersonDao.getBlId( blListNewSavedVal.get(i).getBl(),PersonOnBoardDao.SQL_RCL_GET_BLID);
+			    blListNewSavedVal.get(i).setBlId(blId);
+		 	 }
+		 	 
+		 	
+//		 	 
+//			    blId = objPersonDao.getBlId( blListNewSavedVal.get(0).getBl(),PersonOnBoardDao.SQL_RCL_GET_BLID);
+//			    blListNewSavedVal.get(0).setBlId(blId);
+			    
+//			    for(int i =0;i<blListNewSavedVal.size();i++) {
+//			 		 
+//				    blId = objPersonDao.getBlId( blListNewSavedVal.get(i).getBl(),PersonOnBoardDao.SQL_RCL_GET_BLID);
+//				    blListNewSavedVal.get(i).setBlId(blId);
+//			 	 }
+			  
+		 	
 		 
-		 System.out.println("Object Done..... 0");
+		 System.out.println("Object Done..... 0"+ blListNewSavedVal);
 		 int getSeqNo = objDao.getSeqNoJdbc(service,"EGM",objForm.getFileType());
 		 
 
@@ -1135,6 +1180,7 @@ System.out.println("getCarogoDetails() Called.");
     		jsonObj = new net.sf.json.JSONObject();
     		jsonObj.put("result", list);
     		jsonObj.write(response.getWriter());
+    		System.out.println("list:: "+ list);
     	//	System.out.println("#IGMLogger EXCEL JSON obj: " + jsonObj.write(new StringWriter()));
     		return null;
 	      

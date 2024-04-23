@@ -11,7 +11,7 @@ public class HouseCargoDecSDM {
 	private List<ItemDtlsSDM> itemDtls;
 	private List<TrnsprtEqmtSDM> trnsprtEqmt;
 	private List<ItnrySDM> itnry;
-//	private List<PrevRefSDM> prevRef;
+	private List<PrevRefSDM> prevRef;
 	private List<HCCrgoSuprtDocsSDM> hCCrgoSuprtDocs;
 	private List<HCAdtnlDecSDM>hcAdtnlDec;
 	
@@ -63,12 +63,12 @@ public class HouseCargoDecSDM {
 	public void setItnry(List<ItnrySDM> itnry) {
 		this.itnry = itnry;
 	}
-//	public List<PrevRefSDM> getPrevRef() {
-//		return prevRef;
-//	}
-//	public void setPrevRef(List<PrevRefSDM> prevRef) {
-//		this.prevRef = prevRef;
-//	}
+	public List<PrevRefSDM> getPrevRef() {
+		return prevRef;
+	}
+	public void setPrevRef(List<PrevRefSDM> prevRef) {
+		this.prevRef = prevRef;
+	}
 	public List<HCCrgoSuprtDocsSDM> gethCCrgoSuprtDocs() {
 		return hCCrgoSuprtDocs;
 	}

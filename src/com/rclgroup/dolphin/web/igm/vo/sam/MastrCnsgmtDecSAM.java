@@ -9,7 +9,7 @@ public class MastrCnsgmtDecSAM {
     private TrnshprSAM trnshpr;		//TODO
 	private TrnsprtDocSAM trnsprtDoc;
     private TrnsprtDocMsrSAM trnsprtDocMsr;
-	private ItemDtlsSAM itemDtls;   //TODO
+	private List<ItemDtlsSAM> itemDtls;   //TODO
 	private List<TrnsprtEqmtSAM> trnsprtEqmt;   //TODO
 	private ItnrySAM itnry;				//TODO
 	private PrevRefSAM prevRef = null;			    //TODO now 
@@ -51,10 +51,11 @@ public class MastrCnsgmtDecSAM {
 		this.trnsprtDocMsr = trnsprtDocMsr;
 	}
 
-	public ItemDtlsSAM getItemDtls() {
+	
+	public List<ItemDtlsSAM> getItemDtls() {
 		return itemDtls;
 	}
-	public void setItemDtls(ItemDtlsSAM itemDtls) {
+	public void setItemDtls(List<ItemDtlsSAM> itemDtls) {
 		this.itemDtls = itemDtls;
 	}
 	public List<TrnsprtEqmtSAM> getTrnsprtEqmt() {
@@ -100,13 +101,15 @@ public class MastrCnsgmtDecSAM {
 	public void setHouseCargoDec(HouseCargoDecSAM houseCargoDec) {
 		this.houseCargoDec = houseCargoDec;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "MastrCnsgmtDecSAM [mCRef=" + mCRef + ", locCstm=" + locCstm + ", trnshpr=" + trnshpr + ", trnsprtDoc="
 				+ trnsprtDoc + ", trnsprtDocMsr=" + trnsprtDocMsr + ", itemDtls=" + itemDtls + ", trnsprtEqmt="
 				+ trnsprtEqmt + ", itnry=" + itnry + ", prevRef=" + prevRef + ", houseCargoDec=" + houseCargoDec + "]";
 	}
+
+	
 	
 
 	 

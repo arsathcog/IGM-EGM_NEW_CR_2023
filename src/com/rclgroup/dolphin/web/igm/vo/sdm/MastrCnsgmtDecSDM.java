@@ -12,15 +12,29 @@ public class MastrCnsgmtDecSDM {
     private ItemDtlsSDM itemDtls;
 	private List<TrnsprtEqmtSDM> trnsprtEqmt;
 	
-	private ItnrySDM itnry;
-//	private PrevRefSDM prevRef;
+//	private ItnrySDM itnry;
+	private List<ItnrySDM> itnry;
+	private PrevRefSDM prevRef;
 	private HouseCargoDecSDM houseCargoDec;
 //	private List<MCSuprtDocsSDM> mCSuprtDocs;
 //	private List<MCAdtnlDecSDM> mCAdtnlDec;
 	
+	
 	public MCRefSDM getmCRef() {
 		return mCRef;
 	}
+
+
+
+//	public List<ItnrySDM> getItnryList() {
+//		return itnryList;
+//	}
+//
+//
+//
+//	public void setItnryList(List<ItnrySDM> itnryList) {
+//		this.itnryList = itnryList;
+//	}
 
 
 
@@ -100,27 +114,34 @@ public class MastrCnsgmtDecSDM {
 
 
 
-	public ItnrySDM getItnry() {
+
+
+	public PrevRefSDM getPrevRef() {
+		return prevRef;
+	}
+
+
+
+	public void setPrevRef(PrevRefSDM prevRef) {
+		this.prevRef = prevRef;
+	}
+
+
+
+	public List<ItnrySDM> getItnry() {
 		return itnry;
 	}
 
 
 
-	public void setItnry(ItnrySDM itnry) {
+	public void setItnry(List<ItnrySDM> itnry) {
 		this.itnry = itnry;
 	}
 
 
 
-//	public PrevRefSDM getPrevRef() {
-//		return prevRef;
-//	}
-//
-//
-//
-//	public void setPrevRef(PrevRefSDM prevRef) {
-//		this.prevRef = prevRef;
-//	}
+	
+
 
 
 	public HouseCargoDecSDM getHouseCargoDec() {
@@ -139,8 +160,18 @@ public class MastrCnsgmtDecSDM {
 	public String toString() {
 		return "MastrCnsgmtDecSDM [mCRef=" + mCRef + ", locCstm=" + locCstm + ", trnsprtDoc=" + trnsprtDoc
 				+ ", trnsprtDocMsr=" + trnsprtDocMsr + ", itemDtls=" + itemDtls + ", trnsprtEqmt=" + trnsprtEqmt
-				+ ", itnry=" + itnry + ", houseCargoDec=" + houseCargoDec + "]";
+				+ ", itnry=" + itnry + ", prevRef=" + prevRef + ", houseCargoDec=" + houseCargoDec + "]";
 	}
+
+
+
+	
+
+
+
+
+
+
 
 
 

@@ -502,6 +502,7 @@ public class ImportGeneralManifestExportMod implements Cloneable{
 	private String grosWeight;
 	private String unit;
 	private String volume;
+	private String pcin;
 	// end bl section
 
 	// vessel's new fields(28-05-2021)
@@ -536,6 +537,14 @@ public class ImportGeneralManifestExportMod implements Cloneable{
 
 	public String getCustomCode() {
 		return customCode;
+	}
+
+	public String getPcin() {
+		return pcin;
+	}
+
+	public void setPcin(String pcin) {
+		this.pcin = pcin;
 	}
 
 	public void setCustomCode(String customCode) {
@@ -3730,6 +3739,8 @@ public class ImportGeneralManifestExportMod implements Cloneable{
 		builder.append(remarkVessel);
 		builder.append(", $$hashKey=");
 		builder.append($$hashKey);
+		builder.append(", pcin=");
+		builder.append(pcin);
 		builder.append("]");
 		return builder.toString();
 	}

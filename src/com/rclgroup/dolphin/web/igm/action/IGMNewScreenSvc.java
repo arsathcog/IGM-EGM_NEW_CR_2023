@@ -55,6 +55,7 @@ import com.rclgroup.dolphin.web.igm.dao.IGMVesselVoyageSaveDao;
 import com.rclgroup.dolphin.web.igm.dao.ImportGeneralManifestDao;
 import com.rclgroup.dolphin.web.igm.dao.PersonOnBoardDao;
 import com.rclgroup.dolphin.web.igm.jsonUtil.CreatingJSON;
+import com.rclgroup.dolphin.web.igm.vo.BlId;
 import com.rclgroup.dolphin.web.igm.vo.Consignee;
 import com.rclgroup.dolphin.web.igm.vo.Consigner;
 import com.rclgroup.dolphin.web.igm.vo.ContainerDetails;
@@ -68,6 +69,7 @@ import com.rclgroup.dolphin.web.igm.vo.MarksNumber;
 import com.rclgroup.dolphin.web.igm.vo.NotifyParty;
 import com.rclgroup.dolphin.web.igm.vo.PortMod;
 import com.rclgroup.dolphin.web.igm.vo.PreviousDeclaration;
+import com.rclgroup.dolphin.web.igm.vo.sdm.ItnrySDM;
 
 public class IGMNewScreenSvc extends BaseAction implements Runnable {
 	/** The Constant DAO_BEAN_ID Start. */
@@ -1108,8 +1110,31 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 				blListNew.add(obj);
 			}
 		}
-		 
 		blListNewSavedVal.addAll(getBlDetails(service, objForm, blList));
+		
+		 // for BlId 
+		    PersonOnBoardDao objPersonDao = (PersonOnBoardDao) getDao(DAO_BEAN_PERSON);
+	 	    List<BlId> blId = null;
+	 	// for itrnry 
+	//	 	List<ItnrySDM> itrnry = null;
+	 	
+//	 	 
+//		    blId = objPersonDao.getBlId( blListNewSavedVal.get(0).getBl(),PersonOnBoardDao.SQL_RCL_GET_BLID);
+//		    blListNewSavedVal.get(0).setBlId(blId);
+		    
+		    for(int i =0;i<blListNewSavedVal.size();i++) {
+//		    	
+//		    	 itrnry = objPersonDao.getItrnry( blListNewSavedVal.get(i).getBl(),PersonOnBoardDao.SQL_RCL_GET_ITNRY_DATA);
+//				  blListNewSavedVal.get(i).setItnrySdm(itrnry);
+//		 		 
+			    blId = objPersonDao.getBlId( blListNewSavedVal.get(i).getBl(),PersonOnBoardDao.SQL_RCL_GET_BLID);
+			    blListNewSavedVal.get(i).setBlId(blId);
+		 	 }
+		    
+		    
+		    
+		 
+//		blListNewSavedVal.addAll(getBlDetails(service, objForm, blList));
 		System.out.println("Object Done..... 0");
 
 		int getSeqNo = objDao.getSeqNoJdbc(service, "IGM", objForm.getFileType());

@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -24,6 +25,7 @@ import com.rclgroup.dolphin.web.igm.vo.IGMShipStoresMod;
 import com.rclgroup.dolphin.web.igm.vo.ImportGeneralManifestMod;
 import com.rclgroup.dolphin.web.igm.vo.MarksNumber;
 import com.rclgroup.dolphin.web.igm.vo.NotifyParty;
+import com.rclgroup.dolphin.web.igm.vo.PreviousDeclaration;
 import com.rclgroup.dolphin.web.igm.vo.saa.AuthPrsnSAA;
 import com.rclgroup.dolphin.web.igm.vo.saa.CrewEfctSAA;
 import com.rclgroup.dolphin.web.igm.vo.saa.DecRefSAA;
@@ -288,6 +290,7 @@ import com.rclgroup.dolphin.web.igm.vo.sdm.MCRefSDM;
 import com.rclgroup.dolphin.web.igm.vo.sdm.MCSuprtDocsSDM;
 import com.rclgroup.dolphin.web.igm.vo.sdm.MasterSDM;
 import com.rclgroup.dolphin.web.igm.vo.sdm.MastrCnsgmtDecSDM;
+import com.rclgroup.dolphin.web.igm.vo.sdm.PrevRefSDM;
 import com.rclgroup.dolphin.web.igm.vo.sdm.PrsnDtlsSDM;
 import com.rclgroup.dolphin.web.igm.vo.sdm.PrsnIdSDM;
 import com.rclgroup.dolphin.web.igm.vo.sdm.PrsnOnBoardSDM;
@@ -541,20 +544,20 @@ public class CreatingJSON {
 						blObj.getPod().substring(0, 2).equals("IN"))
 							&& blObj.getPortOfDestination().equals(blObj.getPod()))  {
 					if (null == blObj.getPortOfDeschargedCfs() ||("").equals(blObj.getPortOfDeschargedCfs())) {
-						locCstmClassObj.setDestPrt(settingLength(service.getCustomTerminalCode(),6));
+						locCstmClassObj.setDestPrt(settingLength(service.getCustomTerminalCode(),20));
 					}else {
-						locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDeschargedCfs(),6));
+						locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDeschargedCfs(),20));
 					}
 				}else if ((blObj.getPortOfDestination().substring(0, 2).equals("IN") && 
 						blObj.getPod().substring(0, 2).equals("IN"))
 						&& !blObj.getPortOfDestination().equals(blObj.getPod())){
 					if(null == blObj.getIgmDel() || ("").equals(blObj.getIgmDel()) ) {
-						locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),6));
+						locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),20));
 					}else {
-						locCstmClassObj.setDestPrt(settingLength(blObj.getIgmDel(),6));
+						locCstmClassObj.setDestPrt(settingLength(blObj.getIgmDel(),20));
 					}
 				}else {
-					locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),6));
+					locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),20));
 				}
 			}
 			
@@ -604,6 +607,16 @@ public class CreatingJSON {
 			}else {
 				locCstmClassObj.setSplitIndctr("");
 			}
+			
+			if( blObj.getBlId().get(0).getBlId().equals("X")) {
+				locCstmClassObj.setSplitIndctr("Y");
+			}else
+			{
+			   locCstmClassObj.setSplitIndctr("N");
+			}
+			
+			
+			
 //			locCstmClassObj.setTypOfCrgo(pol);
 //			locCstmClassObj.setTypOfPackage(pol);
 //			locCstmSAMList.add(locCstmClassObj);	
@@ -785,11 +798,29 @@ public class CreatingJSON {
 			
 			TrnsprtDocMsrSAM trnsprtDocMsrClassObj = new TrnsprtDocMsrSAM();
 			trnsprtDocMsrClassObj.setNmbrOfPkgs(convertingStringtoInt(settingLength(blObj.getTotal_number_of_packages(),9)));
-			if(null != blObj.getType_of_package()|| ("").equals(blObj.getType_of_package())) {
-				trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getType_of_package());
-			}else {
-				trnsprtDocMsrClassObj.setTypsOfPkgs("");
-			}
+			if(blObj.getPackage_kind() != null || !blObj.getPackage_kind().equals("")){
+			 String[] values = blObj.getPackage_kind().trim().split(", ");
+			 boolean  checkPackKind = true;
+			 for(int l = 0; l < values.length-1; l++)
+			 {
+				
+				 if(!values[l].equals(values[l + 1])) {
+				        checkPackKind = false; 
+				        break; 
+				    }
+			 }
+			 if(checkPackKind) {
+				 trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getType_of_package());
+			 }else
+			 {
+				 trnsprtDocMsrClassObj.setTypsOfPkgs("PKG");
+			 }
+		}
+//			if(null != blObj.getType_of_package()|| ("").equals(blObj.getType_of_package())) {
+//				trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getType_of_package());
+//			}else {
+//				trnsprtDocMsrClassObj.setTypsOfPkgs("");
+//			}
 		
 //			trnsprtDocMsrClassObj.setMarksNoOnPkgs(settingLength("",512)); 
 			if(null != blObj.getGrosWeight() || ("").equals(blObj.getGrosWeight())) {
@@ -818,25 +849,73 @@ public class CreatingJSON {
 			
 			if(mCRefClassObj.getConsolidatedIndctr().equals("S")) {
 				ItemDtlsSAM itemDtlsClassObj = new ItemDtlsSAM();
-				itemDtlsClassObj.setCrgoItemSeqNmbr(convertingStringtoInt(settingLength(blObj.getCommodity_seq()+"",5)));				//TODO  guru
-				itemDtlsClassObj.setHsCd(blObj.getCommdity_code());
-				itemDtlsClassObj.setCrgoItemDesc( settingLength(blObj.getCargo_item_description(),256));					//TODO  guru
-				if(blObj.getDgFlag() != null && StringUtils.isNotBlank(blObj.getDgFlag()) ) {
-					itemDtlsClassObj.setUnoCd( settingLength(blObj.getUno_code(),5));
-					itemDtlsClassObj.setImdgCd( settingLength(blObj.getImdg_code(),3));	
-				}else {
-						itemDtlsClassObj.setUnoCd( settingLength("ZZZZZ",5));
-						itemDtlsClassObj.setImdgCd( settingLength("ZZZ",3));	
-				}									
-													//TODO  guru
-				itemDtlsClassObj.setNmbrOfPkgs(convertingStringtoInt(settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6))); 
-				
-				itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getType_of_package(),3));
-				
-
-				itemDtls.add(itemDtlsClassObj);
-				mastrCnsgmtDec.setItemDtls(itemDtlsClassObj);
-			}else {
+				//for multiple commodity
+				 String[] commodities = blObj.getCommdity_code().split(",");
+				 String [] cargoDetails = blObj.getCargo_item_description().split(",");
+					 for(int l = 0; l< commodities.length ; l++) {
+						 
+						 itemDtlsClassObj.setCrgoItemSeqNmbr(l+1);
+						 itemDtlsClassObj.setHsCd(commodities[l]);
+						 itemDtlsClassObj.setCrgoItemDesc( settingLength(cargoDetails[l],256));
+						 if(blObj.getDgFlag() != null && StringUtils.isNotBlank(blObj.getDgFlag()) ) {
+								itemDtlsClassObj.setUnoCd( settingLength(blObj.getUno_code(),5));
+								itemDtlsClassObj.setImdgCd( settingLength(blObj.getImdg_code(),3));	
+							}else {
+									itemDtlsClassObj.setUnoCd( settingLength("ZZZZZ",5));
+									itemDtlsClassObj.setImdgCd( settingLength("ZZZ",3));	
+							}	
+						 itemDtlsClassObj.setNmbrOfPkgs(convertingStringtoInt(settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6)));
+						 itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getType_of_package(),3));
+						 
+						 
+						 
+						 
+//						 itemDtlsClassObj.setCrgoItemSeqNmbr(convertingStringtoInt(settingLength(blObj.getCommodity_seq()+"",5)));				//TODO  guru
+//							itemDtlsClassObj.setHsCd(blObj.getCommdity_code());
+//							itemDtlsClassObj.setCrgoItemDesc( settingLength(blObj.getCargo_item_description(),256));					//TODO  guru
+//							if(blObj.getDgFlag() != null && StringUtils.isNotBlank(blObj.getDgFlag()) ) {
+//								itemDtlsClassObj.setUnoCd( settingLength(blObj.getUno_code(),5));
+//								itemDtlsClassObj.setImdgCd( settingLength(blObj.getImdg_code(),3));	
+//							}else {
+//									itemDtlsClassObj.setUnoCd( settingLength("ZZZZZ",5));
+//									itemDtlsClassObj.setImdgCd( settingLength("ZZZ",3));	
+//							}									
+//																//TODO  guru
+//							itemDtlsClassObj.setNmbrOfPkgs(convertingStringtoInt(settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6))); 
+//							
+//							itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getType_of_package(),3));
+							
+			
+							itemDtls.add(itemDtlsClassObj);
+					 }
+					
+					 mastrCnsgmtDec.setItemDtls(itemDtls);
+					 houseCargoDecSAMObj.setItemDtls(itemDtls);
+					
+				 
+			     }
+				 				 
+//				
+//				itemDtlsClassObj.setCrgoItemSeqNmbr(convertingStringtoInt(settingLength(blObj.getCommodity_seq()+"",5)));				//TODO  guru
+//				itemDtlsClassObj.setHsCd(blObj.getCommdity_code());
+//				itemDtlsClassObj.setCrgoItemDesc( settingLength(blObj.getCargo_item_description(),256));					//TODO  guru
+//				if(blObj.getDgFlag() != null && StringUtils.isNotBlank(blObj.getDgFlag()) ) {
+//					itemDtlsClassObj.setUnoCd( settingLength(blObj.getUno_code(),5));
+//					itemDtlsClassObj.setImdgCd( settingLength(blObj.getImdg_code(),3));	
+//				}else {
+//						itemDtlsClassObj.setUnoCd( settingLength("ZZZZZ",5));
+//						itemDtlsClassObj.setImdgCd( settingLength("ZZZ",3));	
+//				}									
+//													//TODO  guru
+//				itemDtlsClassObj.setNmbrOfPkgs(convertingStringtoInt(settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6))); 
+//				
+//				itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getType_of_package(),3));
+//				
+//
+//				itemDtls.add(itemDtlsClassObj);
+//				mastrCnsgmtDec.setItemDtls(itemDtlsClassObj);
+//			}
+			else {
 				if(blObj.isHbl()==true) {
 					if(mCRefClassObj.getConsolidatedIndctr().equals("H")) {
 						ItemDtlsSAM itemDtlsClassObj = new ItemDtlsSAM();
@@ -1423,14 +1502,14 @@ public class CreatingJSON {
 			vesselDtls.setPrtOfRegistry(service.getPort_of_registry());
 		}
 		if (null != service.getRegistry_date() || !("").equals(service.getRegistry_date())) {
-			vesselDtls.setRegistryDt(generatedFileNameOfJson);
+			vesselDtls.setRegistryDt(service.getRegistry_date());
 		}else {
-			vesselDtls.setRegistryDt(generatedFileNameOfJson);
+			vesselDtls.setRegistryDt("");
 		}
-		vesselDtls.setRegistryNmbr(generatedFileNameOfJson);
-	
-		vesselDtls.setGrossTonnage(generatedFileNameOfJson);
-		vesselDtls.setNetTonnage(generatedFileNameOfJson);
+//		vesselDtls.setRegistryNmbr(generatedFileNameOfJson);
+//	
+//		vesselDtls.setGrossTonnage(generatedFileNameOfJson);
+//		vesselDtls.setNetTonnage(generatedFileNameOfJson);
 		
 		//keep it
 //		vesselDtls.setVesselCd(newVessel);// keep it
@@ -1647,7 +1726,7 @@ return "";
 			List<ItnrySDM> itnry = new LinkedList<ItnrySDM>();
 			List<TrnsprtDocSDM> trnsprtDoc = new LinkedList<TrnsprtDocSDM>();
 		
-//			List<PrevRefSDM> prevRef = new LinkedList<PrevRefSDM>();
+			List<PrevRefSDM> prevRef = new LinkedList<PrevRefSDM>();
 			List<ItemDtlsSDM> itemDtls = new LinkedList<ItemDtlsSDM>();
 			List<TrnsprtEqmtSDM> trnsprtEqmt = new LinkedList<TrnsprtEqmtSDM>();
 			List<LocCstmSDM> locCstm = new LinkedList<LocCstmSDM>();
@@ -1665,6 +1744,7 @@ return "";
 			List<MarksNumber> marksNumberDtls = blObj.getMarksNumber();
 			List<Consigner> consignerDtls = blObj.getConsigner();
 			List<ContainerDetails> containerDtls = blObj.getContainerDetailes();
+			List<PreviousDeclaration> prevRefDetails = blObj.getPreviousDeclaration();
 			
 			
 			
@@ -1716,8 +1796,21 @@ return "";
 			mastrCnsgmtDec.setmCRef(mCRefClassObj);
 			
 			// ---------------------------------------- Writing a new nitun
-//			PrevRefSDM prevRefObj = new PrevRefSDM();
-//			prevRefObj.setCinTyp(settingLength(blObj.getCin_type(),4));
+			if (!prevRefDetails.isEmpty()) {
+			if( prevRefDetails.get(0).getPrevious_pcin() != null && ! "".equals(prevRefDetails.get(0).getPrevious_pcin())) {
+				for(String previousPcin : prevRefDetails.get(0).getPrevious_pcin().split(",") ) {
+					PrevRefSDM prevRefObj = new PrevRefSDM();
+					prevRefObj.setMcinPcin(previousPcin);
+					prevRefObj.setCinTyp(settingLength(blObj.getCin_type(), 4));
+					prevRef.add(prevRefObj);
+					mastrCnsgmtDec.setPrevRef(prevRefObj);
+					houseCargoDecSDMObj.setPrevRef(prevRef);		
+				}
+				
+		   }
+		}
+			
+//			prevRefObj.setCinTyp(settingLength(blObj.getCin_type(), 4));
 //			prevRefObj.setCrgoMvmt(blObj.getCargoMovmnt());
 //			prevRefObj.setCsnRptngTyp(settingLength(blObj.getCsn_reporting_type(),4)); guru said to comment
 //			prevRefObj.setCsnSbmtdBy( settingLength(blObj.getCsn_submitted_by(),20));  guru said to comment
@@ -1732,10 +1825,11 @@ return "";
 		//		prevRefObj.setCsnNmbr(settingLength(blObj.getCsn_number(),7)); 
 //				prevRefObj.setCinTyp(settingLength(blObj.getCin_type(),4));
 				if(blObj.getMcin() != null || blObj.getMcin() !="") {
-		//			prevRefObj.setCinTyp(settingLength(blObj.getMcin(),4));	
+//					prevRefObj.setCinTyp(settingLength(blObj.getMcin(),4));	
 				}else {
 					if(blObj.getPcin() != null || blObj.getPcin() !="") {
-		//				prevRefObj.setCinTyp(settingLength(blObj.getPcin(),4));		
+//						prevRefObj.setCinTyp(settingLength(blObj.getPcin(),4));
+//						prevRefObj.setPcin(blObj.getCin_type());
 					}
 				}
 				
@@ -1744,28 +1838,48 @@ return "";
 		//		prevRefObj.setTypOfPackage(settingLength(blObj.getType_of_package(),4)); 
 		
 //			prevRef.add(prevRefObj);
-//			houseCargoDecSDMObj.setPrevRef(prevRef);
+//			mastrCnsgmtDec.setPrevRef(prevRefObj);
+//	        houseCargoDecSDMObj.setPrevRef(prevRef);
 			}
+			
+			
+			
+
 
 			//===============================================
 			LocCstmSDM locCstmClassObj = new LocCstmSDM();
 			
-			locCstmClassObj.setFirstPrtOfEntry( service.getPortArrival());
+			locCstmClassObj.setFirstPrtOfEntry( service.getPol());
 			locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),8));
 			locCstmClassObj.setNxtPrtOfUnlading (settingLength(blObj.getPortOfDestination(),6)); // New added
 			
 			if(blObj.getPortOfLoading().substring(0, 2).equals("IN") && blObj.getPod().substring(0, 2).equals("IN")){
 				locCstmClassObj.setTypOfCrgo(settingLength("EX",2)); // if both value in india base
+			}else {
+				locCstmClassObj.setTypOfCrgo(settingLength("",2)); 
 			}
 
 			locCstmClassObj.setItemTyp(settingLength("OT",2)); // Line 61
 			locCstmClassObj.setCrgoMvmt(settingLength("TC",4)); // Line 57
 			locCstmClassObj.setNatrOfCrgo(settingLength("C",4)); // Line 59
 			
+			if(null == blObj.getTotal_number_of_packages() || ("").equals(blObj.getTotal_number_of_packages())) {
+				locCstmClassObj.setNmbrOfPkgs(""); 
+			}else {
+				locCstmClassObj.setNmbrOfPkgs(settingLengthForDouble(blObj.getTotal_number_of_packages(),16,6)); 
+			}
+			locCstmClassObj.setTypOfPackage(settingLength(blObj.getType_of_package(),4));
 	//		if(blObj.isHbl()==true) {
 	//		locCstmClassObj.setNmbrOfPkgs(blObj.getTotal_number_of_packages());
 	//		locCstmClassObj.setTypOfPackage(pol);
 	//		}
+			if( blObj.getBlId().get(0).getBlId().equals("X")) {
+				locCstmClassObj.setSplitIndctr("Y");
+			}else
+			{
+			   locCstmClassObj.setSplitIndctr("N");
+			}
+			
 			locCstm.add(locCstmClassObj);
 			mastrCnsgmtDec.setLocCstm(locCstmClassObj);
 			houseCargoDecSDMObj.setLocCstm(locCstm); 
@@ -1864,8 +1978,29 @@ return "";
 			TrnsprtDocMsrSDM trnsprtDocMsrClassObj = new TrnsprtDocMsrSDM();
 			trnsprtDocMsrClassObj.setNmbrOfPkgs(convertingStringtoInt(blObj.getTotal_number_of_packages()));
 			System.out.println(blObj.getTotal_number_of_packages());
-			trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getType_of_package());
-			trnsprtDocMsrClassObj.setGrossWeight(convertingStringtoDouble(settingLengthForDouble(blObj.getGrosWeight(),12,3)));
+			
+			 String[] values = blObj.getPackage_kind().split(",");
+			 boolean  checkPackKind = false;
+			 for(int l = 0; l < values.length-1; l++)
+			 {
+				 checkPackKind = (values[l] == values[l+1]) ? true : false;
+			 }
+			 if(checkPackKind == true) {
+				 trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getPackage_kind());
+			 }else
+			 {
+				 trnsprtDocMsrClassObj.setTypsOfPkgs("PKG");
+			 }
+//			if(null != blObj.getType_of_package()|| ("").equals(blObj.getType_of_package())) {
+//				trnsprtDocMsrClassObj.setTypsOfPkgs(blObj.getType_of_package());
+//			}else {
+//				trnsprtDocMsrClassObj.setTypsOfPkgs("");
+//			}
+			if(null != blObj.getGrosWeight() || ("").equals(blObj.getGrosWeight())) {
+				trnsprtDocMsrClassObj.setGrossWeight(convertingStringtoDouble(settingLengthForDouble(blObj.getGrosWeight(),12,3)));
+			}else {
+				trnsprtDocMsrClassObj.setGrossWeight(0.0);
+			}  
 //			trnsprtDocMsrClassObj.setNetWeight(settingLengthForDouble(blObj.getNetWeight(),12,3));
 			trnsprtDocMsrClassObj.setUnitOfWeight(settingLength("KGS",3));
 //			trnsprtDocMsrClassObj.setInvoiceValueOfCnsgmt(settingLengthForDouble(blObj.getInvoiceValueFc(),16,2)); Guru said to comment //not cleared by Guru
@@ -1910,6 +2045,7 @@ return "";
 			itemDtlsClassObj.setTypOfPkgs(settingLength(blObj.getType_of_package(),3));
 			itemDtls.add(itemDtlsClassObj);
 			mastrCnsgmtDec.setItemDtls(itemDtlsClassObj);
+			houseCargoDecSDMObj.setItemDtls(itemDtls);
 		
 			}else {
 				if(blObj.getHblCount()!= 0) {
@@ -1930,6 +2066,7 @@ return "";
 				}
 				
 			}
+		 
 		
 			//===============================================
 			
@@ -1966,23 +2103,47 @@ return "";
 
 			//===============================================
 			ItnrySDM itnryClassObj = new ItnrySDM();
-			if(blObj.getPortOfLoading()!= null && blObj.getPod()!= null) {
-				itnryClassObj.setPrtOfCallSeqNmbr(convertingStringtoInt(settingLength("1",5))); 
-			}else if (blObj.getPortOfLoading()!= null && blObj.getPod()!= null && blObj.getPortOfDestination() != null ) {
-				itnryClassObj.setPrtOfCallSeqNmbr(convertingStringtoInt(settingLength("2",5))); 		
-			}else if(blObj.getPortOfLoading()!= null && blObj.getPod()!= null && 
-					blObj.getPortOfDestination() != null && blObj.getPortOfDeschargedCfs() != null ) {
-				itnryClassObj.setPrtOfCallSeqNmbr(convertingStringtoInt(settingLength("3",5))); 
-			}
-			itnryClassObj.setNxtPrtOfCallCdd(settingLength(blObj.getNext_port_of_call_coded(),10));    //TODO  guru
-			itnryClassObj.setNxtPrtOfCallName(settingLength(blObj.getNext_port_of_call_name(),256));		//TODO  guru
-			itnryClassObj.setPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));			//TODO  guru
-			itnryClassObj.setPrtOfCallCdd(settingLength(blObj.getPod(),10));
-			itnryClassObj.setModeOfTrnsprt(settingLength(service.getMode_of_transport(),1));
+//			List<ItnrySDM> list = new ArrayList<>();
+//			if(blObj.getPortOfLoading()!= null && blObj.getPod()!= null) {
+//				ItnrySDM itnryClassObj1 = new ItnrySDM();
+//				itnryClassObj1.setPrtOfCallSeqNmbr(convertingStringtoInt(settingLength("1",5))); 
+//				itnryClassObj1.setNxtPrtOfCallCdd(settingLength(blObj.getPod(),10));    //TODO  guru
+//				itnryClassObj1.setNxtPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));		//TODO  guru
+//				itnryClassObj1.setPrtOfCallName(blObj.getItnrySdm().get(0).getPrtOfCallName());			//TODO  guru
+//				itnryClassObj1.setPrtOfCallCdd(blObj.getItnrySdm().get(0).getPrtOfCallCdd());
+//				itnryClassObj1.setModeOfTrnsprt(settingLength(service.getMode_of_transport(),1));
+//				list.add(itnryClassObj1);
+//			}
+//			 if (blObj.getPortOfLoading()!= null && blObj.getPod()!= null && blObj.getPortOfDestination() != null ) {
+//				ItnrySDM itnryClassObj1 = new ItnrySDM();
+//				itnryClassObj1.setPrtOfCallSeqNmbr(convertingStringtoInt(settingLength("2",5))); 
+//				itnryClassObj1.setNxtPrtOfCallCdd(settingLength(blObj.getPort_of_receipt(),10));    //TODO  guru
+//				itnryClassObj1.setNxtPrtOfCallName(settingLength(blObj.getRecieptName(),256));		//TODO  guru
+//				itnryClassObj1.setPrtOfCallName(blObj.getItnrySdm().get(1).getPrtOfCallName());			//TODO  guru
+//				itnryClassObj1.setPrtOfCallCdd(blObj.getItnrySdm().get(1).getPrtOfCallCdd());
+//				itnryClassObj1.setModeOfTrnsprt(settingLength(service.getMode_of_transport(),1));
+//				list.add(itnryClassObj1); 		
+//			}
+//			else if(blObj.getPortOfLoading()!= null && blObj.getPod()!= null && 
+//					blObj.getPortOfDestination() != null && blObj.getPortOfDeschargedCfs() != null ) {
+//				ItnrySDM itnryClassObj1 = new ItnrySDM();
+//				itnryClassObj1.setPrtOfCallSeqNmbr(convertingStringtoInt(settingLength("3",5))); 
+//				itnryClassObj1.setNxtPrtOfCallCdd(settingLength(blObj.getPod(),10));    //TODO  guru
+//				itnryClassObj1.setNxtPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));		//TODO  guru
+//				itnryClassObj1.setPrtOfCallName(settingLength(blObj.getNext_port_of_call_name(),256));			//TODO  guru
+//				itnryClassObj1.setPrtOfCallCdd(settingLength(blObj.getNext_port_of_call_coded(),10));
+//				itnryClassObj1.setModeOfTrnsprt(settingLength(service.getMode_of_transport(),1));
+//				list.add(itnryClassObj1);
+//			}
+//			itnryClassObj.setNxtPrtOfCallCdd(settingLength(blObj.getPod(),10));    //TODO  guru
+//			itnryClassObj.setNxtPrtOfCallName(settingLength(blObj.getPort_of_call_name(),256));		//TODO  guru
+//			itnryClassObj.setPrtOfCallName(settingLength(blObj.getNext_port_of_call_name(),256));			//TODO  guru
+//			itnryClassObj.setPrtOfCallCdd(settingLength(blObj.getNext_port_of_call_coded(),10));
+//			itnryClassObj.setModeOfTrnsprt(settingLength(service.getMode_of_transport(),1));
 //			itnry.add(itnryClassObj);
-			mastrCnsgmtDec.setItnry(itnryClassObj);
-			houseCargoDecSDMObj.setItnry(itnry);
-//			itnryClassObj = null;
+			mastrCnsgmtDec.setItnry(blObj.getItnrySdm());
+			houseCargoDecSDMObj.setItnry(blObj.getItnrySdm());
+			itnryClassObj = null;
 			
 //===================================================================================================================
 			//HCCrgoSuprtDocsSDM crgoSuprtDocs = new HCCrgoSuprtDocsSDM(); 
@@ -2490,7 +2651,7 @@ return "";
 		//===============================================
 		HeaderFieldSDM headerFieldClassObj = new HeaderFieldSDM();
 		headerFieldClassObj.setSenderID(settingLength(service.getSenderId(),20));
-		headerFieldClassObj.setReceiverID(settingLength(service.getSenderId(),20));
+		headerFieldClassObj.setReceiverID(settingLength(service.getRecieverId(),20));
 		/* headerFieldClassObj.setReceiverID(service.getPod()); */
 		headerFieldClassObj.setVersionNo("SDM1102");
 		headerFieldClassObj.setIndicator("T");
@@ -4267,7 +4428,7 @@ return "";
 //			}else {
 //				locCstmClassObj.setTypOfCrgo(settingLength("",2));
 //			}
-			if(blObj.getContainerFillStatus().equals("E")) {
+			if(blObj.getContainerFillStatus() != null && blObj.getContainerFillStatus().equals("E")) {
 				locCstmClassObj.setTypOfCrgo(settingLength("EM",2)); // if container is empty need to show Em otherwise below logics 
 			}else {
 			if(blObj.getPortOfDestination().substring(0, 2).equals("IN") 

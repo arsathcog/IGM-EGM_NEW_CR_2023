@@ -51,6 +51,14 @@ public class ImportGeneralManifestInput {
 	public void setSaveBlPhase(String saveBlPhase) {
 		this.saveBlPhase = saveBlPhase;
 	}
+
+	@Override
+	public String toString() {
+		return "ImportGeneralManifestInput [service=" + service + ", sequence=" + sequence + ", bls=" + bls
+				+ ", saveBlPhase=" + saveBlPhase + "]";
+	}
+	
+	
 	
 
 }

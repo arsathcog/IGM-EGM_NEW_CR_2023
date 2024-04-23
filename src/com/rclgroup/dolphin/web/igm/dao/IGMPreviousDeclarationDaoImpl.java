@@ -104,10 +104,10 @@ public class IGMPreviousDeclarationDaoImpl extends AncestorJdbcDao implements IG
 			previousDeclaration.setBlNo(rs.getString("BL_NO"));
 			previousDeclaration.setPrevious_declaration(rs.getString("PREVIOUS_DECLARATION"));
 			previousDeclaration.setSplit_indicator(rs.getString("SPLIT_INDICATOR"));
-			previousDeclaration.setPrevious_pcin(rs.getString("PCIN"));
-			previousDeclaration.setPrevious_mcin(rs.getString("MCIN"));
 			previousDeclaration.setCsn_number(rs.getString("CSN_NO"));
+			previousDeclaration.setPrevious_pcin(rs.getString("PCIN"));	
 			previousDeclaration.setCsn_date(rs.getString("CSN_DATE"));
+			previousDeclaration.setPrevious_mcin(rs.getString("MCIN"));
 			return previousDeclaration;
 		}
 	}

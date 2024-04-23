@@ -647,11 +647,6 @@ roundshap4 {
 							    name="btnRefresh" class="event_btnbutton" onclick='refreshBtn()' /> 
 							    <input type="button" value="Merge Files" name="btnCreateBayPlan" id="btnCreateBayPlan"
 								class="event_btnbutton" onclick='mergeFiles()' />
-								<input type="button" value="  SEI  " id="seiButton" 
-								 name="btnsei"	class="event_btnbutton" onclick='onseiBtn()' />
-								<input type="button" value="  SAM  " name="generatemanifest"
-								class="event_btnbutton" disabled='true' id="generatetype"
-								onclick='return onsamBtn()' />
 								<input type="button" value=" Generate Manifest " name="manifestfilegeneratoredifile"
 								class="event_btnbutton" disabled='true' id="manifestfilegeneratoredifile"
 								onclick='return manifestFileGeneratorEdiFile()' /> 
@@ -1662,7 +1657,7 @@ app.controller('findResult', function($scope,$window,$rootScope,$http) {
 			  
 			 
 			document.getElementById("submitype").disabled = true;
-			document.getElementById("generatetype").disabled = true;
+//			document.getElementById("generatetype").disabled = true;
 			document.getElementById("manifestfilegeneratoredifile").disabled = true;
 			checkHandlerArray=[];
 			submitvalidationaftersave=true;

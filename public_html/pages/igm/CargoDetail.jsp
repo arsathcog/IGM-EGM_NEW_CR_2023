@@ -754,7 +754,7 @@
 	</div>
 
 	 
-	<div  id="previousDeclaration">
+	 <div  id="previousDeclaration">
 	
 			<table class="whitebg" border="0"
 			style="display: inline-table; background-color: #CCCCCC; font-size: 10px; word-spacing: 5px; width: 100%">
@@ -787,7 +787,8 @@
 				<td class="veseelRemoveBorder">PCIN</td>
 
 				<td id="consigneeAdress3">
-				<input type="text" class="seqCss" ng-model="selectedBL.pcin" value="{{BLS[blIndex].previousDeclaration[0].previous_pcin}}" ng-model="selectedBL.previousDeclaration[0].previous_pcin">
+	<!-- 			<input type="text" class="seqCss" ng-model="selectedBL.pcin" value="{{BLS[blIndex].previousDeclaration[0].previous_pcin}}" ng-model="selectedBL.previousDeclaration[0].previous_pcin">  -->
+				<input type="text" class="seqCss" ng-model="selectedBL.pcin" value="{{BLS[blIndex].selectedBL.pcin}}" >
 				</td>
 
 			<td class="veseelRemoveBorder">MCIN</td>
@@ -796,10 +797,10 @@
 				<input type="text" class="seqCss" ng-model="selectedBL.mcin" value="{{BLS[blIndex].previousDeclaration[0].previous_mcin}}" ng-model="selectedBL.previousDeclaration[0].previous_mcin">
 				</td>
 				 
-				 			</tr>
+				 			</tr>	
 		</table>
 		
-	</div>
+	</div> 
 	<div id="Notify2">
 		<div ng-if="pageType=='IGM'">
 		<table  class="whitebg" border="0"

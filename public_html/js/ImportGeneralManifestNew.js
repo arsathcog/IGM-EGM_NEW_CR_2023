@@ -97,7 +97,7 @@ function findData() {
 		  
 		 
 		document.getElementById("submitype").disabled = true;
-		document.getElementById("generatetype").disabled = true;
+//		document.getElementById("generatetype").disabled = true;
 		document.getElementById("manifestfilegeneratoredifile").disabled = true;
 		checkHandlerArray=[];
 		submitvalidationaftersave=true;
@@ -378,7 +378,7 @@ function blDataInsert() {
 	document.getElementById("selectall").disabled = false;
 	document.getElementById("blSearchNoButton").disabled = false;
 	document.getElementById("submitype").disabled = false;
-	document.getElementById("generatetype").disabled = false;
+//	document.getElementById("generatetype").disabled = false;
 	document.getElementById("manifestfilegeneratoredifile").disabled = false;
 	document.getElementById("refreshButton").disabled = false;
 	idJsonObjectForTextBox = [];
@@ -2389,7 +2389,7 @@ function submitData() {
 				result2 = JSON.parse(result);
 				//console.log(result1);
 				checkSubmit = true;
-				document.getElementById("generatetype").disabled = false;
+//				document.getElementById("generatetype").disabled = false;
 				document.getElementById("manifestfilegeneratoredifile").disabled = false;
 				onLoadAreterSAved();
 				var mgsnull=document.getElementById("msg");
@@ -3456,13 +3456,14 @@ document.getElementById(x+"-"+"Pol Terminal").value=result2.Savedresult[0]["serv
 
 /*tPBondNoHnadler() ended*/
 
-
+/*
 function onseiBtn(){
 	generatFalg="SEIFILE";
 	
 	fileNme="SEI";
 	manifestFileGenerator();
 	}
+	
 
 function onsamBtn(){
 	generatFalg="";
@@ -3477,7 +3478,8 @@ function onsamBtn(){
 		
 	manifestFileGenerator();
 	}
-
+	
+*/
 /*
  * manifestFileGenerator function started
  */
@@ -5769,7 +5771,7 @@ function disableButton()
 {
 	document.getElementById("refreshButton").disabled = true;
 	document.getElementById("btnCreateBayPlan").disabled = true;
-	document.getElementById("generatetype").disabled = true;
+	//document.getElementById("generatetype").disabled = true;
 	document.getElementById("onfindData").disabled = true;
 	document.getElementById("onResetData").disabled = true;
 	document.getElementById("submitype").disabled = true;
@@ -5779,7 +5781,7 @@ function EnableButton()
 {
 	document.getElementById("refreshButton").disabled = false;
 	document.getElementById("btnCreateBayPlan").disabled = false;
-	document.getElementById("generatetype").disabled = false;
+//	document.getElementById("generatetype").disabled = false;
 	document.getElementById("onfindData").disabled = false;
 	document.getElementById("onResetData").disabled = false;
 	document.getElementById("submitype").disabled = false;

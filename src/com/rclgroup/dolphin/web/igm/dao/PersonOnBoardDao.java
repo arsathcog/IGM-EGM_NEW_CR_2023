@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.rclgroup.dolphin.web.igm.actionform.ImportGeneralManifestUim;
+import com.rclgroup.dolphin.web.igm.vo.BlId;
 import com.rclgroup.dolphin.web.igm.vo.IGMCrewEfctMod;
 import com.rclgroup.dolphin.web.igm.vo.IGMPersonOnBoardMod;
 import com.rclgroup.dolphin.web.igm.vo.IGMShipStoresMod;
+import com.rclgroup.dolphin.web.igm.vo.sdm.ItnrySDM;
 
 public interface PersonOnBoardDao {
 	/** The Constant SQL_GET_IGM_DATA. */
@@ -26,6 +28,14 @@ public interface PersonOnBoardDao {
 	
 	public static final String SQL_RCL_IGM_GET_SAVE_SHIP_STORE = "RCL_IGM_VESEEL_VOYOAGE_INFO.RCL_IGM_GET_SAVE_SHIP_STORE";
 	
+	public static final String SQL_RCL_GET_ITNRY_DATA = "select cam.POINT_NAME, dex.dn_load_port,cam.PK_POINT_CODE,dex.DN_DISCHARGE_PORT as discharge_port ,"
+			+ "(select came.POINT_NAME from rcltbls.cam_point came "
+			+ " where camE.PK_POINT_CODE = dex.DN_DISCHARGE_PORT  ) as point_name_2  from rcltbls.cam_point cam inner join "
+			+ "RCLTBLS.DEX_BL_ROUTING dex on cam.PK_POINT_CODE = dex.DN_load_port  where "
+			+ "dex.TRANSPORT_MODE not in ('R','T') and dex.fk_bl_no = ? ";
+	
+	public static final String SQL_RCL_GET_BLID = "SELECT BLID FROM   RCLTBLS.DEX_BL_HEADER WHERE PK_BL_NO = ? ";
+
 
 	public void savePersonOnBoard(List<IGMPersonOnBoardMod> personDetailes, ImportGeneralManifestUim objForm ) throws Exception;
 
@@ -41,5 +51,12 @@ public interface PersonOnBoardDao {
 	public List<IGMShipStoresMod> getShipStore(Map<String, String> amapParam, String procedureName) throws Exception;
 
 	public void deleteCsv(	ImportGeneralManifestUim objForm ) throws Exception;
+	
+	public List<ItnrySDM> getItrnry(String blNo, String procedureName) throws Exception;
+	
+	public List<BlId> getBlId(String blNo, String procedureName) throws Exception;
+	
+	
+		
 
 }

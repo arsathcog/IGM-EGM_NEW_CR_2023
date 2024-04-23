@@ -9,6 +9,7 @@ import com.niit.control.web.actionform.PaginationForm;
 import com.rclgroup.dolphin.web.igm.vo.IGMCrewEfctMod;
 import com.rclgroup.dolphin.web.igm.vo.IGMPersonOnBoardMod;
 import com.rclgroup.dolphin.web.igm.vo.IGMShipStoresMod;
+import com.rclgroup.dolphin.web.igm.vo.sdm.ItnrySDM;
 
 /**
  * The Class ImportGeneralManifestUim.
@@ -334,6 +335,41 @@ public class ImportGeneralManifestUim extends PaginationForm {
 	
 	private List<IGMShipStoresMod> igmShipStoresModsList =new ArrayList<>();
 	
+	private List<ItnrySDM> itnryList = new ArrayList<>();
+	
+	private String itnry;
+	
+	private String total_no_of_transport_equipment_reported_on_arrival_departure;
+	
+	
+	
+	
+	
+	public String getTotal_no_of_transport_equipment_reported_on_arrival_departure() {
+		return total_no_of_transport_equipment_reported_on_arrival_departure;
+	}
+
+	public void setTotal_no_of_transport_equipment_reported_on_arrival_departure(
+			String total_no_of_transport_equipment_reported_on_arrival_departure) {
+		this.total_no_of_transport_equipment_reported_on_arrival_departure = total_no_of_transport_equipment_reported_on_arrival_departure;
+	}
+
+	public String getItnry() {
+		return itnry;
+	}
+
+	public void setItnry(String itnry) {
+		this.itnry = itnry;
+	}
+
+	public List<ItnrySDM> getItnryList() {
+		return itnryList;
+	}
+
+	public void setItnryList(List<ItnrySDM> itnryList) {
+		this.itnryList = itnryList;
+	}
+
 	private String isBlSave;
 	
 	private String saveFlags;
@@ -2473,9 +2509,10 @@ public class ImportGeneralManifestUim extends PaginationForm {
 				+ type_of_cargo + ", neCargoMovmnt=" + neCargoMovmnt + ", senderId=" + senderId + ", recieverId="
 				+ recieverId + ", authRepCd=" + authRepCd + ", totalNmbrOfLines=" + totalNmbrOfLines
 				+ ", personOnBoardModList=" + personOnBoardModList + ", crewEfctModsList=" + crewEfctModsList
-				+ ", igmShipStoresModsList=" + igmShipStoresModsList + ", isBlSave=" + isBlSave + ", saveFlags="
-				+ saveFlags + ", ackJson=" + ackJson + ", container=" + container + ", isHbl=" + isHbl + ", dgFlag="
-				+ dgFlag + ", commdity_code=" + commdity_code + ", package_kind=" + package_kind + ", commodity_seq="
+				+ ", igmShipStoresModsList=" + igmShipStoresModsList + ", itnryList=" + itnryList + ", itnry=" + itnry
+				+ ", isBlSave=" + isBlSave + ", saveFlags=" + saveFlags + ", ackJson=" + ackJson + ", shippingFile="
+				+ shippingFile + ", container=" + container + ", isHbl=" + isHbl + ", dgFlag=" + dgFlag
+				+ ", commdity_code=" + commdity_code + ", package_kind=" + package_kind + ", commodity_seq="
 				+ commodity_seq + ", port_of_call_name_last3=" + port_of_call_name_last3 + ", port_of_call_name_last2="
 				+ port_of_call_name_last2 + ", port_of_call_name_last1=" + port_of_call_name_last1
 				+ ", port_of_call_name_nextport1=" + port_of_call_name_nextport1 + ", port_of_call_name_nextport2="
@@ -2489,8 +2526,78 @@ public class ImportGeneralManifestUim extends PaginationForm {
 				+ notifyIec + ", notifyPan=" + notifyPan + ", dnDischargePort=" + dnDischargePort + ", flag_discharge="
 				+ flag_discharge + ", blDischargedStatus=" + blDischargedStatus + ", flagRob=" + flagRob
 				+ ", flagLoaded=" + flagLoaded + ", blLoadStatus=" + blLoadStatus + ", flagRobDischarge="
-				+ flagRobDischarge + ", hsCd=" + hsCd + ", isFetch=" + isFetch + "]";
+				+ flagRobDischarge + ", hsCd=" + hsCd + ", podScreen=" + podScreen + ", isFetch=" + isFetch + "]";
 	}
+
+	
+
+//	@Override
+//	public String toString() {
+//		return "ImportGeneralManifestUim [fileExl=" + fileExl + ", checkCSV=" + checkCSV + ", exportChk=" + exportChk
+//				+ ", masterBl=" + masterBl + ", masterBlDate=" + masterBlDate + ", savedBlList=" + savedBlList
+//				+ ", unSavedBlList=" + unSavedBlList + ", bl=" + bl + ", inStatus=" + inStatus + ", del=" + del
+//				+ ", consigneeName=" + consigneeName + ", depot=" + depot + ", blCreationDateFrom=" + blCreationDateFrom
+//				+ ", blCreationDateTo=" + blCreationDateTo + ", igmservice=" + igmservice + ", vessel=" + vessel
+//				+ ", voyage=" + voyage + ", direction=" + direction + ", pol=" + pol + ", polTerminal=" + polTerminal
+//				+ ", pod=" + pod + ", podTerminal=" + podTerminal + ", findResponse=" + findResponse + ", saveResponse="
+//				+ saveResponse + ", customCode=" + customCode + ", callSign=" + callSign + ", imoCode=" + imoCode
+//				+ ", agentCode=" + agentCode + ", itemNumber=" + itemNumber + ", lineCode=" + lineCode + ", portOrigin="
+//				+ portOrigin + ", prt1=" + prt1 + ", prt2=" + prt2 + ", prt3=" + prt3 + ", portOfArrival="
+//				+ portOfArrival + ", vesselType=" + vesselType + ", generalDescription=" + generalDescription
+//				+ ", NationalityOfVessel=" + NationalityOfVessel + ", MasterName=" + MasterName + ", igmNo=" + igmNo
+//				+ ", igmDate=" + igmDate + ", aDate=" + aDate + ", aTime=" + aTime + ", ataAd=" + ataAd + ", ataAt="
+//				+ ataAt + ", arrivalDate=" + arrivalDate + ", arrivalTime=" + arrivalTime + ", departureTime="
+//				+ departureTime + ", departureDate=" + departureDate + ", totalItem=" + totalItem + ", lighthouseDue="
+//				+ lighthouseDue + ", GrossWeightVessel=" + GrossWeightVessel + ", NetWeightVessel=" + NetWeightVessel
+//				+ ", excelfile=" + excelfile + ", SameBottomCargo=" + SameBottomCargo + ", ShipStoreDeclaration="
+//				+ ShipStoreDeclaration + ", CrewListDeclaration=" + CrewListDeclaration + ", CargoDeclaration="
+//				+ CargoDeclaration + ", PassengerList=" + PassengerList + ", CrewEffect=" + CrewEffect
+//				+ ", MaritimeDeclaration=" + MaritimeDeclaration + ", serialNumber=" + serialNumber + ", BLDetails="
+//				+ BLDetails + ", vesselVoyageDtls=" + vesselVoyageDtls + ", consigneeDtls=" + consigneeDtls
+//				+ ", consigneeState=" + consigneeState + ", consigneeCountryCode=" + consigneeCountryCode
+//				+ ", notifyPartyDlts=" + notifyPartyDlts + ", containerDetailsDtls=" + containerDetailsDtls
+//				+ ", marksNumberDtlstls=" + marksNumberDtlstls + ", file1=" + file1 + ", file2=" + file2
+//				+ ", departureManifestNumber=" + departureManifestNumber + ", departureManifestDate="
+//				+ departureManifestDate + ", submitterType=" + submitterType + ", submitterCode=" + submitterCode
+//				+ ", authorizedRepresentativeCode=" + authorizedRepresentativeCode + ", shippingLineBondNumber="
+//				+ shippingLineBondNumber + ", modeofTransport=" + modeofTransport + ", shipType=" + shipType
+//				+ ", conveyanceReferenceNumber=" + conveyanceReferenceNumber
+//				+ ", totalNoofTransportEquipmentManifested=" + totalNoofTransportEquipmentManifested
+//				+ ", cargoDescription=" + cargoDescription + ", briefCargoDescription=" + briefCargoDescription
+//				+ ", expectedDate=" + expectedDate + ", timeofDeparture=" + timeofDeparture + ", portofcallCoded="
+//				+ portofcallCoded + ", totalnooftransportcontractsreportedonArrivalDeparture="
+//				+ totalnooftransportcontractsreportedonArrivalDeparture + ", messtype=" + messtype + ", vesType="
+//				+ vesType + ", authoseaCarcode=" + authoseaCarcode + ", portoDreg=" + portoDreg + ", regDate=" + regDate
+//				+ ", voyDetails=" + voyDetails + ", shipItiseq=" + shipItiseq + ", shipItinerary=" + shipItinerary
+//				+ ", portofCallname=" + portofCallname + ", arrivalDepdetails=" + arrivalDepdetails
+//				+ ", totalnoTransarrivdep=" + totalnoTransarrivdep + ", consignerDtlstls=" + consignerDtlstls
+//				+ ", last1=" + last1 + ", last2=" + last2 + ", last3=" + last3 + ", generatFalg=" + generatFalg
+//				+ ", numberofCrewManifested=" + numberofCrewManifested + ", requestParam=" + requestParam
+//				+ ", fileType=" + fileType + ", fileTypeEgm=" + fileTypeEgm + ", personOnBoardMod=" + personOnBoardMod
+//				+ ", crewEfctMod=" + crewEfctMod + ", shipStoresMod=" + shipStoresMod + ", itemType=" + itemType
+//				+ ", podTerminalPort=" + podTerminalPort + ", polTerminalPort=" + polTerminalPort + ", blType=" + blType
+//				+ ", blCriteria=" + blCriteria + ", consolidatedIndicator=" + consolidatedIndicator + ", type_of_cargo="
+//				+ type_of_cargo + ", neCargoMovmnt=" + neCargoMovmnt + ", senderId=" + senderId + ", recieverId="
+//				+ recieverId + ", authRepCd=" + authRepCd + ", totalNmbrOfLines=" + totalNmbrOfLines
+//				+ ", personOnBoardModList=" + personOnBoardModList + ", crewEfctModsList=" + crewEfctModsList
+//				+ ", igmShipStoresModsList=" + igmShipStoresModsList + ", isBlSave=" + isBlSave + ", saveFlags="
+//				+ saveFlags + ", ackJson=" + ackJson + ", container=" + container + ", isHbl=" + isHbl + ", dgFlag="
+//				+ dgFlag + ", commdity_code=" + commdity_code + ", package_kind=" + package_kind + ", commodity_seq="
+//				+ commodity_seq + ", port_of_call_name_last3=" + port_of_call_name_last3 + ", port_of_call_name_last2="
+//				+ port_of_call_name_last2 + ", port_of_call_name_last1=" + port_of_call_name_last1
+//				+ ", port_of_call_name_nextport1=" + port_of_call_name_nextport1 + ", port_of_call_name_nextport2="
+//				+ port_of_call_name_nextport2 + ", port_of_call_name_nextport3=" + port_of_call_name_nextport3
+//				+ ", port_of_call_name_portOrigin=" + port_of_call_name_portOrigin + ", port_of_call_name_portArrival="
+//				+ port_of_call_name_portArrival + ", stowageImport=" + stowageImport + ", stowageExport="
+//				+ stowageExport + ", hblCount=" + hblCount + ", hblArr=" + hblArr + ", hblNo=" + hblNo + ", flagDg="
+//				+ flagDg + ", cargo_msmt=" + cargo_msmt + ", gstStateCode=" + gstStateCode + ", dn_plr=" + dn_plr
+//				+ ", portName=" + portName + ", pointName=" + pointName + ", dn_pld=" + dn_pld + ", acceptanceName="
+//				+ acceptanceName + ", recieptName=" + recieptName + ", notifyName=" + notifyName + ", notifyIec="
+//				+ notifyIec + ", notifyPan=" + notifyPan + ", dnDischargePort=" + dnDischargePort + ", flag_discharge="
+//				+ flag_discharge + ", blDischargedStatus=" + blDischargedStatus + ", flagRob=" + flagRob
+//				+ ", flagLoaded=" + flagLoaded + ", blLoadStatus=" + blLoadStatus + ", flagRobDischarge="
+//				+ flagRobDischarge + ", hsCd=" + hsCd + ", isFetch=" + isFetch + "]";
+//	}
 
 	/*
 	 * (non-Javadoc)

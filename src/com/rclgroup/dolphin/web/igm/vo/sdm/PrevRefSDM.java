@@ -17,14 +17,37 @@ public class PrevRefSDM {
 //	private String typOfPackage  = null;
 	
 //new doc feild     
-//	private String cinTyp = null;
-//	private String mcinPcin = null;
+	private String cinTyp = null;
+	private String mcinPcin = null;
 //	private String csnSbmtdTyp;
 //	private String csnSbmtdBy;
 //	private String csnRptngTyp;
 //	private String csnSiteId;
 //	private String csnNmbr = null;
 //	private String csnDt=null;
+//	private String pcin = null;
+	public String getCinTyp() {
+		return cinTyp;
+	}
+	public void setCinTyp(String cinTyp) {
+		this.cinTyp = cinTyp;
+	}
+//	public String getPcin() {
+//		return pcin;
+//	}
+//	public void setPcin(String pcin) {
+//		this.pcin = pcin;
+//	}
+	
+	
+	
+	
+//	public String getMcinPcin() {
+//		return mcinPcin;
+//	}
+//	public void setMcinPcin(String mcinPcin) {
+//		this.mcinPcin = mcinPcin;
+//	}
 	
 //	public String getSplitIndctr() {
 //		return splitIndctr;
@@ -50,12 +73,13 @@ public class PrevRefSDM {
 //	public void setCinTyp(String cinTyp) {
 //		this.cinTyp = cinTyp;
 //	}
-//	public String getMcinPcin() {
-//		return mcinPcin;
-//	}
-//	public void setMcinPcin(String mcinPcin) {
-//		this.mcinPcin = mcinPcin;
-//	}
+	public String getMcinPcin() {
+		return mcinPcin;
+	}
+	
+	public void setMcinPcin(String mcinPcin) {
+		this.mcinPcin = mcinPcin;
+	}
 //	public String getCsnSbmtdTyp() {
 //		return csnSbmtdTyp;
 //	}
@@ -135,7 +159,10 @@ public class PrevRefSDM {
 //		this.natrOfCrgo = natrOfCrgo;
 //	}
 	
-
+	@Override
+	public String toString() {
+		return "PrevRefSDM [cinTyp=" + cinTyp + ", mcinPcin=" + mcinPcin + "]";
+	}
 	
 
 	

@@ -10,11 +10,13 @@ public class PreviousDeclaration {
 	
 	private String csn_number;
 	
+	private String previous_pcin;
+	
 	private String csn_date;
 	
 	private String previous_mcin;
 	
-	private String previous_pcin;
+	
 	
 	public String getBlNo() {
 		return blNo;
@@ -43,6 +45,14 @@ public class PreviousDeclaration {
 	public String getCsn_number() {
 		return csn_number;
 	}
+	
+	public String getPrevious_pcin() {
+		return previous_pcin;
+	}
+
+	public void setPrevious_pcin(String previous_pcin) {
+		this.previous_pcin = previous_pcin;
+	}
 
 	public void setCsn_number(String csn_number) {
 		this.csn_number = csn_number;
@@ -64,14 +74,9 @@ public class PreviousDeclaration {
 		this.previous_mcin = previous_mcin;
 	}
 
-	public String getPrevious_pcin() {
-		return previous_pcin;
-	}
 
-	public void setPrevious_pcin(String previous_pcin) {
-		this.previous_pcin = previous_pcin;
-	}
-
+	
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -83,12 +88,12 @@ public class PreviousDeclaration {
 		builder.append(split_indicator);
 		builder.append(", csn_number=");
 		builder.append(csn_number);
+		builder.append(", previous_pcin=");
+		builder.append(previous_pcin);
 		builder.append(", csn_date=");
 		builder.append(csn_date);
 		builder.append(", previous_mcin=");
 		builder.append(previous_mcin);
-		builder.append(", previous_pcin=");
-		builder.append(previous_pcin);
 		builder.append("]");
 		return builder.toString();
 	}

@@ -648,11 +648,6 @@ roundshap4 {
 							    name="btnRefresh" class="event_btnbutton" onclick='refreshBtn()' /> 
 							    <input type="button" value="Merge Files" name="btnCreateBayPlan" id="btnCreateBayPlan"
 								class="event_btnbutton" onclick='mergeFiles()' />
-								<input type="button" value="  SEI  " id="seiButton" 
-								 name="btnsei"	class="event_btnbutton" onclick='onseiBtn()' />
-								<input type="button" value="  SAM  " name="generatemanifest"
-								class="event_btnbutton" disabled='true' id="generatetype"
-								onclick='return onsamBtn()' />
 								<input type="button" value=" Generate Manifest " name="manifestfilegeneratoredifile"
 								class="event_btnbutton" disabled='true' id="manifestfilegeneratoredifile"
 								onclick='return manifestFileGeneratorEdiFile()' /> 
@@ -663,7 +658,7 @@ roundshap4 {
 								<input type="button" value="Submit" name="Submit" id="submitype"
 								class="event_btnbutton" disabled='true'
 								onclick='return submitData()' />
-						</div>
+						</div>	
 				</TD>
 			</TR>
 		</TABLE>
@@ -1642,7 +1637,7 @@ app.controller('findResult', function($scope,$window,$rootScope,$http) {
 			  
 			 
 			document.getElementById("submitype").disabled = true;
-			document.getElementById("generatetype").disabled = true;
+//			document.getElementById("generatetype").disabled = true;
 			document.getElementById("manifestfilegeneratoredifile").disabled = true;
 			checkHandlerArray=[];
 			submitvalidationaftersave=true;
@@ -3051,20 +3046,29 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	        console.log(result);
 	        $scope.ackFileResponse = result.data.result.master.mastrCnsgmtDec;
 	        console.log($scope.ackFileResponse);
+	     
 	
 	        for (var i = 0; i < $scope.ackFileResponse.length; i++) {
 	            console.log($scope.ackFileResponse[i].MCRef.lineNo);
 	            console.log($scope.ackFileResponse[i].mcResponse.cinType);
 	            console.log($scope.ackFileResponse[i].mcResponse.mcinPcin);
 	            if ($scope.ackFileResponse[i].MCRef.lineNo == $scope.selectedBL.itemNumber && $scope.ackFileResponse[i].mcResponse.cinType == "PCIN") {
-	                $scope.selectedBL.pcin = $scope.ackFileResponse[i].mcResponse.mcin;
+	         //   if ($scope.ackFileResponse[i].MCRef.lineNo == $scope.BLS[i].itemNumber && $scope.ackFileResponse[i].mcResponse.cinType == "PCIN"){
+	                $scope.BLS[i].pcin = $scope.ackFileResponse[i].mcResponse.mcin;
+	            //	$scope.BLS[i].previous_pcin = $scope.ackFileResponse[i].mcResponse.mcin;
+	              $scope.selectedBL.pcin = $scope.ackFileResponse[i].mcResponse.mcin;
+	            	
 	            } else {
-	                if ($scope.ackFileResponse[i].MCRef.lineNo == $scope.selectedBL.itemNumber && $scope.ackFileResponse[i].mcResponse.cinType == "MCIN")
+	                if ($scope.ackFileResponse[i].MCRef.lineNo == $scope.selectedBL.itemNumber && $scope.ackFileResponse[i].mcResponse.cinType == "MCIN"){
+		             //   if ($scope.ackFileResponse[i].MCRef.lineNo == $scope.BLS[i].itemNumber && $scope.ackFileResponse[i].mcResponse.cinType == "MCIN"){
 	                    $scope.selectedBL.mcin = $scope.ackFileResponse[i].mcResponse.mcin;
+	                 //   $scope.BLS[i].mcin = $scope.ackFileResponse[i].mcResponse.mcin;
+	                //  $scope.BLS[$scope.blIndex].previous_mcin = $scope.ackFileResponse[i].mcResponse.mcin;
+	                }
 	            }
 	
 	        }
-	
+	      
 	
 	        /* 	if($scope.ackFileResponse.master.mastrCnsgmtDec.lineNo=== $scope.selectedBL.itemNumber &&  $scope.ackFileResponse.master.mcResponse.cinType =="PCIN" ){
 	        		$scope.selectedBL.pcin = $scope.ackFileResponse.master.mcResponse.mcinPcin;
@@ -3074,6 +3078,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	        			} */
 	
 	        /* 	console.log($scope.ackFileResponse.headerField); */
+
 	
 	    });
 	
@@ -3086,6 +3091,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	
 	    var form = null;
 	    var pcinVal = null ;
+	    var mcinVal =  null;
 	    form = document.getElementById('shippingFileForm');
 	    console.log(form);
 	    var fileData = new FormData(form);
@@ -3108,15 +3114,31 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	        	 console.log($scope.shipipngResponse[i]);
 	        	if($scope.shipipngResponse[i][0] ==  $scope.selectedBL.bl  ){
 		        	
-		        	
+		        	if( $scope.shipipngResponse[i][1] == "PCIN"){
 		        	if(pcinVal == null){
-		        		$scope.selectedBL.pcin = $scope.shipipngResponse[i][2];
+		        		 $scope.selectedBL.pcin = $scope.shipipngResponse[i][2];
+		        		//$scope.BLS[$scope.blIndex].previousDeclaration[0].previous_pcin = $scope.shipipngResponse[i][2];
+		        		//$scope.BLS[$scope.blIndex].testPcin = $scope.shipipngResponse[i][2];
+		        		$scope.BLS[$scope.blIndex].cin_type = $scope.shipipngResponse[i][1];
 		        		pcinVal = $scope.shipipngResponse[i][2];
 			        	}else {
-			        		$scope.selectedBL.pcin = pcinVal ,"+",$scope.selectedBL.pcin; 
+			        	 $scope.selectedBL.pcin += ", " + $scope.shipipngResponse[i][2];
+			        	$scope.BLS[$scope.blIndex].previousDeclaration[0].previous_pcin += "," +  $scope.shipipngResponse[i][2];
 			        	}
 	        		
-	        }
+	                }else
+		                {
+	                	if(mcinVal == null){
+			        		// $scope.selectedBL.pcin = $scope.shipipngResponse[i][2];
+			        		$scope.BLS[$scope.blIndex].previousDeclaration[0].previous_mcin = $scope.shipipngResponse[i][2];
+			        		$scope.BLS[$scope.blIndex].cin_type = $scope.shipipngResponse[i][1];
+			        		pcinVal = $scope.shipipngResponse[i][2];
+				        	}else {
+				        	 //$scope.selectedBL.pcin += ", " + $scope.shipipngResponse[i][2];
+				        	$scope.BLS[$scope.blIndex].previousDeclaration[0].previous_mcin += "," +  $scope.shipipngResponse[i][2];
+				        	}
+		                }
+	        	}
 	        }  
 	    });
 	
@@ -3394,6 +3416,9 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 						$scope.BLS[$scope.blIndex].notifyParty = result.data.blDetails[0].notifyParty
 						$scope.BLS[$scope.blIndex].notifyPartyTwo = result.data.blDetails[0].notifyPartyTwo
 						$scope.BLS[$scope.blIndex].previousDeclaration = result.data.blDetails[0].previousDeclaration
+						// make a global variable and set the pcin for screen
+						//$scope.BLS[$scope.blIndex].testPcin = result.data.blDetails[0].previousDeclaration[0].previous_pcin
+						
 
 						    $scope.getConsinee();
 							$scope.getDataMoveToNextTab();
