@@ -3052,9 +3052,10 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	            console.log($scope.ackFileResponse[i].MCRef.lineNo);
 	            console.log($scope.ackFileResponse[i].mcResponse.cinType);
 	            console.log($scope.ackFileResponse[i].mcResponse.mcinPcin);
-	            if ($scope.ackFileResponse[i].MCRef.lineNo == $scope.selectedBL.itemNumber && $scope.ackFileResponse[i].mcResponse.cinType == "PCIN") {
-	         //   if ($scope.ackFileResponse[i].MCRef.lineNo == $scope.BLS[i].itemNumber && $scope.ackFileResponse[i].mcResponse.cinType == "PCIN"){
+	         //   if ($scope.ackFileResponse[i].MCRef.lineNo == $scope.selectedBL.itemNumber && $scope.ackFileResponse[i].mcResponse.cinType == "PCIN") {
+	            if ($scope.ackFileResponse[i].MCRef.lineNo == $scope.BLS[i].itemNumber && $scope.ackFileResponse[i].mcResponse.cinType == "PCIN"){
 	                $scope.BLS[i].pcin = $scope.ackFileResponse[i].mcResponse.mcin;
+	             //$scope.selectedBL.previousDeclaration[0].previous_pcin = $scope.ackFileResponse[i].mcResponse.mcin;
 	            //	$scope.BLS[i].previous_pcin = $scope.ackFileResponse[i].mcResponse.mcin;
 	              $scope.selectedBL.pcin = $scope.ackFileResponse[i].mcResponse.mcin;
 	            	
@@ -3116,7 +3117,8 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 		        	
 		        	if( $scope.shipipngResponse[i][1] == "PCIN"){
 		        	if(pcinVal == null){
-		        		 $scope.selectedBL.pcin = $scope.shipipngResponse[i][2];
+		        		// $scope.selectedBL.pcin = $scope.shipipngResponse[i][2];
+		        		 $scope.selectedBL.previousDeclaration[0].previous_pcin = $scope.shipipngResponse[i][2]; 
 		        		//$scope.BLS[$scope.blIndex].previousDeclaration[0].previous_pcin = $scope.shipipngResponse[i][2];
 		        		//$scope.BLS[$scope.blIndex].testPcin = $scope.shipipngResponse[i][2];
 		        		$scope.BLS[$scope.blIndex].cin_type = $scope.shipipngResponse[i][1];
@@ -3168,7 +3170,12 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				url : url,
 		  }).then(function(result, status, headers, config) {
 		  		$("body").find('.loading').remove();
-		  		$( "body" ).append('<div class="loading"></div>');		 
+		  		$( "body" ).append('<div class="loading"></div>');
+		  		if(result.data.blDetails[0].previousDeclaration.length <= 0)
+			  	{
+				  	debugger;
+		  			onUploadShippingBill();
+			  	}else{	 
 						$scope.BLS[$scope.blIndex].agencyType  = result.data.blDetails[0].agencyType
 						$scope.BLS[$scope.blIndex].agentCode  =  result.data.blDetails[0].agentCode
 						$scope.BLS[$scope.blIndex].arrivalDate  =  result.data.blDetails[0].arrivalDate
@@ -3424,7 +3431,8 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 							$scope.getDataMoveToNextTab();
 							
 						
-							$("body").find('.loading').remove();	
+							$("body").find('.loading').remove();
+			  	}	
 			});
 		
 		 
