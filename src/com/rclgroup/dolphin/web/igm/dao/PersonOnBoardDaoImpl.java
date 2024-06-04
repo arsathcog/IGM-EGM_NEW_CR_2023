@@ -15,6 +15,9 @@ import com.rclgroup.dolphin.web.igm.vo.BlId;
 import com.rclgroup.dolphin.web.igm.vo.IGMCrewEfctMod;
 import com.rclgroup.dolphin.web.igm.vo.IGMPersonOnBoardMod;
 import com.rclgroup.dolphin.web.igm.vo.IGMShipStoresMod;
+import com.rclgroup.dolphin.web.igm.vo.sam.ItnrySAM;
+import com.rclgroup.dolphin.web.igm.vo.sce.ItnrySCE;
+import com.rclgroup.dolphin.web.igm.vo.scx.ItnrySCX;
 import com.rclgroup.dolphin.web.igm.vo.sdm.ItnrySDM;
 
 public class PersonOnBoardDaoImpl extends AncestorJdbcDao implements PersonOnBoardDao {
@@ -280,7 +283,7 @@ public class PersonOnBoardDaoImpl extends AncestorJdbcDao implements PersonOnBoa
 	}
 
 	@Override
-	public List<ItnrySDM> getItrnry(String blNo, String procedureName) throws Exception {
+	public List<ItnrySDM> getItrnrySdm(String blNo, String procedureName) throws Exception {
 		return  getJdbcTemplate().query(SQL_RCL_GET_ITNRY_DATA,new Object[] {blNo},new IGMItnrySdmMapper() );
 	}
 	
@@ -301,6 +304,70 @@ public class PersonOnBoardDaoImpl extends AncestorJdbcDao implements PersonOnBoa
 	}
 	
 	@Override
+	public List<ItnrySCX> getItrnryScx(String blNo, String procedureName) throws Exception {
+		
+		return getJdbcTemplate().query(SQL_RCL_GET_ITNRY_DATA, new Object[] {blNo}, new IGMItnryScxMapper());
+	}
+	private class IGMItnryScxMapper extends JdbcRowMapper{
+		public ItnrySCX mapRow(ResultSet rs, int row) throws SQLException{
+			ItnrySCX itnry = new ItnrySCX();
+			
+			itnry.setPrtOfCallCdd(rs.getString("PK_POINT_CODE"));
+			itnry.setPrtOfCallName(rs.getString("POINT_NAME"));
+			itnry.setNxtPrtOfCallCdd(rs.getString("discharge_port"));
+			itnry.setNxtPrtOfCallName(rs.getString("point_name_2"));
+			itnry.setPrtOfCallSeqNmbr(row+1);
+			itnry.setModeOfTrnsprt(1);
+			return itnry;
+		}
+	}
+	
+
+	@Override
+	public List<ItnrySAM> getItrnrySam(String blNo, String procedureName) throws Exception {
+		
+		return getJdbcTemplate().query(SQL_RCL_GET_ITNRY_DATA, new Object[] {blNo}, new IGMItnrySamMapper());
+	}
+	
+	private class IGMItnrySamMapper extends JdbcRowMapper{
+		public ItnrySAM mapRow(ResultSet rs, int row) throws SQLException{
+			ItnrySAM itnry = new ItnrySAM();
+			
+			itnry.setPrtOfCallCdd(rs.getString("PK_POINT_CODE"));
+			itnry.setPrtOfCallName(rs.getString("POINT_NAME"));
+			itnry.setNxtPrtOfCallCdd(rs.getString("discharge_port"));
+			itnry.setNxtPrtOfCallName(rs.getString("point_name_2"));
+			itnry.setPrtOfCallSeqNmbr(row+1);
+			itnry.setModeOfTrnsprt(1);
+			
+		   return itnry;
+		}
+	}
+	
+	@Override
+	public List<ItnrySCE> getItrnrySce(String blNo, String procedureName) throws Exception {
+		
+		return getJdbcTemplate().query(SQL_RCL_GET_ITNRY_DATA, new Object[] {blNo}, new IGMItnrySceMapper());
+	}
+	
+	private class IGMItnrySceMapper extends JdbcRowMapper{
+		public ItnrySCE mapRow(ResultSet rs, int row) throws SQLException{
+			ItnrySCE itnry = new ItnrySCE();
+			
+			itnry.setPrtOfCallCdd(rs.getString("PK_POINT_CODE"));
+			itnry.setPrtOfCallName(rs.getString("POINT_NAME"));
+			itnry.setNxtPrtOfCallCdd(rs.getString("discharge_port"));
+			itnry.setNxtPrtOfCallName(rs.getString("point_name_2"));
+			itnry.setPrtOfCallSeqNmbr(row+1);
+			itnry.setModeOfTrnsprt(1);
+			
+		   return itnry;
+		}
+	}
+	
+	
+	
+	@Override
 	public List<BlId> getBlId(String blNo,String procedureName) throws Exception {
 		return  getJdbcTemplate().query(SQL_RCL_GET_BLID,new Object[] {blNo},new IGMBlIdMapper());
 	}
@@ -312,6 +379,7 @@ public class PersonOnBoardDaoImpl extends AncestorJdbcDao implements PersonOnBoa
 			return blId;
 		}
 	}
+	
 	
 
 }

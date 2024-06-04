@@ -787,14 +787,29 @@
 				<td class="veseelRemoveBorder">PCIN</td>
 
 				<td id="consigneeAdress3">
-				<input type="text" class="seqCss"  value="{{BLS[blIndex].previousDeclaration[0].previous_pcin}}" ng-model="selectedBL.previousDeclaration[0].previous_pcin">  
-	<!-- 			<input type="text" class="seqCss" ng-model="selectedBL.pcin" value="{{BLS[blIndex].selectedBL.pcin}}" > -->
+	<!-- 			<input type="text" class="seqCss" ng-model="selectedBL.pcin" value="{{BLS[blIndex].previousDeclaration[0].previous_pcin}}" ng-model="selectedBL.previousDeclaration[0].previous_pcin">  -->
+				<!-- <input type="text" class="seqCss" ng-model="selectedBL.pcin" value="{{BLS[blIndex].selectedBL.pcin}}" > -->
+	
+	 <input ng-if="BLS[blIndex].pcin" type="text" class="seqCss" ng-model="selectedBL.pcin" value="{{BLS[blIndex].selectedBL.pcin}}" >
+	  
+	  
+	  <input ng-if="!BLS[blIndex].pcin" type="text" class="seqCss" 
+	  value="{{BLS[blIndex].previousDeclaration[0].previous_pcin}}" ng-model="selectedBL.previousDeclaration[0].previous_pcin">			
+				
 				</td>
 
 			<td class="veseelRemoveBorder">MCIN</td>
 
 				<td id="consigneeAdress3">
-				<input type="text" class="seqCss" ng-model="selectedBL.mcin" value="{{BLS[blIndex].previousDeclaration[0].previous_mcin}}" ng-model="selectedBL.previousDeclaration[0].previous_mcin">
+<!-- 				<input type="text" class="seqCss" ng-model="selectedBL.mcin" value="{{BLS[blIndex].previousDeclaration[0].previous_mcin}}" ng-model="selectedBL.previousDeclaration[0].previous_mcin">
+ -->	
+ 			<!-- <input type="text" class="seqCss" ng-model="selectedBL.mcin" value="{{BLS[blIndex].selectedBL.mcin}}" > -->
+ 			
+ 			 <input ng-if="BLS[blIndex].mcin" type="text" class="seqCss" ng-model="selectedBL.mcin" value="{{BLS[blIndex].selectedBL.mcin}}" >
+	  
+	  
+	  <input ng-if="!BLS[blIndex].mcin" type="text" class="seqCss" 
+	  value="{{BLS[blIndex].previousDeclaration[0].previous_mcin}}" ng-model="selectedBL.previousDeclaration[0].previous_mcin">		
 				</td>
 				 
 				 			</tr>	

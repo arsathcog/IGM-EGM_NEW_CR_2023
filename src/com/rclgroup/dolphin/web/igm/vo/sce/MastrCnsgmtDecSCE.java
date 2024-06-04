@@ -8,9 +8,11 @@ public class MastrCnsgmtDecSCE {
 	private TrnshprSCE trnshpr;
 	private TrnsprtDocSCE trnsprtDoc;
 	private TrnsprtDocMsrSCE trnsprtDocMsr;
-	private ItemDtlsSCE itemDtls;
+//	private ItemDtlsSCE itemDtls;
+	private List<ItemDtlsSCE> itemDtls;
 	private List<TrnsprtEqmtSCE> trnsprtEqmt;
-	private ItnrySCE itnry;
+//	private ItnrySCE itnry;
+	private List<ItnrySCE> itnry;
 //	private PrevRefSCE prevRef;
 	private HouseCargoDecSCE houseCargoDec;
 //	private List<MCSuprtDocsSCE> mCSuprtDocs;
@@ -71,24 +73,48 @@ public class MastrCnsgmtDecSCE {
 	public void setTrnsprtDocMsr(TrnsprtDocMsrSCE trnsprtDocMsr) {
 		this.trnsprtDocMsr = trnsprtDocMsr;
 	}
-	public ItemDtlsSCE getItemDtls() {
+	
+   public List<ItemDtlsSCE> getItemDtls() {
 		return itemDtls;
 	}
-	public void setItemDtls(ItemDtlsSCE itemDtls) {
+	public void setItemDtls(List<ItemDtlsSCE> itemDtls) {
 		this.itemDtls = itemDtls;
 	}
-	public ItnrySCE getItnry() {
-		return itnry;
-	}
-	public void setItnry(ItnrySCE itnry) {
-		this.itnry = itnry;
-	}
+	//	public ItemDtlsSCE getItemDtls() {
+//		return itemDtls;
+//	}
+//	public void setItemDtls(ItemDtlsSCE itemDtls) {
+//		this.itemDtls = itemDtls;
+//	}
+//	public ItnrySCE getItnry() {
+//		return itnry;
+//	}
+//	public void setItnry(ItnrySCE itnry) {
+//		this.itnry = itnry;
+//	}
 //	public PrevRefSCE getPrevRef() {
 //		return prevRef;
 //	}
 //	public void setPrevRef(PrevRefSCE prevRef) {
 //		this.prevRef = prevRef;
 //	}
+	public List<ItnrySCE> getItnry() {
+		return itnry;
+	}
+	public void setItnry(List<ItnrySCE> itnry) {
+		this.itnry = itnry;
+	}
+	
+	@Override
+	public String toString() {
+		return "MastrCnsgmtDecSCE [mCRef=" + mCRef + ", locCstm=" + locCstm + ", trnshpr=" + trnshpr + ", trnsprtDoc="
+				+ trnsprtDoc + ", trnsprtDocMsr=" + trnsprtDocMsr + ", itemDtls=" + itemDtls + ", trnsprtEqmt="
+				+ trnsprtEqmt + ", itnry=" + itnry + ", houseCargoDec=" + houseCargoDec + "]";
+	}
+	
+
+	
+	
 	
 	
 	

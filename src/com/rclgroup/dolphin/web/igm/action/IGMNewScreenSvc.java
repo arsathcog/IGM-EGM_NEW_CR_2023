@@ -69,6 +69,9 @@ import com.rclgroup.dolphin.web.igm.vo.MarksNumber;
 import com.rclgroup.dolphin.web.igm.vo.NotifyParty;
 import com.rclgroup.dolphin.web.igm.vo.PortMod;
 import com.rclgroup.dolphin.web.igm.vo.PreviousDeclaration;
+import com.rclgroup.dolphin.web.igm.vo.sam.ItnrySAM;
+import com.rclgroup.dolphin.web.igm.vo.sce.ItnrySCE;
+import com.rclgroup.dolphin.web.igm.vo.scx.ItnrySCX;
 import com.rclgroup.dolphin.web.igm.vo.sdm.ItnrySDM;
 
 public class IGMNewScreenSvc extends BaseAction implements Runnable {
@@ -960,6 +963,17 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 
 		bl = blList.stream().filter(c -> c.getSaveFlags().trim().equals("D")).collect(Collectors.toList());
 		deleteBL.addAll(bl);
+		// need to insert deleted bl if it is selected & saved from UI
+		// for this we need to update save flag as I
+//		for(ImportGeneralManifestMod  sbl : deleteBL )
+//		{
+//			if(blList.contains(sbl))
+//			{
+//				int  i = blList.indexOf(sbl);
+//				blList.get(i).setSaveFlags("I");
+//			}
+//			
+//		}
 		bl.clear();
 		bl = blList.stream().filter(c -> (c.getSaveFlags().trim().equals("I") || c.getSaveFlags().trim().equals("U")) && (c.isFetch()==false) )
 				.collect(Collectors.toList());
@@ -1020,7 +1034,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 			objConsigneeDao.setConsigneeData(blObj, IGMConsigneeDataDao.RCL_IGM_GET_MASTER_CONSIGNEE);
 			objNotifyPartyDao.setNotifyPartyData(blObj, IGMNodifyPartyDao.RCL_IGM_MASTER_NODIFY_PARTY_DESCRIPTION);
 			objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_MASTER_MARKS_DESCRIPTION);
-			objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION);
+			objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_MASTER_PREV_DECLARATION);
 		} else {
 			Map<Object, Object> mapSaveBL = objDao.getBLCarogoDetails(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA);
 			blObj = (List<ImportGeneralManifestMod>) mapSaveBL.get(ImportGeneralManifestDao.KEY_REF_IGM_DATA);
@@ -1030,8 +1044,8 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 			objNotifyPartyDao.setNotifyPartyData(blObj,
 					IGMNodifyPartyDao.RCL_IGM_GET_SAVE_NODIFY_PARTY_DESCRIPTION_IMPORT);
 			objMarksDescDao.setMarksDescriptionData(blObj, IGMMarksAndDescDao.RCL_IGM_GET_SAVE_MARKS_DESCRIPTION);
-			objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_MASTER_PREV_DECLARATION);
-
+			objPreviousDao.setPreviousDeclData(blObj, IGMPPreviousDeclarationDao.RCL_IGM_GET_SAVE_PREV_DECLARATION);
+			
 		}
 		net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();
 		jsonObj.put("blDetails", blObj);
@@ -1112,24 +1126,49 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		}
 		blListNewSavedVal.addAll(getBlDetails(service, objForm, blList));
 		
-		 // for BlId 
 		    PersonOnBoardDao objPersonDao = (PersonOnBoardDao) getDao(DAO_BEAN_PERSON);
+	 
+	 		 // for itrnry 
+		 	List<ItnrySAM> itrnrySam = null;
+		 	
+		 	List<ItnrySCE> itrnrySce = null;
+		 	
+		    // for BlId 
 	 	    List<BlId> blId = null;
-	 	// for itrnry 
-	//	 	List<ItnrySDM> itrnry = null;
+	 	    if(objForm.getFileType().equals("SAM")) {
+	 	    
+			 	 for(int i =0;i<blListNewSavedVal.size();i++) {
+			 		 
+			 		itrnrySam = objPersonDao.getItrnrySam( blListNewSavedVal.get(i).getBl(),PersonOnBoardDao.SQL_RCL_GET_ITNRY_DATA);
+				    blListNewSavedVal.get(i).setItnrySam(itrnrySam);
+				    //FOR bl id
+				    blId = objPersonDao.getBlId( blListNewSavedVal.get(i).getBl(),PersonOnBoardDao.SQL_RCL_GET_BLID);
+				    blListNewSavedVal.get(i).setBlId(blId);
+			 	 }
+	 	    }
+		 	 if(objForm.getFileType().equals("SCE")) {
+		 	 
+			 	for(int i =0;i<blListNewSavedVal.size();i++) {
+			 		 
+			 		itrnrySce = objPersonDao.getItrnrySce( blListNewSavedVal.get(i).getBl(),PersonOnBoardDao.SQL_RCL_GET_ITNRY_DATA);
+				    blListNewSavedVal.get(i).setItnrySce(itrnrySce);
+				  
+			 	 }
+		 	 }
+	
 	 	
 //	 	 
 //		    blId = objPersonDao.getBlId( blListNewSavedVal.get(0).getBl(),PersonOnBoardDao.SQL_RCL_GET_BLID);
 //		    blListNewSavedVal.get(0).setBlId(blId);
 		    
-		    for(int i =0;i<blListNewSavedVal.size();i++) {
+//		    for(int i =0;i<blListNewSavedVal.size();i++) {
 //		    	
 //		    	 itrnry = objPersonDao.getItrnry( blListNewSavedVal.get(i).getBl(),PersonOnBoardDao.SQL_RCL_GET_ITNRY_DATA);
 //				  blListNewSavedVal.get(i).setItnrySdm(itrnry);
 //		 		 
-			    blId = objPersonDao.getBlId( blListNewSavedVal.get(i).getBl(),PersonOnBoardDao.SQL_RCL_GET_BLID);
-			    blListNewSavedVal.get(i).setBlId(blId);
-		 	 }
+//			    blId = objPersonDao.getBlId( blListNewSavedVal.get(i).getBl(),PersonOnBoardDao.SQL_RCL_GET_BLID);
+//			    blListNewSavedVal.get(i).setBlId(blId);
+//		 	 }
 		    
 		    
 		    

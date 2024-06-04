@@ -1728,7 +1728,7 @@ app.controller('findResult', function($scope,$window,$rootScope,$http) {
 		}
 	}
 });
-app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
+app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 	debugger;
 	$scope.consignee={"xyx":1};
 	$scope.consigner={"xyx":1};
@@ -1737,6 +1737,10 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	$scope.blIndex=0;
 	$scope.vesselVoyageIndex=0;
 	$scope.selectedBL={};
+
+	/* For setting values */
+	$scope.pcinValuesArr=[];
+	
 	$scope.selectedContainer={};
 	$scope.selectedServcies={vesselType:""};
 	$scope.prsnOnBordTable=[];
@@ -2636,6 +2640,33 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				 return false;
 			}
 			for(var d=0;d<$scope.BLS.length;d++){
+				console.log("saveFlags--" + $scope.BLS[d].saveFlags);
+
+				if($scope.BLS[d].itemNumber  != "" && $scope.BLS[d].pcin !="" ){
+
+					if($scope.BLS[d].previousDeclaration.length > 0){
+						$scope.BLS[d].previousDeclaration[0].previous_pcin = $scope.BLS[d].pcin;
+						}else{
+
+							
+											
+						const previosPcin={"csn_date": "", 
+										"csn_number": "", 
+										"split_indicator": "", 
+										"blNo": $scope.BLS[d].bl, 
+										"previous_mcin":"" ,
+										"previous_pcin":$scope.BLS[d].pcin,
+										"split_indicator": ""
+										};
+							
+							console.log(previosPcin);
+							$scope.BLS[d].previousDeclaration.push(previosPcin);
+						}
+					
+					
+					console.log("---"+d+"---"+$scope.BLS[d].previousDeclaration[0].previous_pcin);
+					}
+				
 				if(($scope.BLS[d].isBlSave=="true" || $scope.BLS[d].isBlSave==true) && ($scope.BLS[d].saveFlags == "U" || $scope.BLS[d].saveFlags == "I" )){
 						if(($scope.BLS[d].fetch == "false" || $scope.BLS[d].fetch == false) && (document.getElementById("selectAllCheckBox").checked == false && ($scope.BLS[d].containerDetailes == undefined  || $scope.BLS[d].containerDetailes.length==0))){
 							swal("Message","Please Check Carogo Data : "+$scope.BLS[d].bl,"info");
@@ -2643,6 +2674,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 						}
 				}
 			}
+			console.log("--" ,$scope.BLS )
 			
 		splitBlLength = 0
 			if($scope.BLS.length < 200){
@@ -2788,7 +2820,7 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	
 	   	
 	$scope.getConsinee = function () {	
-		
+		debugger;
 		$scope.consignee =$scope.selectedBL.consignee[0];
 		$scope.consigner =$scope.selectedBL.consigner[0];
 		$scope.notifyParty =$scope.selectedBL.notifyParty[0];
@@ -3021,9 +3053,11 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 		}
 /* =======================End of Generate file JSON ===================================================================*/
 	
+	$scope.shipipngResponse = [];
+	 $scope.ackFileResponse=[];
 		$scope.onUploadAck = function() {
 	    debugger;
-	
+	  //  console.log("PAVAN ----" , $scope.selectedBL);
 	    var form = null;
 	
 	    form = document.getElementById('ackFileForm');
@@ -3041,50 +3075,64 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	        processData: false,
 	        data: fileData,
 	    }).then(function(result, status, headers, config) {
-	
+
+	    	   $scope.ackFileResponse = result.data.result.master.mastrCnsgmtDec;
+	    	   console.log("Ack,," , $scope.ackFileResponse);
+	    	var promises = [];
+	    	 for(var j=0; j< $scope.BLS.length;j++){
+	    	 	// debugger;
+
+	    	 	 if(($scope.BLS[j].isBlSave == 'true' || $scope.BLS[j].isBlSave == true) && ($scope.BLS[j].itemNumber !=null && $scope.BLS[j].itemNumber !="")){
+	    	 		$scope.selectedBL = $scope.BLS[j];
+	    	 		$scope.blIndex = j;
+
+	   			(function(j){
+	   				promises.push( $scope.getCarogoDetailsForUploading());
+	   				})(j);
+	    	 		
+	    			console.log("selectedBl---",$scope.selectedBL+""+j);
+	    	 	 }
+	       	 
+	    		
+	    	 }
+	    	 Promise.all(promises).then(function(){
+	    	 	 console.log("----");
+	    	 	 console.log("Final" , $scope.BLS);
+	    	 	$scope.updatingCargoDetails();
+	    	 	 
+	    	 	 });
+	    	
 	
 	        console.log(result);
-	        $scope.ackFileResponse = result.data.result.master.mastrCnsgmtDec;
+	     
+	        
 	        console.log($scope.ackFileResponse);
+	    });
+}
+
+$scope.ackValueBinding=function(){
+
+	console.log("Ack,," , $scope.ackFileResponse);
+	
+
+	 for (var i = 0; i < $scope.ackFileResponse.length; i++) {
+		 if ($scope.ackFileResponse[i].MCRef.lineNo == $scope.BLS[i].itemNumber && $scope.ackFileResponse[i].mcResponse.cinType == "PCIN"){
+             $scope.BLS[i].pcin = $scope.ackFileResponse[i].mcResponse.mcinPcin;
+             $scope.BLS[i].previousDeclaration[0].previous_pcin=$scope.ackFileResponse[i].mcResponse.mcinPcin;
+		 }else{
+			 if ($scope.ackFileResponse[i].MCRef.lineNo == $scope.BLS[i].itemNumber && $scope.ackFileResponse[i].mcResponse.cinType == "MCIN"){
+                 //  $scope.selectedBL.mcin = $scope.ackFileResponse[i].mcResponse.mcin;
+                  $scope.BLS[i].mcin = $scope.ackFileResponse[i].mcResponse.mcinPcin;
+                  $scope.BLS[i].previousDeclaration[0].previous_mcin=$scope.ackFileResponse[i].mcResponse.mcinPcin;
+               }
+			 }
+			
+		}
+	
+}
 	     
 	
-	        for (var i = 0; i < $scope.ackFileResponse.length; i++) {
-	            console.log($scope.ackFileResponse[i].MCRef.lineNo);
-	            console.log($scope.ackFileResponse[i].mcResponse.cinType);
-	            console.log($scope.ackFileResponse[i].mcResponse.mcinPcin);
-	         //   if ($scope.ackFileResponse[i].MCRef.lineNo == $scope.selectedBL.itemNumber && $scope.ackFileResponse[i].mcResponse.cinType == "PCIN") {
-	            if ($scope.ackFileResponse[i].MCRef.lineNo == $scope.BLS[i].itemNumber && $scope.ackFileResponse[i].mcResponse.cinType == "PCIN"){
-	                $scope.BLS[i].pcin = $scope.ackFileResponse[i].mcResponse.mcin;
-	             //$scope.selectedBL.previousDeclaration[0].previous_pcin = $scope.ackFileResponse[i].mcResponse.mcin;
-	            //	$scope.BLS[i].previous_pcin = $scope.ackFileResponse[i].mcResponse.mcin;
-	              $scope.selectedBL.pcin = $scope.ackFileResponse[i].mcResponse.mcin;
-	            	
-	            } else {
-	                if ($scope.ackFileResponse[i].MCRef.lineNo == $scope.selectedBL.itemNumber && $scope.ackFileResponse[i].mcResponse.cinType == "MCIN"){
-		             //   if ($scope.ackFileResponse[i].MCRef.lineNo == $scope.BLS[i].itemNumber && $scope.ackFileResponse[i].mcResponse.cinType == "MCIN"){
-	                    $scope.selectedBL.mcin = $scope.ackFileResponse[i].mcResponse.mcin;
-	                 //   $scope.BLS[i].mcin = $scope.ackFileResponse[i].mcResponse.mcin;
-	                //  $scope.BLS[$scope.blIndex].previous_mcin = $scope.ackFileResponse[i].mcResponse.mcin;
-	                }
-	            }
-	
-	        }
 	      
-	
-	        /* 	if($scope.ackFileResponse.master.mastrCnsgmtDec.lineNo=== $scope.selectedBL.itemNumber &&  $scope.ackFileResponse.master.mcResponse.cinType =="PCIN" ){
-	        		$scope.selectedBL.pcin = $scope.ackFileResponse.master.mcResponse.mcinPcin;
-	        		
-	        		}else if($scope.ackFileResponse.master.mastrCnsgmtDec.lineNo=== $scope.selectedBL.itemNumber &&  $scope.ackFileResponse.master.mcResponse.cinType =="MCIN"){
-	        			$scope.selectedBL.mcin = $scope.ackFileResponse.master.mcResponse.mcinPcin;
-	        			} */
-	
-	        /* 	console.log($scope.ackFileResponse.headerField); */
-
-	
-	    });
-	
-	
-	}
 		/* uploading Shipping Bill Excel File  */
 		
 	$scope.onUploadShippingBill = function() {
@@ -3109,11 +3157,110 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	        data: fileData,
 	    }).then(function(result, status, headers, config) {
 
-	    	$scope.shipipngResponse = result.data.result
-	        for (var i = 1; i < $scope.shipipngResponse.length; i++) {
-	        	console.log( $scope.selectedBL.bl);
+	    	$scope.shipipngResponse = result.data.result;
+
+/* Hitting APi of cargo detail for selected BLS only  */
+ 		
+ 		var promises = [];
+ 	 for(var j=0; j< $scope.BLS.length;j++){
+ 	 	// debugger;
+
+ 	 	 if(($scope.BLS[j].isBlSave == 'true' || $scope.BLS[j].isBlSave == true) && ($scope.BLS[j].itemNumber !=null && $scope.BLS[j].itemNumber !="")){
+ 	 		$scope.selectedBL = $scope.BLS[j];
+ 	 		$scope.blIndex = j;
+
+			(function(j){
+				promises.push( $scope.getCarogoDetailsForUploading());
+				})(j);
+ 	 		
+ 			console.log("selectedBl---",$scope.selectedBL+""+j);
+ 	 	 }
+    	 
+ 		
+ 	 }
+ 	 Promise.all(promises).then(function(){
+ 	 	 console.log("----");
+ 	 	 console.log("Final" , $scope.BLS);
+ 	 	$scope.updatingCargoDetails();
+ 	 	 
+ 	 	 });
+ 	 console.log("Final" , $scope.BLS);
+	    	
+	        
+	    });
+	
+	
+	}
+
+
+	/*For binding   */
+	
+	$scope.bindingPcin = function(){
+		var pcinVal = null ;
+	    var mcinVal =  null;
+		debugger;
+		console.log("Binfing PCIN---" , $scope.shipipngResponse);	
+
+		 for (var i = 1; i < $scope.shipipngResponse.length; i++) {
+		        
+	        //	console.log( $scope.selectedBL.bl);
 	        	 console.log($scope.shipipngResponse[i]);
-	        	if($scope.shipipngResponse[i][0] ==  $scope.selectedBL.bl  ){
+	        	 
+
+	        	 for(var j=0; j< $scope.BLS.length;j++){
+		        	 if($scope.BLS[j].previousDeclaration.length>0){
+	        	 	 if($scope.shipipngResponse[i][0] ==  $scope.BLS[j].bl  ){
+	        	        	 
+		        		 if( $scope.shipipngResponse[i][1] == "PCIN"){
+			        		 
+		        		 console.log("PCIN", pcinVal);
+	        				 pcinVal=$scope.BLS[j].previousDeclaration[0].previous_pcin;
+		        			
+	        			 if(pcinVal == null || pcinVal == ""  ){
+	        				
+	        						$scope.BLS[j].previousDeclaration[0].previous_pcin = $scope.shipipngResponse[i][2];
+	        					//	$scope.BLS[j].pcin=$scope.shipipngResponse[i][2];
+	        		
+							
+	        			 }else {
+				        	// $scope.BLS[j].pcin += ", " + $scope.shipipngResponse[i][2];
+				        	 console.log("1--", $scope.BLS[j].previousDeclaration[0].previous_pcin);
+					        $scope.BLS[j].previousDeclaration[0].previous_pcin += "," +  $scope.shipipngResponse[i][2];
+					        console.log("2--", $scope.BLS[j].previousDeclaration[0].previous_pcin);
+					        }
+		        		}else {
+			        		/* FOr mcin */
+			        		if($scope.shipipngResponse[i][1] == "MCIN"){
+		        		
+         				
+		        		 console.log("PCIN", mcinVal);
+	        			 if(mcinVal == null || mcinVal ==""  ){
+	        					
+	        						$scope.BLS[j].previousDeclaration[0].previous_mcin = $scope.shipipngResponse[i][2];
+	        						mcinVal=$scope.BLS[j].previousDeclaration[0].previous_mcin;
+	        					//	$scope.BLS[j].pcin=$scope.shipipngResponse[i][2];
+	        					
+	        							//$scope.BLS[j].pcin=$scope.shipipngResponse[i][2];
+	        					
+     					
+							
+	        			 }else {
+				        	// $scope.BLS[j].pcin += ", " + $scope.shipipngResponse[i][2];
+				        	 console.log("1--", $scope.BLS[j].previousDeclaration[0].previous_mcin);
+					        $scope.BLS[j].previousDeclaration[0].previous_mcin += "," +  $scope.shipipngResponse[i][2];
+					        console.log("2--", $scope.BLS[j].previousDeclaration[0].previous_mcin);
+					        }
+
+		        		}
+		        		}
+		        }else{
+		        	pcinVal = null;
+		        	mcinVal= null;
+			      }
+
+
+	        	 
+	        	/* if($scope.shipipngResponse[i][0] ==  $scope.selectedBL.bl  ){
 		        	
 		        	if( $scope.shipipngResponse[i][1] == "PCIN"){
 		        	if(pcinVal == null){
@@ -3140,12 +3287,15 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 				        	$scope.BLS[$scope.blIndex].previousDeclaration[0].previous_mcin += "," +  $scope.shipipngResponse[i][2];
 				        	}
 		                }
-	        	}
-	        }  
-	    });
-	
-	
+	        	} */
+	        }
+	        } 
 	}
+
+	        console.log("Final PCIN ", $scope.BLS)
+			
+	}
+	
 
 	$scope.getCarogoDetails=function() {
  	    debugger;
@@ -3429,8 +3579,11 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 
 						    $scope.getConsinee();
 							$scope.getDataMoveToNextTab();
-							
-						
+							console.log("-Ajax Call--",$scope.blIndex+1);
+							if($scope.blIndex+1 == $scope.BLS.length){
+								$scope.bindingPcin();	
+							}
+										
 							$("body").find('.loading').remove();
 			  	}	
 			});
@@ -3796,8 +3949,433 @@ app.controller('myCtrl', function($scope,$window,$rootScope,$http) {
 	$scope.selectedItemChanged = function(equipmentLoadStatus) {
 	    $scope.equipmentLoadStatus = equipmentLoadStatus;
 	}
-	  	
+
+
+
+
+/*  Trial and error  */
+ 
+ $scope.resultBl =[];
+ 
+ 
+ $scope.getCarogoDetailsForUploading=function() {
+ 	    debugger;
+ 	    var deferred = $q.defer();
+ 	    if($scope.BLS[$scope.blIndex].fetch==true){
+ 	    	return false;
+ 	    }
+ 	   if(($scope.selectedBL.isBlSave == 'true' || $scope.selectedBL.isBlSave == true) && ($scope.selectedBL.itemNumber !=null && $scope.selectedBL.itemNumber !="")){
+			$scope.selectedBL.saveFlags="U"
+		}
+ 	    var bl= $scope.BLS[$scope.blIndex].bl;
+ 	    isBlSaved = $scope.BLS[$scope.blIndex].isBlSave
+ 	    itemNumber = $scope.selectedBL.itemNumber
+ 	    var vessel = $scope.selectedServcies.vessel;
+		var voyage = $scope.selectedServcies.voyage;
+		var pol = $scope.selectedServcies.pol;
+		var service     = $scope.selectedServcies.service;
+		var url = CAROGODETAILSSEARCH+"?vessel="+vessel+"&voyage="+voyage+"&pol="+pol+"&bl="+bl+"&isBlSave="+isBlSaved+"&itemNumber="+itemNumber+"&service="+service;
+ 	    $( "body" ).append('<div class="loading"></div>');
+		$http({
+				method : "POST",
+				async : true,
+				url : url,
+		  }).then(function(result, status, headers, config) {
+		  		$("body").find('.loading').remove();
+		  		$( "body" ).append('<div class="loading"></div>');
+		  		/* if(result.data.blDetails[0].previousDeclaration.length <= 0)
+			  	{
+				  	debugger;
+		  			onUploadShippingBill();
+			  	}else{	 */ 
+
+					$scope.resultBl.push(result);
+				  		
+					
+							console.log("-Ajax Call--",$scope.blIndex+1);
+							
+										
+							$("body").find('.loading').remove();
+			  	/* } */
+
+		  		deferred.resolve();
+		  			
+			});
+		
+		return deferred.promise;
+	}
+
+	$scope.updatingCargoDetails = function(){
+
+		console.log("Result Bl --- " ,$scope.resultBl );
+		console.log("Result Bl --- " ,$scope.BLS );
+			
+			for(var i = 0;i< $scope.resultBl.length;i++){
+				var result =  $scope.resultBl[i];
+				console.log("Database" , result);
+				
+				for(var j = 0;j<$scope.BLS.length;j++){
+					if($scope.BLS[j].bl == result.data.blDetails[0].bl){
+
+				$scope.BLS[j].agencyType  = result.data.blDetails[0].agencyType
+				$scope.BLS[j].agentCode  =  result.data.blDetails[0].agentCode
+				$scope.BLS[j].arrivalDate  =  result.data.blDetails[0].arrivalDate
+				$scope.BLS[j].arrivalTime  =  result.data.blDetails[0].arrivalTime
+				$scope.BLS[j].arrival_departure_details  =  result.data.blDetails[0].arrival_departure_details
+				$scope.BLS[j].ataarrivalDate  =  result.data.blDetails[0].ataarrivalDate
+				$scope.BLS[j].ataarrivalTime  =  result.data.blDetails[0].ataarrivalTime
+				$scope.BLS[j].authRepCd  =  result.data.blDetails[0].authRepCd
+				$scope.BLS[j].authReprsntvCd  =  result.data.blDetails[0].authReprsntvCd
+				$scope.BLS[j].authoriz_rep_code  =  result.data.blDetails[0].authoriz_rep_code
+				$scope.BLS[j].authorized_sea_carrier_code  =  result.data.blDetails[0].authorized_sea_carrier_code
+				$scope.BLS[j].blStatus  =  result.data.blDetails[0].blStatus
+				$scope.BLS[j].blVersion  =  result.data.blDetails[0].blVersion
+				$scope.BLS[j].brief_cargo_des  =  result.data.blDetails[0].brief_cargo_des
+				$scope.BLS[j].callSing  =  result.data.blDetails[0].callSing
+				$scope.BLS[j].cargoDeclaration  =  result.data.blDetails[0].cargoDeclaration
+				$scope.BLS[j].cargoMovmntType  =  result.data.blDetails[0].cargoMovmntType
+				$scope.BLS[j].cargoNature  =  result.data.blDetails[0].cargoNature
+				$scope.BLS[j].cargo_description  =  result.data.blDetails[0].cargo_description
+				$scope.BLS[j].cargo_item_description  =  result.data.blDetails[0].cargo_item_description
+				$scope.BLS[j].cargo_item_sequence_no  =  result.data.blDetails[0].cargo_item_sequence_no
+				$scope.BLS[j].carrierNo  =  result.data.blDetails[0].carrierNo
+				$scope.BLS[j].cbm  =  result.data.blDetails[0].cbm
+				$scope.BLS[j].cfsName  =  result.data.blDetails[0].cfsName
+				$scope.BLS[j].cigmDate  =  result.data.blDetails[0].cigmDate
+				$scope.BLS[j].cigmNo  =  result.data.blDetails[0].cigmNo
+				$scope.BLS[j].cin_type  =  result.data.blDetails[0].cin_type
+				$scope.BLS[j].codeCode  =  result.data.blDetails[0].codeCode
+				$scope.BLS[j].consolidatedIndicator  =  result.data.blDetails[0].consolidatedIndicator
+				$scope.BLS[j].consolidated_indicator  =  result.data.blDetails[0].consolidated_indicator
+				$scope.BLS[j].consolidator_pan  =  result.data.blDetails[0].consolidator_pan
+				$scope.BLS[j].container_weight  =  result.data.blDetails[0].container_weight
+				$scope.BLS[j].conveyance_reference_no  =  result.data.blDetails[0].conveyance_reference_no
+				$scope.BLS[j].crewEffect  =  result.data.blDetails[0].crewEffect
+				$scope.BLS[j].crewListDeclaration  =  result.data.blDetails[0].crewListDeclaration
+				$scope.BLS[j].csn_date  =  result.data.blDetails[0].csn_date
+				$scope.BLS[j].csn_number  =  result.data.blDetails[0].csn_number
+				$scope.BLS[j].csn_reporting_type  =  result.data.blDetails[0].csn_reporting_type
+				$scope.BLS[j].csn_site_id  =  result.data.blDetails[0].csn_reporting_type
+				$scope.BLS[j].csn_submitted_by  =  result.data.blDetails[0].csn_submitted_by
+				$scope.BLS[j].csn_submitted_type  =  result.data.blDetails[0].csn_submitted_type
+				$scope.BLS[j].currency  =  result.data.blDetails[0].currency
+				$scope.BLS[j].cusAdd1  =  result.data.blDetails[0].cusAdd1
+				$scope.BLS[j].cusAdd2  =  result.data.blDetails[0].cusAdd2
+				$scope.BLS[j].cusAdd3  =  result.data.blDetails[0].cusAdd3
+				$scope.BLS[j].cusAdd4  =  result.data.blDetails[0].cusAdd4
+				$scope.BLS[j].customCode  =  result.data.blDetails[0].customCode
+				$scope.BLS[j].customTerminalCode  =  result.data.blDetails[0].customTerminalCode
+				$scope.BLS[j].del  =  result.data.blDetails[0].del
+				$scope.BLS[j].dep_manif_no  =  result.data.blDetails[0].dep_manif_no
+				$scope.BLS[j].dep_manifest_date  =  result.data.blDetails[0].dep_manifest_date
+				$scope.BLS[j].departureDate  =  result.data.blDetails[0].departureDate
+				$scope.BLS[j].departureTime  =  result.data.blDetails[0].departureTime
+				$scope.BLS[j].depot  =  result.data.blDetails[0].depot
+				$scope.BLS[j].dpdCode  =  result.data.blDetails[0].dpdCode
+				$scope.BLS[j].dpdMovement  =  result.data.blDetails[0].dpdMovement
+				$scope.BLS[j].dutyInr  =  result.data.blDetails[0].dutyInr
+				$scope.BLS[j].edi  =  result.data.blDetails[0].edi
+				$scope.BLS[j].enblockMovement  =  result.data.blDetails[0].enblockMovement
+				$scope.BLS[j].equimentType  =  result.data.blDetails[0].equimentType
+				$scope.BLS[j].equipment_load_status  =  result.data.blDetails[0].equipment_load_status
+				$scope.BLS[j].equipment_seal_type  =  result.data.blDetails[0].equipment_seal_type
+				$scope.BLS[j].exchangeRate  =  result.data.blDetails[0].exchangeRate
+				$scope.BLS[j].expected_date  =  result.data.blDetails[0].expected_date
+				$scope.BLS[j].fetch  =  result.data.blDetails[0].fetch
+				$scope.BLS[j].finalPlaceDelivery  =  result.data.blDetails[0].finalPlaceDelivery
+				$scope.BLS[j].first_port_of_entry_last_port_of_departure  =  result.data.blDetails[0].first_port_of_entry_last_port_of_departure
+				$scope.BLS[j].fromItemNo  =  result.data.blDetails[0].fromItemNo
+				$scope.BLS[j].genDesc  =  result.data.blDetails[0].genDesc
+				$scope.BLS[j].grosWeight  =  result.data.blDetails[0].grosWeight
+				$scope.BLS[j].grossCargoWeightBLlevel  =  result.data.blDetails[0].grossCargoWeightBLlevel
+				$scope.BLS[j].grossWeight  =  result.data.blDetails[0].grossWeight
+				$scope.BLS[j].gross_volume  =  result.data.blDetails[0].gross_volume
+				$scope.BLS[j].hblNo  =  result.data.blDetails[0].hblNo
+				$scope.BLS[j].hightValue  =  result.data.blDetails[0].hightValue
+				$scope.BLS[j].igmDate  =  result.data.blDetails[0].igmDate
+				$scope.BLS[j].igmDateVal  =  result.data.blDetails[0].igmDateVal
+				$scope.BLS[j].igmNumber  =  result.data.blDetails[0].igmNumber
+				$scope.BLS[j].igmYear  =  result.data.blDetails[0].igmYear
+				$scope.BLS[j].igmYearVal  =  result.data.blDetails[0].igmYearVal
+				$scope.BLS[j].imdg_code  =  result.data.blDetails[0].imdg_code
+				$scope.BLS[j].imoCode  =  result.data.blDetails[0].imoCode
+				$scope.BLS[j].invoiceItems  =  result.data.blDetails[0].invoiceItems
+				$scope.BLS[j].invoiceValueFc  =  result.data.blDetails[0].invoiceValueFc
+				$scope.BLS[j].invoiceValueInr  =  result.data.blDetails[0].invoiceValueInr
+				$scope.BLS[j].isValidateBL  =  result.data.blDetails[0].isValidateBL
+				$scope.BLS[j].itemType  =  result.data.blDetails[0].itemType
+				$scope.BLS[j].jobDate  =  result.data.blDetails[0].jobDate
+				$scope.BLS[j].jobNo  =  result.data.blDetails[0].jobNo
+				$scope.BLS[j].job_date  =  result.data.blDetails[0].job_date
+				$scope.BLS[j].job_number  =  result.data.blDetails[0].job_number
+				$scope.BLS[j].lastPort1  =  result.data.blDetails[0].lastPort1
+				$scope.BLS[j].lastPort2  =  result.data.blDetails[0].lastPort2
+				$scope.BLS[j].lastPort3  =  result.data.blDetails[0].lastPort3
+				$scope.BLS[j].lightDue  =  result.data.blDetails[0].lightDue
+				$scope.BLS[j].lineCode  =  result.data.blDetails[0].lineCode
+				$scope.BLS[j].manifest_date_csn_date  =  result.data.blDetails[0].manifest_date_csn_date
+				$scope.BLS[j].manifest_no_csn_no  =  result.data.blDetails[0].manifest_no_csn_no
+				$scope.BLS[j].mariTimeDecl  =  result.data.blDetails[0].mariTimeDecl
+				$scope.BLS[j].masterBl  =  result.data.blDetails[0].masterBl
+				$scope.BLS[j].masterBlDate  =  result.data.blDetails[0].masterBlDate
+				/* if ($scope.BLS[j].masterBlDate) {
+					  var dateParts = $scope.BLS[j].masterBlDate.toString().split('');
+					  var year = dateParts.slice(0, 4).join('');
+					  var month = dateParts.slice(4, 6).join('');
+					  var day = dateParts.slice(6).join('');
+
+					  var formattedDate = day + '/' + month + '/' + year;
+					  $scope.BLS[j].masterBlDate = formattedDate;
+					} */
+				$scope.BLS[j].masterName  =  result.data.blDetails[0].masterName
+				$scope.BLS[j].mblNo  =  result.data.blDetails[0].mblNo
+				$scope.BLS[j].mc_item_details  =  result.data.blDetails[0].mc_item_details
+				$scope.BLS[j].mc_location_customs  =  result.data.blDetails[0].mc_location_customs
+				$scope.BLS[j].mcin  =  result.data.blDetails[0].mcin
+				$scope.BLS[j].message_type  =  result.data.blDetails[0].message_type
+				$scope.BLS[j].modeOfTpFee  =  result.data.blDetails[0].modeOfTpFee
+				$scope.BLS[j].mode_of_transport  =  result.data.blDetails[0].mode_of_transport
+				$scope.BLS[j].multipalPakages  =  result.data.blDetails[0].multipalPakages
+				$scope.BLS[j].neCargoMovmnt  =  result.data.blDetails[0].neCargoMovmnt
+				$scope.BLS[j].netWeight  =  result.data.blDetails[0].netWeight
+				$scope.BLS[j].newVessel  =  result.data.blDetails[0].newVessel
+				$scope.BLS[j].newVoyage  =  result.data.blDetails[0].newVoyage
+				$scope.BLS[j].next_port_of_call_coded  =  result.data.blDetails[0].next_port_of_call_coded
+				$scope.BLS[j].nextport1  =  result.data.blDetails[0].nextport1
+				$scope.BLS[j].nextport2  =  result.data.blDetails[0].nextport2
+				$scope.BLS[j].nextport3  =  result.data.blDetails[0].nextport3
+				$scope.BLS[j].nhavaShevaEta  =  result.data.blDetails[0].nhavaShevaEta
+				$scope.BLS[j].noOfCrew  =  result.data.blDetails[0].noOfCrew
+				$scope.BLS[j].noOfItemInFil  =  result.data.blDetails[0].noOfItemInFil
+				$scope.BLS[j].noOfItemInPrior  =  result.data.blDetails[0].noOfItemInPrior
+				$scope.BLS[j].noOfItemInSupplimentary  =  result.data.blDetails[0].noOfItemInSupplimentary
+				$scope.BLS[j].noOfPassenger  =  result.data.blDetails[0].noOfPassenger
+				$scope.BLS[j].no_of_crew_manif  =  result.data.blDetails[0].no_of_crew_manif
+				$scope.BLS[j].nonEdi  =  result.data.blDetails[0].nonEdi
+				$scope.BLS[j].notifyPartyCode  =  result.data.blDetails[0].notifyPartyCode
+				$scope.BLS[j].number_of_crew  =  result.data.blDetails[0].number_of_crew
+				$scope.BLS[j].number_of_packages  =  result.data.blDetails[0].number_of_packages
+				$scope.BLS[j].number_of_packages_hidden  =  result.data.blDetails[0].number_of_packages_hidden
+				$scope.BLS[j].packageBLLevel  =  result.data.blDetails[0].packageBLLevel
+				$scope.BLS[j].packages  =  result.data.blDetails[0].packages
+				$scope.BLS[j].pan_of_notified_party  =  result.data.blDetails[0].pan_of_notified_party
+				$scope.BLS[j].parentVoy  =  result.data.blDetails[0].parentVoy
+				$scope.BLS[j].passengerList  =  result.data.blDetails[0].passengerList
+				$scope.BLS[j].podTerminal  =  result.data.blDetails[0].podTerminal
+				$scope.BLS[j].podTerminalPort  =  result.data.blDetails[0].podTerminalPort
+				$scope.BLS[j].pol  =  result.data.blDetails[0].pol
+				$scope.BLS[j].polTerminal  =  result.data.blDetails[0].polTerminal
+				$scope.BLS[j].polTerminalPort  =  result.data.blDetails[0].polTerminalPort
+				$scope.BLS[j].portArrival  =  result.data.blDetails[0].portArrival
+				$scope.BLS[j].portOfDeschargedCfs  =  result.data.blDetails[0].portOfDeschargedCfs
+				$scope.BLS[j].portOfDestination  =  result.data.blDetails[0].portOfDestination
+				$scope.BLS[j].portOrigin  =  result.data.blDetails[0].portOrigin
+				$scope.BLS[j].port_of_acceptance  =  result.data.blDetails[0].port_of_acceptance
+				$scope.BLS[j].acceptanceName  =  result.data.blDetails[0].acceptanceName
+				$scope.BLS[j].port_of_call_cod  =  result.data.blDetails[0].port_of_call_cod
+				$scope.BLS[j].port_of_call_coded  =  result.data.blDetails[0].port_of_call_coded
+				$scope.BLS[j].port_of_call_sequence_number  =  result.data.blDetails[0].port_of_call_sequence_number
+				$scope.BLS[j].port_of_receipt  =  result.data.blDetails[0].port_of_receipt
+				$scope.BLS[j].recieptName  =  result.data.blDetails[0].recieptName
+				$scope.BLS[j].port_of_registry  =  result.data.blDetails[0].port_of_registry
+				$scope.BLS[j].port_of_reporting  =  result.data.blDetails[0].port_of_reporting
+				$scope.BLS[j].position  =  result.data.blDetails[0].position
+				$scope.BLS[j].previous_mcin  =  result.data.blDetails[0].previous_mcin
+				$scope.BLS[j].previous_pcin  =  result.data.blDetails[0].previous_pcin
+				$scope.BLS[j].recieverId  =  result.data.blDetails[0].recieverId
+				$scope.BLS[j].registry_date  =  result.data.blDetails[0].registry_date
+				$scope.BLS[j].remark  =  result.data.blDetails[0].remark
+				$scope.BLS[j].remarkVessel  =  result.data.blDetails[0].remarkVessel
+				$scope.BLS[j].reporting_event  =  result.data.blDetails[0].reporting_event
+				$scope.BLS[j].roadCarrCode  =  result.data.blDetails[0].roadCarrCode
+				$scope.BLS[j].roadCarrCodeVVS  =  result.data.blDetails[0].roadCarrCodeVVS
+				$scope.BLS[j].roadTPBondNo  =  result.data.blDetails[0].roadTPBondNo
+				$scope.BLS[j].roadTpBondNo  =  result.data.blDetails[0].roadTpBondNo
+				$scope.BLS[j].rotnDate  =  result.data.blDetails[0].rotnDate
+				$scope.BLS[j].rotnNo  =  result.data.blDetails[0].rotnNo
+				$scope.BLS[j].senderId  =  result.data.blDetails[0].senderId
+				$scope.BLS[j].serialNumber  =  result.data.blDetails[0].serialNumber
+				$scope.BLS[j].service  =  result.data.blDetails[0].service
+				$scope.BLS[j].shipStrDect  =  result.data.blDetails[0].shipStrDect
+				$scope.BLS[j].ship_itinerary  =  result.data.blDetails[0].ship_itinerary
+				$scope.BLS[j].ship_itinerary_sequence  =  result.data.blDetails[0].ship_itinerary_sequence
+				$scope.BLS[j].ship_type  =  result.data.blDetails[0].ship_type
+				$scope.BLS[j].shipping_line_bond_no_r  =  result.data.blDetails[0].shipping_line_bond_no_r
+				$scope.BLS[j].shipping_line_code  =  result.data.blDetails[0].shipping_line_code
+				$scope.BLS[j].shpngLineCd  =  result.data.blDetails[0].shpngLineCd
+				$scope.BLS[j].smBtCargo  =  result.data.blDetails[0].smBtCargo
+				$scope.BLS[j].smtpDate  =  result.data.blDetails[0].smtpDate
+				$scope.BLS[j].smtpNo  =  result.data.blDetails[0].smtpNo
+				$scope.BLS[j].soc_flag  =  result.data.blDetails[0].soc_flag
+				$scope.BLS[j].split_indicator  =  result.data.blDetails[0].split_indicator
+				$scope.BLS[j].split_indicator_list  =  result.data.blDetails[0].split_indicator_list
+				$scope.BLS[j].subLineNumber  =  result.data.blDetails[0].subLineNumber
+				$scope.BLS[j].subTermil  =  result.data.blDetails[0].subTermil
+				$scope.BLS[j].submitDateTime  =  result.data.blDetails[0].submitDateTime
+				$scope.BLS[j].submitter_code  =  result.data.blDetails[0].submitter_code
+				$scope.BLS[j].submitter_type  =  result.data.blDetails[0].submitter_type
+				$scope.BLS[j].terminal  =  result.data.blDetails[0].terminal
+				$scope.BLS[j].time_of_dept  =  result.data.blDetails[0].time_of_dept
+				$scope.BLS[j].toItemNo  =  result.data.blDetails[0].toItemNo
+				$scope.BLS[j].tol_no_of_trans_equ_manif  =  result.data.blDetails[0].tol_no_of_trans_equ_manif
+				$scope.BLS[j].totalBls  =  result.data.blDetails[0].totalBls
+				$scope.BLS[j].totalItem  =  result.data.blDetails[0].totalItem
+				$scope.BLS[j].totalItems  =  result.data.blDetails[0].totalItems
+				$scope.BLS[j].totalNmbrOfLines  =  result.data.blDetails[0].totalNmbrOfLines
+				$scope.BLS[j].totalWeight  =  result.data.blDetails[0].totalWeight
+				$scope.BLS[j].total_no_of_tran_s_cont_repo_on_ari_dep  =  result.data.blDetails[0].total_no_of_tran_s_cont_repo_on_ari_dep
+				$scope.BLS[j].total_no_of_transport_equipment_reported_on_arrival_departure  =  result.data.blDetails[0].total_no_of_transport_equipment_reported_on_arrival_departure
+				$scope.BLS[j].total_number_of_packages  =  result.data.blDetails[0].total_number_of_packages
+				$scope.BLS[j].tpBondNo  =  result.data.blDetails[0].tpBondNo
+				$scope.BLS[j].tpbondnoVVS  =  result.data.blDetails[0].tpbondnoVVS
+				$scope.BLS[j].transportMode  =  result.data.blDetails[0].transportMode
+				$scope.BLS[j].typeTransportMeans  =  result.data.blDetails[0].typeTransportMeans
+				$scope.BLS[j].type_of_cargo  =  result.data.blDetails[0].type_of_cargo
+				$scope.BLS[j].type_of_package  =  result.data.blDetails[0].type_of_package
+				$scope.BLS[j].type_of_packages_hidden  =  result.data.blDetails[0].type_of_packages_hidden
+				$scope.BLS[j].ucr_code  =  result.data.blDetails[0].ucr_code
+				$scope.BLS[j].ucr_type  =  result.data.blDetails[0].ucr_type
+				$scope.BLS[j].unit  =  result.data.blDetails[0].unit
+				$scope.BLS[j].unit_of_volume  =  result.data.blDetails[0].unit_of_volume
+				$scope.BLS[j].unit_of_weight  =  result.data.blDetails[0].unit_of_weight
+				$scope.BLS[j].uno_code  =  result.data.blDetails[0].uno_code
+				$scope.BLS[j].vasselCode  =  result.data.blDetails[0].vasselCode
+				$scope.BLS[j].vesselName  =  result.data.blDetails[0].vesselName
+				$scope.BLS[j].vesselNation  =  result.data.blDetails[0].vesselNation
+				$scope.BLS[j].vesselType  =  result.data.blDetails[0].vesselType
+				$scope.BLS[j].vessel_type_movement  =  result.data.blDetails[0].vessel_type_movement
+				$scope.BLS[j].viaVcn  =  result.data.blDetails[0].viaVcn
+				$scope.BLS[j].volume  =  result.data.blDetails[0].volume
+				$scope.BLS[j].voyage_details_movement  =  result.data.blDetails[0].voyage_details_movement
+				$scope.BLS[j].weigh  =  result.data.blDetails[0].weigh
+				$scope.BLS[j].weight  =  result.data.blDetails[0].weight
+				$scope.BLS[j].package_kind  =  result.data.blDetails[0].package_kind
+				$scope.BLS[j].commdity_code  =  result.data.blDetails[0].commdity_code
+				$scope.BLS[j].commodity_seq  =  result.data.blDetails[0].commodity_seq
+				$scope.BLS[j].gstStateCode  =  result.data.blDetails[0].gstStateCode
+				$scope.BLS[j].stowagePosition  =  result.data.blDetails[0].stowagePosition
+				$scope.BLS[j].port_of_call_name  =  result.data.blDetails[0].port_of_call_name
+				$scope.BLS[j].next_port_of_call_name  =  result.data.blDetails[0].next_port_of_call_name
+				debugger;
+	
+				$scope.BLS[j].consignee = result.data.blDetails[0].consignee
+				$scope.BLS[j].consigner = result.data.blDetails[0].consigner
+				$scope.BLS[j].marksNumber = result.data.blDetails[0].marksNumber
+				$scope.BLS[j].notifyParty = result.data.blDetails[0].notifyParty
+				$scope.BLS[j].notifyPartyTwo = result.data.blDetails[0].notifyPartyTwo
+				$scope.BLS[j].previousDeclaration = result.data.blDetails[0].previousDeclaration;
+
+				// Overriding PCIN and MIC getting from DB
+				$scope.BLS[j].previousDeclaration[0].previous_mcin ="";
+				$scope.BLS[j].previousDeclaration[0].previous_pcin ="";
+				
+				// make a global variable and set the pcin for screen
+				//$scope.BLS[j].testPcin = result.data.blDetails[0].previousDeclaration[0].previous_pcin
+				
+
+				 /*    $scope.getConsinee();
+					$scope.getDataMoveToNextTab(); */
+					debugger;
+					$scope.consignee =$scope.BLS[j].consignee[0];
+					$scope.consigner =$scope.BLS[j].consigner[0];
+					$scope.notifyParty =$scope.BLS[j].notifyParty[0];
+					$scope.notifyPartyTwo =$scope.BLS[j].notifyPartyTwo[0];
+
+
+					 if($scope.consignee.consigneeName == "BANK" &&($scope.notifyParty.notifyName != "TO THE ORDER OF" ||
+							   $scope.notifyParty.notifyName  != "TO ORDER" ||$scope.notifyParty.notifyName != "TO ORDER OF")){
+						  $scope.BLS[j].consignee[0].customerCode = $scope.BLS[j].notifyParty[0].costumerCode;
+					      $scope.BLS[j].consignee[0].customerName = $scope.BLS[j].notifyParty[0].costumerName;
+					      $scope.BLS[j].consignee[0].addressLine1 = $scope.BLS[j].notifyParty[0].addressLine1;
+					      $scope.BLS[j].consignee[0].addressLine2 = $scope.BLS[j].notifyParty[0].addressLine2;
+
+					      $scope.BLS[j].consignee[0].addressLine3 = $scope.BLS[j].notifyParty[0].addressLine3;
+					      $scope.BLS[j].consignee[0].addressLine4 = $scope.BLS[j].notifyParty[0].addressLine4;
+					      $scope.BLS[j].consignee[0].city = $scope.BLS[j].notifyParty[0].city;
+					      $scope.BLS[j].consignee[0].state = $scope.BLS[j].notifyParty[0].state;
+
+					      $scope.BLS[j].consignee[0].countryCode = $scope.BLS[j].notifyParty[0].countryCode;
+					      $scope.BLS[j].consignee[0].zip = $scope.BLS[j].notifyParty[0].zip;
+
+					      $scope.consigneIec = $scope.notifyParty.notifyIec;
+					      $scope.consignePan = $scope.notifyParty.notifyPan;
+					      
+					      swal("Message", "Notify Party Data copy to Consignee .", "info");
+					      $("body").find('.loading').remove();
+
+					     
+					   }else if(($scope.consignee.consigneeName == "TO THE ORDER OF" || 
+								$scope.consignee.consigneeName == "TO ORDER" || $scope.consignee.consigneeName == "TO ORDER OF" ||
+								$scope.notifyParty.countryCode != "IN"&& $scope.consignee.portOfDischarge.substring(0,2) == "IN") 
+								&& $scope.notifyParty.notifyName == "SAME AS CONSIGNEE" ){
+							
+						    $scope.BLS[j].notifyParty[0].costumerCode = $scope.BLS[j].consignee[0].customerCode;
+						      $scope.BLS[j].notifyParty[0].costumerName = $scope.BLS[j].consignee[0].customerName;
+						      $scope.BLS[j].notifyParty[0].addressLine1 = $scope.BLS[j].consignee[0].addressLine1;
+						      $scope.BLS[j].notifyParty[0].addressLine2 = $scope.BLS[j].consignee[0].addressLine2;
+
+						      $scope.BLS[j].notifyParty[0].addressLine3 = $scope.BLS[j].consignee[0].addressLine3;
+						      $scope.BLS[j].notifyParty[0].addressLine4 = $scope.BLS[j].consignee[0].addressLine4;
+						      $scope.BLS[j].notifyParty[0].city = $scope.BLS[j].consignee[0].city;
+						      $scope.BLS[j].notifyParty[0].state = $scope.BLS[j].consignee[0].state;
+
+						      $scope.BLS[j].notifyParty[0].countryCode = $scope.BLS[j].consignee[0].countryCode;
+						      $scope.BLS[j].notifyParty[0].zip = $scope.BLS[j].consignee[0].zip;
+
+						      $scope.notifyIec = $scope.consignee.consigneIec;
+						      $scope.notifyPan = $scope.consignee.consignePan;
+
+						      swal("Message", "Consignee Data copy to Notify Party.", "info");
+						      $("body").find('.loading').remove();
+					   }else if($scope.consignee.consigneFwr = "FWR" &&  $scope.notifyParty.notifyName == "SAME AS CONSIGNEE"){
+						   $scope.BLS[j].notifyParty[0].costumerCode = $scope.BLS[j].consignee[0].customerCode;
+						      $scope.BLS[j].notifyParty[0].costumerName = $scope.BLS[j].consignee[0].customerName;
+						      $scope.BLS[j].notifyParty[0].addressLine1 = $scope.BLS[j].consignee[0].addressLine1;
+						      $scope.BLS[j].notifyParty[0].addressLine2 = $scope.BLS[j].consignee[0].addressLine2;
+
+						      $scope.BLS[j].notifyParty[0].addressLine3 = $scope.BLS[j].consignee[0].addressLine3;
+						      $scope.BLS[j].notifyParty[0].addressLine4 = $scope.BLS[j].consignee[0].addressLine4;
+						      $scope.BLS[j].notifyParty[0].city = $scope.BLS[j].consignee[0].city;
+						      $scope.BLS[j].notifyParty[0].state = $scope.BLS[j].consignee[0].state;
+
+						      $scope.BLS[j].notifyParty[0].countryCode = $scope.BLS[j].consignee[0].countryCode;
+						      $scope.BLS[j].notifyParty[0].zip = $scope.BLS[j].consignee[0].zip;
+
+						      $scope.notifyIec = $scope.consignee.consigneIec;
+						      $scope.notifyPan = $scope.consignee.consignePan;
+						      swal("Message", "Consignee Data copy to Notify Party.", "info");
+						      $("body").find('.loading').remove();
+						   }else {
+						   $scope.consigneIec = $scope.consignee.consigneIec;
+						   $scope.consignePan = $scope.consignee.consignePan;
+						   $scope.notifyIec = $scope.notifyParty.notifyIec;
+						   $scope.notifyPan = $scope.notifyParty.notifyPan;
+						   $("body").find('.loading').remove();
+						   
+						   
+					   }
+
+					}
+				}
+				}
+
+			console.log("Result Final  Bl --- " ,$scope.BLS );
+
+			if($scope.ackFileResponse.length>0){
+						$scope.ackValueBinding();
+				}
+			
+				if($scope.shipipngResponse.length >0){
+					$scope.bindingPcin();
+				}
+			
+		}
+
+
+	
 });
+ 
+ 
 
    
 </script>

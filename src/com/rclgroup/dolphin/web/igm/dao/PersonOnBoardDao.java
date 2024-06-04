@@ -8,6 +8,9 @@ import com.rclgroup.dolphin.web.igm.vo.BlId;
 import com.rclgroup.dolphin.web.igm.vo.IGMCrewEfctMod;
 import com.rclgroup.dolphin.web.igm.vo.IGMPersonOnBoardMod;
 import com.rclgroup.dolphin.web.igm.vo.IGMShipStoresMod;
+import com.rclgroup.dolphin.web.igm.vo.sam.ItnrySAM;
+import com.rclgroup.dolphin.web.igm.vo.sce.ItnrySCE;
+import com.rclgroup.dolphin.web.igm.vo.scx.ItnrySCX;
 import com.rclgroup.dolphin.web.igm.vo.sdm.ItnrySDM;
 
 public interface PersonOnBoardDao {
@@ -52,7 +55,14 @@ public interface PersonOnBoardDao {
 
 	public void deleteCsv(	ImportGeneralManifestUim objForm ) throws Exception;
 	
-	public List<ItnrySDM> getItrnry(String blNo, String procedureName) throws Exception;
+	public List<ItnrySDM> getItrnrySdm(String blNo, String procedureName) throws Exception;
+	
+	public List<ItnrySCX> getItrnryScx(String blNo, String procedureName) throws Exception;
+	
+	
+    public List<ItnrySAM> getItrnrySam(String blNo, String procedureName) throws Exception;
+	
+	public List<ItnrySCE> getItrnrySce(String blNo, String procedureName) throws Exception;
 	
 	public List<BlId> getBlId(String blNo, String procedureName) throws Exception;
 	

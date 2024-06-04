@@ -511,6 +511,7 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 	public Map getBLData(Map amapParam, String procedureName, boolean isSave,boolean isUpdateSaved,String saveBlList)
 			throws BusinessException, DataAccessException {
 		System.out.println("#IGMLogger getBLData() started.." + isSave);
+		System.out.println("Bl list:: " + saveBlList);
 		
 		String blCountLoop  =  "0";
 		
@@ -695,8 +696,17 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setCsn_date(rs.getString("CSN_DATE"));
 			objMod.setPrevious_mcin(rs.getString("PREVIOUS_MCIN"));
 			objMod.setSplit_indicator(rs.getString("SPLIT_INDICATOR"));
-			objMod.setTotal_number_of_packages(rs.getString("NUMBER_OF_PACKAGES"));
-			objMod.setType_of_package(rs.getString("TYPE_OF_PACKAGE"));
+			if(rs.getString("NUMBER_OF_PACKAGES") != null ) {
+				objMod.setTotal_number_of_packages(Utils.getDBValue(rs.getString("NUMBER_OF_PACKAGES")));
+			}else {
+				objMod.setTotal_number_of_packages(Utils.getDBValue(rs.getString("NUMBER_OF_PACKAGES_NEW")));
+			}
+			if(rs.getString("TYPE_OF_PACKAGE") != null) {
+				objMod.setType_of_package(Utils.getDBValue(rs.getString("TYPE_OF_PACKAGE")));
+			}else {
+				objMod.setType_of_package(Utils.getDBValue(rs.getString("TYPE_OF_PACKAGE_NEW")));
+			}
+			
 			objMod.setFirst_port_of_entry_last_port_of_departure(
 					rs.getString("FIRST_PORT_OF_ENTRY_LAST_PORT_OF_DEPARTURE"));
 			objMod.setType_of_cargo(rs.getString("TYPE_OF_CARGO"));
@@ -721,7 +731,12 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 				objMod.setUnit_of_volume(rs.getString("UNIT_OF_VOLUME"));
 			}
 			objMod.setCargo_item_sequence_no(rs.getString("CARGO_ITEM_SEQUENCE_NO"));
-			objMod.setCargo_item_description(rs.getString("CARGO_ITEM_DESCRIPTION"));
+			if(rs.getString("CARGO_ITEM_DESCRIPTION") != null) {
+				objMod.setCargo_item_description(Utils.getDBValue (rs.getString("CARGO_ITEM_DESCRIPTION")));
+			}else {
+				objMod.setCargo_item_description(Utils.getDBValue (rs.getString("CARGO_ITEM_DESCRIPTION_NEW")));
+			}
+			
 			objMod.setContainer_weight(rs.getString("CONTAINER_WEIGHT"));
 			objMod.setNumber_of_packages_hidden(rs.getString("NUMBER_OF_PACKAGES_HID"));
 			objMod.setType_of_packages_hidden(rs.getString("TYPE_OF_PACKAGES_HID"));
@@ -736,17 +751,17 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 				objMod.setUno_code("ZZZZZ");
 			}else {
 				if(rs.getString("UNO_CODE") != null) {
-				  objMod.setUno_code(rs.getString("UNO_CODE").trim());
+				  objMod.setUno_code(Utils.getDBValue(rs.getString("UNO_CODE").trim()));
 				}else
 				{
-					objMod.setUno_code("");
+					 objMod.setUno_code(Utils.getDBValue(rs.getString("UNO_CODE_NEW").trim()));
 				}
 			}
 			
 			if(null == rs.getString("IMDG_CODE") || ("").equals(rs.getString("IMDG_CODE")) ) {
-				objMod.setImdg_code(rs.getString("IMDG_CODE"));
+				objMod.setImdg_code(Utils.getDBValue(rs.getString("IMDG_CODE_NEW")));
 			}else {
-				objMod.setImdg_code(rs.getString("IMDG_CODE").trim());
+				objMod.setImdg_code(Utils.getDBValue(rs.getString("IMDG_CODE").trim()));
 			}
 			
 			objMod.setItemNumber(rs.getString("ITEM_NUMBER"));
@@ -761,7 +776,7 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setInvoiceItems(rs.getString("CSN_SUBMITTED_BY"));
 			objMod.setModeOfTpFee(rs.getString("MODEOF_TP_FEE"));
 			objMod.setDgFlag(rs.getString("FLAG_DG"));
-			objMod.setCommdity_code(rs.getString("COMMODITY_CODE"));
+			objMod.setCommdity_code(Utils.getDBValue(rs.getString("COMMODITY_CODE")));
 			objMod.setPackage_kind(rs.getString("PACKAGE_KIND"));
 			objMod.setCommodity_seq(rs.getInt("COMMODITY_SEQ"));
 //			objMod.setNotifyName(rs.getString("NOTIFY_NAME"));
@@ -1426,7 +1441,8 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 		String procedure = "";
 
 		String[][] arrParam = { { KEY_REF_IGM_DATA, BLANK + ORACLE_CURSOR, PARAM_OUT, BLANK },
-				{ KEY_IGM_BL, BLANK + ORACLE_VARCHAR, PARAM_IN, "LCHSB22035374" },
+			//	{ KEY_IGM_BL, BLANK + ORACLE_VARCHAR, PARAM_IN, "LCHSB22035374" },
+				{ KEY_IGM_BL, BLANK + ORACLE_VARCHAR, PARAM_IN, objForm.getMasterBl()},
 				{ KEY_IGM_ERROR, BLANK + ORACLE_VARCHAR, PARAM_OUT, BLANK } };
 
 		

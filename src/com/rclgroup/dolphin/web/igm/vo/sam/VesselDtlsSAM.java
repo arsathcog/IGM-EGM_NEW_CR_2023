@@ -7,6 +7,7 @@ public class VesselDtlsSAM {
 	private String trnsprtMeansId;
 	private String shipTyp;
 	private String purposeOfCall;
+	private String natnltyOfShip;
 	
 	/*
 	 * Before it was in yellow as guru asked to 
@@ -99,14 +100,26 @@ public class VesselDtlsSAM {
 	public void setGrossTonnage(String grossTonnage) {
 		this.grossTonnage = grossTonnage;
 	}
-
 	
+	public String getNatnltyOfShip() {
+		return natnltyOfShip;
+	}
+
+	public void setNatnltyOfShip(String natnltyOfShip) {
+		this.natnltyOfShip = natnltyOfShip;
+	}
+
 	@Override
 	public String toString() {
 		return "VesselDtlsSAM [modeOfTrnsprt=" + modeOfTrnsprt + ", typOfTrnsprtMeans=" + typOfTrnsprtMeans
 				+ ", trnsprtMeansId=" + trnsprtMeansId + ", shipTyp=" + shipTyp + ", purposeOfCall=" + purposeOfCall
-				+ ", prtOfRegistry=" + prtOfRegistry + ", registryDt=" + registryDt + ", registryNmbr=" + registryNmbr
-				+ ", netTonnage=" + netTonnage + ", grossTonnage=" + grossTonnage + "]";
+				+ ", natnltyOfShip=" + natnltyOfShip + ", prtOfRegistry=" + prtOfRegistry + ", registryDt=" + registryDt
+				+ ", registryNmbr=" + registryNmbr + ", netTonnage=" + netTonnage + ", grossTonnage=" + grossTonnage
+				+ "]";
 	}
+
+	
+
+
 
 }

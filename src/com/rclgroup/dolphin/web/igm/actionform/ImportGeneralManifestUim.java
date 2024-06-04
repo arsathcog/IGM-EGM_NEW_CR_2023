@@ -9,6 +9,9 @@ import com.niit.control.web.actionform.PaginationForm;
 import com.rclgroup.dolphin.web.igm.vo.IGMCrewEfctMod;
 import com.rclgroup.dolphin.web.igm.vo.IGMPersonOnBoardMod;
 import com.rclgroup.dolphin.web.igm.vo.IGMShipStoresMod;
+import com.rclgroup.dolphin.web.igm.vo.sam.ItnrySAM;
+import com.rclgroup.dolphin.web.igm.vo.sce.ItnrySCE;
+import com.rclgroup.dolphin.web.igm.vo.scx.ItnrySCX;
 import com.rclgroup.dolphin.web.igm.vo.sdm.ItnrySDM;
 
 /**
@@ -335,16 +338,53 @@ public class ImportGeneralManifestUim extends PaginationForm {
 	
 	private List<IGMShipStoresMod> igmShipStoresModsList =new ArrayList<>();
 	
-	private List<ItnrySDM> itnryList = new ArrayList<>();
-	
 	private String itnry;
 	
 	private String total_no_of_transport_equipment_reported_on_arrival_departure;
 	
+	// for multiple Itnry
 	
+	private List<ItnrySDM> itnryList = new ArrayList<>();
+		
+	private List<ItnrySCX> itnryListScx = new ArrayList<>();
 	
+	private List<ItnrySAM> itnryListSam = new ArrayList<>();
 	
+	private List<ItnrySCE> itnryListSce = new ArrayList<>();
 	
+
+	public List<ItnrySDM> getItnryList() {
+		return itnryList;
+	}
+
+	public void setItnryList(List<ItnrySDM> itnryList) {
+		this.itnryList = itnryList;
+	}
+	
+	public List<ItnrySCX> getItnryListScx() {
+		return itnryListScx;
+	}
+
+	public void setItnryListScx(List<ItnrySCX> itnryListScx) {
+		this.itnryListScx = itnryListScx;
+	}
+
+	public List<ItnrySAM> getItnryListSam() {
+		return itnryListSam;
+	}
+
+	public void setItnryListSam(List<ItnrySAM> itnryListSam) {
+		this.itnryListSam = itnryListSam;
+	}
+
+	public List<ItnrySCE> getItnryListSce() {
+		return itnryListSce;
+	}
+
+	public void setItnryListSce(List<ItnrySCE> itnryListSce) {
+		this.itnryListSce = itnryListSce;
+	}
+
 	public String getTotal_no_of_transport_equipment_reported_on_arrival_departure() {
 		return total_no_of_transport_equipment_reported_on_arrival_departure;
 	}
@@ -362,13 +402,6 @@ public class ImportGeneralManifestUim extends PaginationForm {
 		this.itnry = itnry;
 	}
 
-	public List<ItnrySDM> getItnryList() {
-		return itnryList;
-	}
-
-	public void setItnryList(List<ItnrySDM> itnryList) {
-		this.itnryList = itnryList;
-	}
 
 	private String isBlSave;
 	
@@ -2509,7 +2542,10 @@ public class ImportGeneralManifestUim extends PaginationForm {
 				+ type_of_cargo + ", neCargoMovmnt=" + neCargoMovmnt + ", senderId=" + senderId + ", recieverId="
 				+ recieverId + ", authRepCd=" + authRepCd + ", totalNmbrOfLines=" + totalNmbrOfLines
 				+ ", personOnBoardModList=" + personOnBoardModList + ", crewEfctModsList=" + crewEfctModsList
-				+ ", igmShipStoresModsList=" + igmShipStoresModsList + ", itnryList=" + itnryList + ", itnry=" + itnry
+				+ ", igmShipStoresModsList=" + igmShipStoresModsList + ", itnry=" + itnry
+				+ ", total_no_of_transport_equipment_reported_on_arrival_departure="
+				+ total_no_of_transport_equipment_reported_on_arrival_departure + ", itnryList=" + itnryList
+				+ ", itnryListScx=" + itnryListScx + ", itnryListSam=" + itnryListSam + ", itnryListSce=" + itnryListSce
 				+ ", isBlSave=" + isBlSave + ", saveFlags=" + saveFlags + ", ackJson=" + ackJson + ", shippingFile="
 				+ shippingFile + ", container=" + container + ", isHbl=" + isHbl + ", dgFlag=" + dgFlag
 				+ ", commdity_code=" + commdity_code + ", package_kind=" + package_kind + ", commodity_seq="
@@ -2529,6 +2565,7 @@ public class ImportGeneralManifestUim extends PaginationForm {
 				+ flagRobDischarge + ", hsCd=" + hsCd + ", podScreen=" + podScreen + ", isFetch=" + isFetch + "]";
 	}
 
+	
 	
 
 //	@Override

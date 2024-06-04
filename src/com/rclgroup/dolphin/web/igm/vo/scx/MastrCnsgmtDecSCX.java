@@ -8,9 +8,11 @@ public class MastrCnsgmtDecSCX {
 //	private TrnshprSCX trnshpr;
 	private TrnsprtDocSCX trnsprtDoc;
 	private TrnsprtDocMsrSCX trnsprtDocMsr;
-	private ItemDtlsSCX itemDtls;
+//	private ItemDtlsSCX itemDtls;
+	private List<ItemDtlsSCX> itemDtls;
 	private List<TrnsprtEqmtSCX> trnsprtEqmt;
-	private ItnrySCX itnry;
+	private List<ItnrySCX> itnry;
+//	private ItnrySCX itnry;
 //	private PrevRefSCX prevRef;
 	private List<HouseCargoDecSCX> houseCargoDec;
 //	private List<MCSuprtDocsSCX> mCSuprtDocs;
@@ -45,24 +47,31 @@ public class MastrCnsgmtDecSCX {
 	public void setTrnsprtDocMsr(TrnsprtDocMsrSCX trnsprtDocMsr) {
 		this.trnsprtDocMsr = trnsprtDocMsr;
 	}
-	public ItemDtlsSCX getItemDtls() {
-		return itemDtls;
-	}
-	public void setItemDtls(ItemDtlsSCX itemDtls) {
-		this.itemDtls = itemDtls;
-	}
+//	public ItemDtlsSCX getItemDtls() {
+//		return itemDtls;
+//	}
+//	public void setItemDtls(ItemDtlsSCX itemDtls) {
+//		this.itemDtls = itemDtls;
+//	}
+	
 	public List<TrnsprtEqmtSCX> getTrnsprtEqmt() {
 		return trnsprtEqmt;
+	}
+	public List<ItemDtlsSCX> getItemDtls() {
+		return itemDtls;
+	}
+	public void setItemDtls(List<ItemDtlsSCX> itemDtls) {
+		this.itemDtls = itemDtls;
 	}
 	public void setTrnsprtEqmt(List<TrnsprtEqmtSCX> trnsprtEqmt) {
 		this.trnsprtEqmt = trnsprtEqmt;
 	}
-	public ItnrySCX getItnry() {
-		return itnry;
-	}
-	public void setItnry(ItnrySCX itnry) {
-		this.itnry = itnry;
-	}
+//	public ItnrySCX getItnry() {
+//		return itnry;
+//	}
+//	public void setItnry(ItnrySCX itnry) {
+//		this.itnry = itnry;
+//	}
 //	public PrevRefSCX getPrevRef() {
 //		return prevRef;
 //	}
@@ -87,6 +96,12 @@ public class MastrCnsgmtDecSCX {
 //	public void setmCAdtnlDec(List<MCAdtnlDecSCX> mCAdtnlDec) {
 //		this.mCAdtnlDec = mCAdtnlDec;
 //	}
-
+	public List<ItnrySCX> getItnry() {
+		return itnry;
+	}
+	public void setItnry(List<ItnrySCX> itnry) {
+		this.itnry = itnry;
+	}
+   
 	
 }

@@ -77,6 +77,7 @@ import com.rclgroup.dolphin.web.igm.vo.MarksNumber;
 import com.rclgroup.dolphin.web.igm.vo.NotifyParty;
 import com.rclgroup.dolphin.web.igm.vo.PortMod;
 import com.rclgroup.dolphin.web.igm.vo.PreviousDeclaration;
+import com.rclgroup.dolphin.web.igm.vo.scx.ItnrySCX;
 import com.rclgroup.dolphin.web.igm.vo.sdm.ItnrySDM;
 
 public class IGMExportScreenSvc extends BaseAction {
@@ -943,6 +944,7 @@ System.out.println("getCarogoDetails() Called.");
 		 String dataCrewEfctMod = objForm.getCrewEfctMod();
 		 String dataShipStoresMod = objForm.getShipStoresMod();
 		 String dataItnry = objForm.getItnry();
+		 String dataItnryScx = objForm.getItnry();
 		
 		 
 		 ObjectMapper mapper = new ObjectMapper();
@@ -1004,18 +1006,33 @@ System.out.println("getCarogoDetails() Called.");
 		 	blListNewSavedVal.addAll(getBlDetails(service,objForm));
 		 	 PersonOnBoardDao objPersonDao = (PersonOnBoardDao) getDao(DAO_BEAN_PERSON);
 		 	 
+		 	 
 		 	 // for itrnry 
-		 	List<ItnrySDM> itrnry = null;
+		 	List<ItnrySDM> itrnrySdm = null;
+		 	
+		 	List<ItnrySCX> itrnryScx = null;
+		 	
 		    // for BlId 
 	 	    List<BlId> blId = null;
-		 	 for(int i =0;i<blListNewSavedVal.size();i++) {
-		 		 
+	 	    if(objForm.getFileType().equals("SDM")) {
+	 	    
+			 	 for(int i =0;i<blListNewSavedVal.size();i++) {
+			 		 
+			 		itrnrySdm = objPersonDao.getItrnrySdm( blListNewSavedVal.get(i).getBl(),PersonOnBoardDao.SQL_RCL_GET_ITNRY_DATA);
+				    blListNewSavedVal.get(i).setItnrySdm(itrnrySdm);
+				    //FOR bl id
+				    blId = objPersonDao.getBlId( blListNewSavedVal.get(i).getBl(),PersonOnBoardDao.SQL_RCL_GET_BLID);
+				    blListNewSavedVal.get(i).setBlId(blId);
+			 	 }
+	 	    }
+		 	 if(objForm.getFileType().equals("SCX")) {
 		 	 
-			    itrnry = objPersonDao.getItrnry( blListNewSavedVal.get(i).getBl(),PersonOnBoardDao.SQL_RCL_GET_ITNRY_DATA);
-			    blListNewSavedVal.get(i).setItnrySdm(itrnry);
-			    //FOR bl id
-			    blId = objPersonDao.getBlId( blListNewSavedVal.get(i).getBl(),PersonOnBoardDao.SQL_RCL_GET_BLID);
-			    blListNewSavedVal.get(i).setBlId(blId);
+			 	for(int i =0;i<blListNewSavedVal.size();i++) {
+			 		 
+			 		itrnryScx = objPersonDao.getItrnryScx( blListNewSavedVal.get(i).getBl(),PersonOnBoardDao.SQL_RCL_GET_ITNRY_DATA);
+				    blListNewSavedVal.get(i).setItnryScx(itrnryScx);
+				  
+			 	 }
 		 	 }
 		 	 
 		 	

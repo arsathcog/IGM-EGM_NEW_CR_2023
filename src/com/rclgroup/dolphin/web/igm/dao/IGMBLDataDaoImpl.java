@@ -23,6 +23,9 @@ public class IGMBLDataDaoImpl extends AncestorJdbcDao implements IGMBLDataDao {
 		System.out.println("saveBLData() started json  : "+containeer);
 		String[][] arrParam = { { "P_I_V_BL", BLANK + ORACLE_VARCHAR, PARAM_IN, blsInput },
 				{ KEY_IGM_BL_DTLS, BLANK + ORACLE_VARCHAR, PARAM_IN, containeer }, };
+		
+		System.out.println("data sending to procedure:: " + containeer);
+		System.out.println("BL::" + blsInput);
 
 		JdbcStoredProcedure objSP = new JdbcStoredProcedure(getDataSource(), procedureName, arrParam);
 

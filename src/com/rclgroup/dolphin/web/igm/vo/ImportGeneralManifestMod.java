@@ -7,6 +7,9 @@ import com.rclgroup.dolphin.web.igm.actionform.ImportGeneralManifestUim;
 import com.rclgroup.dolphin.web.igm.vo.IGMCrewEfctMod;
 import com.rclgroup.dolphin.web.igm.vo.IGMPersonOnBoardMod;
 import com.rclgroup.dolphin.web.igm.vo.IGMShipStoresMod;
+import com.rclgroup.dolphin.web.igm.vo.sam.ItnrySAM;
+import com.rclgroup.dolphin.web.igm.vo.sce.ItnrySCE;
+import com.rclgroup.dolphin.web.igm.vo.scx.ItnrySCX;
 import com.rclgroup.dolphin.web.igm.vo.sdm.ItnrySDM;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -48,15 +51,6 @@ public class ImportGeneralManifestMod implements Cloneable {
 	
 	private List<IGMShipStoresMod> igmShipStoresMods=new ArrayList<>();
 	
-	private List<ItnrySDM> itnrySdm =  new ArrayList<>();
-	
-	public List<ItnrySDM> getItnrySdm() {
-		return itnrySdm;
-	}
-
-	public void setItnrySdm(List<ItnrySDM> itnrySdm) {
-		this.itnrySdm = itnrySdm;
-	}
 
 	private String roadCarrCodeVVS = "";
 
@@ -756,8 +750,50 @@ public class ImportGeneralManifestMod implements Cloneable {
 	
 	// BL ID FOR SPLITINDICATOR
 	private List<BlId> blId;
-
 	
+	// for multiple Itrnry
+	
+	private List<ItnrySDM> itnrySdm =  new ArrayList<>();
+	
+	private List<ItnrySCX> itnryScx =  new ArrayList<>();
+	
+   private List<ItnrySAM> itnrySam =  new ArrayList<>();
+	
+	private List<ItnrySCE> itnrySce =  new ArrayList<>();
+	
+	public List<ItnrySDM> getItnrySdm() {
+		return itnrySdm;
+	}
+
+	public void setItnrySdm(List<ItnrySDM> itnrySdm) {
+		this.itnrySdm = itnrySdm;
+	}
+	
+
+	public List<ItnrySCX> getItnryScx() {
+		return itnryScx;
+	}
+
+	public void setItnryScx(List<ItnrySCX> itnryScx) {
+		this.itnryScx = itnryScx;
+	}
+
+
+	public List<ItnrySAM> getItnrySam() {
+		return itnrySam;
+	}
+
+	public void setItnrySam(List<ItnrySAM> itnrySam) {
+		this.itnrySam = itnrySam;
+	}
+
+	public List<ItnrySCE> getItnrySce() {
+		return itnrySce;
+	}
+
+	public void setItnrySce(List<ItnrySCE> itnrySce) {
+		this.itnrySce = itnrySce;
+	}
 
 	public List<BlId> getBlId() {
 		return blId;
@@ -4206,14 +4242,13 @@ public class ImportGeneralManifestMod implements Cloneable {
 				+ notifyParty + ", notifyPartyTwo=" + notifyPartyTwo + ", marksNumber=" + marksNumber
 				+ ", containerDetailes=" + containerDetailes + ", previousDeclaration=" + previousDeclaration
 				+ ", personOnBoardMod=" + personOnBoardMod + ", crewEfctMods=" + crewEfctMods + ", igmShipStoresMods="
-				+ igmShipStoresMods + ", itnrySdm=" + itnrySdm + ", roadCarrCodeVVS=" + roadCarrCodeVVS
-				+ ", tpbondnoVVS=" + tpbondnoVVS + ", isBlSave=" + isBlSave + ", masterBl=" + masterBl
-				+ ", masterBlDate=" + masterBlDate + ", bl=" + bl + ", service=" + service + ", vessel=" + vessel
-				+ ", vesselName=" + vesselName + ", voyage=" + voyage + ", pol=" + pol + ", polTerminal=" + polTerminal
-				+ ", del=" + del + ", depot=" + depot + ", pod=" + pod + ", podTerminal=" + podTerminal
-				+ ", consigneeName=" + consigneeName + ", codeCode=" + codeCode + ", callSing=" + callSing
-				+ ", lineCode=" + lineCode + ", agentCode=" + agentCode + ", portOrigin=" + portOrigin
-				+ ", portArrival=" + portArrival + ", lastPort1=" + lastPort1 + ", lastPort2=" + lastPort2
+				+ igmShipStoresMods + ", roadCarrCodeVVS=" + roadCarrCodeVVS + ", tpbondnoVVS=" + tpbondnoVVS
+				+ ", isBlSave=" + isBlSave + ", masterBl=" + masterBl + ", masterBlDate=" + masterBlDate + ", bl=" + bl
+				+ ", service=" + service + ", vessel=" + vessel + ", vesselName=" + vesselName + ", voyage=" + voyage
+				+ ", pol=" + pol + ", polTerminal=" + polTerminal + ", del=" + del + ", depot=" + depot + ", pod=" + pod
+				+ ", podTerminal=" + podTerminal + ", consigneeName=" + consigneeName + ", codeCode=" + codeCode
+				+ ", callSing=" + callSing + ", lineCode=" + lineCode + ", agentCode=" + agentCode + ", portOrigin="
+				+ portOrigin + ", portArrival=" + portArrival + ", lastPort1=" + lastPort1 + ", lastPort2=" + lastPort2
 				+ ", lastPort3=" + lastPort3 + ", nextport1=" + nextport1 + ", nextport2=" + nextport2 + ", nextport3="
 				+ nextport3 + ", terminal=" + terminal + ", vesselType=" + vesselType + ", genDesc=" + genDesc
 				+ ", masterName=" + masterName + ", vesselNation=" + vesselNation + ", igmNumber=" + igmNumber
@@ -4315,8 +4350,12 @@ public class ImportGeneralManifestMod implements Cloneable {
 				+ flag_discharge + ", flagRobDischarge=" + flagRobDischarge + ", blLoadStatus=" + blLoadStatus
 				+ ", flagLoaded=" + flagLoaded + ", flagRob=" + flagRob + ", blDischargedStatus=" + blDischargedStatus
 				+ ", trshprFlag=" + trshprFlag + ", containerFillStatus=" + containerFillStatus + ", cargoGrossWeight="
-				+ cargoGrossWeight + ", igmDel=" + igmDel + ", hblArr=" + hblArr + ", $$hashKey=" + $$hashKey + "]";
+				+ cargoGrossWeight + ", igmDel=" + igmDel + ", blId=" + blId + ", itnrySdm=" + itnrySdm + ", itnryScx="
+				+ itnryScx + ", itnrySam=" + itnrySam + ", itnrySce=" + itnrySce + ", hblArr=" + hblArr + ", $$hashKey="
+				+ $$hashKey + "]";
 	}
+
+	
 
 //	@Override
 //	public String toString() {

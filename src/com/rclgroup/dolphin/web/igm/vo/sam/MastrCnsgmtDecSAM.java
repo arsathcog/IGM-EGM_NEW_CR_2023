@@ -11,7 +11,8 @@ public class MastrCnsgmtDecSAM {
     private TrnsprtDocMsrSAM trnsprtDocMsr;
 	private List<ItemDtlsSAM> itemDtls;   //TODO
 	private List<TrnsprtEqmtSAM> trnsprtEqmt;   //TODO
-	private ItnrySAM itnry;				//TODO
+	//private ItnrySAM itnry;
+	private List<ItnrySAM> itnry;       //TODO
 	private PrevRefSAM prevRef = null;			    //TODO now 
 	private HouseCargoDecSAM houseCargoDec;	
 	
@@ -65,14 +66,22 @@ public class MastrCnsgmtDecSAM {
 		this.trnsprtEqmt = trnsprtEqmt;
 	}
 
-	public ItnrySAM getItnry() {
-		return itnry;
-	}
-	public void setItnry(ItnrySAM itnry) {
-		this.itnry = itnry;
-	}
+//	public ItnrySAM getItnry() {
+//		return itnry;
+//	}
+//	public void setItnry(ItnrySAM itnry) {
+//		this.itnry = itnry;
+//	}
+	
+	
 	public PrevRefSAM getPrevRef() {
 		return prevRef;
+	}
+	public List<ItnrySAM> getItnry() {
+		return itnry;
+	}
+	public void setItnry(List<ItnrySAM> itnry) {
+		this.itnry = itnry;
 	}
 	public void setPrevRef(PrevRefSAM prevRef) {
 		this.prevRef = prevRef;
