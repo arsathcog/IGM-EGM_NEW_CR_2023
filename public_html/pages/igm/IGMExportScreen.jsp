@@ -1436,6 +1436,7 @@ $(function () {
 
 			var blNoSaved = "";
 			var blNoUnSaved = "";
+			var voyage ="";
 			for (var x = 0; x < jsonData.result[0]["BLS"].length; x++) {
 				if (jsonData.result[0]["BLS"][x].isBlSave == true || jsonData.result[0]["BLS"][x].isBlSave == "true"
 						&& jsonData.result[0]["BLS"][x].itemNumber != ""
@@ -1443,9 +1444,11 @@ $(function () {
 						if (blNoSaved == "") {
 							blNoSaved = blNoSaved + "'"
 									+ jsonData.result[0]["BLS"][x].bl + "'";
+						 voyage = voyage +  "'" + jsonData.result[0]["BLS"][x].voyage +"'";
 						} else {
 							blNoSaved = blNoSaved + ",'"
 									+ jsonData.result[0]["BLS"][x].bl + "'";
+						 voyage = voyage +  ",'" + jsonData.result[0]["BLS"][x].voyage +"'";
 						}
 				} else {
 					if (jsonData.result[0]["BLS"][x].fetch == false) {
@@ -1483,7 +1486,8 @@ $(function () {
 					crewEfctMod  :  (JSON.stringify(jsonData.result[0].service.crewEfctMods)),
 					shipStoresMod:  (JSON.stringify(jsonData.result[0].service.igmShipStoresMods)),
 					unSavedBlList:  blNoUnSaved,
-					savedBlList  :  blNoSaved
+					savedBlList  :  blNoSaved,
+					voyage : voyage
 				},
 				success : function(result) {
 					debugger;
@@ -3309,8 +3313,10 @@ $scope.ackValueBinding=function(){
  	    isBlSaved = $scope.BLS[$scope.blIndex].isBlSave
  	    itemNumber = $scope.selectedBL.itemNumber
  	    var vessel = $scope.selectedServcies.vessel;
-		var voyage = $scope.selectedServcies.voyage;
-		var pol = $scope.selectedServcies.pol;
+ 	    var 		voyage 		= $scope.selectedBL.voyage;
+	    var 		pol 		= $scope.selectedBL.pol;
+	/* 	var voyage = $scope.selectedServcies.voyage;
+		var pol = $scope.selectedServcies.pol; */
 		var service     = $scope.selectedServcies.service;
 		var url = CAROGODETAILSSEARCH+"?vessel="+vessel+"&voyage="+voyage+"&pol="+pol+"&bl="+bl+"&isBlSave="+isBlSaved+"&itemNumber="+itemNumber+"&service="+service;
  	    $( "body" ).append('<div class="loading"></div>');
@@ -3534,7 +3540,25 @@ $scope.ackValueBinding=function(){
 						$scope.BLS[$scope.blIndex].totalWeight  =  result.data.blDetails[0].totalWeight
 						$scope.BLS[$scope.blIndex].total_no_of_tran_s_cont_repo_on_ari_dep  =  result.data.blDetails[0].total_no_of_tran_s_cont_repo_on_ari_dep
 						$scope.BLS[$scope.blIndex].total_no_of_transport_equipment_reported_on_arrival_departure  =  result.data.blDetails[0].total_no_of_transport_equipment_reported_on_arrival_departure
+						//$scope.BLS[$scope.blIndex].total_number_of_packages  =  result.data.blDetails[0].total_number_of_packages
+						 // for multiple commodity to show sum of number of packages
 						$scope.BLS[$scope.blIndex].total_number_of_packages  =  result.data.blDetails[0].total_number_of_packages
+
+						// Initialize an array and a total counter
+						var number_of_packages = [];
+						var total_package = 0;
+
+						// Convert the comma-separated string to an array
+						number_of_packages = $scope.BLS[$scope.blIndex].total_number_of_packages.toString().split(',');
+
+						// Iterate through the array, convert each element to a number, and sum them up
+						for (let i = 0; i < number_of_packages.length; i++) {
+						    total_package += parseInt(number_of_packages[i], 10);
+						}
+
+						// Assign the total sum back to the field
+						$scope.BLS[$scope.blIndex].total_number_of_packages  = total_package;
+						
 						$scope.BLS[$scope.blIndex].tpBondNo  =  result.data.blDetails[0].tpBondNo
 						$scope.BLS[$scope.blIndex].tpbondnoVVS  =  result.data.blDetails[0].tpbondnoVVS
 						$scope.BLS[$scope.blIndex].transportMode  =  result.data.blDetails[0].transportMode

@@ -443,12 +443,18 @@ System.out.println("getCarogoDetails() Called.");
 		
 		
 		String blsFetch = null;
+		// for insert ROb bl
+		String voyageRob = null;
 		for (ImportGeneralManifestMod mod : insertBLFetch) {
 		
-			if (blsFetch == null)
+			if (blsFetch == null) {
 				blsFetch = "'" + mod.getBl() + "'";
-			else
+			   voyageRob = "'" + mod.getVoyage()+"'";
+			  }
+			else {
 				blsFetch += ",'" + mod.getBl() + "'";
+			  voyageRob = "'" + mod.getVoyage()+"'";
+			}
 
 			if (!CollectionUtils.isEmpty(mod.getConsignee())) {
 				consignee.addAll(mod.getConsignee());
@@ -483,10 +489,14 @@ System.out.println("getCarogoDetails() Called.");
 		Map<String, String> mapParam = new HashMap<>();
 		for (ImportGeneralManifestMod mod : insertBL) {
 			
-			if (blsNotFetch == null)
+			if (blsNotFetch == null) {
 				blsNotFetch = "'" + mod.getBl() + "'";
-			else
+				 voyageRob = "'" + mod.getVoyage()+"'";
+			}
+			else {
 				blsNotFetch += ",'" + mod.getBl() + "'";
+				 voyageRob = "'" + mod.getVoyage()+"'";
+			}
 
 			if (!CollectionUtils.isEmpty(mod.getConsignee())) {
 				consignee.addAll(mod.getConsignee());
@@ -508,7 +518,8 @@ System.out.println("getCarogoDetails() Called.");
 			}
 		}
 		mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, service.getVessel());
-		mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, service.getVoyage());
+	//	mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, service.getVoyage());
+		mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, voyageRob);
 		mapParam.put(ImportGeneralManifestDao.KEY_IGM_POL, service.getPol());
 		
 		if(insertBL.size()>0) {
@@ -939,6 +950,7 @@ System.out.println("getCarogoDetails() Called.");
 		 System.out.println("#IGMLogger downloadJson() started............");
 		 IGMDaoNew 				 		objDao 				=   (IGMDaoNew) getDao(DAO_BEAN_ID);
 		 ImportGeneralManifestUim objForm = (ImportGeneralManifestUim) form;
+		 String voyage = objForm.getVoyage();
 		 String data = objForm.getRequestParam().replace("\"BLS\"", "\"bls\"");
 		 String dataPersonOnBord = objForm.getPersonOnBoardMod();
 		 String dataCrewEfctMod = objForm.getCrewEfctMod();
@@ -1398,7 +1410,8 @@ System.out.println("getCarogoDetails() Called.");
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD, mod.getPod());
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_SERVICE, mod.getService());
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, mod.getVessel());
-			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, mod.getVoyage());
+		//	mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, mod.getVoyage());
+			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE,objForm.getVoyage());
 			mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
 			
 			mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_EXPORT_NEW, true,false,blsInput);
@@ -1415,7 +1428,8 @@ System.out.println("getCarogoDetails() Called.");
 				mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD, mod.getPol());
 				mapParam.put(ImportGeneralManifestDao.KEY_IGM_SERVICE, mod.getService());
 				mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, mod.getVessel());
-				mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, mod.getVoyage());
+			//	mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, mod.getVoyage());
+				mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE,objForm.getVoyage());
 				mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
 				
 				mapSaveBL = objDao.getBLData(mapParam, IGMDaoNew.SQL_GET_IGM_BL_SAVE_DATA_EXPORT_NEW, true,false,blsInputForBelow);

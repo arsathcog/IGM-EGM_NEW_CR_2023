@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -483,6 +484,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		
 		ImportGeneralManifestMod 		service 			= saveParam.getService();
 		List<ImportGeneralManifestMod>  blList 				= saveParam.getBls();
+	//	saveParam.getBls().get(0).getVoyage();
 		
 		getSaveDataList(blList,deleteBL,insertBL,insertBLFetch);
 		
@@ -525,12 +527,19 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		}
 		
 		String blsFetch = null;
+		// for insert ROb bl
+		String voyageRob = null;
 		for (ImportGeneralManifestMod mod : insertBLFetch) {
 		
-			if (blsFetch == null)
+			if (blsFetch == null) {
 				blsFetch = "'" + mod.getBl() + "'";
-			else
+			    voyageRob = "'" + mod.getVoyage()+"'";
+			}
+			else {
 				blsFetch += ",'" + mod.getBl() + "'";
+				voyageRob += "'" + mod.getVoyage() + "'";
+			}
+				
 
 			if (!CollectionUtils.isEmpty(mod.getConsignee())) {
 				consignee.addAll(mod.getConsignee());
@@ -563,14 +572,20 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		}
 		
 		String blsNotFetch = null;
+		
  
 		Map<String, String> mapParam = new HashMap<>();
 		for (ImportGeneralManifestMod mod : insertBL) {
 			
-			if (blsNotFetch == null)
+			if (blsNotFetch == null) {
 				blsNotFetch = "'" + mod.getBl() + "'";
+				voyageRob = "'" +mod.getVoyage()+"'";
+			}
 			else
+			{
 				blsNotFetch += ",'" + mod.getBl() + "'";
+				voyageRob += ",'" + mod.getVoyage() + "'";
+			}
 
 			if (!CollectionUtils.isEmpty(mod.getConsignee())) {
 				consignee.addAll(mod.getConsignee());
@@ -591,8 +606,10 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 				previousDeclarations.addAll(mod.getPreviousDeclaration());
 			}
 		}
+		
 		mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, service.getVessel());
-		mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, service.getVoyage());
+	//	mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, service.getVoyage());
+		mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, voyageRob);
 		if(insertBL.size()>0) {
 			objBlDao.saveUnfetchedBlData(blsNotFetch,IGMBLDataDao.RCL_IGM_UNFETCHED_SAVE_BL,mapParam,insertBL);
 			containerDao.saveUnfetchedContainer(blsNotFetch,IGMContainerDao.RCL_IGM_SAVE_UNFETCHED_CONTAINOR);
@@ -1071,6 +1088,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		System.out.println("#IGMLogger downloadJson() started............");
 		IGMDaoNew objDao = (IGMDaoNew) getDao(DAO_BEAN_ID);
 		ImportGeneralManifestUim objForm = (ImportGeneralManifestUim) form;
+	    String voyage = objForm.getVoyage();
 		String data = objForm.getRequestParam().replace("\"BLS\"", "\"bls\"");
 		String dataPersonOnBord = objForm.getPersonOnBoardMod();
 		String dataCrewEfctMod = objForm.getCrewEfctMod();
@@ -1331,7 +1349,9 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 					mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD, mod.getPod());
 					mapParam.put(ImportGeneralManifestDao.KEY_IGM_SERVICE, mod.getService());
 					mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, mod.getVessel());
-					mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, mod.getVoyage());
+					mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, objForm.getVoyage());
+				//	mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, mod.getVoyage());
+					
 					mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, blsInput);
 
 					List<ImportGeneralManifestMod> blObjTmp1 = new LinkedList<ImportGeneralManifestMod>();
@@ -1357,7 +1377,8 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 					mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD, mod.getPod());
 					mapParam.put(ImportGeneralManifestDao.KEY_IGM_SERVICE, mod.getService());
 					mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, mod.getVessel());
-					mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, mod.getVoyage());
+					mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, objForm.getVoyage());
+				//	mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, mod.getVoyage());
 					mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, objForm.getSavedBlList());
 					mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD_SCREEN, objForm.getPodScreen());
 					System.out.println( objForm.getPodScreen());

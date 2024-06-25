@@ -856,10 +856,23 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			 SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
 		     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMdd");
 		     
-		    if((rs.getString("MASTER_BL_DATE") != null) || !rs.getString("MASTER_BL_DATE").equals("")) {
-			if(rs.getString("MASTER_BL_DATE").contains("/")) {
-			objMod.setMasterBlDate(rs.getString("MASTER_BL_DATE"));
-			}
+		     String masterBlDate = rs.getString("MASTER_BL_DATE");
+		     if (masterBlDate != null && !masterBlDate.equals("")) {
+		         if (masterBlDate.contains("/")) {
+		             objMod.setMasterBlDate(masterBlDate);
+		         }else
+		         {
+		        	objMod.setMasterBlDate(masterBlDate);
+		         }
+		     }
+		     
+//		    if((rs.getString("MASTER_BL_DATE") != null) || !rs.getString("MASTER_BL_DATE").equals("")) {
+//			if(rs.getString("MASTER_BL_DATE").contains("/")) {
+//			 objMod.setMasterBlDate(rs.getString("MASTER_BL_DATE"));
+//			}else
+//			{
+//			 objMod.setMasterBlDate(rs.getString("MASTER_BL_DATE"));
+//			}
 //			else {
 //				 Date date;
 //				try {
@@ -871,10 +884,10 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 //					e.printStackTrace();
 //				}
 //		        
-			}else {
-		    	 //objMod.setMasterBlDate(rs.getString(""));
-				objMod.setMasterBlDate("");
-		     }
+//			}else {
+//		    	 //objMod.setMasterBlDate(rs.getString(""));
+//				objMod.setMasterBlDate("");
+//		     }
 			objMod.setTrshprFlag(rs.getString("TRNSHPR_FLAG"));
 			objMod.setContainerFillStatus(rs.getString("CONTAINER_FILL_STATUS"));
 			objMod.setCargoGrossWeight(rs.getString("CARGO_GROSS_WEIGHT"));
@@ -1441,8 +1454,8 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 		String procedure = "";
 
 		String[][] arrParam = { { KEY_REF_IGM_DATA, BLANK + ORACLE_CURSOR, PARAM_OUT, BLANK },
-			//	{ KEY_IGM_BL, BLANK + ORACLE_VARCHAR, PARAM_IN, "LCHSB22035374" },
-				{ KEY_IGM_BL, BLANK + ORACLE_VARCHAR, PARAM_IN, objForm.getMasterBl()},
+			//	{ KEY_IGM_BL, BLANK + ORACLE_VARCHAR, PARAM_IN, objForm.getMasterBl() },
+				{ KEY_IGM_BL, BLANK + ORACLE_VARCHAR, PARAM_IN, objForm.getMasterBl().replaceAll("'", "")},
 				{ KEY_IGM_ERROR, BLANK + ORACLE_VARCHAR, PARAM_OUT, BLANK } };
 
 		
