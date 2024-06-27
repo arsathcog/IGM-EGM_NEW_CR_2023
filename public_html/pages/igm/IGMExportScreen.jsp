@@ -1772,7 +1772,6 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 	$scope.TPVALIDATION = true; 
 	$scope.isBlSelecteSave = 'false';
 	$scope.init = function () {
-		$("selectAllCheckBox").checked == false ;
 	}
 
 	$scope.clearSaveDialog=function(){
@@ -1813,11 +1812,12 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 	
 	$scope.changefromItemNo= function(){
 		//alert(2)
-		$scope.selectedServcies.toItemNo=0;
+		 $scope.selectedServcies.toItemNo=0;
+		 $scope.selectAllHake();
 		if($scope.selectedServcies.fromItemNo){
 			$scope.selectedServcies.toItemNo=parseInt($scope.selectedServcies.fromItemNo)+ $window.jsonData.result[0].BLS.length;
 			return parseInt($scope.selectedServcies.fromItemNo)+ $window.jsonData.result[0].BLS.length;
-		}
+		} 
 		console.log($scope.selectedServcies.fromItemNo)
 	}
 	
@@ -2167,6 +2167,7 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 	$scope.blcheckTotalIteamSelectAll=function(obj)
 	{
 		debugger;
+			var ele=document.getElementsByName('chk');
 			var payloadSaved = "";
 			var payloadUnSaved = "";
 			var count = 0;
@@ -2176,6 +2177,7 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 				
 				if(iteam.isBlSave==false || iteam.isBlSave=="false"){
 					iteam.isBlSave=true;
+					ele[i].checked = true;
 				}
 				
 				iteam.isBlSave=true
@@ -2226,6 +2228,24 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
  */
 
 	}
+	
+	 $scope.selectAllHake=function(obj){
+		debugger;
+		if(document.getElementsByClassName("ui-state-active")[1].childNodes[0].childNodes[1].innerText!='BL Details'){
+			return false;
+		}
+	    var eleAll=document.getElementsByName('selectall');
+	    var ele=document.getElementsByName('chk'); 
+	     debugger;
+			if (eleAll[0].checked == true) {
+					for (var i = 0; i < ele.length; i++) {
+						if (ele[i].type == 'checkbox'  && ele[i].checked == false) {
+							ele[i].checked = true;
+						}
+					}
+			}  
+	} 
+	
 	
 	$scope.hblcheckTotalIteam=function(obj)
 	{
@@ -2319,7 +2339,11 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 				if(obj.item.saveFlags=="N" && (obj.item.itemNumber == "" || obj.item.itemNumber == null)){
 					obj.item.saveFlags="I";
 				}else if(obj.item.saveFlags=="N" && (obj.item.itemNumber != "" || obj.item.itemNumber != null)){
-					obj.item.saveFlags="D";
+					if(document.getElementById("subCheckBox").checked ==true || document.getElementById("subCheckBox").checked == "true"){
+						obj.item.saveFlags="N";
+					}else{
+						obj.item.saveFlags="D";
+					}
 				}else if((obj.item.saveFlags=="N" ||obj.item.saveFlags=="D") && (obj.item.itemNumber != "" || obj.item.itemNumber != null)) {
 					obj.item.saveFlags="U";
 				}else if((obj.item.saveFlags=="N" || obj.item.saveFlags=="I")&& (obj.item.itemNumber == "" || obj.item.itemNumber == null)){
@@ -2554,6 +2578,20 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 				$scope.selectAllFetch = false;
 			}
 		});
+	}
+	
+	$scope.validateBLTab = function(){
+		debugger;
+		var totalSelectedIteam = 0
+		for(var d=0;d<$scope.BLS.length;d++){
+			if($scope.BLS[d].isBlSave=="true" || $scope.BLS[d].isBlSave==true){
+				totalSelectedIteam++; 
+			}
+		}
+		if($scope.BLS.length > totalSelectedIteam){
+			var eleAll = document.getElementsByName('selectall');
+			eleAll[0].checked = false; 
+		}
 	}
 	
 	
