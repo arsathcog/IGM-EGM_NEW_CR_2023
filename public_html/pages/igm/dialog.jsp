@@ -281,7 +281,7 @@ $(document).ready(function(){
        <li><a href="#shipStors"	 ng-click = "getprscrwshipSearch('S')"> <span>Ship Stors</span></a></li>
        <li><a href="#blContainer" ng-click = "getCarogoDetails()"><span>Cargo Details {{BLS[blIndex].bl}}</span></a></li>
        <li><a href="#consigneeContainer" ng-click = "getContainerDetails()"> <span>Container Details</span></a></li>
-       <li><a href="#bl-New"> <span>BL Details</span></a></li>
+       <li><a href="#bl-New" ng-click = "validateBLTab()"> <span>BL Details</span></a></li>
        
    </ul>
     <div id="vesselSection"><jsp:include page="vesselSection.jsp"></jsp:include></div>
