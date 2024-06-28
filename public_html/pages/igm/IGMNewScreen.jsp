@@ -1819,8 +1819,7 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 	$rootScope.pupUpName = '' ;
 	$rootScope.curPage = 0;
 	$rootScope.pageSize = 10;
-	$scope.init = function () {
-		$("selectAllCheckBox").checked == false ;
+	$scope.init = function () {	
 	}
 	
 	$scope.clearSaveDialog=function(){
@@ -1862,6 +1861,7 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 	$scope.changefromItemNo= function(){
 		//alert(2)
 		$scope.selectedServcies.toItemNo=0;
+		   $scope.selectAllHake();
 		if($scope.selectedServcies.fromItemNo){
 			$scope.selectedServcies.toItemNo=parseInt($scope.selectedServcies.fromItemNo)+ $window.jsonData.result[0].BLS.length-1;
 			return parseInt($scope.selectedServcies.fromItemNo)+ $window.jsonData.result[0].BLS.length;
@@ -2223,6 +2223,7 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 	$scope.blcheckTotalIteamSelectAll=function(obj)
 	{
 			debugger;
+			var ele=document.getElementsByName('chk');
 			var payloadSaved = "";
 			var payloadUnSaved = "";
 			var count = 0;
@@ -2231,8 +2232,9 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 					var iteam = $scope.BLS[i];
 					if(iteam.isBlSave==false || iteam.isBlSave=="false"){
 						iteam.isBlSave=true;
+						ele[i].checked = true;
 					}
-					
+					iteam.isBlSave=true
 				    count++;
 					if(($scope.BLS[i].isBlSave == true || $scope.BLS[i].isBlSave == "true") && $scope.BLS[i].itemNumber != "" && $scope.BLS[i].itemNumber != null){
 						if(payloadSaved == "" && ($scope.selectAllFetch == false ||  $scope.selectAllFetch == "false")){
@@ -2305,6 +2307,25 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 			/* }); */
 			
 	}
+
+
+    $scope.selectAllHake=function(obj){
+        debugger;
+        if(document.getElementsByClassName("ui-state-active")[1].childNodes[0].childNodes[1].innerText!='BL Details'){
+                return false;
+        }
+    var eleAll=document.getElementsByName('selectall');
+    var ele=document.getElementsByName('chk');
+     debugger;
+                if (eleAll[0].checked == true) {
+                                for (var i = 0; i < ele.length; i++) {
+                                        if (ele[i].type == 'checkbox'  && ele[i].checked == false) {
+                                                ele[i].checked = true;
+                                        }
+                                }
+                }
+      
+}
 	
 	$scope.hblcheckTotalIteam=function(obj)
 	{
@@ -2399,7 +2420,11 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 				if(obj.item.saveFlags=="N" && (obj.item.itemNumber == "" || obj.item.itemNumber == null)){
 					obj.item.saveFlags="I";
 				}else if(obj.item.saveFlags=="N" && (obj.item.itemNumber != "" || obj.item.itemNumber != null)){
-					obj.item.saveFlags="D";
+					if(document.getElementById("subCheckBox").checked ==true || document.getElementById("subCheckBox").checked == "true"){
+                        obj.item.saveFlags="N";
+                }else{
+                  obj.item.saveFlags="D";
+                }
 				}else if((obj.item.saveFlags=="N" ||obj.item.saveFlags=="D") && (obj.item.itemNumber != "" || obj.item.itemNumber != null)) {
 					obj.item.saveFlags="U";
 				}else if((obj.item.saveFlags=="N" || obj.item.saveFlags=="I")&& (obj.item.itemNumber == "" || obj.item.itemNumber == null)){
@@ -2658,6 +2683,21 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 			}
 			//$scope.defaultSelectedForRodeCarr = $scope.roadCarrCode[1].partnerValuedre;
 		});
+
+	  }
+    
+    $scope.validateBLTab = function(){
+            debugger;
+            var totalSelectedIteam = 0
+            for(var d=0;d<$scope.BLS.length;d++){
+                    if($scope.BLS[d].isBlSave=="true" || $scope.BLS[d].isBlSave==true){
+                            totalSelectedIteam++;
+                    }
+            }
+            if($scope.BLS.length > totalSelectedIteam){
+                    var eleAll = document.getElementsByName('selectall');
+                    eleAll[0].checked = false;
+            }
 	}
 	
 	
@@ -2791,7 +2831,11 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 					}).then(function(data, status, headers, config) {
 						debugger;
 						$('#phase'+data.data.result).removeClass('active'); 
-						$('#phase'+data.data.result).html('Completed'); 
+						   if(data.data.msg == "Error"){
+                               $('#phase'+data.data.result).html('Faild');
+                       } else {
+                               $('#phase'+data.data.result).html('Completed');
+                       }
 					}); 
 						 
 				 }
