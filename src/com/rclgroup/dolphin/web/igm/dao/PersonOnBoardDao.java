@@ -35,7 +35,7 @@ public interface PersonOnBoardDao {
 			+ "(select came.POINT_NAME from rcltbls.cam_point came "
 			+ " where camE.PK_POINT_CODE = dex.DN_DISCHARGE_PORT  ) as point_name_2  from rcltbls.cam_point cam inner join "
 			+ "RCLTBLS.DEX_BL_ROUTING dex on cam.PK_POINT_CODE = dex.DN_load_port  where "
-			+ "dex.TRANSPORT_MODE not in ('R','T') and dex.fk_bl_no = ? ";
+			+ "dex.TRANSPORT_MODE not in ('R','T') and dex.fk_bl_no = ?  ORDER BY dex.VOYAGE_SEQ";
 	
 	public static final String SQL_RCL_GET_BLID = "SELECT BLID FROM   RCLTBLS.DEX_BL_HEADER WHERE PK_BL_NO = ? ";
 

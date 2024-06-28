@@ -556,9 +556,6 @@ public class CreatingJSON {
 //			locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),6)); // New added
 			
 			if(blObj.getPortOfDestination() != null || service.getDel() != "") {
-//			System.out.println("port of destination" +service.getPortOfDestination());
-//			System.out.println("port of destination" +blObj.getPod());
-//			System.out.println("port of destination" +service.getPortOfDeschargedCfs());
 				if((blObj.getPortOfDestination().substring(0, 2).equals("IN") && 
 						blObj.getPod().substring(0, 2).equals("IN"))
 							&& blObj.getPortOfDestination().equals(blObj.getPod()))  {
@@ -587,8 +584,6 @@ public class CreatingJSON {
 				locCstmClassObj.setNxtPrtOfUnlading (settingLength(blObj.getPod(),6)); // New added	
 			}
 			locCstmClassObj.setTypOfCrgo(settingLength(blObj.getType_of_cargo(),2)); // Line 90		
-//				System.out.println(service.getPortOfDestination().substring(0, 2));
-//				System.out.println( service.ge	tPortOfDeschargedCfs().substring(0, 2));
 			
 			if(blObj.getPortOfDestination().substring(0, 2).equals("IN") && blObj.getPod().substring(0, 2).equals("IN")){
 				locCstmClassObj.setTypOfCrgo(settingLength("IM",2)); // if both value in india base
@@ -829,7 +824,8 @@ public class CreatingJSON {
 				}catch (Exception e) {
 					for (Consignee cnsneeDtl : consigneeDtls) {
 						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
-						trnsprtDocClassObj.setTypOfNotfdPartyCd("IEC");
+					//	trnsprtDocClassObj.setTypOfNotfdPartyCd("IEC");
+						trnsprtDocClassObj.setTypOfNotfdPartyCd("PAN");
 						trnsprtDocClassObj.setTypOfCd( settingLength("IEC",30));
 					}
 				}
@@ -857,7 +853,8 @@ public class CreatingJSON {
 				        break; 
 				    }
 			 }
-			 trnsprtDocMsrClassObj.setTypsOfPkgs(checkPackKind ? blObj.getPackage_kind() : "PKG");
+			 trnsprtDocMsrClassObj.setTypsOfPkgs(checkPackKind ? settingLength(blObj.getType_of_package(),3) : "PKG");
+			 
 		}else {
 			 trnsprtDocMsrClassObj.setTypsOfPkgs("");
 		}
@@ -2108,7 +2105,6 @@ return "";
 			//===============================================
 			TrnsprtDocMsrSDM trnsprtDocMsrClassObj = new TrnsprtDocMsrSDM();
 			trnsprtDocMsrClassObj.setNmbrOfPkgs(convertingStringtoInt(blObj.getTotal_number_of_packages()));
-			System.out.println(blObj.getTotal_number_of_packages());
 			
 			if(blObj.getPackage_kind() != null && !blObj.getPackage_kind().equals("")){
 			 String[] values = blObj.getPackage_kind().split(",");
@@ -7720,7 +7716,8 @@ ImportGeneralManifestMod objForm = blList.get(0);
 				}catch (Exception e) {
 					for (Consignee cnsneeDtl : consigneeDtls) {
 						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
-						trnsprtDocClassObj.setTypOfNotfdPartyCd("IEC");
+						//trnsprtDocClassObj.setTypOfNotfdPartyCd("IEC");
+						trnsprtDocClassObj.setTypOfNotfdPartyCd("PAN");
 						trnsprtDocClassObj.setTypOfCd( settingLength("IEC",30));
 					}
 				  }

@@ -1174,20 +1174,6 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 			 	 }
 		 	 }
 	
-	 	
-//	 	 
-//		    blId = objPersonDao.getBlId( blListNewSavedVal.get(0).getBl(),PersonOnBoardDao.SQL_RCL_GET_BLID);
-//		    blListNewSavedVal.get(0).setBlId(blId);
-		    
-//		    for(int i =0;i<blListNewSavedVal.size();i++) {
-//		    	
-//		    	 itrnry = objPersonDao.getItrnry( blListNewSavedVal.get(i).getBl(),PersonOnBoardDao.SQL_RCL_GET_ITNRY_DATA);
-//				  blListNewSavedVal.get(i).setItnrySdm(itrnry);
-//		 		 
-//			    blId = objPersonDao.getBlId( blListNewSavedVal.get(i).getBl(),PersonOnBoardDao.SQL_RCL_GET_BLID);
-//			    blListNewSavedVal.get(i).setBlId(blId);
-//		 	 }
-		    
 		    
 		    
 		 
@@ -1381,8 +1367,8 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 				//	mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, mod.getVoyage());
 					mapParam.put(ImportGeneralManifestDao.KEY_IGM_BL, objForm.getSavedBlList());
 					mapParam.put(ImportGeneralManifestDao.KEY_IGM_POD_SCREEN, objForm.getPodScreen());
-					System.out.println( objForm.getPodScreen());
-//
+				
+
 					List<ImportGeneralManifestMod> blObjTmp = new LinkedList<ImportGeneralManifestMod>();
 
 				    mapSaveBL = objDao.getBLData(mapParam,

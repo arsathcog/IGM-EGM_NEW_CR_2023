@@ -2513,6 +2513,21 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 	$scope.setContainer= function(item){
 		$scope.selectedContainer = item;
 	}
+
+	$scope.validateBLTab = function(){
+		debugger;
+		var totalSelectedIteam = 0
+		for(var d=0;d<$scope.BLS.length;d++){
+			if($scope.BLS[d].isBlSave=="true" || $scope.BLS[d].isBlSave==true){
+				totalSelectedIteam++; 
+			}
+		}
+		if($scope.selectedServcies.totalItem > totalSelectedIteam){
+			var eleAll = document.getElementsByName('selectall');
+			eleAll[0].checked = false; 
+		}
+	}
+	
 	
 	$scope.portPopUp = function (type){
 		debugger;
