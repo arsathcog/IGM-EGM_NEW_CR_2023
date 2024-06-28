@@ -402,139 +402,148 @@ System.out.println("getCarogoDetails() Called.");
 		List<ImportGeneralManifestMod>  blList 				= saveParam.getBls();
 		
 		getSaveDataList(blList,deleteBL,insertBL,insertBLFetch);
-		
-		String blsDeleteInput = null;
-		for (ImportGeneralManifestMod mod : deleteBL) {
-			 
+		try {
+			String blsDeleteInput = null;
+			for (ImportGeneralManifestMod mod : deleteBL) {
+				 
+				
+					if (blsDeleteInput == null)
+						blsDeleteInput = "'" + mod.getBl() + "'";
+					else
+						blsDeleteInput += ",'" + mod.getBl() + "'";
+	
+				if (!CollectionUtils.isEmpty(mod.getConsignee())) {
+					consignee.addAll(mod.getConsignee());
+				}
+				if (!CollectionUtils.isEmpty(mod.getConsigner())) {
+					consigner.addAll(mod.getConsigner());
+				}
+				if (!CollectionUtils.isEmpty(mod.getNotifyParty())) {
+					notifyParty.addAll(mod.getNotifyParty());
+				}
+				if (!CollectionUtils.isEmpty(mod.getMarksNumber())) {
+					marksNumber.addAll(mod.getMarksNumber());
+				}
+				if (!CollectionUtils.isEmpty(mod.getContainerDetailes())) {
+					containerDetailes.addAll(mod.getContainerDetailes());
+				}
+				if (!CollectionUtils.isEmpty(mod.getPreviousDeclaration())) {
+					previousDeclarations.addAll(mod.getPreviousDeclaration());
+				}
+			}
+			if(deleteBL.size()>0) {
+				objBlDao.deleteBLData(deleteBL,blsDeleteInput,IGMBLDataDao.RCL_IGM_DELETE_BL_EXPORT);
+				containerDao.deleteContainer(containerDetailes, blsDeleteInput,IGMContainerDao.RCL_IGM_DELETE_CONTAINOR_EXPORT);
+				objConsigneeDao.deleteConsigneeData(consignee, blsDeleteInput,IGMConsigneeDataDao.RCL_IGM_DELETE_CONSIGNEE_EXPORT);
+				objConsignerDao.deleteConsignerData(consigner, blsDeleteInput,IGMConsignerDataDao.RCL_IGM_DELETE_CONSIGNER_EXPORT);
+				objNodifyDao.deleteNodifyData(notifyParty, blsDeleteInput,IGMNodifyPartyDao.RCL_IGM_DELETE_NODIFY_PARTY_DESCRIPTION_EXPORT);
+				objMarksDescDao.deleteMarkDescData(marksNumber, blsDeleteInput,IGMMarksAndDescDao.RCL_IGM_DELETE_MARKS_NUMBER_DESCRIPTION_EXPORT);
+				objPreviousDao.deletePreviousDeclData(previousDeclarations, blsDeleteInput,IGMPPreviousDeclarationDao.RCL_IGM_DELETE_PREV_DECLARATION_EXPORT);
+			}
 			
-				if (blsDeleteInput == null)
-					blsDeleteInput = "'" + mod.getBl() + "'";
-				else
-					blsDeleteInput += ",'" + mod.getBl() + "'";
-
-			if (!CollectionUtils.isEmpty(mod.getConsignee())) {
-				consignee.addAll(mod.getConsignee());
-			}
-			if (!CollectionUtils.isEmpty(mod.getConsigner())) {
-				consigner.addAll(mod.getConsigner());
-			}
-			if (!CollectionUtils.isEmpty(mod.getNotifyParty())) {
-				notifyParty.addAll(mod.getNotifyParty());
-			}
-			if (!CollectionUtils.isEmpty(mod.getMarksNumber())) {
-				marksNumber.addAll(mod.getMarksNumber());
-			}
-			if (!CollectionUtils.isEmpty(mod.getContainerDetailes())) {
-				containerDetailes.addAll(mod.getContainerDetailes());
-			}
-			if (!CollectionUtils.isEmpty(mod.getPreviousDeclaration())) {
-				previousDeclarations.addAll(mod.getPreviousDeclaration());
-			}
-		}
-		if(deleteBL.size()>0) {
-			objBlDao.deleteBLData(deleteBL,blsDeleteInput,IGMBLDataDao.RCL_IGM_SAVE_BL_EXPORT);
-			containerDao.deleteContainer(containerDetailes, blsDeleteInput,IGMContainerDao.RCL_IGM_SAVE_CONTAINOR_EXPORT);
-			objConsigneeDao.deleteConsigneeData(consignee, blsDeleteInput,IGMConsigneeDataDao.RCL_IGM_SAVE_CONSIGNEE_EXPORT);
-			objConsignerDao.deleteConsignerData(consigner, blsDeleteInput,IGMConsignerDataDao.RCL_IGM_SAVE_CONSIGNER_EXPORT);
-			objNodifyDao.deleteNodifyData(notifyParty, blsDeleteInput,IGMNodifyPartyDao.RCL_IGM_SAVE_NODIFY_PARTY_DESCRIPTION_EXPORT);
-			objMarksDescDao.deleteMarkDescData(marksNumber, blsDeleteInput,IGMMarksAndDescDao.RCL_IGM_SAVE_MARKS_NUMBER_DESCRIPTION_EXPORT);
-			objPreviousDao.deletePreviousDeclData(previousDeclarations, blsDeleteInput,IGMPPreviousDeclarationDao.RCL_IGM_SAVE_PREV_DECLARATION_EXPORT);
-		}
-		
-		
-		String blsFetch = null;
-		// for insert ROb bl
-		String voyageRob = null;
-		for (ImportGeneralManifestMod mod : insertBLFetch) {
-		
-			if (blsFetch == null) {
-				blsFetch = "'" + mod.getBl() + "'";
-			   voyageRob = "'" + mod.getVoyage()+"'";
-			  }
-			else {
-				blsFetch += ",'" + mod.getBl() + "'";
-			  voyageRob = "'" + mod.getVoyage()+"'";
-			}
-
-			if (!CollectionUtils.isEmpty(mod.getConsignee())) {
-				consignee.addAll(mod.getConsignee());
-			}
-			if (!CollectionUtils.isEmpty(mod.getConsigner())) {
-				consigner.addAll(mod.getConsigner());
-			}
-			if (!CollectionUtils.isEmpty(mod.getNotifyParty())) {
-				notifyParty.addAll(mod.getNotifyParty());
-			}
-			if (!CollectionUtils.isEmpty(mod.getMarksNumber())) {
-				marksNumber.addAll(mod.getMarksNumber());
-			}
-			if (!CollectionUtils.isEmpty(mod.getContainerDetailes())) {
-				containerDetailes.addAll(mod.getContainerDetailes());
-			}
-			if (!CollectionUtils.isEmpty(mod.getPreviousDeclaration())) {
-				previousDeclarations.addAll(mod.getPreviousDeclaration());
-			}
-		}
-		if(insertBLFetch.size()>0) {
-			objBlDao.saveBLData(insertBLFetch,blsFetch,IGMBLDataDao.RCL_IGM_SAVE_BL_EXPORT);
-			containerDao.saveContainer(containerDetailes, blsFetch,IGMContainerDao.RCL_IGM_SAVE_CONTAINOR_EXPORT);
-			objConsigneeDao.saveConsigneeData(consignee, blsFetch,IGMConsigneeDataDao.RCL_IGM_SAVE_CONSIGNEE_EXPORT);
-			objConsignerDao.saveConsignerData(consigner, blsFetch,IGMConsignerDataDao.RCL_IGM_SAVE_CONSIGNER_EXPORT);
-			objNodifyDao.saveNodifyData(notifyParty, blsFetch,IGMNodifyPartyDao.RCL_IGM_SAVE_NODIFY_PARTY_DESCRIPTION_EXPORT);
-			objMarksDescDao.saveMarkDescData(marksNumber, blsFetch,IGMMarksAndDescDao.RCL_IGM_SAVE_MARKS_NUMBER_DESCRIPTION_EXPORT);
-			objPreviousDao.savePreviousDeclData(previousDeclarations, blsFetch,IGMPPreviousDeclarationDao.RCL_IGM_SAVE_PREV_DECLARATION_EXPORT);
-		}
-		
-		String blsNotFetch = null;
-		Map<String, String> mapParam = new HashMap<>();
-		for (ImportGeneralManifestMod mod : insertBL) {
 			
-			if (blsNotFetch == null) {
-				blsNotFetch = "'" + mod.getBl() + "'";
-				 voyageRob = "'" + mod.getVoyage()+"'";
+			String blsFetch = null;
+			// for insert ROb bl
+			String voyageRob = null;
+			for (ImportGeneralManifestMod mod : insertBLFetch) {
+			
+				if (blsFetch == null) {
+					blsFetch = "'" + mod.getBl() + "'";
+				   voyageRob = "'" + mod.getVoyage()+"'";
+				  }
+				else {
+					blsFetch += ",'" + mod.getBl() + "'";
+				  voyageRob = "'" + mod.getVoyage()+"'";
+				}
+	
+				if (!CollectionUtils.isEmpty(mod.getConsignee())) {
+					consignee.addAll(mod.getConsignee());
+				}
+				if (!CollectionUtils.isEmpty(mod.getConsigner())) {
+					consigner.addAll(mod.getConsigner());
+				}
+				if (!CollectionUtils.isEmpty(mod.getNotifyParty())) {
+					notifyParty.addAll(mod.getNotifyParty());
+				}
+				if (!CollectionUtils.isEmpty(mod.getMarksNumber())) {
+					marksNumber.addAll(mod.getMarksNumber());
+				}
+				if (!CollectionUtils.isEmpty(mod.getContainerDetailes())) {
+					containerDetailes.addAll(mod.getContainerDetailes());
+				}
+				if (!CollectionUtils.isEmpty(mod.getPreviousDeclaration())) {
+					previousDeclarations.addAll(mod.getPreviousDeclaration());
+				}
 			}
-			else {
-				blsNotFetch += ",'" + mod.getBl() + "'";
-				 voyageRob = "'" + mod.getVoyage()+"'";
+			if(insertBLFetch.size()>0) {
+				objBlDao.saveBLData(insertBLFetch,blsFetch,IGMBLDataDao.RCL_IGM_SAVE_BL_EXPORT);
+				containerDao.saveContainer(containerDetailes, blsFetch,IGMContainerDao.RCL_IGM_SAVE_CONTAINOR_EXPORT);
+				objConsigneeDao.saveConsigneeData(consignee, blsFetch,IGMConsigneeDataDao.RCL_IGM_SAVE_CONSIGNEE_EXPORT);
+				objConsignerDao.saveConsignerData(consigner, blsFetch,IGMConsignerDataDao.RCL_IGM_SAVE_CONSIGNER_EXPORT);
+				objNodifyDao.saveNodifyData(notifyParty, blsFetch,IGMNodifyPartyDao.RCL_IGM_SAVE_NODIFY_PARTY_DESCRIPTION_EXPORT);
+				objMarksDescDao.saveMarkDescData(marksNumber, blsFetch,IGMMarksAndDescDao.RCL_IGM_SAVE_MARKS_NUMBER_DESCRIPTION_EXPORT);
+				objPreviousDao.savePreviousDeclData(previousDeclarations, blsFetch,IGMPPreviousDeclarationDao.RCL_IGM_SAVE_PREV_DECLARATION_EXPORT);
 			}
-
-			if (!CollectionUtils.isEmpty(mod.getConsignee())) {
-				consignee.addAll(mod.getConsignee());
+			
+			String blsNotFetch = null;
+			Map<String, String> mapParam = new HashMap<>();
+			for (ImportGeneralManifestMod mod : insertBL) {
+				
+				if (blsNotFetch == null) {
+					blsNotFetch = "'" + mod.getBl() + "'";
+					 voyageRob = "'" + mod.getVoyage()+"'";
+				}
+				else {
+					blsNotFetch += ",'" + mod.getBl() + "'";
+					 voyageRob = "'" + mod.getVoyage()+"'";
+				}
+	
+				if (!CollectionUtils.isEmpty(mod.getConsignee())) {
+					consignee.addAll(mod.getConsignee());
+				}
+				if (!CollectionUtils.isEmpty(mod.getConsigner())) {
+					consigner.addAll(mod.getConsigner());
+				}
+				if (!CollectionUtils.isEmpty(mod.getNotifyParty())) {
+					notifyParty.addAll(mod.getNotifyParty());
+				}
+				if (!CollectionUtils.isEmpty(mod.getMarksNumber())) {
+					marksNumber.addAll(mod.getMarksNumber());
+				}
+				if (!CollectionUtils.isEmpty(mod.getContainerDetailes())) {
+					containerDetailes.addAll(mod.getContainerDetailes());
+				}
+				if (!CollectionUtils.isEmpty(mod.getPreviousDeclaration())) {
+					previousDeclarations.addAll(mod.getPreviousDeclaration());
+				}
 			}
-			if (!CollectionUtils.isEmpty(mod.getConsigner())) {
-				consigner.addAll(mod.getConsigner());
+			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, service.getVessel());
+		//	mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, service.getVoyage());
+			mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, voyageRob);
+			mapParam.put(ImportGeneralManifestDao.KEY_IGM_POL, service.getPol());
+			
+			if(insertBL.size()>0) {
+				objBlDao.saveUnfetchedBlData(blsNotFetch,IGMBLDataDao.RCL_IGM_UNFETCHED_SAVE_BL_EXPORT,mapParam,insertBL);
+				containerDao.saveUnfetchedContainer(blsNotFetch,IGMContainerDao.RCL_IGM_SAVE_UNFETCHED_CONTAINOR_EXPORT);
+				objConsigneeDao.saveUnfetchedConsigneeData(blsNotFetch,IGMConsigneeDataDao.RCL_IGM_SAVE_UNFETCHED_CONSIGNEE_EXPORT);
+				objConsignerDao.saveUnfetchedConsignerData(blsNotFetch,IGMConsignerDataDao.RCL_IGM_SAVE_UNFETCHED_CONSIGNER_EXPORT);
+				objNodifyDao.saveUnfetchedNodifyData(blsNotFetch,IGMNodifyPartyDao.RCL_IGM_SAVE_UNFETCHED_NODIFY_PARTY_DESCRIPTION_EXPORT);
+				objMarksDescDao.saveUnfetchedMarkDescData(blsNotFetch,IGMMarksAndDescDao.RCL_IGM_SAVE_UNFETCHED_MARKS_NUMBER_DESCRIPTION_EXPORT);
+				objPreviousDao.saveUnfetchedPreviousDeclData(blsNotFetch,IGMPPreviousDeclarationDao.RCL_IGM_SAVE_UNFETCHED_PREV_DECLARATION_EXPORT);
 			}
-			if (!CollectionUtils.isEmpty(mod.getNotifyParty())) {
-				notifyParty.addAll(mod.getNotifyParty());
-			}
-			if (!CollectionUtils.isEmpty(mod.getMarksNumber())) {
-				marksNumber.addAll(mod.getMarksNumber());
-			}
-			if (!CollectionUtils.isEmpty(mod.getContainerDetailes())) {
-				containerDetailes.addAll(mod.getContainerDetailes());
-			}
-			if (!CollectionUtils.isEmpty(mod.getPreviousDeclaration())) {
-				previousDeclarations.addAll(mod.getPreviousDeclaration());
-			}
+		}catch (Exception e) {
+			e.printStackTrace();
+			net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();
+			jsonObj = new net.sf.json.JSONObject();
+			jsonObj.put("result", saveParam.getSaveBlPhase());
+			jsonObj.put("msg", "Error");
+			jsonObj.write(response.getWriter());
+			return null;
 		}
-		mapParam.put(ImportGeneralManifestDao.KEY_IGM_VESSEL, service.getVessel());
-	//	mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, service.getVoyage());
-		mapParam.put(ImportGeneralManifestDao.KEY_IGM_VOYAGE, voyageRob);
-		mapParam.put(ImportGeneralManifestDao.KEY_IGM_POL, service.getPol());
-		
-		if(insertBL.size()>0) {
-			objBlDao.saveUnfetchedBlData(blsNotFetch,IGMBLDataDao.RCL_IGM_UNFETCHED_SAVE_BL_EXPORT,mapParam,insertBL);
-			containerDao.saveUnfetchedContainer(blsNotFetch,IGMContainerDao.RCL_IGM_SAVE_UNFETCHED_CONTAINOR_EXPORT);
-			objConsigneeDao.saveUnfetchedConsigneeData(blsNotFetch,IGMConsigneeDataDao.RCL_IGM_SAVE_UNFETCHED_CONSIGNEE_EXPORT);
-			objConsignerDao.saveUnfetchedConsignerData(blsNotFetch,IGMConsignerDataDao.RCL_IGM_SAVE_UNFETCHED_CONSIGNER_EXPORT);
-			objNodifyDao.saveUnfetchedNodifyData(blsNotFetch,IGMNodifyPartyDao.RCL_IGM_SAVE_UNFETCHED_NODIFY_PARTY_DESCRIPTION_EXPORT);
-			objMarksDescDao.saveUnfetchedMarkDescData(blsNotFetch,IGMMarksAndDescDao.RCL_IGM_SAVE_UNFETCHED_MARKS_NUMBER_DESCRIPTION_EXPORT);
-			objPreviousDao.saveUnfetchedPreviousDeclData(blsNotFetch,IGMPPreviousDeclarationDao.RCL_IGM_SAVE_UNFETCHED_PREV_DECLARATION_EXPORT);
-		}
- 
 		net.sf.json.JSONObject jsonObj = new net.sf.json.JSONObject();
 		jsonObj = new net.sf.json.JSONObject();
 		jsonObj.put("result", saveParam.getSaveBlPhase());
+		jsonObj.put("msg", "Success");
 		jsonObj.write(response.getWriter());
 		return null;
 		 

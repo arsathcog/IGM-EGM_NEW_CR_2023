@@ -2840,7 +2840,12 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 						}).then(function(data, status, headers, config) {
 							debugger;
 							$('#phase'+data.data.result).removeClass('active'); 
-							$('#phase'+data.data.result).html('Completed'); 
+							if(data.data.msg == "Error"){
+								$('#phase'+data.data.result).html('Faild'); 
+							} else {
+								$('#phase'+data.data.result).html('Completed'); 
+							}
+							
 							 
 						}); 
 							 
