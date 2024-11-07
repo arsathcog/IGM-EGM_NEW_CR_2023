@@ -6,6 +6,7 @@ import java.util.Map;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.rclgroup.dolphin.web.igm.vo.ImportGeneralManifestMod;
 
+
 public interface IGMBLDataDao {
 	
 	public static final String RCL_IGM_SAVE_BL = "RCL_IGM_BL_INFO.RCL_IGM_SAVE_BL_DATA_SUSHIL";
@@ -61,5 +62,6 @@ public interface IGMBLDataDao {
 	public void saveUnfetchedBlData (String unFetchedinsertBLList,String procedureName,Map amapParam,List<ImportGeneralManifestMod> insertBL) throws Exception;
 	
 	public void deleteBLData(List<ImportGeneralManifestMod> deleteBL,String blsDeleteInput,String procedureName) throws CloneNotSupportedException, JsonProcessingException;
+	
 
 }

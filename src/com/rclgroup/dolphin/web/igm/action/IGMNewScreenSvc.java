@@ -196,9 +196,9 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 	}
 
 	private ActionForward getCarogoDetailsHBL(ActionMapping mapping, ActionForm form, HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response)  throws Exception{
 		System.out.println("IGMNewScreenSvc getCarogoDetailsHBL() called.");
-		return null;
+	return null;
 	}
 
 	private ActionForward getHblListImport(ActionMapping mapping, ActionForm form, HttpServletRequest request,
@@ -569,6 +569,8 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 			objNodifyDao.saveNodifyData(notifyParty, blsFetch,IGMNodifyPartyDao.RCL_IGM_SAVE_NODIFY_PARTY_DESCRIPTION);
 			objMarksDescDao.saveMarkDescData(marksNumber, blsFetch,IGMMarksAndDescDao.RCL_IGM_SAVE_MARKS_NUMBER_DESCRIPTION);
 			objPreviousDao.savePreviousDeclData(previousDeclarations, blsFetch,IGMPPreviousDeclarationDao.RCL_IGM_SAVE_PREV_DECLARATION);
+			
+			//objBlDao.saveBlDetails(insertBLFetch, blsFetch, IGMBLDataDao.RCL_SAVE_DETAILS);
 		}
 		
 		String blsNotFetch = null;
@@ -1152,7 +1154,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		 	List<ItnrySCE> itrnrySce = null;
 		 	
 		    // for BlId 
-	 	    List<BlId> blId = null;
+//	 	    List<BlId> blId = null;
 	 	    if(objForm.getFileType().equals("SAM")) {
 	 	    
 			 	 for(int i =0;i<blListNewSavedVal.size();i++) {
@@ -1160,8 +1162,8 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 			 		itrnrySam = objPersonDao.getItrnrySam( blListNewSavedVal.get(i).getBl(),PersonOnBoardDao.SQL_RCL_GET_ITNRY_DATA);
 				    blListNewSavedVal.get(i).setItnrySam(itrnrySam);
 				    //FOR bl id
-				    blId = objPersonDao.getBlId( blListNewSavedVal.get(i).getBl(),PersonOnBoardDao.SQL_RCL_GET_BLID);
-				    blListNewSavedVal.get(i).setBlId(blId);
+//				    blId = objPersonDao.getBlId( blListNewSavedVal.get(i).getBl(),PersonOnBoardDao.SQL_RCL_GET_BLID);
+//				    blListNewSavedVal.get(i).setBlId(blId);
 			 	 }
 	 	    }
 		 	 if(objForm.getFileType().equals("SCE")) {
@@ -1617,5 +1619,7 @@ public class IGMNewScreenSvc extends BaseAction implements Runnable {
 		System.out.println(isdDateAndTime);
 		return  isdDateAndTime;
 	}
+	
+	
 
 }

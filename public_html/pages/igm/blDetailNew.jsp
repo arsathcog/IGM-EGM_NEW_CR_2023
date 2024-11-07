@@ -72,7 +72,7 @@
 			         	  </tr>
 			         	  <tr ng-repeat="item1 in item.hblArr"  ng-dblclick="setIndexHBL($index,this);">	
 			         	  			<td class="bl_detail_Newl">{{$index + 1}}</td>
-			         	  			<td class="bl_detail_Newl"><input type="go" name="chkHbl" id = "subCheckBoxHbl" onclick="unSelects(this)" ng-model="item1.isBlSave" ng-checked="item1.isBlSave == 'true'"  
+			         	  			<td class="bl_detail_Newl"><input type="checkbox" name="chkHbl" id = "subCheckBoxHbl" onclick="unSelects(this)" ng-model="item1.isBlSave" ng-checked="item1.isBlSave == 'true'"  
             		   						ng-click="hblcheckTotalIteam(this);" value="item1.isBlSave'"></td>
 			         	  			<td class="bl_detail_Newl">{{item1.hblNo}}</td>
 									<td class="bl_detail_Newl">{{item1.blDate}}</td>

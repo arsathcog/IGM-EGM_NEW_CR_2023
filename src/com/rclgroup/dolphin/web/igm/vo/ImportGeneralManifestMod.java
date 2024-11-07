@@ -749,7 +749,7 @@ public class ImportGeneralManifestMod implements Cloneable {
 	private String igmDel;
 	
 	// BL ID FOR SPLITINDICATOR
-	private List<BlId> blId;
+	private String blId;
 	
 	// for multiple Itrnry
 	
@@ -795,12 +795,12 @@ public class ImportGeneralManifestMod implements Cloneable {
 		this.itnrySce = itnrySce;
 	}
 
-	public List<BlId> getBlId() {
+	public String getBlId() {
 		return blId;
 	}
 
-	public void setBlId(List<BlId> blId) {
-		this.blId = blId;
+	public void setBlId(String string) {
+		this.blId = string;
 	}
 
 	private List<ImportGeneralManifestUim> hblArr = new ArrayList<>();

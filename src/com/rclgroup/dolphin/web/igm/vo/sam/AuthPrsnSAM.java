@@ -4,14 +4,14 @@ import com.rclgroup.dolphin.web.igm.vo.FiledValidation;
 
 public class AuthPrsnSAM {
 	
-	private String sbmtrTyp ;
-	private String sbmtrCd ;
-	private String authReprsntvCd ;
-	private String shpngLineCd  ;
-	private String authSeaCarrierCd ;
-	private String masterName ;
-	private String trmnlOprtrCd ;
 	private String  shpngLineBondNmbr;
+	private String trmnlOprtrCd ;
+	private String masterName ;
+	private String authSeaCarrierCd ;
+	private String shpngLineCd  ;
+	private String authReprsntvCd ;
+	private String sbmtrCd ;
+	private String sbmtrTyp ;
 //	private String authRepCd;
 
 
@@ -106,10 +106,13 @@ public class AuthPrsnSAM {
 
 		@Override
 		public String toString() {
-			return "AuthPrsnSAM [sbmtrTyp=" + sbmtrTyp + ", sbmtrCd=" + sbmtrCd + ", authReprsntvCd=" + authReprsntvCd
-					+ ", shpngLineCd=" + shpngLineCd + ", authSeaCarrierCd=" + authSeaCarrierCd + ", masterName="
-					+ masterName + ", trmnlOprtrCd=" + trmnlOprtrCd + ", shpngLineBondNmbr=" + shpngLineBondNmbr + "]";
+			return "AuthPrsnSAM [shpngLineBondNmbr=" + shpngLineBondNmbr + ", trmnlOprtrCd=" + trmnlOprtrCd
+					+ ", masterName=" + masterName + ", authSeaCarrierCd=" + authSeaCarrierCd + ", shpngLineCd="
+					+ shpngLineCd + ", authReprsntvCd=" + authReprsntvCd + ", sbmtrCd=" + sbmtrCd + ", sbmtrTyp="
+					+ sbmtrTyp + "]";
 		}
+
+		
    
 		
 		

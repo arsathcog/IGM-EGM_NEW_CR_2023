@@ -269,7 +269,8 @@ public class TrnsprtDocSCE {
 	}
 
 	public void setNameOfAnyOtherNotfdParty(String nameOfAnyOtherNotfdParty) {
-		nameOfAnyOtherNotfdParty = FiledValidation.isNullAndSetlength(nameOfAnyOtherNotfdParty, 9);
+		//nameOfAnyOtherNotfdParty = FiledValidation.isNullAndSetlength(nameOfAnyOtherNotfdParty, 9);
+		nameOfAnyOtherNotfdParty = FiledValidation.isNullAndSetlength(nameOfAnyOtherNotfdParty, 70);
 		this.nameOfAnyOtherNotfdParty = nameOfAnyOtherNotfdParty;
 	}
 

@@ -37,7 +37,7 @@ public interface PersonOnBoardDao {
 			+ "RCLTBLS.DEX_BL_ROUTING dex on cam.PK_POINT_CODE = dex.DN_load_port  where "
 			+ "dex.TRANSPORT_MODE not in ('R','T') and dex.fk_bl_no = ?  ORDER BY dex.VOYAGE_SEQ";
 	
-	public static final String SQL_RCL_GET_BLID = "SELECT BLID FROM   RCLTBLS.DEX_BL_HEADER WHERE PK_BL_NO = ? ";
+//	public static final String SQL_RCL_GET_BLID = "SELECT BLID FROM   RCLTBLS.DEX_BL_HEADER WHERE PK_BL_NO = ? ";
 
 
 	public void savePersonOnBoard(List<IGMPersonOnBoardMod> personDetailes, ImportGeneralManifestUim objForm ) throws Exception;
@@ -64,7 +64,7 @@ public interface PersonOnBoardDao {
 	
 	public List<ItnrySCE> getItrnrySce(String blNo, String procedureName) throws Exception;
 	
-	public List<BlId> getBlId(String blNo, String procedureName) throws Exception;
+	//public List<BlId> getBlId(String blNo, String procedureName) throws Exception;
 	
 	
 		

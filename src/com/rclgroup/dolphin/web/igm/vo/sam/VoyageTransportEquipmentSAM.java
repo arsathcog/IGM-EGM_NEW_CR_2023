@@ -1,24 +1,27 @@
 package com.rclgroup.dolphin.web.igm.vo.sam;
 
 public class VoyageTransportEquipmentSAM {
-	
-	private String equipmentSequenceNo;
-	private String equipmentId;
-	private String equipmentType;
-	private String equipmentSize;
+	private String equipmentSealType;
+	private String equipmentSealNumber;
 	private String equipmentLoadStatus;
+	private String equipmentSize;
+	private String equipmentType;
+	private String equipmentId;
+	private String equipmentSequenceNo;
+	
+	
 //	private String additionalEquipmentHold;
 //	private String finalDestinationLocation;
 //	private String eventDt;
-	private String equipmentSealNumber;
-	private String equipmentSealType;
+	
+	
 //	private String otherEquipmentId;
 //	private String equipmentStatus;
 	private String socFlag;
 	private String containerAgentCode;
 	private String containerWeight;
 	private String totalNumberOfPackages;
-//	private String containerBondFlag;
+	private String containerBondFlag;
 	private String stowagePositionOfContainer;
 	
 	
@@ -83,13 +86,13 @@ public class VoyageTransportEquipmentSAM {
 	public void setTotalNumberOfPackages(String totalNumberOfPackages) {
 		this.totalNumberOfPackages = totalNumberOfPackages;
 	}
-//	public String getContainerBondFlag() {
-//		return containerBondFlag;
-//	}
-//	public void setContainerBondFlag(String containerBondFlag) {
-//		this.containerBondFlag = containerBondFlag;
-//	}
-//	
+	public String getContainerBondFlag() {
+		return containerBondFlag;
+	}
+	public void setContainerBondFlag(String containerBondFlag) {
+		this.containerBondFlag = containerBondFlag;
+	}
+	
 //	public String getAdditionalEquipmentHold() {
 //		return additionalEquipmentHold;
 //	}

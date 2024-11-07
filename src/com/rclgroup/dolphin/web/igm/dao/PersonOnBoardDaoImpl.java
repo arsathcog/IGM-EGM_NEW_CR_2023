@@ -367,18 +367,18 @@ public class PersonOnBoardDaoImpl extends AncestorJdbcDao implements PersonOnBoa
 	
 	
 	
-	@Override
-	public List<BlId> getBlId(String blNo,String procedureName) throws Exception {
-		return  getJdbcTemplate().query(SQL_RCL_GET_BLID,new Object[] {blNo},new IGMBlIdMapper());
-	}
-	
-	private class IGMBlIdMapper extends JdbcRowMapper{
-		public BlId mapRow(ResultSet rs, int row) throws SQLException{
-			BlId blId = new BlId();
-			blId.setBlId(rs.getString("BLID"));
-			return blId;
-		}
-	}
+//	@Override
+//	public List<BlId> getBlId(String blNo,String procedureName) throws Exception {
+//		return  getJdbcTemplate().query(SQL_RCL_GET_BLID,new Object[] {blNo},new IGMBlIdMapper());
+//	}
+//	
+//	private class IGMBlIdMapper extends JdbcRowMapper{
+//		public BlId mapRow(ResultSet rs, int row) throws SQLException{
+//			BlId blId = new BlId();
+//			blId.setBlId(rs.getString("BLID"));
+//			return blId;
+//		}
+//	}
 	
 	
 

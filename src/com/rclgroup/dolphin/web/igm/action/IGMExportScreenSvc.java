@@ -1034,16 +1034,16 @@ System.out.println("getCarogoDetails() Called.");
 		 	List<ItnrySCX> itrnryScx = null;
 		 	
 		    // for BlId 
-	 	    List<BlId> blId = null;
+//	 	    List<BlId> blId = null;
 	 	    if(objForm.getFileType().equals("SDM")) {
 	 	    
 			 	 for(int i =0;i<blListNewSavedVal.size();i++) {
 			 		 
 			 		itrnrySdm = objPersonDao.getItrnrySdm( blListNewSavedVal.get(i).getBl(),PersonOnBoardDao.SQL_RCL_GET_ITNRY_DATA);
 				    blListNewSavedVal.get(i).setItnrySdm(itrnrySdm);
-				    //FOR bl id
-				    blId = objPersonDao.getBlId( blListNewSavedVal.get(i).getBl(),PersonOnBoardDao.SQL_RCL_GET_BLID);
-				    blListNewSavedVal.get(i).setBlId(blId);
+//				    //FOR bl id
+//				    blId = objPersonDao.getBlId( blListNewSavedVal.get(i).getBl(),PersonOnBoardDao.SQL_RCL_GET_BLID);
+//				    blListNewSavedVal.get(i).setBlId(blId);
 			 	 }
 	 	    }
 		 	 if(objForm.getFileType().equals("SCX")) {

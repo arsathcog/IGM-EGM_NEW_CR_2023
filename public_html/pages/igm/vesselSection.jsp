@@ -232,9 +232,20 @@
 							type="button" value=". . ." name="igmpolterminalfield"
 							class="lookUpbtnbutton" ng-click="portPopUp('Port Of Origin')" /></td>
 						<th class="veseelRemoveBorder">Port Of Arrival</th>
-						<td><input type="text" class="roundshap9"
+						<td>
+						<!-- <input type="text" class="roundshap9"
 							value="{{selectedServcies.portArrival}}"
-							ng-model="selectedServcies.portArrival"> <input
+							ng-model="selectedServcies.portArrival">    original-->
+							<!--  <input type="text" class="roundshap9"
+							value="{{selectedServcies.pod}}"
+							ng-model="selectedServcies.pod"> -->						
+       <input type="text" class="roundshap9"
+       value="{{ selectedServcies.pol != null ? selectedServcies.pol : selectedServcies.pod }}"
+       ng-model="selectedServcies.pol || selectedServcies.pod">
+       
+
+							
+							<input 
 							type="hidden"
 							value="{{selectedServcies.port_of_call_name_portArrival}}"
 							ng-model="selectedServcies.port_of_call_name_portArrival" /> <input

@@ -31,6 +31,10 @@ public class IGMBLDataDaoImpl extends AncestorJdbcDao implements IGMBLDataDao {
 		objSP.execute();
 
 		}
+	
+	
+	
+	
 
 	@Override
 	public void deleteBLData(List<ImportGeneralManifestMod> deleteBL,String blsDeleteInput, String procedureName) throws CloneNotSupportedException, JsonProcessingException {

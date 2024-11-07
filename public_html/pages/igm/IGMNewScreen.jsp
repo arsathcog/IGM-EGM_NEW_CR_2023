@@ -1820,6 +1820,7 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 	$rootScope.curPage = 0;
 	$rootScope.pageSize = 10;
 	$scope.init = function () {	
+		$("selectAllCheckBox").checked == false ;
 	}
 	
 	$scope.clearSaveDialog=function(){
@@ -1861,7 +1862,7 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 	$scope.changefromItemNo= function(){
 		//alert(2)
 		$scope.selectedServcies.toItemNo=0;
-		   $scope.selectAllHake();
+		//   $scope.selectAllHake();
 		if($scope.selectedServcies.fromItemNo){
 			$scope.selectedServcies.toItemNo=parseInt($scope.selectedServcies.fromItemNo)+ $window.jsonData.result[0].BLS.length-1;
 			return parseInt($scope.selectedServcies.fromItemNo)+ $window.jsonData.result[0].BLS.length;
@@ -1954,7 +1955,7 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 		   $("body").append('<div class="loading"></div>');
 
 		   if ( ($scope.consignee.consigneeName != "BANK" || $scope.consignee.consigneeName != "TO THE ORDER OF" ||
-		      $scope.consignee.consigneeName != "TO ORDER" || $scope.consignee.consigneeName != "TO ORDER OF")&&
+		      $scope.consignee.consigneeName != "TO ORDER" || $scope.consignee.consigneeName != "TO ORDER OF"  || $scope.consignee.consigneeName != "TO THE ORDER" )&&
 		       $scope.notifyParty.notifyName == "SAME AS CONSIGNEE" ) {
 		      $scope.BLS[$scope.blIndex].notifyParty[0].costumerCode = $scope.BLS[$scope.blIndex].consignee[0].customerCode;
 		      $scope.BLS[$scope.blIndex].notifyParty[0].costumerName = $scope.BLS[$scope.blIndex].consignee[0].customerName;
@@ -1977,7 +1978,7 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 
 		     
 		   } else if (($scope.consignee.consigneeName != "BANK" || $scope.consignee.consigneeName != "TO THE ORDER OF" ||
-		      $scope.consignee.consigneeName != "TO ORDER" || $scope.consignee.consigneeName != "TO ORDER OF" )&&
+		      $scope.consignee.consigneeName != "TO ORDER" || $scope.consignee.consigneeName != "TO ORDER OF" || $scope.consignee.consigneeName != "TO THE ORDER" )&&
 		      $scope.notifyParty.forwader == "FWR") {
 
 		      $scope.consigneIec = $scope.consignee.consigneIec;
@@ -2005,7 +2006,7 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 		      $("body").find('.loading').remove();
 
 		   } else if (($scope.consignee.consigneeName == "BANK" || $scope.consignee.consigneeName == "TO THE ORDER OF" ||
-		      $scope.consignee.consigneeName == "TO ORDER" || $scope.consignee.consigneeName == "TO ORDER OF" )&&
+		      $scope.consignee.consigneeName == "TO ORDER" || $scope.consignee.consigneeName == "TO ORDER OF" || $scope.consignee.consigneeName == "TO THE ORDER")&&
 		      ($scope.notifyParty.notifyName != "SAME AS CONSIGNEE" || $scope.notifyParty.forwader != "FWR")) {
 		      $scope.BLS[$scope.blIndex].consignee[0].customerCode = $scope.BLS[$scope.blIndex].notifyParty[0].costumerCode;
 		      $scope.BLS[$scope.blIndex].consignee[0].customerName = $scope.BLS[$scope.blIndex].notifyParty[0].costumerName;
@@ -2027,7 +2028,7 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 		      swal("Message", "Notify Party Data copy to Consignee.", "info");
 		      $("body").find('.loading').remove();
 		   } else if (($scope.consignee.consigneeName != "BANK" || $scope.consignee.consigneeName != "TO THE ORDER OF" ||
-		      $scope.consignee.consigneeName != "TO ORDER" || $scope.consignee.consigneeName != "TO ORDER OF" )&&
+		      $scope.consignee.consigneeName != "TO ORDER" || $scope.consignee.consigneeName != "TO ORDER OF"  || $scope.consignee.consigneeName != "TO THE ORDER" )&&
 		      $scope.notifyParty.countryCode != "IN" && $scope.consignee.portOfDischarge.substring(0, 2) == "IN") {
 		      $scope.BLS[$scope.blIndex].consignee[0].customerCode = $scope.BLS[$scope.blIndex].notifyParty[0].costumerCode;
 		      $scope.BLS[$scope.blIndex].consignee[0].customerName = $scope.BLS[$scope.blIndex].notifyParty[0].costumerName;
@@ -2068,7 +2069,7 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 		var selectedIndex = obj.blIndex;
 		if($scope.notifyParty.consigneCheckBox == "N"){
 		if($scope.consignee.consigneeName == "BANK" || $scope.consignee.consigneeName == "TO THE ORDER OF" || 
-			$scope.consignee.consigneeName == "TO ORDER" || $scope.consignee.consigneeName == "TO ORDER OF" ||
+			$scope.consignee.consigneeName == "TO ORDER" || $scope.consignee.consigneeName == "TO ORDER OF" ||  $scope.consignee.consigneeName == "TO THE ORDER" || 
 			$scope.notifyParty.countryCode != "IN"&& $scope.consignee.portOfDischarge.substring(0,2) == "IN"){
 			obj.BLS[selectedIndex].consignee[0].customerCode=obj.BLS[selectedIndex].notifyParty[0].costumerCode;
 			obj.BLS[selectedIndex].consignee[0].customerName=obj.BLS[selectedIndex].notifyParty[0].costumerName;
@@ -2116,7 +2117,7 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 			$scope.notifyPan  =  $scope.consignee.consignePan;
 
 		}else if ($scope.consignee.consigneeName != "BANK" || $scope.consignee.consigneeName != "TO THE ORDER OF" || 
-				$scope.consignee.consigneeName != "TO ORDER" || $scope.consignee.consigneeName != "TO ORDER OF" && $scope.notifyParty.notifyName == "SAME AS CONSIGNEE"){
+				$scope.consignee.consigneeName != "TO ORDER" || $scope.consignee.consigneeName != "TO ORDER OF" || $scope.consignee.consigneeName != "TO THE ORDER"  && $scope.notifyParty.notifyName == "SAME AS CONSIGNEE"){
 			obj.BLS[selectedIndex].notifyParty[0].costumerCode=obj.BLS[selectedIndex].consignee[0].customerCode;
 			obj.BLS[selectedIndex].notifyParty[0].costumerName=obj.BLS[selectedIndex].consignee[0].customerName;
 			obj.BLS[selectedIndex].notifyParty[0].addressLine1=obj.BLS[selectedIndex].consignee[0].addressLine1;
@@ -2220,6 +2221,7 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 	}
 
 
+
 	$scope.blcheckTotalIteamSelectAll=function(obj)
 	{
 			debugger;
@@ -2254,7 +2256,7 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 				for(var i=0; i<$scope.BLS.length;i++){
 					var iteam = $scope.BLS[i];
 					iteam.isBlSave=false;
-					if(iteam.saveFlags= 'N' && iteam.itemNumber!=null && iteam.itemNumber!=""){
+					if(iteam.saveFlags == 'N' && iteam.itemNumber!=null && iteam.itemNumber!=""){
 						iteam.saveFlags='D';
 					}else{
 						iteam.saveFlags='N';
@@ -2324,6 +2326,7 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
                                         }
                                 }
                 }
+               
       
 }
 	
@@ -2356,7 +2359,7 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 				for(var i=0; i<$scope.BLS.length;i++){
 					var iteam = $scope.BLS[i];
 					iteam.isBlSave=false;
-					if(iteam.saveFlags= 'N' && iteam.itemNumber!=null && iteam.itemNumber!=""){
+					if(iteam.saveFlags == 'N' && iteam.itemNumber!=null && iteam.itemNumber!=""){
 						iteam.saveFlags='D';
 					}else{
 						iteam.saveFlags='N';
@@ -2687,6 +2690,9 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 	  }
     
     $scope.validateBLTab = function(){
+    	/*  if($scope.selectedServcies.fromItemNo == null || $scope.selectedServcies.fromItemNo == ""){
+          	alert("Please Enter From Item No");
+          	} */
             debugger;
             var totalSelectedIteam = 0
             for(var d=0;d<$scope.BLS.length;d++){
@@ -2820,6 +2826,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 						blSaveJson['service'] = (jsonData.result[0].service);
 						blSaveJson['sequence'] = (jsonData.result[0].sequence);
 						blSaveJson['saveBlPhase'] = d;
+						
 						
 						$http({
 						method : "POST",
@@ -3966,6 +3973,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 		}
 
 		$scope.updatingCargoDetails = function(){
+			debugger;
 
 		//	console.log("Result Bl --- " ,$scope.resultBl );
 		//	console.log("Result Bl --- " ,$scope.BLS );
@@ -4243,7 +4251,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 
 
 						 if($scope.consignee.consigneeName == "BANK" &&($scope.notifyParty.notifyName != "TO THE ORDER OF" ||
-								   $scope.notifyParty.notifyName  != "TO ORDER" ||$scope.notifyParty.notifyName != "TO ORDER OF")){
+								   $scope.notifyParty.notifyName  != "TO ORDER" ||$scope.notifyParty.notifyName != "TO ORDER OF" || $scope.consignee.consigneeName != "TO THE ORDER" )){
 							  $scope.BLS[j].consignee[0].customerCode = $scope.BLS[j].notifyParty[0].costumerCode;
 						      $scope.BLS[j].consignee[0].customerName = $scope.BLS[j].notifyParty[0].costumerName;
 						      $scope.BLS[j].consignee[0].addressLine1 = $scope.BLS[j].notifyParty[0].addressLine1;
@@ -4265,7 +4273,7 @@ $scope.setTwoNumberDecimalContainercbm= function(selectedContainer,firestNo,secN
 
 						     
 						   }else if(($scope.consignee.consigneeName == "TO THE ORDER OF" || 
-									$scope.consignee.consigneeName == "TO ORDER" || $scope.consignee.consigneeName == "TO ORDER OF" ||
+									$scope.consignee.consigneeName == "TO ORDER" || $scope.consignee.consigneeName == "TO ORDER OF"  || $scope.consignee.consigneeName == "TO THE ORDER" || 
 									$scope.notifyParty.countryCode != "IN"&& $scope.consignee.portOfDischarge.substring(0,2) == "IN") 
 									&& $scope.notifyParty.notifyName == "SAME AS CONSIGNEE" ){
 								

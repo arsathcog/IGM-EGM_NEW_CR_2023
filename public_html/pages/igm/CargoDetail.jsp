@@ -55,7 +55,7 @@
 
 						 <tr>	<td>Item Type</td>    </tr>  
 						 <tr>	<td>
-									  <select class="smallDPCss" ng-model="selectedBL.itemType" ng-options="x for x in itemTypeArray">
+									  <select class="smallDPCss" ng-model="selectedBL.cargoMovmnt" ng-options="x for x in itemTypeArray">
 									  </select>
 								</td>   
 						 </tr>	
@@ -556,8 +556,10 @@
 				<td class="veseelRemoveBorder">Zip
 				</td>
 				<td><span id="consigneeZip"> <input type="text"
-						value="{{consignee.zip}}" ng-model="selectedBL.pointName" maxlength="9"
+				    value="{{consignee.zip}}" ng-model="consignee.zip" maxlength="9" 
+						
 						class="roundshap2"></span></td>
+						<!--  value="{{consignee.zip}}" ng-model="selectedBL.pointName" maxlength="9"  COMMENTED TO CHECK SHIVA-->
 
 				<td class="veseelRemoveBorder" >Move to Notify Party </td>
 				<td><button class="hover" id="moveToconsignee" style="background-color: #167FF6;border-radius: 6px;width:50px"> <i class="fa fa-arrow-right" style="font-size:20px;color:#080808" ng-click="getDataMoveToNextTab(this,'Consignee')"></i> </button> </td>

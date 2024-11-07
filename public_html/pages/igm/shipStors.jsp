@@ -24,7 +24,7 @@
 				<th class="TableLeftSub tableVessel-width">Location</th>
 				<th class="TableLeftSub tableVessel-width">Quantity On Board</th>
 				<th class="TableLeftSub tableVessel-width">Quantity On Board Code</th>
-				<th class="TableLeftSub tableVessel-width">Vessel Srno</th>
+			  <th class="TableLeftSub tableVessel-width">Vessel Srno</th> 
 				
             <tr>
             <tr ng-repeat="cellData in shipStoreTable"    >
@@ -35,7 +35,7 @@
 									 <td class="bl_detail_Store">   {{cellData.locOnbrdText }}   </td>  
 									 <td class="bl_detail_Store">   {{cellData.qntyOnbrd}}    </td>  
 									 <td class="bl_detail_Store">   {{cellData.qntyCdOnbrd}}    </td>  
-									 <td class="bl_detail_Store">   {{cellData.vesselSrno}}    </td> 
+									  <td class="bl_detail_Store">   {{cellData.vesselSrno}}    </td> 
             </tr>
             
 			</table>

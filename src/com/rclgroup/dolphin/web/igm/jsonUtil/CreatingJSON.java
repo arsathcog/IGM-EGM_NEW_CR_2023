@@ -514,10 +514,10 @@ public class CreatingJSON {
 					} }
 			 totalNumberOfpkgs= String.valueOf(totalPkg);	
 			 } 
-			 String [] typeOfPkgs = null ;
-			 if(blObj.getType_of_package() != null || !blObj.getType_of_package().equals("")) {
-				  typeOfPkgs = blObj.getType_of_package().trim().split(",");
-			 }
+//			 String [] typeOfPkgs = null ;
+//			 if(blObj.getType_of_package() != null || !blObj.getType_of_package().equals("")) {
+//				  typeOfPkgs = blObj.getType_of_package().trim().split(",");
+//			 }
 			
 			
 //		---------------------------------*MCRefSAM*---------------------------------------------	
@@ -638,13 +638,19 @@ public class CreatingJSON {
 				locCstmClassObj.setSplitIndctr("");
 			}
 			
-			if( blObj.getBlId().get(0).getBlId().equals("X")) {
+//			if( blObj.getBlId().get(0).getBlId().equals("X")) {
+//				locCstmClassObj.setSplitIndctr("Y");
+//			}else
+//			{
+//			   locCstmClassObj.setSplitIndctr("N");
+//			}
+//			
+			if( blObj.getBlId().equals("X")) {
 				locCstmClassObj.setSplitIndctr("Y");
 			}else
 			{
 			   locCstmClassObj.setSplitIndctr("N");
 			}
-			
 			
 			
 //			locCstmClassObj.setTypOfCrgo(pol);
@@ -761,18 +767,63 @@ public class CreatingJSON {
 					  
 					}
 					trnsprtDocClassObj.setCnsgnePstcd( settingLength(cnsneeDtl.getZip(),9));
+					/*
+					 * try { if( cnsneeDtl.getConsigneIec()!= null ||
+					 * !cnsneeDtl.getConsigneIec().equals("") ) {
+					 * trnsprtDocClassObj.setCnsgnesCd(settingLength(cnsneeDtl.getConsigneIec(),17))
+					 * ; trnsprtDocClassObj.setTypOfCd( settingLength("IEC",30)); }else { for
+					 * (NotifyParty notyObj : notifyPartyDetailes) {
+					 * trnsprtDocClassObj.setCnsgnesCd(settingLength(notyObj.getNotifyIec(),17));
+					 * trnsprtDocClassObj.setTypOfCd( settingLength("IEC",30)); } }
+					 * 
+					 * // for testiing // if(cnsneeDtl.getConsignePan() != null ||
+					 * !cnsneeDtl.getConsignePan().equals("")) { //
+					 * trnsprtDocClassObj.setCnsgnesCd(settingLength(cnsneeDtl.getConsignePan(),17))
+					 * ; // trnsprtDocClassObj.setTypOfCd( settingLength("PAN",30)); // }
+					 * 
+					 * }catch (Exception e) { for (NotifyParty notyObj : notifyPartyDetailes) {
+					 * trnsprtDocClassObj.setCnsgnesCd(settingLength(notyObj.getNotifyIec(),17));
+					 * trnsprtDocClassObj.setTypOfCd( settingLength("",30)); } }
+					 * 
+					 */
+					
 					try {
-					if(  cnsneeDtl.getConsigneIec()!= null || !cnsneeDtl.getConsigneIec().equals("") ) {
-						trnsprtDocClassObj.setCnsgnesCd(settingLength(cnsneeDtl.getConsigneIec(),17));
-					}else {
-						for (NotifyParty notyObj : notifyPartyDetailes) {
-						trnsprtDocClassObj.setCnsgnesCd(settingLength(notyObj.getNotifyIec(),17));
+					    if (cnsneeDtl.getConsigneIec() != null && !cnsneeDtl.getConsigneIec().isEmpty() && (cnsneeDtl.getConsignePan() != null || !cnsneeDtl.getConsignePan().isEmpty())) {
+					    	if(cnsneeDtl.getCustomerName().equals(cnsneeDtl.getConsigneeName()))
+					    		{
+					    		 trnsprtDocClassObj.setCnsgnesCd(settingLength(cnsneeDtl.getConsigneIec(), 17));
+							        trnsprtDocClassObj.setTypOfCd(settingLength("IEC", 30));
+					    		}else
+					    		{
+					    			 trnsprtDocClassObj.setCnsgnesCd(settingLength(cnsneeDtl.getConsignePan(), 17));
+								     trnsprtDocClassObj.setTypOfCd(settingLength("PAN", 30));
+					    		}
+//					        trnsprtDocClassObj.setCnsgnesCd(settingLength(cnsneeDtl.getConsigneIec(), 17));
+//					        trnsprtDocClassObj.setTypOfCd(settingLength("IEC", 30));
+					    } else if (cnsneeDtl.getConsignePan() != null && !cnsneeDtl.getConsignePan().isEmpty() && (cnsneeDtl.getConsigneIec() == null || cnsneeDtl.getConsigneIec().isEmpty())) {
+					        trnsprtDocClassObj.setCnsgnesCd(settingLength(cnsneeDtl.getConsignePan(), 17));
+					        trnsprtDocClassObj.setTypOfCd(settingLength("PAN", 30));
+					    }else if (cnsneeDtl.getConsigneIec() != null && !cnsneeDtl.getConsigneIec().isEmpty() && (cnsneeDtl.getConsignePan() == null || cnsneeDtl.getConsignePan().isEmpty())) {
+					        trnsprtDocClassObj.setCnsgnesCd(settingLength(cnsneeDtl.getConsigneIec(), 17));
+					        trnsprtDocClassObj.setTypOfCd(settingLength("IEC", 30));
+					    }else if( cnsneeDtl.getConsignePan() == null && cnsneeDtl.getConsigneIec() == null){
+							trnsprtDocClassObj.setCnsgnesCd("");
+					        trnsprtDocClassObj.setTypOfCd("");
 						}
-					}
-					}catch (Exception e) {
-						for (NotifyParty notyObj : notifyPartyDetailes) {
-							trnsprtDocClassObj.setCnsgnesCd(settingLength(notyObj.getNotifyIec(),17));
-							}
+						else {
+					        for (NotifyParty notyObj : notifyPartyDetailes) {
+					            if (notyObj.getNotifyIec() != null && !notyObj.getNotifyIec().isEmpty()) {
+					                trnsprtDocClassObj.setCnsgnesCd(settingLength(notyObj.getNotifyIec(), 17));
+					                trnsprtDocClassObj.setTypOfCd(settingLength("IEC", 30));
+					            } else if (notyObj.getNotifyPan() != null && !notyObj.getNotifyPan().isEmpty()) {
+					                trnsprtDocClassObj.setCnsgnesCd(settingLength(notyObj.getNotifyPan(), 17));
+					                trnsprtDocClassObj.setTypOfCd(settingLength("PAN", 30));
+					            }
+					        }
+					    }
+					} catch (Exception e) {
+					    trnsprtDocClassObj.setCnsgnesCd("");
+					    trnsprtDocClassObj.setTypOfCd("");
 					}
 				}
 					
@@ -780,6 +831,10 @@ public class CreatingJSON {
 			}
 			
 			for (NotifyParty notyObj : notifyPartyDetailes) {
+				System.out.println("BL no notify ::"+blObj.getBl() );
+				System.out.println("BL no notify ::"+ notyObj.getBlNo() );
+				System.out.println("notify PAN ::" +notyObj.getNotifyPan() );
+				System.out.println("notify IEC ::"+ notyObj.getNotifyIec());
 
 				if ((blObj.getBl()).equals(notyObj.getBlNo())) {
 					
@@ -809,24 +864,26 @@ public class CreatingJSON {
 					trnsprtDocClassObj.setNotfdPartyCntrySubDiv(settingLength(blObj.getGstStateCode(),35));
 					trnsprtDocClassObj.setNotfdPartyPstcd( settingLength(notyObj.getZip(),9));
 					try {
-					if(!notyObj.getNotifyPan().equals("")) {
+					if(  notyObj.getNotifyPan() != null || !notyObj.getNotifyPan().equals("")) {
 						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(notyObj.getNotifyPan(),17));
 						trnsprtDocClassObj.setTypOfNotfdPartyCd("PAN");
-						trnsprtDocClassObj.setTypOfCd( settingLength("PAN",30));
+					//	trnsprtDocClassObj.setTypOfCd( settingLength("PAN",30));
 					}else {
 						for (Consignee cnsneeDtl : consigneeDtls) {
 							
 							consigneePan = cnsneeDtl.getConsignePan();
 							trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
-							trnsprtDocClassObj.setTypOfCd( settingLength("PAN",30));
+							trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength("PAN",30));
 						}
 					}
 				}catch (Exception e) {
 					for (Consignee cnsneeDtl : consigneeDtls) {
 						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
 					//	trnsprtDocClassObj.setTypOfNotfdPartyCd("IEC");
-						trnsprtDocClassObj.setTypOfNotfdPartyCd("PAN");
-						trnsprtDocClassObj.setTypOfCd( settingLength("IEC",30));
+					
+					  trnsprtDocClassObj.setTypOfNotfdPartyCd("");
+					  trnsprtDocClassObj.setTypOfCd( settingLength("",30));//  FOR GETTING BLANK IF NO PAN AND IEC CODE IS THERE
+					
 					}
 				}
 				}
@@ -888,18 +945,21 @@ public class CreatingJSON {
 
 //			if (!blObj.getPod().substring(0,2).equals("IN") 
 //					&& !blObj.getPortOfLoading().substring(0,2).equals("IN")) {
+	
 			
 			if(mCRefClassObj.getConsolidatedIndctr().equals("S")) {
 				 ItemDtlsSAM itemDtlsClassObj = null;
+				
+				 
 				//for multiple commodity
 				 String [] commodities = blObj.getCommdity_code().trim().split(",");
 				 String [] cargoDetails = blObj.getCargo_item_description().trim().split("::");
 				 String [] unoCode = blObj.getUno_code().trim().split(",");
 				 String [] imdgCode = blObj.getImdg_code().trim().split(",");
-//				 String [] typeOfPkgs = blObj.getType_of_package().trim().split(",");
+				 String [] typeOfPkgs = blObj.getType_of_package().trim().split(",");
 				 numberOfPkgs = blObj.getTotal_number_of_packages().trim().split(",");
 				 
-				
+
 				 
 					 for(int l = 0; l< commodities.length ; l++) {
 					     itemDtlsClassObj = new ItemDtlsSAM();
@@ -910,8 +970,18 @@ public class CreatingJSON {
 						 itemDtlsClassObj.setImdgCd( settingLength(imdgCode[l],3));
 						
 						 itemDtlsClassObj.setNmbrOfPkgs(convertingStringtoInt(settingLengthForDouble(numberOfPkgs[l],16,6))); 
-	
-						 itemDtlsClassObj.setTypOfPkgs(settingLength(typeOfPkgs[l],3));
+						 if (typeOfPkgs != null && typeOfPkgs.length > 0) {
+							    if (l >= 0 && l < typeOfPkgs.length) {
+							        // Safely access the array element
+							        itemDtlsClassObj.setTypOfPkgs(settingLength(typeOfPkgs[l], 3));
+							    } else {
+							        // Handle invalid index
+							        itemDtlsClassObj.setTypOfPkgs("");
+							    }
+							} else {
+							    itemDtlsClassObj.setTypOfPkgs("");
+							}
+
 						 					 
 						 
 //						 itemDtlsClassObj.setCrgoItemSeqNmbr(convertingStringtoInt(settingLength(blObj.getCommodity_seq()+"",5)));				//TODO  guru
@@ -931,6 +1001,7 @@ public class CreatingJSON {
 							
 			
 							itemDtls.add(itemDtlsClassObj);
+						
 							
 					 }
 				
@@ -940,6 +1011,7 @@ public class CreatingJSON {
 					
 				 
 			     }
+		
 //			}
 				 				 
 //				
@@ -1215,19 +1287,21 @@ public class CreatingJSON {
 //				System.out.println("   coneeDtls  " + i + (cntnerDtl.getContainerSealNumber()));
 				containerCount++;
 				VoyageTransportEquipmentSAM voyageTransportEquipmentClassObj = new VoyageTransportEquipmentSAM();
-				voyageTransportEquipmentClassObj.setEquipmentSequenceNo(containerCount+"");
-				voyageTransportEquipmentClassObj.setEquipmentId(cntnerDtl.getContainerNumber());
-				voyageTransportEquipmentClassObj.setEquipmentType("CN");
-				voyageTransportEquipmentClassObj.setEquipmentSize(cntnerDtl.getIsoCode());
-				voyageTransportEquipmentClassObj.setEquipmentLoadStatus(settingLength(cntnerDtl.getEquipmentLoadStatus(),3));
-				voyageTransportEquipmentClassObj.setEquipmentSealNumber(cntnerDtl.getContainerSealNumber());
+			
 				voyageTransportEquipmentClassObj.setEquipmentSealType(cntnerDtl.getEquipment_seal_type());
+				voyageTransportEquipmentClassObj.setEquipmentSealNumber(cntnerDtl.getContainerSealNumber());
+				voyageTransportEquipmentClassObj.setEquipmentLoadStatus(settingLength(cntnerDtl.getEquipmentLoadStatus(),3));
+				voyageTransportEquipmentClassObj.setEquipmentSize(cntnerDtl.getIsoCode());
+				voyageTransportEquipmentClassObj.setEquipmentType("CN");
+				voyageTransportEquipmentClassObj.setEquipmentId(cntnerDtl.getContainerNumber());
+				voyageTransportEquipmentClassObj.setEquipmentSequenceNo(containerCount+"");
+				
 				voyageTransportEquipmentClassObj.setSocFlag(settingLength(cntnerDtl.getSoc_flag(),1));
 				voyageTransportEquipmentClassObj.setContainerAgentCode(service.getAgentCode()); 
 				
 				voyageTransportEquipmentClassObj.setContainerWeight(cntnerDtl.getContainerWeight());
 				voyageTransportEquipmentClassObj.setTotalNumberOfPackages(cntnerDtl.getTotalNumberOfPackagesInContainer());
-//				voyageTransportEquipmentClassObj.setContainerBondFlag("D");
+				voyageTransportEquipmentClassObj.setContainerBondFlag("D"); // uncomented bcz they gave issue
 				if(null==blObj.getStowagePosition()) {
 					voyageTransportEquipmentClassObj.setStowagePositionOfContainer("");
 				}else {
@@ -1413,10 +1487,12 @@ public class CreatingJSON {
 			prtOfCallCdd = service.getLastPort1();
 			prtOfCallNm = service.getPort_of_call_name_last1();
 		}
-		shipItny3.setShipItnrySeq(settingLength(itnrySeq,6));// if not null -3
-		shipItny3.setPrtOfCallCdd(settingLength(prtOfCallCdd,10));
-		shipItny3.setPrtOfCallName(settingLength(prtOfCallNm,256));
-		shipItnry.add(shipItny3);
+		if(prtOfCallCdd != null ) {
+				shipItny3.setShipItnrySeq(settingLength(itnrySeq,6));// if not null -3
+				shipItny3.setPrtOfCallCdd(settingLength(prtOfCallCdd,10));
+				shipItny3.setPrtOfCallName(settingLength(prtOfCallNm,256));
+				shipItnry.add(shipItny3);
+		}
 		
 		if (service.getLastPort2() == null || service.getLastPort2().equals("")) {
 			prtOfCallCdd = null;
@@ -1428,11 +1504,13 @@ public class CreatingJSON {
 			prtOfCallCdd = service.getLastPort2();
 			prtOfCallNm = service.getPort_of_call_name_last2();
 		}
-		ShipItnrySAM shipItnry2 = new ShipItnrySAM();
-		shipItnry2.setShipItnrySeq(settingLength(itnrySeq,6));
-		shipItnry2.setPrtOfCallCdd(settingLength(prtOfCallCdd,10));
-		shipItnry2.setPrtOfCallName(settingLength(prtOfCallNm,256));
-		shipItnry.add(shipItnry2);
+		if(prtOfCallCdd != null ) {
+				ShipItnrySAM shipItnry2 = new ShipItnrySAM();
+				shipItnry2.setShipItnrySeq(settingLength(itnrySeq,6));
+				shipItnry2.setPrtOfCallCdd(settingLength(prtOfCallCdd,10));
+				shipItnry2.setPrtOfCallName(settingLength(prtOfCallNm,256));
+				shipItnry.add(shipItnry2);
+		}
 
 		if (service.getLastPort3() == "" || service.getLastPort3().equals("") ) {
 			prtOfCallCdd = null;
@@ -1444,19 +1522,24 @@ public class CreatingJSON {
 			prtOfCallCdd = service.getLastPort3();
 			prtOfCallNm = service.getPort_of_call_name_last3();
 		}
-		ShipItnrySAM shipItnry1 = new ShipItnrySAM();
-		shipItnry1.setShipItnrySeq(settingLength(itnrySeq,6));
-		shipItnry1.setPrtOfCallCdd(settingLength(prtOfCallCdd,10));
-		shipItnry1.setPrtOfCallName(settingLength(prtOfCallNm,256));
-
-		
-		shipItnry.add(shipItnry1);
+		if(prtOfCallCdd != null ) {
+			ShipItnrySAM shipItnry1 = new ShipItnrySAM();
+			shipItnry1.setShipItnrySeq(settingLength(itnrySeq,6));
+			shipItnry1.setPrtOfCallCdd(settingLength(prtOfCallCdd,10));
+			shipItnry1.setPrtOfCallName(settingLength(prtOfCallNm,256));
+	
+			
+			shipItnry.add(shipItnry1);
+		}
 
 		ShipItnrySAM shipItnry0 = new ShipItnrySAM();
 		shipItnry0.setShipItnrySeq(settingLength("0",6));
-		shipItnry0.setPrtOfCallCdd(settingLength(service.getPortArrival(),10)); // blObj.get("Port of call sequence numbe"));
-		shipItnry0.setPrtOfCallName(settingLength(service.getPort_of_call_name_portArrival(),256));
+		//shipItnry0.setPrtOfCallCdd(settingLength(service.getPortArrival(),10)); comment by shiva // blObj.get("Port of call sequence numbe"));
+		shipItnry0.setPrtOfCallCdd(settingLength(service.getPod(),10));
+		// shipItnry0.setPrtOfCallName(settingLength(service.getPort_of_call_name_portArrival(),256));
+		shipItnry0.setPrtOfCallName(settingLength(service.getPort_of_call_name(),256));
 		shipItnry.add(shipItnry0);
+
 
 		if (service.getNextport1() == null || service.getNextport1().equals("")) {
 			prtOfCallCdd = null;
@@ -1468,12 +1551,14 @@ public class CreatingJSON {
 			prtOfCallNm = service.getPort_of_call_name_nextport1();
 			
 		}
-		ShipItnrySAM shipItnry11 = new ShipItnrySAM();
-		shipItnry11.setShipItnrySeq(settingLength(itnrySeq , 6));
-		shipItnry11.setPrtOfCallCdd(settingLength(prtOfCallCdd,10));
-		shipItnry11.setPrtOfCallName(settingLength(prtOfCallNm,256));
-		
-		shipItnry.add(shipItnry11);
+		if(prtOfCallCdd != null ) {
+				ShipItnrySAM shipItnry11 = new ShipItnrySAM();
+				shipItnry11.setShipItnrySeq(settingLength(itnrySeq , 6));
+				shipItnry11.setPrtOfCallCdd(settingLength(prtOfCallCdd,10));
+				shipItnry11.setPrtOfCallName(settingLength(prtOfCallNm,256));
+				
+				shipItnry.add(shipItnry11);
+		}
 
 		if (service.getNextport2() == null || service.getNextport2().equals("") ) {
 			prtOfCallCdd = null;
@@ -1484,11 +1569,13 @@ public class CreatingJSON {
 			prtOfCallCdd = service.getNextport2();
 			prtOfCallNm = service.getPort_of_call_name_nextport2();
 		}
-		ShipItnrySAM shipItnry22 = new ShipItnrySAM();
-		shipItnry22.setShipItnrySeq(settingLength(itnrySeq,6));
-		shipItnry22.setPrtOfCallCdd(settingLength(prtOfCallCdd,10));
-		shipItnry22.setPrtOfCallName(settingLength(prtOfCallNm,256));
-		shipItnry.add(shipItnry22);
+		if(prtOfCallCdd != null ) {
+				ShipItnrySAM shipItnry22 = new ShipItnrySAM();
+				shipItnry22.setShipItnrySeq(settingLength(itnrySeq,6));
+				shipItnry22.setPrtOfCallCdd(settingLength(prtOfCallCdd,10));
+				shipItnry22.setPrtOfCallName(settingLength(prtOfCallNm,256));
+				shipItnry.add(shipItnry22);
+		}
 		
 		if (service.getNextport3() == null || service.getNextport3().equals("")) {
 			prtOfCallCdd = null;
@@ -1499,11 +1586,13 @@ public class CreatingJSON {
 			prtOfCallCdd = service.getNextport3();
 			prtOfCallNm = service.getPort_of_call_name_nextport3();
 		}
-		ShipItnrySAM shipItnry33 = new ShipItnrySAM();
-		shipItnry33.setShipItnrySeq(settingLength(itnrySeq,6));
-		shipItnry33.setPrtOfCallCdd(settingLength(prtOfCallCdd,10));
-		shipItnry33.setPrtOfCallName(settingLength(prtOfCallNm,256));
-		shipItnry.add(shipItnry33);
+		if(prtOfCallCdd != null ) {
+				ShipItnrySAM shipItnry33 = new ShipItnrySAM();
+				shipItnry33.setShipItnrySeq(settingLength(itnrySeq,6));
+				shipItnry33.setPrtOfCallCdd(settingLength(prtOfCallCdd,10));
+				shipItnry33.setPrtOfCallName(settingLength(prtOfCallNm,256));
+				shipItnry.add(shipItnry33);
+		}
 //		====================	ShipItnry ========================
 		
 		
@@ -1522,14 +1611,26 @@ public class CreatingJSON {
 	    decRefClaObj = null;
 		
 		AuthPrsnSAM authPrsClassObj = new AuthPrsnSAM();
-		authPrsClassObj.setSbmtrTyp(settingLength(service.getSubmitter_type(),4)); //
-		authPrsClassObj.setSbmtrCd(settingLength(service.getAgentCode(),15)); //
-		authPrsClassObj.setAuthReprsntvCd(settingLength(service.getAuthReprsntvCd(),10)); //newly added field
-		authPrsClassObj.setShpngLineCd(settingLength(service.getLineCode(),10)); 
-		authPrsClassObj.setAuthSeaCarrierCd(settingLength(service.getAgentCode(),10)); // LinNo:-211
-		authPrsClassObj.setMasterName(settingLength(service.getMasterName(),30));// 21
-		authPrsClassObj.setTrmnlOprtrCd(settingLength(service.getPodTerminalPort(),10)); // LinNo:-132
+//		authPrsClassObj.setSbmtrTyp(settingLength(service.getSubmitter_type(),4)); //
+//		authPrsClassObj.setSbmtrCd(settingLength(service.getAgentCode(),15)); //
+//		authPrsClassObj.setAuthReprsntvCd(settingLength(service.getAuthReprsntvCd(),10)); //newly added field
+//		authPrsClassObj.setShpngLineCd(settingLength(service.getLineCode(),10)); 
+//		authPrsClassObj.setAuthSeaCarrierCd(settingLength(service.getAgentCode(),10)); // LinNo:-211
+//		authPrsClassObj.setMasterName(settingLength(service.getMasterName(),30));// 21
+//		authPrsClassObj.setTrmnlOprtrCd(settingLength(service.getPodTerminalPort(),10)); // LinNo:-132
+//		authPrsClassObj.setShpngLineBondNmbr(settingLength(service.getShipping_line_bond_no_r(),10));
+		
+		// FOR REVERSE ORDER FOR THE ABOVE
+		
 		authPrsClassObj.setShpngLineBondNmbr(settingLength(service.getShipping_line_bond_no_r(),10));
+		authPrsClassObj.setTrmnlOprtrCd(settingLength(service.getPodTerminalPort(),10)); // LinNo:-132
+		authPrsClassObj.setMasterName(settingLength(service.getMasterName(),30));// 21
+		authPrsClassObj.setAuthSeaCarrierCd(settingLength(service.getAgentCode(),10)); // LinNo:-211
+		authPrsClassObj.setShpngLineCd(settingLength(service.getLineCode(),10)); 
+		authPrsClassObj.setAuthReprsntvCd(settingLength(service.getAuthReprsntvCd(),10)); //newly added field
+		authPrsClassObj.setSbmtrCd(settingLength(service.getAgentCode(),15)); //
+		authPrsClassObj.setSbmtrTyp(settingLength(service.getSubmitter_type(),4)); //
+		
 		mster.setAuthPrsn(authPrsClassObj);      // Correct
 		authPrsClassObj = null;
 		
@@ -1537,7 +1638,8 @@ public class CreatingJSON {
 		voyageDtlsClassObj.setVoyageNo(settingLength(service.getVoyage() , 10)); // Line10
 		voyageDtlsClassObj.setCnvnceRefNmbr(settingLength(service.getViaVcn(),35)); // Line 193
 		voyageDtlsClassObj.setTotalNoOfTrnsprtEqmtMnfsted(convertingStringtoInt(settingLength(containerCount+"",5))); // Line:-46
-		voyageDtlsClassObj.setCrgoDescCdd("3"); // Line:-195
+		voyageDtlsClassObj.setCrgoDescCdd("3");  // Line:-195
+	//	voyageDtlsClassObj.setCrgoDescCdd(service.getHsCd());
 		voyageDtlsClassObj.setBriefCrgoDesc(settingLength("GENERAL",30)); // Line:-195
 		voyageDtlsClassObj.setTotalNmbrOfLines(settingLength(service.getTotalItem() ,5)); // Line38 (objForm.getTotalItem()); nitun
 		voyageDtlsClassObj.setExptdDtAndTimeOfArvl(removeSlash(service.getArrivalDate() + "T" + getTime(service.getArrivalTime())));
@@ -1990,12 +2092,18 @@ return "";
 	//		locCstmClassObj.setNmbrOfPkgs(blObj.getTotal_number_of_packages());
 	//		locCstmClassObj.setTypOfPackage(pol);
 	//		}
-			if( blObj.getBlId().get(0).getBlId().equals("X")) {
+//			if( blObj.getBlId().get(0).getBlId().equals("X")) {
+//				locCstmClassObj.setSplitIndctr("Y");
+//			}else
+//			{
+//			   locCstmClassObj.setSplitIndctr("N");
+//			}
+			if(blObj.getBlId().equals("X")) {
 				locCstmClassObj.setSplitIndctr("Y");
-			}else
-			{
-			   locCstmClassObj.setSplitIndctr("N");
-			}
+				}else
+				{
+				   locCstmClassObj.setSplitIndctr("N");
+				}
 			
 			locCstm.add(locCstmClassObj);
 			mastrCnsgmtDec.setLocCstm(locCstmClassObj);
@@ -2113,7 +2221,7 @@ return "";
 			 {
 				 checkPackKind = (values[l] == values[l+1]) ? true : false;
 			 }
-			 trnsprtDocMsrClassObj.setTypsOfPkgs(checkPackKind ? blObj.getPackage_kind() : "PKG");
+			 trnsprtDocMsrClassObj.setTypsOfPkgs(checkPackKind ? settingLength(blObj.getType_of_package(),3) : "PKG");
 
 			}else {
 				 trnsprtDocMsrClassObj.setTypsOfPkgs("");
@@ -2175,8 +2283,12 @@ return "";
 						 itemDtlsClassObj.setImdgCd( settingLength(imdgCode[l],3));
 						
 						 itemDtlsClassObj.setNmbrOfPkgs(convertingStringtoInt(settingLengthForDouble(numberOfPkgs[l],16,6))); 
-	
+	                  if(typeOfPkgs.length > 0) {
 						 itemDtlsClassObj.setTypOfPkgs(settingLength(typeOfPkgs[l],3));
+	                    }else
+	                    {
+	                    	 itemDtlsClassObj.setTypOfPkgs("");
+	                    }
 	
 							itemDtls.add(itemDtlsClassObj);
 							
@@ -2639,8 +2751,10 @@ return "";
 
 		ShipItnrySDM shipItnry0 = new ShipItnrySDM();
 		shipItnry0.setShipItnrySeq(settingLength("0",6));
-		shipItnry0.setPrtOfCallCdd(settingLength(service.getPortArrival(),10)); // blObj.get("Port of call sequence numbe"));
-		shipItnry0.setPrtOfCallName(settingLength(service.getPort_of_call_name_portArrival(),256));
+//		shipItnry0.setPrtOfCallCdd(settingLength(service.getPortArrival(),10)); // blObj.get("Port of call sequence numbe"));
+//		shipItnry0.setPrtOfCallName(settingLength(service.getPort_of_call_name_portArrival(),256)); // COMMENT BY SHIVA
+		shipItnry0.setPrtOfCallCdd(settingLength(service.getPol(),10));
+		shipItnry0.setPrtOfCallName(settingLength(service.getPort_of_call_name(),256));
 		shipItnry.add(shipItnry0);
 
 		if (service.getNextport1() == null || service.getNextport1().equals("")) {
@@ -7481,20 +7595,20 @@ ImportGeneralManifestMod objForm = blList.get(0);
 					blObj.getPod().substring(0, 2).equals("IN"))
 						&& blObj.getPortOfDestination().equals(blObj.getPod()))  {
 				if (null == blObj.getPortOfDeschargedCfs() ||("").equals(blObj.getPortOfDeschargedCfs())) {
-					locCstmClassObj.setDestPrt(settingLength(service.getCustomTerminalCode(),6));
+					locCstmClassObj.setDestPrt(settingLength(service.getCustomTerminalCode(),20));
 				}else {
-					locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDeschargedCfs(),6));
+					locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDeschargedCfs(),20));
 				}
 			}else if ((blObj.getPortOfDestination().substring(0, 2).equals("IN") && 
 					blObj.getPod().substring(0, 2).equals("IN"))
 					&& !blObj.getPortOfDestination().equals(blObj.getPod())){
 				if(null == blObj.getIgmDel() || ("").equals(blObj.getIgmDel()) ) {
-					locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),6));
+					locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),20));
 				}else {
-					locCstmClassObj.setDestPrt(settingLength(blObj.getIgmDel(),6));
+					locCstmClassObj.setDestPrt(settingLength(blObj.getIgmDel(),20));
 				}
 			}else {
-				locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),6));
+				locCstmClassObj.setDestPrt(settingLength(blObj.getPortOfDestination(),20));
 			}
 //			locCstmClassObj.setTypOfCrgo(settingLength(blObj.getType_of_cargo(),2)); // Line 90
 			if(blObj.getPortOfDestination() != null || !blObj.getPortOfDestination().equals(" ") &&
@@ -7621,8 +7735,17 @@ ImportGeneralManifestMod objForm = blList.get(0);
 							 itemDtlsClassObj.setImdgCd( settingLength(imdgCode[l],3));
 							
 							 itemDtlsClassObj.setNmbrOfPkgs(convertingStringtoInt(settingLengthForDouble(numberOfPkgs[l],16,6))); 
-		
-							 itemDtlsClassObj.setTypOfPkgs(settingLength(typeOfPkgs[l],3));
+							 if (typeOfPkgs != null && typeOfPkgs.length > 0) {
+								    if (l >= 0 && l < typeOfPkgs.length) {
+								        // Safely access the array element
+								        itemDtlsClassObj.setTypOfPkgs(settingLength(typeOfPkgs[l], 3));
+								    } else {
+								        // Handle invalid index
+								        itemDtlsClassObj.setTypOfPkgs("");
+								    }
+								} else {
+								    itemDtlsClassObj.setTypOfPkgs("");
+								}
 							 					 
 
 								
@@ -7699,10 +7822,10 @@ ImportGeneralManifestMod objForm = blList.get(0);
 					trnsprtDocClassObj.setNotfdPartyCntryCd( settingLength(notyObj.getCountryCode(),2));
 					trnsprtDocClassObj.setNotfdPartyPstcd( settingLength(notyObj.getZip(),9));
 					try {
-					if(!notyObj.getNotifyPan().equals("")) {
+					if(notyObj.getNotifyPan() !=  null || !notyObj.getNotifyPan().equals("")) {
 						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(notyObj.getNotifyPan(),17));
 						trnsprtDocClassObj.setTypOfNotfdPartyCd( settingLength("PAN",30));
-						trnsprtDocClassObj.setTypOfCd( settingLength("PAN",30));
+						//trnsprtDocClassObj.setTypOfCd( settingLength("PAN",30));
 					}else {
 						for (Consignee cnsneeDtl : consigneeDtls) {
 							
@@ -7717,8 +7840,10 @@ ImportGeneralManifestMod objForm = blList.get(0);
 					for (Consignee cnsneeDtl : consigneeDtls) {
 						trnsprtDocClassObj.setPanOfNotfdParty(settingLength(cnsneeDtl.getConsignePan(),17));
 						//trnsprtDocClassObj.setTypOfNotfdPartyCd("IEC");
-						trnsprtDocClassObj.setTypOfNotfdPartyCd("PAN");
-						trnsprtDocClassObj.setTypOfCd( settingLength("IEC",30));
+//						trnsprtDocClassObj.setTypOfNotfdPartyCd("PAN");
+//						trnsprtDocClassObj.setTypOfCd( settingLength("IEC",30));
+						trnsprtDocClassObj.setTypOfNotfdPartyCd("");
+						trnsprtDocClassObj.setTypOfCd( settingLength("",30));
 					}
 				  }
 				}
@@ -7772,17 +7897,55 @@ ImportGeneralManifestMod objForm = blList.get(0);
 					trnsprtDocClassObj.setCnsgneCntrySubDiv(blObj.getGstStateCode());
 					trnsprtDocClassObj.setCnsgneCntryCd(settingLength(cnsneeDtl.getCountryCode(),2));
 					trnsprtDocClassObj.setCnsgnePstcd( settingLength(cnsneeDtl.getZip(),9));
-					try {
-						if(cnsneeDtl.getConsigneIec()!= null || !cnsneeDtl.getConsigneIec().equals("") ) {
-							trnsprtDocClassObj.setCnsgnesCd(settingLength(cnsneeDtl.getConsigneIec(),17));
-						}else {
-							for (NotifyParty notyObj : notifyPartyDetailes) {
-							trnsprtDocClassObj.setCnsgnesCd(settingLength(notyObj.getNotifyIec(),17));
+					trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(settingLength(cnsneeDtl.getCustomerName(),70));
+					/*try {
+						
+						 * if(cnsneeDtl.getConsigneIec()!= null ||
+						 * !cnsneeDtl.getConsigneIec().equals("") ) {
+						 * trnsprtDocClassObj.setCnsgnesCd(settingLength(cnsneeDtl.getConsigneIec(),17))
+						 * ; trnsprtDocClassObj.setTypOfCd( settingLength("IEC",30)); }else { for
+						 * (NotifyParty notyObj : notifyPartyDetailes) {
+						 * trnsprtDocClassObj.setCnsgnesCd(settingLength(notyObj.getNotifyIec(),17));
+						 * trnsprtDocClassObj.setTypOfCd( settingLength("IEC",30)); } }
+						 */
+						try {
+						    if (cnsneeDtl.getConsigneIec() != null && !cnsneeDtl.getConsigneIec().isEmpty() && (cnsneeDtl.getConsignePan() != null || !cnsneeDtl.getConsignePan().isEmpty())) {
+						    	if(cnsneeDtl.getCustomerName().equals(cnsneeDtl.getConsigneeName()))
+						    		{
+						    		 trnsprtDocClassObj.setCnsgnesCd(settingLength(cnsneeDtl.getConsigneIec(), 17));
+								        trnsprtDocClassObj.setTypOfCd(settingLength("IEC", 30));
+						    		}else
+						    		{
+						    			 trnsprtDocClassObj.setCnsgnesCd(settingLength(cnsneeDtl.getConsignePan(), 17));
+									     trnsprtDocClassObj.setTypOfCd(settingLength("PAN", 30));
+						    		}
+//						        trnsprtDocClassObj.setCnsgnesCd(settingLength(cnsneeDtl.getConsigneIec(), 17));
+//						        trnsprtDocClassObj.setTypOfCd(settingLength("IEC", 30));
+						    } else if (cnsneeDtl.getConsignePan() != null && !cnsneeDtl.getConsignePan().isEmpty() && (cnsneeDtl.getConsigneIec() == null || cnsneeDtl.getConsigneIec().isEmpty())) {
+						        trnsprtDocClassObj.setCnsgnesCd(settingLength(cnsneeDtl.getConsignePan(), 17));
+						        trnsprtDocClassObj.setTypOfCd(settingLength("PAN", 30));
+						    }else if (cnsneeDtl.getConsigneIec() != null && !cnsneeDtl.getConsigneIec().isEmpty() && (cnsneeDtl.getConsignePan() == null || cnsneeDtl.getConsignePan().isEmpty())) {
+						        trnsprtDocClassObj.setCnsgnesCd(settingLength(cnsneeDtl.getConsigneIec(), 17));
+						        trnsprtDocClassObj.setTypOfCd(settingLength("IEC", 30));
+						    }else if( cnsneeDtl.getConsignePan() == null && cnsneeDtl.getConsigneIec() == null){
+								trnsprtDocClassObj.setCnsgnesCd("");
+						        trnsprtDocClassObj.setTypOfCd("");
 							}
-						}
+							else {
+						        for (NotifyParty notyObj : notifyPartyDetailes) {
+						            if (notyObj.getNotifyIec() != null && !notyObj.getNotifyIec().isEmpty()) {
+						                trnsprtDocClassObj.setCnsgnesCd(settingLength(notyObj.getNotifyIec(), 17));
+						                trnsprtDocClassObj.setTypOfCd(settingLength("IEC", 30));
+						            } else if (notyObj.getNotifyPan() != null && !notyObj.getNotifyPan().isEmpty()) {
+						                trnsprtDocClassObj.setCnsgnesCd(settingLength(notyObj.getNotifyPan(), 17));
+						                trnsprtDocClassObj.setTypOfCd(settingLength("PAN", 30));
+						            }
+						        }
+						    }
 						}catch (Exception e) {
 							for (NotifyParty notyObj : notifyPartyDetailes) {
 								trnsprtDocClassObj.setCnsgnesCd(settingLength(notyObj.getNotifyIec(),17));
+								trnsprtDocClassObj.setTypOfCd( settingLength("",30));
 								}
 						}
 				}
@@ -7819,7 +7982,7 @@ ImportGeneralManifestMod objForm = blList.get(0);
 					// trnsprtDocClassObj.setCnsgnrCntrySubDivCd((String) cnsnerDtls.get(""));
 					trnsprtDocClassObj.setCnsgnrCntryCd( settingLength(cnsnerDtls.getCountryCode(),2));
 //					trnsprtDocClassObj.setCnsgnrPstcd( settingLength(cnsnerDtls.getZip(),9));
-					trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(settingLength(cnsnerDtls.getCustomerName(),70));
+//					trnsprtDocClassObj.setNameOfAnyOtherNotfdParty(settingLength(cnsnerDtls.getCustomerName(),70)); COMMENTED BCZ IT SHOULD BE CONSIGNEE NAME
 					}
 				}
 			}

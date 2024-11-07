@@ -5,10 +5,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -134,6 +132,7 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setNextport1(rs.getString("NEXT_PORT_4"));
 			objMod.setNextport2(rs.getString("NEXT_PORT_5"));
 			objMod.setNextport3(rs.getString("NEXT_PORT_6"));
+			objMod.setPort_of_call_name(rs.getString("PORT_OF_CALL_NAME"));   // new added for shipItrnry 
 			objMod.setPort_of_call_name_last1(rs.getString("LAST_PORT_1_NAME"));
 			objMod.setPort_of_call_name_last2(rs.getString("LAST_PORT_2_NAME"));
 			objMod.setPort_of_call_name_last3(rs.getString("LAST_PORT_3_NAME"));
@@ -511,7 +510,7 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 	public Map getBLData(Map amapParam, String procedureName, boolean isSave,boolean isUpdateSaved,String saveBlList)
 			throws BusinessException, DataAccessException {
 		System.out.println("#IGMLogger getBLData() started.." + isSave);
-		System.out.println("Bl list:: " + saveBlList);
+	//	System.out.println("Bl list:: " + saveBlList);
 		
 		String blCountLoop  =  "0";
 		
@@ -747,22 +746,26 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setNext_port_of_call_name(rs.getString("next_port_of_call_name"));
 			
 			objMod.setMc_location_customs(rs.getString("MC_LOCATION_CUSTOMS"));
-			if(rs.getString("FLAG_DG") == null || rs.getString("FLAG_DG").equals("N")) {
-				objMod.setUno_code("ZZZZZ");
-			}else {
+//			if(rs.getString("FLAG_DG") == null || rs.getString("FLAG_DG").equals("N")) { // commented bcz we are checking in query only
+//				objMod.setUno_code("ZZZZZ");
+//			}else {
 				if(rs.getString("UNO_CODE") != null) {
 				  objMod.setUno_code(Utils.getDBValue(rs.getString("UNO_CODE").trim()));
 				}else
 				{
-					 objMod.setUno_code(Utils.getDBValue(rs.getString("UNO_CODE_NEW").trim()));
+					 objMod.setUno_code(Utils.getDBValue(rs.getString("UNO_CODE_NEW")));
 				}
-			}
+//			}
+			
+			
 			
 			if(null == rs.getString("IMDG_CODE") || ("").equals(rs.getString("IMDG_CODE")) ) {
 				objMod.setImdg_code(Utils.getDBValue(rs.getString("IMDG_CODE_NEW")));
 			}else {
 				objMod.setImdg_code(Utils.getDBValue(rs.getString("IMDG_CODE").trim()));
 			}
+			
+		
 			
 			objMod.setItemNumber(rs.getString("ITEM_NUMBER"));
 			
@@ -892,6 +895,8 @@ public class IGMDaoImplNew extends AncestorJdbcDao implements IGMDaoNew {
 			objMod.setContainerFillStatus(rs.getString("CONTAINER_FILL_STATUS"));
 			objMod.setCargoGrossWeight(rs.getString("CARGO_GROSS_WEIGHT"));
 			objMod.setIgmDel(rs.getString("IGMDEL"));
+			// new added
+			objMod.setBlId(rs.getString("BLID"));
 			
 			
 			

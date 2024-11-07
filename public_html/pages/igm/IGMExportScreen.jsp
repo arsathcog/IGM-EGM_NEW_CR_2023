@@ -2200,7 +2200,7 @@ app.controller('myCtrl', function($scope,$q,$window,$rootScope,$http) {
 				for(var i=0; i<$scope.BLS.length;i++){
 					var iteam = $scope.BLS[i];
 					iteam.isBlSave=false;
-					if(iteam.saveFlags= 'N' && iteam.itemNumber!=null && iteam.itemNumber!=""){
+					if(iteam.saveFlags == 'N' && iteam.itemNumber!=null && iteam.itemNumber!=""){
 						iteam.saveFlags='D';
 					}else{
 						iteam.saveFlags='N';
